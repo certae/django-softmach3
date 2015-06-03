@@ -16,11 +16,12 @@ import uuid
 
 
 # from qjsonfield import JSONField, JSONAwareManager
-from jsonfield0 import JSONField, JSONAwareManager
+from jsonfield2 import JSONField, JSONAwareManager
 
 
 class JsonModel(models.Model):
     code = models.CharField( blank=False, null=False, max_length=20 )
+    status = models.CharField( blank=True, null=True, max_length=20 )
 
     info = JSONField(default={})
     

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import jsonfield0.fields
+import jsonfield2.fields
 import uuid
 from django.conf import settings
 
@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('code', models.CharField(max_length=20)),
-                ('info', jsonfield0.fields.JSONField(default={})),
+                ('info', jsonfield2.fields.JSONField(default={})),
             ],
         ),
         migrations.CreateModel(

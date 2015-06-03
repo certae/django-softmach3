@@ -20,18 +20,23 @@ class JSONAwareQuerySet(models.query.QuerySet):
 
         clone = super(JSONAwareQuerySet, self)._filter_or_exclude(negate, *args, **kwargs)
 
-        result = []
-
         if extra_lookups.keys():
             len(clone)# Fill the cache
 
-            for item, lookup in itertools.product(self, extra_lookups.keys()):
-                if not negate and self._evaluate_json_lookup(item, lookup, extra_lookups[lookup]):
-                    result.append(item)
-                elif negate and not self._evaluate_json_lookup(item, lookup, extra_lookups[lookup]):
-                    result.append(item)
+            # Lista de trabajo recorrida reversa para eliminar los no requeridos              
+            resultlist = list( clone ) 
 
-            clone._result_cache = result
+            # for item in itertools.product(self, extra_lookups.keys()):
+            for i in range(len(resultlist)-1, -1, -1): 
+                item = resultlist[ i ]
+                for lookupkey in extra_lookups.keys():
+                    evalresult = self._evaluate_json_lookup(item, lookupkey, extra_lookups[lookupkey])
+                    if negate :  evalresult = not evalresult 
+                    if not evalresult : 
+                        resultlist.pop( i )
+                        break
+
+            clone._result_cache = resultlist
 
         return clone
 

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import traceback
 
-def doAddUser(modeladmin, request, queryset):
+def doJsonTest(modeladmin, request, queryset):
 
     from protoLib.models import JsonModel 
 
     try:
 #         JsonModel.objects.filter( code = 'perro')
-        JsonModel.objects.filter( info__name = 'vito')    
+        JsonModel.objects.filter( status = 'A', info__especie = 'human')    
+        JsonModel.objects.filter( status = 'A', info__especie = 'human', info__sexo = 'M')    
 
 #   Recorre los registros selccionados   
     except Exception as e:
@@ -16,7 +17,7 @@ def doAddUser(modeladmin, request, queryset):
 
 
 
-def doAddUserX(modeladmin, request, queryset, parameters):
+def doAddUser(modeladmin, request, queryset, parameters):
     """ 
     Add user  
     parameters : sUser,sPwd,sMail,sTeam,[sGroups]
