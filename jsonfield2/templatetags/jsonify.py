@@ -2,7 +2,7 @@ import json
 
 from django import template
 from django.utils.safestring import mark_safe
-from jsonfield.utils import JSONEncoder
+from jsonfield2.utils import JSONEncoder
 
 register = template.Library()
 

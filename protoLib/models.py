@@ -25,8 +25,8 @@ class JsonModel(models.Model):
 
     info = JSONField(default={})
     
-#     objects = models.Manager()
-    objects = JSONAwareManager(json_fields = ['info'])
+    objects = models.Manager()
+    jsondata = JSONAwareManager(json_fields = ['info'])
     
     def __str__(self):
         return self.code

@@ -3,11 +3,12 @@ from django.test import TestCase as DjangoTestCase
 from django.utils.encoding import force_text
 from django import forms
 
-from jsonfield.tests.jsonfield_test_app.models import *  # NOQA
-from jsonfield.fields import JSONField
+from jsonfield2.tests.jsonfield_test_app.models import *  # NOQA
+from jsonfield2.fields import JSONField
 
 
 class JSONFieldTest(DjangoTestCase):
+
     def test_json_field(self):
         obj = JSONFieldTestModel(json='''{
             "spam": "eggs"
@@ -40,8 +41,8 @@ class JSONFieldTest(DjangoTestCase):
         self.assertEqual('{"spam": "eggs"}', field.get_db_prep_save({"spam": "eggs"}, connection=None))
 
     def test_formfield(self):
-        from jsonfield.forms import JSONFormField
-        from jsonfield.widgets import JSONWidget
+        from jsonfield2.forms import JSONFormField
+        from jsonfield2.widgets import JSONWidget
         field = JSONField("test")
         field.set_attributes_from_name("json")
         formfield = field.formfield()

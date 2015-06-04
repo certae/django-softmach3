@@ -1,8 +1,8 @@
 from django.test import TestCase as DjangoTestCase
 from django.forms import ValidationError
 
-from jsonfield.forms import JSONFormField
-from jsonfield.tests.jsonfield_test_app.forms import JSONTestForm
+from jsonfield2.forms import JSONFormField
+from jsonfield2.tests.jsonfield_test_app.forms import JSONTestForm
 
 
 class JSONFormFieldTest(DjangoTestCase):

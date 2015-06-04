@@ -21,6 +21,7 @@ class JSONAwareQuerySet(models.query.QuerySet):
         clone = super(JSONAwareQuerySet, self)._filter_or_exclude(negate, *args, **kwargs)
 
         if extra_lookups.keys():
+            # self.json_lookups = True  
             len(clone)# Fill the cache
 
             # Lista de trabajo recorrida reversa para eliminar los no requeridos              
@@ -84,18 +85,17 @@ class JSONAwareQuerySet(models.query.QuerySet):
 
         return evaluators[oper](jdict, value)
 
-#     def count(self):
-#         return super(JSONAwareQuerySet, self).count()
-# 
-#     def all(self):
-#         return self
-# 
-#     def order_by(self, *args, **kwargs):
-#         return self
+
+    def order_by(self, *args, **kwargs):
+        # TODO: Dgt 1506 I d'nt find a way to know if the rs was filtered jsonfields
+        # if self.json_lookups  : ...
+        return self 
 
     def _clone(self, *args, **kwargs):
         clone = super(JSONAwareQuerySet, self)._clone(*args, **kwargs)
         clone.json_fields = self.json_fields
+        # clone.json_lookups = getattr( self, 'json_lookups', False ) 
+
         return clone
 
 

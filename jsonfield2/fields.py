@@ -19,13 +19,12 @@ from .forms import JSONFormField
 from . import __version__
 
 DB_TYPE_CACHE_KEY = (
-    'django-jsonfield:db-type:%s' % __version__ +
+    'django-jsonfield2:db-type:%s' % __version__ +
     '%(ENGINE)s:%(HOST)s:%(PORT)s:%(NAME)s'
 )
 
 
-#class JSONField(six.with_metaclass(models.SubfieldBase, models.Field)):
-class JSONField( models.TextField  ):
+class JSONField(six.with_metaclass(models.SubfieldBase, models.Field)):
     """
     A field that will ensure the data entered into it is valid JSON.
     """
@@ -109,24 +108,24 @@ class JSONField( models.TextField  ):
             return None
         return json.dumps(value, default=default, **self.encoder_kwargs)
 
-#     def get_prep_lookup(self, lookup_type, value):
-#         if lookup_type in ["exact", "iexact"]:
-#             return self.to_python(self.get_prep_value(value))
-#         if lookup_type == "in":
-#             return [self.to_python(self.get_prep_value(v)) for v in value]
-#         if lookup_type == "isnull":
-#             return value
-#         if lookup_type in ["contains", "icontains"]:
-#             if isinstance(value, (list, tuple)):
-#                 raise TypeError("Lookup type %r not supported with argument of %s" % (
-#                     lookup_type, type(value).__name__
-#                 ))
-#                 # Need a way co combine the values with '%', but don't escape that.
-#                 return self.get_prep_value(value)[1:-1].replace(', ', r'%')
-#             if isinstance(value, dict):
-#                 return self.get_prep_value(value)[1:-1]
-#             return self.to_python(self.get_prep_value(value))
-#         raise TypeError('Lookup type %r not supported' % lookup_type)
+    def get_prep_lookup(self, lookup_type, value):
+        if lookup_type in ["exact", "iexact"]:
+            return self.to_python(self.get_prep_value(value))
+        if lookup_type == "in":
+            return [self.to_python(self.get_prep_value(v)) for v in value]
+        if lookup_type == "isnull":
+            return value
+        if lookup_type in ["contains", "icontains"]:
+            if isinstance(value, (list, tuple)):
+                raise TypeError("Lookup type %r not supported with argument of %s" % (
+                    lookup_type, type(value).__name__
+                ))
+                # Need a way co combine the values with '%', but don't escape that.
+                return self.get_prep_value(value)[1:-1].replace(', ', r'%')
+            if isinstance(value, dict):
+                return self.get_prep_value(value)[1:-1]
+            return self.to_python(self.get_prep_value(value))
+        raise TypeError('Lookup type %r not supported' % lookup_type)
 
     def value_to_string(self, obj):
         return self._get_val_from_obj(obj)
@@ -171,7 +170,7 @@ class TypedJSONField(JSONField):
 
 try:
     from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ['^jsonfield\.fields\.JSONField'])
-    add_introspection_rules([], ['^jsonfield\.fields\.TypedJSONField'])
+    add_introspection_rules([], ['^jsonfield2\.fields\.JSONField'])
+    add_introspection_rules([], ['^jsonfield2\.fields\.TypedJSONField'])
 except ImportError:
     pass

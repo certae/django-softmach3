@@ -1,0 +1,95 @@
+[
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 2,
+  "fields": {
+    "status": "A",
+    "code": "lion",
+    "info": "{\"sound\": \"roar\", \"name\": \"simba\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 3,
+  "fields": {
+    "status": "A",
+    "code": "cat",
+    "info": "{\"sound\": \"meaw\", \"name\": \"mambru\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 4,
+  "fields": {
+    "status": "A",
+    "code": "dog",
+    "info": "{\"sound\": \"guau\", \"name\": \"vito\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 5,
+  "fields": {
+    "status": "A",
+    "code": "dario",
+    "info": "{\"especie\": \"human\", \"sexo\": \"M\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 6,
+  "fields": {
+    "status": "A",
+    "code": "Vito",
+    "info": "{\"especie\": \"can\", \"sexo\": \"M\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 7,
+  "fields": {
+    "status": null,
+    "code": "Andrea",
+    "info": "{\"especie\": \"human\", \"sexo\": \"F\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 8,
+  "fields": {
+    "status": "A",
+    "code": "Xatli",
+    "info": "{\"especie\": \"human\", \"sexo\": \"F\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 9,
+  "fields": {
+    "status": "Z",
+    "code": "Enzo",
+    "info": "{\"especie\": \"can\", \"sexo\": \"M\"}"
+  }
+},
+{
+  "model": "protoLib.jsonmodel",
+  "pk": 10,
+  "fields": {
+    "status": null,
+    "code": "Napa",
+    "info": "{\"especie\": \"can\", \"sexo\": \"F\"}"
+  }
+},
+{
+  "model": "protoLib.userprofile",
+  "pk": 1,
+  "fields": {
+    "language": null,
+    "userTree": null,
+    "user": [
+      "dario"
+    ],
+    "userTeam": null
+  }
+}
+]
