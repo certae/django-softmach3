@@ -7,17 +7,20 @@ def doJsonTest(modeladmin, request, queryset):
 
     try:
         rs = JsonModel.jsondata.filter( info__especie = 'human')    
-        
         info = rs[0].info
-        
+         
         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human')    
         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human', info__sexo = 'M')
-         
+          
         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').count()
-
+ 
         rs = JsonModel.jsondata.filter( status = 'A').order_by('code')
         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').order_by('code')    
         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').order_by('-code')    
+
+        rs = JsonModel.jsondata.filter( status = 'A', info__icontains = 'human')    
+
+        pass 
 
 #   Recorre los registros selccionados   
     except Exception as e:

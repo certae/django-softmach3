@@ -13,6 +13,12 @@ class JSONAwareQuerySet(models.query.QuerySet):
 
         for lookup in kwargs:
             if lookup.split('__')[0] in self.json_fields:
+                try:
+                    lookupval = lookup.split('__')[1]
+                except: 
+                    continue 
+                if lookupval in ["exact", "iexact", "in", "isnull", "contains", "icontains"]:
+                    continue 
                 extra_lookups[lookup] = kwargs[lookup]
 
         for key in extra_lookups:
