@@ -15,7 +15,6 @@ from datetime import datetime
 import uuid
 
 
-# from qjsonfield import JSONField, JSONAwareManager
 from jsonfield2 import JSONField, JSONAwareManager
 
 
@@ -25,8 +24,7 @@ class JsonModel(models.Model):
 
     info = JSONField(default={})
     
-    objects = models.Manager()
-    jsondata = JSONAwareManager(json_fields = ['info'])
+    objects = JSONAwareManager(json_fields = ['info'])
     
     def __str__(self):
         return self.code

@@ -3,5 +3,7 @@ __pycache__
 staticfiles
 *.py[co]
 
+.settings/**
+
 # db.sqlite3
 # local_settings.py

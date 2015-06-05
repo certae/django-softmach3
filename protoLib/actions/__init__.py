@@ -6,19 +6,38 @@ def doJsonTest(modeladmin, request, queryset):
     from protoLib.models import JsonModel 
 
     try:
-        rs = JsonModel.jsondata.filter( info__especie = 'human')    
-        info = rs[0].info
-         
-        rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human')    
-        rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human', info__sexo = 'M')
-          
-        rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').count()
- 
-        rs = JsonModel.jsondata.filter( status = 'A').order_by('code')
-        rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').order_by('code')    
-        rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').order_by('-code')    
 
-        rs = JsonModel.jsondata.filter( status = 'A', info__icontains = 'human')    
+        data = [
+            {"status": "A", "code": "lion", "info": "{}"},
+            {"status": "0", "code": "cat", "info": "{}"},
+
+            {"status": "A", "code": "Vito", "info": "{\"especie\": \"can\", \"sexo\": \"M\"}"},
+            {"status": "0", "code": "Napa", "info": "{\"especie\": \"can\", \"sexo\": \"F\"}"}, 
+
+            {"status": "A", "code": "Dario", "info": "{\"especie\": \"human\", \"sexo\": \"M\"}"},
+            {"status": "A", "code": "Andrea", "info": "{\"especie\": \"human\", \"sexo\": \"F\"}"},
+            {"status": "0", "code": "Xatli", "info": "{\"especie\": \"human\", \"sexo\": \"F\"}"}, 
+        ]
+
+        JsonModel.objects.all().delete()
+
+        for reg in data:
+            JsonModel.objects.create(**reg)
+
+
+        rs = JsonModel.objects.filter( info__especie = 'human')    
+        info = rs[0].info
+#         
+#         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human')    
+#         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human', info__sexo = 'M')
+#          
+#         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').count()
+# 
+#         rs = JsonModel.jsondata.filter( status = 'A').order_by('code')
+#         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').order_by('code')    
+#         rs = JsonModel.jsondata.filter( status = 'A', info__especie = 'human').order_by('-code')    
+
+#         rs = JsonModel.jsondata.filter( status = 'A', info__icontains = 'human')    
 
         pass 
 

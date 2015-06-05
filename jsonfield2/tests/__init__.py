@@ -1,2 +1,3 @@
-from .test_fields import *  # NOQA
-from .test_forms import *   # NOQA
+from .test_fields import *  
+from .test_forms import *   
+from .test_jsonquery import *   
