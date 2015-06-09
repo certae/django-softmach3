@@ -36,8 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'protoLib', 
     'jsonfield2', 
+    'protoLib', 
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,6 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'protoLib.middleware.CuserMiddleware',
 )
 
 ROOT_URLCONF = 'protoBase.urls'

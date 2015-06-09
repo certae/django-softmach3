@@ -1,6 +1,10 @@
-import django.contrib.admin
 
-class usrProfileAdmin(django.contrib.admin.ModelAdmin):
+from django.contrib  import admin
+from protoLib.actions import doAddUser 
+
+ 
+class UserProfileAdmin( admin.ModelAdmin ):
+    actions = [ doAddUser ]
 
     protoExt = {
     "__ptType": "pcl",

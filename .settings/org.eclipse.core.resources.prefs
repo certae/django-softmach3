@@ -1,7 +1,11 @@
 eclipse.preferences.version=1
-encoding//jsonfield2/tests/test_fields.py=utf-8
-encoding//jsonfield2/tests/test_jsonquery.py=utf-8
 encoding//protoLib/actions/__init__.py=utf-8
 encoding//protoLib/admin/__init__.py=utf-8
-encoding//protoLib/migrations/0001_initial.py=utf-8
-encoding//protoLib/models.py=utf-8
+encoding//protoLib/admin/adminProtoDef.py=utf-8
+encoding//protoLib/middleware.py=utf-8
+encoding//protoLib/models/__init__.py=utf-8
+encoding//protoLib/models/protomodel.py=utf-8
+encoding//protoLib/models/protorepos.py=utf-8
+encoding//protoLib/models/protoutils.py=utf-8
+encoding//protoLib/models/protowf0.py=utf-8
+encoding//protoLib/models/smbase.py=utf-8
