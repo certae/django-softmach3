@@ -11,11 +11,11 @@ class ProtoManager(models.Manager):
 
  
     def get_queryset(self):
-        cuser = CurrentUserMiddleware.get_user()
+        cuser = CurrentUserMiddleware.get_user( False )
 
         Qs = super(ProtoManager, self).get_queryset() 
         
-        if cuser.is_superuser :
+        if not cuser or cuser.is_superuser :
             return Qs
             
         if not cuser.has_perm( "%s.%s_%s" % ( self.model._meta.app_label, 'list', self.model._meta.model_name )):

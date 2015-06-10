@@ -46,14 +46,15 @@ class ProtoModelBase(models.Model):
         )
         
     def save(self, *args, **kwargs):
-        user = CurrentUserMiddleware.get_user()
-        setattr(self, 'smModifiedBy', user)
+        cuser = CurrentUserMiddleware.get_user( False )
+        if cuser: 
+            setattr(self, 'smModifiedBy', cuser)
 
-        # Insert 
-        if not self.pk:
-            setattr(self, 'smCreatedBy', user)
-            setattr(self, 'smOwningUser', user)
-            setattr(self, 'smOwningTeam', getUserTeam( user))
+            # Insert 
+            if not self.pk:
+                setattr(self, 'smCreatedBy', cuser)
+                setattr(self, 'smOwningUser', cuser)
+                setattr(self, 'smOwningTeam', getUserTeam( cuser))
         
         super(ProtoModelBase, self).save(*args, **kwargs)
 
