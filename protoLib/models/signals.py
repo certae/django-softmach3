@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from protoLib.models import UserProfile, TeamHierarchy
-from django.contrib.auth.models import User
+from .smbase import UserProfile, TeamHierarchy
+# from django.contrib.auth.models import User
 
 
 def user_post_save(sender, instance, created, **kwargs):
@@ -10,10 +10,6 @@ def user_post_save(sender, instance, created, **kwargs):
         p = UserProfile()
         p.user = instance
         p.save()
-
-from django.db.models.signals import post_save
-post_save.connect(user_post_save, sender=User)
-
 
 
 def login_teamtree_update(sender, user, **kwargs):
@@ -37,7 +33,4 @@ def login_teamtree_update(sender, user, **kwargs):
     uProfile.userTree = ','.join(set(uOrgTree.split(',')))
     uProfile.save()
 
-
-from django.contrib.auth.signals import user_logged_in 
-user_logged_in.connect(login_teamtree_update)
 

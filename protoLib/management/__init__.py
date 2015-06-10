@@ -13,24 +13,24 @@ def addProtoPermissions(sender, **kwargs):
             print ("Added permission %s" % label)
 
     # for each of our content types "Adding  permissions"
-    for content_type in ContentType.objects.all():
-        # build our permission slug
-
-        label = "menu_%s" % content_type.model
-        title = "Can see on menu %s" % content_type.name
-        addEntityPermission(label, title)
-
-        label = "list_%s" % content_type.model
-        title = "Can list %s" % content_type.name
-        addEntityPermission(label, title)
-
-        label = "config_%s" % content_type.model
-        title = "Can config %s" % content_type.name
-        addEntityPermission(label, title)
-
-        label = "custom_%s" % content_type.model
-        title = "Can customize %s" % content_type.name
-        addEntityPermission(label, title)
+#     for content_type in ContentType.objects.all():
+#         # build our permission slug
+# 
+#         label = "menu_%s" % content_type.model
+#         title = "Can see on menu %s" % content_type.name
+#         addEntityPermission(label, title)
+# 
+#         label = "list_%s" % content_type.model
+#         title = "Can list %s" % content_type.name
+#         addEntityPermission(label, title)
+# 
+#         label = "config_%s" % content_type.model
+#         title = "Can config %s" % content_type.name
+#         addEntityPermission(label, title)
+# 
+#         label = "custom_%s" % content_type.model
+#         title = "Can customize %s" % content_type.name
+#         addEntityPermission(label, title)
 
         # label = "wfadmin_%s" % content_type.model
         # title = "Workflow admin for %s" % content_type.name

@@ -3,12 +3,11 @@
 from django.db import models
 from jsonfield2 import JSONField, JSONAwareManager
 
-from protoLib.models import * 
+
+from .protomodel import ProtoModelBase 
 
 """
-
-DGT: Tablas adicionales para automatizacion de tareas 
-
+DGT: Repositorios para manejo definiciones  
 """
 
 

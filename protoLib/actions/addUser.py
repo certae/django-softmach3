@@ -2,8 +2,9 @@
 
 # -*- coding: utf-8 -*-
 
+from django.contrib.auth.models import Group
 
-from django.contrib.auth.models import User, Group
+from protoLib.models import User, AUTH_USER_MODEL
 from protoLib.models import  TeamHierarchy, UserProfile
 
 

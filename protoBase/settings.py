@@ -29,6 +29,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 
+AUTH_USER_MODEL = 'auth.User'
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',

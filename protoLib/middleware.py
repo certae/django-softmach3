@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import threading
-from .models import User
+from .models.usermodel import User
 
 class CurrentUserMiddleware(object):
     """

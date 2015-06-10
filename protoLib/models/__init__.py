@@ -1,10 +1,23 @@
 # -*- coding: utf-8 -*-
 
-# TODO: Django’s comments, log, taggit  
+from .usermodel import User, AUTH_USER_MODEL
 
-from .smbase import *
-from .protomodel import * 
-from .protorepos import * 
-from .protoutils import * 
-from .protowf0 import * 
-from .signals import * 
+from .smbase import TeamHierarchy, UserProfile 
+from .protomodel import ProtoModelBase, ProtoModel 
+from .protorepos import ProtoDefinition, CustomDefinition
+
+# from .protoutils import 
+# from .protowf0 import 
+
+# ---------  SIGNALS 
+
+from .signals import user_post_save, login_teamtree_update 
+
+from django.db.models.signals import post_save
+post_save.connect(user_post_save, sender=User)
+
+from django.contrib.auth.signals import user_logged_in 
+user_logged_in.connect(login_teamtree_update)
+
+
+# TODO: Django’s comments, log, taggit  

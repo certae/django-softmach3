@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib  import admin
-from django.contrib.auth.models import User
- 
+from protoLib.models import User, AUTH_USER_MODEL
+
 
 # -----------------------------------------   AddUser  
 

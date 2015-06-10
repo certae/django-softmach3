@@ -6,8 +6,10 @@ from django.contrib.auth.models import User
 
 from protoLib.models import TeamHierarchy 
 from protoLib.middleware import CurrentUserMiddleware
+from protoLib.getmodels import getUserTeam
 
-from .protomanager import getUserTeam, ProtoManager 
+from .protomanager import ProtoManager
+ 
 
 import uuid 
 
@@ -62,8 +64,8 @@ class ProtoModel(ProtoModelBase):
     Con manejo de campos json 
     """ 
 
-    metaDefinition = JSONField(default={})
-    objects = JSONAwareManager(json_fields = ['metaDefinition'])
+    smInfo = JSONField(default={})
+    # objects = ProtoJSONManager(json_fields = ['smInfo'])
 
 
     class Meta:
@@ -71,4 +73,4 @@ class ProtoModel(ProtoModelBase):
 
 
 
-    
+        
