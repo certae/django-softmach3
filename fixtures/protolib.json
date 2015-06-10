@@ -1,0 +1,165 @@
+[
+{
+  "model": "protoLib.teamhierarchy",
+  "pk": 1,
+  "fields": {
+    "site": null,
+    "description": null,
+    "code": "proto",
+    "parentNode": null
+  }
+},
+{
+  "model": "protoLib.teamhierarchy",
+  "pk": 2,
+  "fields": {
+    "site": null,
+    "description": null,
+    "code": "Dos",
+    "parentNode": 1
+  }
+},
+{
+  "model": "protoLib.teamhierarchy",
+  "pk": 3,
+  "fields": {
+    "site": null,
+    "description": null,
+    "code": "Tres",
+    "parentNode": 2
+  }
+},
+{
+  "model": "protoLib.userprofile",
+  "pk": 1,
+  "fields": {
+    "userTree": "3,2,1",
+    "user": 1,
+    "userTeam": 1,
+    "userConfig": {},
+    "language": null
+  }
+},
+{
+  "model": "protoLib.userprofile",
+  "pk": 3,
+  "fields": {
+    "userTree": "3,2",
+    "user": 2,
+    "userTeam": 2,
+    "userConfig": {},
+    "language": ""
+  }
+},
+{
+  "model": "protoLib.userprofile",
+  "pk": 4,
+  "fields": {
+    "userTree": "3",
+    "user": 3,
+    "userTeam": 3,
+    "userConfig": {},
+    "language": ""
+  }
+},
+{
+  "model": "protoLib.customdefinition",
+  "pk": 1,
+  "fields": {
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T17:08:07.994Z",
+    "code": "human",
+    "smCreatedBy": 1,
+    "smOwningTeam": 1,
+    "smRegStatus": null,
+    "active": true,
+    "smWflowStatus": null,
+    "smModifiedBy": 1,
+    "smOwningUser": 1,
+    "metaDefinition": {},
+    "smCreatedOn": "2015-06-10T17:08:07.994Z",
+    "description": "",
+    "smUUID": "dbfa5a91-3bf0-40a8-a15b-f16ed0699d13"
+  }
+},
+{
+  "model": "protoLib.customdefinition",
+  "pk": 2,
+  "fields": {
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:02.804Z",
+    "code": "A1",
+    "smCreatedBy": 2,
+    "smOwningTeam": 2,
+    "smRegStatus": null,
+    "active": true,
+    "smWflowStatus": null,
+    "smModifiedBy": 2,
+    "smOwningUser": 2,
+    "metaDefinition": {},
+    "smCreatedOn": "2015-06-10T20:58:02.804Z",
+    "description": "",
+    "smUUID": "729f8e25-ecf4-4cab-8625-6812e1c1060f"
+  }
+},
+{
+  "model": "protoLib.customdefinition",
+  "pk": 3,
+  "fields": {
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:08.491Z",
+    "code": "a2",
+    "smCreatedBy": 2,
+    "smOwningTeam": 2,
+    "smRegStatus": null,
+    "active": true,
+    "smWflowStatus": null,
+    "smModifiedBy": 2,
+    "smOwningUser": 2,
+    "metaDefinition": {},
+    "smCreatedOn": "2015-06-10T20:58:08.490Z",
+    "description": "",
+    "smUUID": "6e9ecb8d-7fed-473b-93e4-86ccc19c9ed8"
+  }
+},
+{
+  "model": "protoLib.customdefinition",
+  "pk": 4,
+  "fields": {
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:30.654Z",
+    "code": "x1",
+    "smCreatedBy": 3,
+    "smOwningTeam": 3,
+    "smRegStatus": null,
+    "active": true,
+    "smWflowStatus": null,
+    "smModifiedBy": 3,
+    "smOwningUser": 3,
+    "metaDefinition": {},
+    "smCreatedOn": "2015-06-10T20:58:30.653Z",
+    "description": "",
+    "smUUID": "f449b3c9-c010-4970-8bdd-b6a2c8606a00"
+  }
+},
+{
+  "model": "protoLib.customdefinition",
+  "pk": 5,
+  "fields": {
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:34.908Z",
+    "code": "x2",
+    "smCreatedBy": 3,
+    "smOwningTeam": 3,
+    "smRegStatus": null,
+    "active": true,
+    "smWflowStatus": null,
+    "smModifiedBy": 3,
+    "smOwningUser": 3,
+    "metaDefinition": {},
+    "smCreatedOn": "2015-06-10T20:58:34.908Z",
+    "description": "",
+    "smUUID": "64f8f9ea-6564-49c8-86a3-19ac9bff1257"
+  }
+}
+]
