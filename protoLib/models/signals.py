@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from .smbase import UserProfile, TeamHierarchy
-# from django.contrib.auth.models import User
 
 
 def user_post_save(sender, instance, created, **kwargs):

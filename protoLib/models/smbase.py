@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import User
+from protoLib.models.usermodel import User, AUTH_USER_MODEL
 
 # from django.contrib.contenttypes.models import ContentType
 # from datetime import datetime
@@ -49,7 +49,7 @@ class UserProfile(models.Model):
     """
 
     
-    user = models.OneToOneField(User, unique=True)
+    user = models.OneToOneField(AUTH_USER_MODEL, unique=True)
     userTeam = models.ForeignKey(TeamHierarchy, blank=True, null=True, related_name='userTeam')
     language = models.CharField(blank=True, null=True, max_length=500)
 

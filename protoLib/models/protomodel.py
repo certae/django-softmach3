@@ -2,7 +2,7 @@
 
 from django.db import models
 from jsonfield2 import JSONField, JSONAwareManager
-from django.contrib.auth.models import User
+from protoLib.models.usermodel import User, AUTH_USER_MODEL
 
 from protoLib.models import TeamHierarchy 
 from protoLib.middleware import CurrentUserMiddleware
@@ -20,11 +20,11 @@ class ProtoModelBase(models.Model):
     related_name="%(app_label)s_%(class)s"
     """ 
 
-    smOwningUser = models.ForeignKey(User, null=True, blank=True, related_name='+', editable=False)
+    smOwningUser = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=True, related_name='+', editable=False)
     smOwningTeam = models.ForeignKey(TeamHierarchy, null=True, blank=True, related_name='+', editable=False)
 
-    smCreatedBy = models.ForeignKey(User, null=True, blank=True, related_name='+', editable=False)
-    smModifiedBy = models.ForeignKey(User, null=True, blank=True, related_name='+', editable=False)
+    smCreatedBy = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=True, related_name='+', editable=False)
+    smModifiedBy = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=True, related_name='+', editable=False)
 
     smRegStatus = models.CharField(max_length=50, null=True, blank=True, editable=False)
     smWflowStatus = models.CharField(max_length=50, null=True, blank=True, editable=False)

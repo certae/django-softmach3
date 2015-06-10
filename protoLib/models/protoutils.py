@@ -92,7 +92,7 @@ class Logger(models.Model):
         ('DEL', 'DELETE'),
     )
     
-    smCreatedBy = models.ForeignKey(User, null=True, blank=True, related_name='+', editable=False)
+    smCreatedBy = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=True, related_name='+', editable=False)
     smCreatedOn = models.DateTimeField(auto_now=True , null=True, blank=True, editable=False)
     smOwningTeam = models.ForeignKey(TeamHierarchy, null=True, blank=True, related_name='+', editable=False)
 
