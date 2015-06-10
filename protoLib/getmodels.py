@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from protoLib.models.smbase import UserProfile, TeamHierarchy
 
-def getUserProfile( cuser): 
+def getUserProfile( cuser):
+    from protoLib.models.smbase import UserProfile
     return UserProfile.objects.get_or_create( user = cuser)[0]
 
 def getUserTeam( cuser): 

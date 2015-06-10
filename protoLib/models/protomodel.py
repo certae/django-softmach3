@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from jsonfield2 import JSONField, JSONAwareManager
-from protoLib.models.usermodel import User, AUTH_USER_MODEL
+from jsonfield2 import JSONField
+from .usermodel import AUTH_USER_MODEL
 
 from protoLib.models import TeamHierarchy 
 from protoLib.middleware import CurrentUserMiddleware
 from protoLib.getmodels import getUserTeam
 
-from .protomanager import ProtoManager
- 
+from .protomanager import ProtoManager, ProtoJSONManager
 
 import uuid 
 
@@ -59,14 +58,14 @@ class ProtoModelBase(models.Model):
         super(ProtoModelBase, self).save(*args, **kwargs)
 
 
-class ProtoModel(ProtoModelBase):
+class ProtoModelExt(ProtoModelBase):
     """
     Tabla modelo para la creacion de entidades de usuario  ( sm  security mark )
     Con manejo de campos json 
     """ 
 
     smInfo = JSONField(default={})
-    # objects = ProtoJSONManager(json_fields = ['smInfo'])
+    objects = ProtoJSONManager(json_fields = ['smInfo'])
 
 
     class Meta:

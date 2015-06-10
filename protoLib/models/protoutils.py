@@ -4,7 +4,7 @@ from django.db import models
 from protoLib.models import * 
 from datetime import datetime 
 
-class UserFiles(ProtoModel):
+class UserFiles(ProtoModelExt):
     
     docfile = models.FileField(upload_to='media/%Y/%m/%d')
     description = models.TextField(verbose_name=u'Description', blank=True, null=True)
@@ -39,7 +39,7 @@ class DiscreteValue(models.Model):
 
 
 
-class ParametersBase(ProtoModel):
+class ParametersBase(ProtoModelExt):
     parameterKey = models.CharField(max_length=250 , blank=False, null=False)
     parameterTag = models.CharField(max_length=250 , blank=False, null=False)
     parameterValue = models.CharField(max_length=250 , blank=False, null=False)

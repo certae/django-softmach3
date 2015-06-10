@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from protoLib.models.usermodel import User, AUTH_USER_MODEL
-
-# from django.contrib.contenttypes.models import ContentType
-# from datetime import datetime
+from protoLib.models.usermodel import AUTH_USER_MODEL
+from protoLib.getmodels import getNodeHierarchy 
 
 from jsonfield2 import JSONField, JSONAwareManager
 
@@ -80,6 +78,4 @@ class UserProfile(models.Model):
     def __str__(self):
         return  self.user.username
 
-
-# ------------------------
 

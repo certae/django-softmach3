@@ -4,7 +4,7 @@ from django.db import models
 from protoLib.models import * 
 
 
-class WflowAdminResume(ProtoModel):
+class WflowAdminResume(ProtoModelExt):
     """ Contains the latest news summary that require administrator action
         When creating a record of WFlow you can create an instance of this table or increment the counter
         You will also have to go shares wFlow tables (parameter = wFlowEntities)
@@ -27,7 +27,7 @@ class WflowAdminResume(ProtoModel):
     }
 
 
-class WflowUserReponse(ProtoModel):
+class WflowUserReponse(ProtoModelExt):
     """ Contains the results of administrator actions
     """
 
@@ -41,7 +41,7 @@ class WflowUserReponse(ProtoModel):
 
 
 
-class Pruebas2(ProtoModel):
+class Pruebas2(ProtoModelExt):
     """ Contains the results of administrator actions
     """
 

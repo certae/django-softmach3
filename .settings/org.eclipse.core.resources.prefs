@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//protoLib/actions/__init__.py=utf-8
 encoding//protoLib/admin/__init__.py=utf-8
 encoding//protoLib/admin/adminProtoDef.py=utf-8
+encoding//protoLib/getmodels.py=utf-8
 encoding//protoLib/middleware.py=utf-8
 encoding//protoLib/models/__init__.py=utf-8
 encoding//protoLib/models/protomanager.py=utf-8

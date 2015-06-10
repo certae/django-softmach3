@@ -3,7 +3,7 @@
 from .usermodel import User, AUTH_USER_MODEL
 
 from .smbase import TeamHierarchy, UserProfile 
-from .protomodel import ProtoModelBase, ProtoModel 
+from .protomodel import ProtoModelBase, ProtoModelExt
 from .protorepos import ProtoDefinition, CustomDefinition
 
 # from .protoutils import 
