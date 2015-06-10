@@ -58,7 +58,9 @@ class CustomDefinition(ProtoModelBase):
     overWrite = models.BooleanField(default=False)
 
     metaDefinition = JSONField(default={})
-    objects = JSONAwareManager(json_fields = ['metaDefinition'])
+
+#     objects = JSONAwareManager(json_fields = ['metaDefinition'])
+#     objects = ProtoManager()
 
 
     def __str__(self):

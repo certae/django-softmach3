@@ -3,7 +3,7 @@
 import threading
 from .models import User
 
-class CuserMiddleware(object):
+class CurrentUserMiddleware(object):
     """
     Always have access to the current user
     """

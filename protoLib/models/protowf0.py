@@ -38,3 +38,16 @@ class WflowUserReponse(ProtoModel):
 
     def __str__(self):
         return self.viewEntity
+
+
+
+class Pruebas2(ProtoModel):
+    """ Contains the results of administrator actions
+    """
+
+    code = models.CharField(max_length=250 , blank=False, null=False)
+#     objects = ProtoManager()
+
+
+    def __str__(self):
+        return self.code

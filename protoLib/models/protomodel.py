@@ -2,8 +2,12 @@
 
 from django.db import models
 from jsonfield2 import JSONField, JSONAwareManager
-from protoLib.models import TeamHierarchy
 from django.contrib.auth.models import User
+
+from protoLib.models import TeamHierarchy 
+from protoLib.middleware import CurrentUserMiddleware
+
+from .protomanager import getUserTeam, ProtoManager 
 
 import uuid 
 
@@ -11,7 +15,7 @@ import uuid
 class ProtoModelBase(models.Model):
     """
     Tabla modelo para la creacion de entidades de usuario     ( sm  security mark )
-    related_name="%(app_label)s_%(class)s
+    related_name="%(app_label)s_%(class)s"
     """ 
 
     smOwningUser = models.ForeignKey(User, null=True, blank=True, related_name='+', editable=False)
@@ -28,17 +32,28 @@ class ProtoModelBase(models.Model):
 
     smUUID = models.UUIDField( default=uuid.uuid4, editable=False)
 
+    objects = ProtoManager()
+
     # Security indicator used to control permissions
     _protoObj = True
 
     class Meta:
         abstract = True
-
+        permissions = (
+            ("list_%(class)", "Can list available %(class)s"),
+        )
+        
     def save(self, *args, **kwargs):
-        pass 
-        super(ProtoModel, self).save(*args, **kwargs)
+        user = CurrentUserMiddleware.get_user()
+        setattr(self, 'smModifiedBy', user)
 
-
+        # Insert 
+        if not self.pk:
+            setattr(self, 'smCreatedBy', user)
+            setattr(self, 'smOwningUser', user)
+            setattr(self, 'smOwningTeam', getUserTeam( user))
+        
+        super(ProtoModelBase, self).save(*args, **kwargs)
 
 
 class ProtoModel(ProtoModelBase):
@@ -54,3 +69,6 @@ class ProtoModel(ProtoModelBase):
     class Meta:
         abstract = True
 
+
+
+    

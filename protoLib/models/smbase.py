@@ -3,7 +3,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from django.db.models.signals import post_save
 # from django.contrib.contenttypes.models import ContentType
 # from datetime import datetime
 
@@ -84,29 +83,23 @@ class UserProfile(models.Model):
 
 # ------------------------
 
-def user_post_save(sender, instance, created, **kwargs):
-    """Create a user profile when a new user account is created"""
-    if created == True:
-        p = UserProfile()
-        p.user = instance
-        p.save()
-
-post_save.connect(user_post_save, sender=User)
-
 
 # ------------------------
 
 
-try:
-    from django.apps import apps
-    get_model = apps.get_model
-    get_models = apps.get_models
-except ImportError:
-    from django.db.models.loading import get_model, get_models  
 
 
 def getDjangoModel(modelName):
-#   Obtiene el modelo
+    """
+    Obtiene el modelo
+    """
+
+    try:
+        from django.apps import apps
+        get_model = apps.get_model
+        get_models = apps.get_models
+    except ImportError:
+        from django.db.models.loading import get_model, get_models  
 
     if modelName.count('.') == 1:
         model = get_model(*modelName.split('.'))

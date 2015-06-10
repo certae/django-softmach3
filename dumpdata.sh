@@ -1,1 +1,1 @@
- python manage.py dumpdata --natural-foreign --natural-primary --indent 2 protoLib > protolib.json 
+python manage.py dumpdata --natural-foreign --natural-primary --indent 2 protoLib > protolib.json 
