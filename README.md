@@ -2,7 +2,6 @@
 Mini blog tutor djangogirls 
 
 
-
-TODO: Agregar a requirements.txt o la Db utilizada 
+TODO: Heroku Agregar a requirements.txt 
 
 psycopg2==2.5.3

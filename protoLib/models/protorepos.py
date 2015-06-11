@@ -15,7 +15,12 @@ class ProtoDefinition(models.Model):
     """
     Esta tabla guarda las definiciones de las pcls y del menu,
     es un contenedor generico para manejar documentos json modificados de lo q
-    en principio es la definicion de base de los modelos Django.
+    en principio es la definicion de base de los modelos 
+    
+    Por lo tanto no debe depender del usuario ( team ) ya que es la definicion 
+    de la aplicacion. 
+    
+    Es importante mantener las diferentes versions, **usar reversion en el admin** 
     """
 
     code = models.CharField(unique=True, blank=False, null=False, max_length=200)

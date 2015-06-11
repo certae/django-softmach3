@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import django.contrib.admin
+import reversion 
 
-class protoDefinitionAdmin(django.contrib.admin.ModelAdmin):
+class protoDefinitionAdmin( reversion.VersionAdmin ):
     protoExt = {
     "description": "proto Definition",
     "viewEntity": "protoLib.ProtoDefinition",

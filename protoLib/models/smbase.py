@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+
 from protoLib.models.usermodel import AUTH_USER_MODEL
 from protoLib.getmodels import getNodeHierarchy 
 
@@ -37,6 +39,8 @@ class TeamHierarchy(models.Model):
           'treeHierarchy': {'readOnly' : True},
      }}
 
+    def natural_key(self):
+        return (self.code)
 
 
 # here is the profile model
@@ -76,6 +80,43 @@ class UserProfile(models.Model):
     }
 
     def __str__(self):
-        return  self.user.username
+        return  self.user.__str__() 
 
+    def natural_key(self):
+        return self.user.natural_key()
+
+    natural_key.dependencies = ['auth.user', 'protoLib.teamhierarchy']
+
+
+class EntityMap(models.Model):
+    """
+    DGT: Doc Json con definiciones adicionales,  WorkFlow, Secuences, ... 
+
+    Capa adicional para manejar 
+        parametros de workflow 
+        autonumericos y secuencias         
+        permisos a nivel de campo ( fieldLevelSecurity ),
+        documentacion 
+        acciones 
+        etc 
+
+    replicar conttenttype
+    - se definen explicitamente las tablas q manejen fieldLevel securty  ( EntityMap )
+    - se definen permisos por grupos   // canRead, canAdd, canUpd // 
+    
+    se manejan referecias (debiles) para poder importar/exportar la info sobre contenttype 
+    """
+
+    entityBase = models.OneToOneField(ContentType, unique=True)
+    entityConfig = JSONField(default={})
+
+    objects = JSONAwareManager(json_fields = ['entityConfig'])
+
+    def __str__(self):
+        return self.entityBase.__str__()
+
+    def natural_key(self):
+        return self.entityBase.natural_key()
+
+    natural_key.dependencies = ['contenttypes.contenttype']
 

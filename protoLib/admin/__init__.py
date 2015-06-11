@@ -1,34 +1,47 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib  import admin
-from protoLib.models.usermodel import User, AUTH_USER_MODEL
+from reversion.helpers import patch_admin
+import reversion
 
 
 # -----------------------------------------   AddUser  
+
+from django.contrib.auth.models import User, Group 
+patch_admin(User)
+patch_admin(Group)
 
 from protoLib.models import UserProfile
 from .adminUserProf import UserProfileAdmin
  
 admin.site.register( UserProfile, UserProfileAdmin )
 
+# -----------------------------------------     
+
+from protoLib.models import ProtoDefinition
+from .adminProtoDef import protoDefinitionAdmin
+admin.site.register(ProtoDefinition, protoDefinitionAdmin)
 
 # -----------------------------------------     
 
-from protoLib.models import ProtoDefinition, TeamHierarchy
-from protoLib.models import CustomDefinition
 
- 
-from .adminProtoDef import protoDefinitionAdmin
-from .adminOrgTree import orgTreeAdmin
-
- 
-admin.site.register(ProtoDefinition, protoDefinitionAdmin)
+from protoLib.models import TeamHierarchy
 admin.site.register(TeamHierarchy)
-admin.site.register(CustomDefinition)
+patch_admin(TeamHierarchy)
 
+# -----------------------------------------     
+
+from protoLib.models import CustomDefinition
+admin.site.register(CustomDefinition)
+patch_admin(CustomDefinition)
  
-from .adminUsr import AdminUser
-User.protoExt = AdminUser
+# -----------------------------------------     
+
+from protoLib.models import EntityMap
+class EntityMapAdmin(reversion.VersionAdmin):
+    pass
+ 
+admin.site.register(EntityMap, EntityMapAdmin)
  
  
 # de aut
@@ -36,9 +49,8 @@ User.protoExt = AdminUser
 # admin.site.register( Permission )
 # admin.site.register( Message )
  
+
  
-from django.contrib.contenttypes.models import ContentType
-admin.site.register(ContentType)
  
 # from protoLib.models import  PtFunction
 # admin.site.register(PtFunction)

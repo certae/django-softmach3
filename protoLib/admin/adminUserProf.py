@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 
-from django.contrib  import admin
-from protoLib.actions import doAddUser 
+import reversion 
 
- 
-class UserProfileAdmin( admin.ModelAdmin ):
+class UserProfileAdmin( reversion.VersionAdmin ):
+
+    from protoLib.actions import doAddUser 
     actions = [ doAddUser ]
 
     protoExt = {

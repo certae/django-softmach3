@@ -1,6 +1,8 @@
-import django.contrib.admin
+# -*- coding: utf-8 -*-
 
-class orgTreeAdmin(django.contrib.admin.ModelAdmin):
+import reversion 
+
+class TeamHierarchyAdmin( reversion.VersionAdmin ):
 
     protoExt = {
     "__ptType": "pcl",
