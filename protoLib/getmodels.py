@@ -39,7 +39,6 @@ def getDjangoModel(modelName):
     return model
 
 
-
 def getNodeHierarchy(record, parentField, codeField, pathFunction):
     "Returns the full hierarchy path."
 
@@ -49,3 +48,58 @@ def getNodeHierarchy(record, parentField, codeField, pathFunction):
     else:
         return str(record.__getattribute__(codeField))
 
+
+
+
+# -----------------------------------------------
+# DGT: Verificar y borrar lo q no se necesite 
+
+
+
+def getUserNodes(pUser, viewEntity):
+    """
+    Verifica la jerarquia hacia los nodos superiores ( CELL - RefOnly )
+    """
+    userProfile = getUserProfile(pUser)
+    userNodes = None
+    if userProfile and userProfile.userTree:
+        userNodes = userProfile.userTree.split(',')
+
+    return userNodes
+
+
+
+def getModelPermissions(pUser, model , perm=None):
+
+    appName = model._meta.app_label
+    modName = model._meta.module_name
+
+    return  getOptionPermissions(pUser, appName, modName , perm)
+
+
+def getOptionPermissions(pUser, appName, modName , perm=None):
+
+    # Verifica los permisos para cada opcion
+    permissions = {}
+
+    def getIndPermission(perm):
+        permissions[ perm ] = pUser.is_superuser or pUser.has_perm(appName + '.' + perm + '_' + modName)
+
+    # Si es un solo permiso retorna true / false
+    if not (perm is None):
+        getIndPermission (perm)
+        return permissions[ perm ]
+
+    # Si son todos retorna un objto
+    # get_all_permissions  no vale la pena, pues lo guarda en un cache y filtra por objeto,
+    # la busqueda individual usa el mismo cache ya cargarda
+    getIndPermission ('menu')
+    getIndPermission ('list')
+    getIndPermission ('add')
+    getIndPermission ('change')
+    getIndPermission ('delete')
+    getIndPermission ('config')
+    getIndPermission ('custom')
+    getIndPermission ('refallow')
+
+    return  permissions

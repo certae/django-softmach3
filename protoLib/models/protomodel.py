@@ -67,6 +67,7 @@ class ProtoModelExt(ProtoModelBase):
     smInfo = JSONField(default={})
     objects = ProtoJSONManager(json_fields = ['smInfo'])
 
+    _protoJson = True
 
     class Meta:
         abstract = True

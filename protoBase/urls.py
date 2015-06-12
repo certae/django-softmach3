@@ -1,32 +1,38 @@
-"""protoBase URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.8/topics/http/urls/
-Examples:
-
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-
-Including another URLconf
-    1. Add an import:  from appXX import urls as XX_urls
-    2. Add a URL to urlpatterns:  url(r'^appXX/', include(XX_urls))
-"""
-
-from django.conf.urls import include, url
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
-
 admin.autodiscover()
+
+
+from django.views.generic import TemplateView
+
+# from softmachine.settings import PPATH
+
+
+# Uncoment to use xadmin
+# import xadmin
+# xadmin.autodiscover()
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-	url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+#   url(r'^admin/', include(xadmin.site.urls)),
+
+    url(r'^main$', TemplateView.as_view(template_name='index.html')),
+    url(r'^debug$', TemplateView.as_view(template_name='debug.html')),
+
+    url(r'^protoLib/', include('protoLib.urls')),
+
+#   Use for production instalation and for load json configuration files
+    url(r'static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': PPATH + '/static'}),
+    url(r'resources/(?P<path>.*)$', 'django.views.static.serve',{'document_root': PPATH + '/static'}),
+    url(r'media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': PPATH + '/static'}),
+
+#   Generated files
+    url(r'getFile/(?P<path>.*)$', 'protoLib.utils.downloadFile.getFile', {}),
+
+#   Pour executer les tests avec Jasmine
+    url(r'^protoDiagram/', include('dbDesigner.urls')),
+    url(r'^extjs-tests', TemplateView.as_view(template_name='extjs-tests.html')),
     
-    # url(r'', include('blog.urls')),
 ]

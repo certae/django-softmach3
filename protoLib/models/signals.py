@@ -4,7 +4,10 @@ from .smbase import UserProfile, TeamHierarchy
 
 
 def user_post_save(sender, instance, created, **kwargs):
-    """Create a user profile when a new user account is created"""
+    """
+    DEPRECATED : No es necesaria, el primer login o adduser la crean por defecto 
+    Create a user profile when a new user account is created
+    """
     if created == True:
         p = UserProfile()
         p.user = instance
@@ -13,7 +16,7 @@ def user_post_save(sender, instance, created, **kwargs):
 
 def login_teamtree_update(sender, user, **kwargs):
     """
-    A signal receiver which updates the treehierarchy.
+    Update treehierarchy when a user login 
     """
     uProfile = UserProfile.objects.get_or_create(user = user )[0]
 

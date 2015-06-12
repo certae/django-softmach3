@@ -1,6 +1,6 @@
-#  Dgt 1303  Creacion automatica de usuarios, team, grupo 
-
 # -*- coding: utf-8 -*-
+
+#  Dgt 1303  Creacion automatica de usuarios, team, grupo 
 
 from django.contrib.auth.models import Group
 
@@ -10,7 +10,7 @@ from protoLib.models import  TeamHierarchy, UserProfile
 
 def actionAddUser( request,  queryset , parameters ):
     """
-    Permite crear el usuario y asociarlo a un grupo y un team 
+    Permite crear el usuario y asociarlo a grupos y teams 
     """ 
 
     sUser   = parameters[0]['value'] 

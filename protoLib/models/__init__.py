@@ -4,10 +4,6 @@ from .usermodel import User, AUTH_USER_MODEL
 
 from .smbase import TeamHierarchy, UserProfile, EntityMap
 from .protomodel import ProtoModelBase, ProtoModelExt
-from .protorepos import ProtoDefinition, CustomDefinition
-
-# from .protoutils import 
-# from .protowf0 import 
 
 # ---------  SIGNALS 
 
@@ -20,5 +16,3 @@ from .signals import user_post_save, login_teamtree_update
 from django.contrib.auth.signals import user_logged_in 
 user_logged_in.connect(login_teamtree_update)
 
-
-# TODO: Django’s comments, log, taggit  

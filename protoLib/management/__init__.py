@@ -43,3 +43,12 @@ def addProtoPermissions(sender, **kwargs):
 
 # check for all proto permissions after a syncdb
 post_syncdb.connect(addProtoPermissions)
+
+# TODO: Verificar la definicion de permisos especificos de cada modelo  
+# class Task(models.Model):
+#     ...
+#     class Meta:
+#         permissions = (
+#             ("view_task", "Can see available tasks"),
+#             ("close_task", "Can remove a task by setting its status as closed"),
+#         )
