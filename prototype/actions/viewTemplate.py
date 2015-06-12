@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from protoLib.utilsBase import slugify
+from django.template.defaultfilters import slugify
 
 PROTO_PREFIX = "prototype.ProtoTable."
 

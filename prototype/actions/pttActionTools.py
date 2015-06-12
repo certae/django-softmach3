@@ -4,7 +4,7 @@ Created on 2013-12-21
 @author: dario
 '''
 
-from protoLib.utilsBase import slugify 
+from django.template.defaultfilters import slugify 
 
 TypeEquivalence = { 
         'bool'      :   'BooleanField',

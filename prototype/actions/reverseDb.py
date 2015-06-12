@@ -10,9 +10,9 @@
 
 import keyword, re, traceback
 from prototype.models import Model, Entity, Property, Relationship
-from protoLib.protoAuth import getUserProfile
+from protoLib.getmodels import getUserProfile
 from protoLib.utilsDb import setDefaults2Obj
-from protoLib.utilsBase import slugify
+from django.template.defaultfilters import slugify
 
 from django.db import connections, transaction, IntegrityError, DatabaseError
 from django.db.transaction import TransactionManagementError
@@ -198,7 +198,7 @@ def writeSchemaDef(dProject , request):
 
     # ===================================================================================================================
     # -----------------------------  Aqui arranca la escritura en la Db
-    userProfile = getUserProfile(request.user, 'prototype', '')
+    userProfile = getUserProfile(request.user)
     defValues = {
         'smOwningTeam' : userProfile.userTeam,
         'smOwningUser' : userProfile.user,

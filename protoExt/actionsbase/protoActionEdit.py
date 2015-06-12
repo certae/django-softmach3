@@ -71,7 +71,7 @@ def _protoEdit(request, myAction):
         return doReturn ({'success':False , 'message' : 'No ' + myAction + 'permission'})
 
 #   Obtiene el profile para saber el teamhierarchi
-    userProfile = getUserProfile(request.user, 'edit', viewEntity)
+    userProfile = getUserProfile(request.user )
 
 
 #   Verfica si es un protoModel ( maneja TeamHierarchy )

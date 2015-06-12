@@ -43,7 +43,7 @@ def protoGetUserRights(request):
             userInfo[ 'fullName' ] = pUser.get_full_name()  
 
             # Si es login retorna la lengua del usuario  
-            language = getUserProfile( pUser, 'login', userName ) 
+            language = getUserProfile( pUser).language or 'en' 
             
         else:
             # Return a 'disabled account' error message

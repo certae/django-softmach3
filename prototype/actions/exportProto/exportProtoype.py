@@ -13,7 +13,8 @@
   
   
 from prototype.actions.pttActionTools import TypeEquivalence  
-from protoLib.utilsBase import slugify, repStr, getClassName
+from django.template.defaultfilters import slugify
+# Fix: , repStr, getClassName
 from cStringIO import StringIO
 
 def exportPrototypeModel(request, pModel):
@@ -27,13 +28,13 @@ def exportPrototypeModel(request, pModel):
     strModel.write("# You'll have to do the following manually to clean this up:\n")
     strModel.write("#     * Add specific procedures  (WFlow)\n\n")
     strModel.write("from django.db import models\n")
-    strModel.write("from protoLib.models import ProtoModel\n")    
-    strModel.write("from protoLib.utilsBase import slugify\n")
+    strModel.write("from protoLib.models import ProtoModelExt\n")    
+    strModel.write("from django.template.defaultfilters import slugify\n")
 
     for pEntity in pModel.entity_set.all():
 
         strModel.write( "\n" ) 
-        strModel.write( "class {0}(ProtoModel):\n".format( getClassName( pEntity.code )  )) 
+        strModel.write( "class {0}(ProtoModelExt):\n".format( getClassName( pEntity.code )  )) 
                          
         arrKeys  = []
 
@@ -102,7 +103,7 @@ def exportPrototypeModel(request, pModel):
             
 
         strModel.write("\n")
-        strModel.write(repStr(' ',4)+ "def __unicode__(self):\n")
+        strModel.write(repStr(' ',4)+ "def __str__(self):\n")
 
         if arrKeys.__len__() > 0:
 

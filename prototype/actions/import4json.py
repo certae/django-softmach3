@@ -9,7 +9,7 @@
 from prototype.models import  Entity, Property, Relationship, Prototype 
 from protoLib.utilsBase import reduceDict
 from protoLib.protoActionEdit import setSecurityInfo 
-from protoLib.protoAuth import getUserProfile
+from protoLib.getmodels import getUserProfile
 
 #  Export 2 Json 
 import json
@@ -17,7 +17,7 @@ import json
 def importProto4Json(request, pModel):
 
 #   To set permissions 
-    userProfile = getUserProfile( request.user, 'prototype', '' )
+    userProfile = getUserProfile( request.user)
 
 #   Get filename   
     fileName = request.POST.get( 'actionFiles', {}).get('file')  

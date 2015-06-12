@@ -4,7 +4,7 @@
 from django.utils import six
 from django.db import models
 from django.http import HttpResponse
-from django.contrib.admin.util import  get_fields_from_path
+from django.contrib.admin.utils import  get_fields_from_path
 from django.utils.encoding import smart_str
 from django.db.models import Q
 
@@ -13,7 +13,7 @@ from protoExt.utils.utilsBase import verifyStr, verifyList, list2dict
 from protoExt.utils.utilsConvert import getTypedValue
 
 from .protoQbe import getSearcheableFields, getQbeStmt
-from .protoAuth import  getModelPermissions, getUserNodes
+from protoLib.getmodels import  getModelPermissions, getUserNodes
 
 from .protoField import TypeEquivalence
 from protoExt.models import ViewDefinition
@@ -291,7 +291,7 @@ def copyValuesFromFields(protoMeta, rowdict, relModels, JsonField):
                 # Obtiene el id
                 rowId = rowdict[ relModel['fkId'] ]
                 if rowId:
-                   relModel['rowData'] = getRowById(relModel['zoomModel'], rowId)
+                    relModel['rowData'] = getRowById(relModel['zoomModel'], rowId)
                 else:
                     relModel['rowData'] = None
                 relModel['loaded'] = True

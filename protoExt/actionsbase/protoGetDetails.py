@@ -32,17 +32,19 @@ def protoGetDetailsTree(request):
         return HttpResponse(context, content_type="application/json")
 
     detailList = []
-    if viewCode.startswith( PROTO_PREFIX )  and viewCode != viewEntity :
-        # -------------------------------------------------------------------------  Prototipos 
-        protoEntityId = request.POST.get( 'protoEntityId' )
-        if not protoEntityId >= 0:
-            return JsonError('invalid idEntity')
 
-        try:  
-            from prototype.actions.viewDefinition import GetDetailsConfigTree
-            detailList = GetDetailsConfigTree(  protoEntityId )
-        except: 
-            return JsonError( 'invalid idEntity')
+    if viewCode.startswith( PROTO_PREFIX )  and viewCode != viewEntity :
+        pass 
+        # # Fix: -------------------------------------------------------------------------  Prototipos 
+        # protoEntityId = request.POST.get( 'protoEntityId' )
+        # if not protoEntityId >= 0:
+        #     return JsonError('invalid idEntity')
+
+        # try:  
+        #     from prototype.actions.viewDefinition import GetDetailsConfigTree
+        #     detailList = GetDetailsConfigTree(  protoEntityId )
+        # except: 
+        #     return JsonError( 'invalid idEntity')
 
     else: 
         modelDetails = getModelDetails( model )

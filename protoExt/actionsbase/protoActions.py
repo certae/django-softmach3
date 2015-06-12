@@ -24,7 +24,7 @@ def protoExecuteAction(request):
 
 #     def doWfAction(model, selectedKeys, parameters, actionDef, viewEntity, pUser):
 # 
-#         userProfile = getUserProfile(pUser, 'wflow', viewEntity)
+#         userProfile = getUserProfile(pUser)
 #         try:
 # 
 #             changeSt = actionDef.get('change', [])

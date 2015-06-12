@@ -10,6 +10,7 @@ import re
 import datetime, decimal
 import json
 from django.utils.encoding import smart_str
+from django.utils import six
 
 # TODO : Borrar  JSONEncoder  
 class JSONEncoder(json.JSONEncoder):
@@ -26,7 +27,7 @@ class JSONEncoder(json.JSONEncoder):
 def verifyList(obj, defList = []):
 #   Los objetos del admin son en su mayoria del tipo tuple,
 #   Es necesario convertirlos a listas por facilidad de trabajo
-    if isinstance( obj , basestring ):
+    if isinstance( obj , six.string_types ):
         try:
             obj = json.loads(obj)
         except :

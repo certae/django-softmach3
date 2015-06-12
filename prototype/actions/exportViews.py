@@ -5,7 +5,8 @@ Dgt 1503
 Exportar vistas de un prototypo para ser usadas por una aplicacion generada a partir del prototypo
 '''
   
-from protoLib.utilsBase import slugify, JSONEncoder, getClassName 
+from django.template.defaultfilters import slugify
+ #Fix:  JSONEncoder, getClassName 
 from protoLib.models import ProtoDefinition
 
 import json

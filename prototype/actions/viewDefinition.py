@@ -9,7 +9,7 @@ from prototype.models import Entity,  Prototype
 
 from protoLib.protoActionEdit import setSecurityInfo 
 from protoLib.utilsBase import JSONEncoder, slugify
-from protoLib.protoAuth import getUserProfile
+from protoLib.getmodels import getUserProfile
 
 
 PROTO_PREFIX = "prototype.ProtoTable."
@@ -242,7 +242,7 @@ def GetDetailsConfigTree( protoEntityId ):
 def getEntities( queryset , request, viewTitle  ):
     """ Recorre las entidades para generar las vistas en bache por modelo """
 
-    userProfile = getUserProfile( request.user, 'prototype', '' ) 
+    userProfile = getUserProfile( request.user) 
     returnMsg = '' 
 
 #   Recorre los registros selccionados   

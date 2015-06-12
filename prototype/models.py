@@ -14,13 +14,13 @@
 from django.db import models
 # from django.db.models.signals import post_save, post_delete 
 
-from protoLib.models import ProtoModel   
-from protoLib.fields import JSONField, JSONAwareManager
+from protoLib.models import ProtoModelExt   
+from jsonfield2 import JSONField, JSONAwareManager
 
-from protobase.protoRules import  ONDELETE_TYPES, BASE_TYPES, CRUD_TYPES, DB_ENGINE
+from .protoRules import  ONDELETE_TYPES, BASE_TYPES, CRUD_TYPES, DB_ENGINE
 
 
-from protoLib.utilsBase import slugify
+from django.template.defaultfilters import slugify
 
 PROTO_PREFIX = "prototype.ProtoTable."
 
@@ -55,7 +55,7 @@ PROTO_PREFIX = "prototype.ProtoTable."
         Model ( dependen del modelo, no se requiere declararlas en el admin ) 
 """
    
-class Project(ProtoModel):
+class Project(ProtoModelExt):
     
     """Corresponds to a corporate conceptual level MCCD"""
     code = models.CharField(blank=False, null=False, max_length=200)
@@ -69,7 +69,7 @@ class Project(ProtoModel):
     dbHost = models.CharField(blank=True, null=True, max_length=200)
     dbPort = models.CharField(blank=True, null=True, max_length=200)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.code) 
 
     class Meta:
@@ -93,7 +93,7 @@ class Project(ProtoModel):
     } 
 
 
-class Model(ProtoModel):
+class Model(ProtoModelExt):
     """
     Los modelos corresponde a una solucion especifica,  
     varios modelos pueden estar enmarcados en un dominio
@@ -113,7 +113,7 @@ class Model(ProtoModel):
         
     unicode_sort = ('project', 'code',)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.code) 
     
     protoExt = { 
@@ -136,7 +136,7 @@ class Model(ProtoModel):
     
 
     
-class Entity(ProtoModel):
+class Entity(ProtoModelExt):
     """ 
     Entity corresponds to the PHYSICAL model;  
     """    
@@ -149,7 +149,7 @@ class Entity(ProtoModel):
     # Propieadad para ordenar el __str__ 
     unicode_sort = ('model', 'code',)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.model.code + '-' + self.code) 
 
     class Meta:
@@ -196,7 +196,7 @@ class Entity(ProtoModel):
 
 
 
-class Property(ProtoModel):
+class Property(ProtoModelExt):
     """ 
     Propiedades por tabla, definicion a nivel de modelo de datos.
     Las relaciones heredan de las propriedades y definien la cardinalidad 
@@ -263,7 +263,7 @@ class Property(ProtoModel):
     class Meta:
         unique_together = ('entity', 'code', 'smOwningTeam')
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.entity.code + '.' + self.code)      
 
     unicode_sort = ('entity', 'code',)
@@ -297,7 +297,7 @@ class Relationship(Property):
     onRefDelete = models.CharField(blank=True, null=True, max_length=50, choices=ONDELETE_TYPES)
     typeRelation = models.CharField(blank=True, null=True, max_length=50)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.entity.code + '.' + self.code)     
 
     def save(self, *args, **kwargs):
@@ -318,7 +318,7 @@ class Relationship(Property):
 
 
 
-class PropertyEquivalence(ProtoModel):
+class PropertyEquivalence(ProtoModelExt):
     """ 
     Matriz de equivalencias "semantica"  entre propiedades
     
@@ -334,7 +334,7 @@ class PropertyEquivalence(ProtoModel):
 
     description = models.TextField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.sourceProperty.code + ' - ' + self.targetProperty.code)   
 
     class Meta:
@@ -371,7 +371,7 @@ class PropertyEquivalence(ProtoModel):
 
 
 
-class Prototype(ProtoModel):
+class Prototype(ProtoModelExt):
     """
     Esta tabla manejar la lista de  prototypos almacenados en customDefinicion, 
     Genera la "proto" pci;  con la lista de campos a absorber y los detalles posibles        
@@ -386,7 +386,7 @@ class Prototype(ProtoModel):
 
     metaDefinition = models.TextField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.code)  
     
     protoExt = { 
@@ -399,7 +399,7 @@ class Prototype(ProtoModel):
         unique_together = ('code', 'smOwningTeam')
 
 
-class ProtoTable(ProtoModel):
+class ProtoTable(ProtoModelExt):
     """
     Esta es el store de los prototipos   
     """
@@ -407,7 +407,7 @@ class ProtoTable(ProtoModel):
     entity = models.ForeignKey(Entity, blank=False, null=False)
     info = JSONField(default={})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.entity.code + ':' + self.info.__str__()  
 
     def myStr(self, *args, **kwargs):
@@ -432,7 +432,7 @@ class ProtoTable(ProtoModel):
 
 #   --------------------------------------------------------------------------------
 
-class Diagram(ProtoModel):
+class Diagram(ProtoModelExt):
 
     project = models.ForeignKey('Project', blank=False, null=False)
     code = models.CharField(blank=False, null=False, max_length=200)
@@ -478,7 +478,7 @@ class Diagram(ProtoModel):
             projectID=self.project_id, 
             smUUID=self.smUUID)
         
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.project.code + '-' + self.code) 
 
     class Meta:
@@ -493,7 +493,7 @@ class Diagram(ProtoModel):
 
 
 
-class DiagramEntity(ProtoModel):
+class DiagramEntity(ProtoModelExt):
     """ 
     Entidades del diagrama  
     """    
@@ -507,7 +507,7 @@ class DiagramEntity(ProtoModel):
     # Propieadad para ordenar el __str__ 
     unicode_sort = ('diagram', 'entity',)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify(self.diagram.code + '-' + self.entity.code) 
 
     class Meta:

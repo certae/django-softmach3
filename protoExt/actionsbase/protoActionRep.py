@@ -4,7 +4,8 @@
 #Dg 121105   --------------------------------------------------
 
 from django.http import HttpResponse
-from django.utils.encoding import smart_str, smart_unicode
+from django.utils.encoding import smart_str
+# , smart_unicode
 
 from protoLib.getmodels import getDjangoModel
 from protoExt.models import ViewDefinition
@@ -263,7 +264,9 @@ def getDetailConf(protoMeta, detailName):
 def getLineCsv(line):
     sAux = u''
     for e in line:
-        sAux = sAux + ',"' + smart_unicode(e) + '"'
+        pass
+        # Fix:
+        # sAux = sAux + ',"' + smart_unicode(e) + '"'
     return sAux[1:] + '\n'
 
 

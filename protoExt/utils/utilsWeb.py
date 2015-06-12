@@ -7,6 +7,7 @@
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.http import HttpResponse 
+from django.utils import six
 
 from protoExt.utils.utilsBase import JSONEncoder
 
@@ -59,7 +60,7 @@ def DownloadLocalFile(InFile):
    
     
 def JSONserialise( obj ):
-    if not isinstance( obj , basestring ):
+    if not isinstance( obj , six.string_types ):
         try: 
             obj = json.dumps( obj )  
         except: 

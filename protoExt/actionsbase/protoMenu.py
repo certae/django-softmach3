@@ -11,7 +11,7 @@ import json
 
 from protoExt.models import CustomDefinition, ViewDefinition
 from .protoActionEdit import setSecurityInfo
-from .protoAuth import getUserProfile, getModelPermissions, getOptionPermissions
+from protoLib.getmodels import getUserProfile, getModelPermissions, getOptionPermissions
 from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import verifyList
 
@@ -43,7 +43,7 @@ def protoGetMenuData(request):
         return JsonError('invalid message') 
     
     currentUser = request.user
-    userProfile = getUserProfile(currentUser, 'getMenu', '') 
+    userProfile = getUserProfile(currentUser) 
 
     app_dict = {}
 

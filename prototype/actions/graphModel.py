@@ -4,7 +4,7 @@ Prototype to DOT (Graphviz) converter by Dario Gomez
 Table format from  django-extensions 
 """
 
-from protoLib.utilsBase import slugify, getClassName  
+from django.template.defaultfilters import slugify, getClassName  
 from protoLib.utilsBase import Enum 
 
 class GraphModel():

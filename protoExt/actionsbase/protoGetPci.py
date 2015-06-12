@@ -54,7 +54,7 @@ def protoGetPCI(request):
         return JsonError('model not found: {0}'.format( viewEntity)) 
     
     # 
-    userProfile = getUserProfile(request.user, 'getPci', viewEntity) 
+    userProfile = getUserProfile(request.user) 
 
 
     # PROTOTIPOS
@@ -327,7 +327,7 @@ def protoSaveProtoObj(request):
      
     viewCode = request.POST.get('viewCode', '')
 
-    userProfile = getUserProfile(request.user, 'saveObjs', viewCode) 
+    userProfile = getUserProfile(request.user) 
 
     # Reglas para definir q se guarda  
     if viewCode.find('_') == 0 :

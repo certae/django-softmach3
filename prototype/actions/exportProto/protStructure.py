@@ -145,7 +145,8 @@ _PROTOSTRUCTURE = {
 Exportar vistas
 '''
 
-from protoLib.utilsBase import slugify, JSONEncoder, getClassName
+from django.template.defaultfilters import slugify
+# Fix:, JSONEncoder, getClassName
 from protoLib.models import ProtoDefinition
 
 import json

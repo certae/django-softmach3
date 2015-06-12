@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -17,30 +18,30 @@
 
 		<!-- Ext JS Files -->
 		{% block extjs %}
-		<link rel="stylesheet" type="text/css" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/css/ext-all-gray.css">
-		<script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all-debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/css/ext-all-gray.css" >
+		<script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all-debug.js" ></script>
 		{% endblock %}
 
 		{% block defaultstylesheets %}
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css">
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/designer.css">
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/statusbar.css">
+		<link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}">
+		<link rel="stylesheet" type="text/css" href="{% static "css/designer.css" %}">
+		<link rel="stylesheet" type="text/css" href="{% static "css/statusbar.css" %}">
 		{% endblock %}
 		{% block extrastylesheets %}{% endblock %}
 
-		<script type="text/javascript" src="{{ STATIC_URL }}metaDefinition/pciObjects.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}metaDefinition/pciProperties.js"></script>
+		<script type="text/javascript" src="{% static "metaDefinition/pciObjects.js" %}"></script>
+		<script type="text/javascript" src="{% static "metaDefinition/pciProperties.js" %}"></script>
 
-		<script type="text/javascript" src="{{ STATIC_URL }}js/globals/variables.js"></script>
+		<script type="text/javascript" src="{% static "js/globals/variables.js" %}"></script>
 
 
 		{% block configproperties %}
-		<script type="text/javascript" src="{{ STATIC_URL }}js/globals/configProperties.js"></script>
+		<script type="text/javascript" src="{% static "js/globals/configProperties.js" %}"></script>
 		{% endblock %}
 
 
-		<script type="text/javascript" src="{{ STATIC_URL }}js/globals/Tools.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/globals/ProtoStore.js"></script>
+		<script type="text/javascript" src="{% static "js/globals/Tools.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/globals/ProtoStore.js" %}"></script>
 
 		<!-- load i18n files on the fly -->
 		<script type="text/javascript" id="extlocale"></script>
@@ -71,61 +72,61 @@
                     src: 'http://cdn.sencha.com/ext/gpl/4.2.1/locale/ext-lang-' + locale + '.js'
                 });
                 Ext.fly('protolocale').set({
-                    src: '{{ STATIC_URL }}js/globals/locale/SM__lang-' + locale + '.js'
+                    src: '{% static "js/globals/locale/SM__lang-' + locale + '.js'
                 });
             }
 		</script>
 		<!-- ==== i18n ==== -->
 
-        <script type="text/javascript" src="{{ STATIC_URL }}js/UI/DetailButton.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/TbMasterDetail.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/FormController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/GridController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/GridSheetController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/ConfigController.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/UI/WinGridController.js"></script>
+        <script type="text/javascript" src="{% static "js/UI/DetailButton.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/TbMasterDetail.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/FormController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/GridController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/GridSheetController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/ConfigController.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/UI/WinGridController.js" %}"></script>
 
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDTbSortByController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDDetailsController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDPrintOptsController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDActionsController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDSetFiltersController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDSetSortersController.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDSetTabsController.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/UI/MDLinkController.js"></script>
+		<script type="text/javascript" src="{% static "js/UI/MDTbSortByController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/MDDetailsController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/MDPrintOptsController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/MDActionsController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/MDSetFiltersController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/MDSetSortersController.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/UI/MDSetTabsController.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/UI/MDLinkController.js" %}"></script>
 
-		<script type="text/javascript" src="{{ STATIC_URL }}js/proto/ProtoFieldSelector.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/proto/ProtoDesigner.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/proto/ProtoPcl.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/proto/ProtoToolBar.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/proto/ProtoTools.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/proto/ProtoPropertiesTools.js"></script>
+		<script type="text/javascript" src="{% static "js/proto/ProtoFieldSelector.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/proto/ProtoDesigner.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/proto/ProtoPcl.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/proto/ProtoToolBar.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/proto/ProtoTools.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/proto/ProtoPropertiesTools.js" %}"></script>
 
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/ProtoZoom.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/GridHeaderToolTip.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/GridCheckColumn.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/FieldHtmlEditor.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/ProtoSearchBG.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/StatusBar.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/Login.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/ProtoList.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/HtmlSet.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/ParameterWin.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/ProtoProperty.js"></script>
+		<script type="text/javascript" src="{% static "js/ux/ProtoZoom.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/GridHeaderToolTip.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/GridCheckColumn.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/FieldHtmlEditor.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/ProtoSearchBG.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/StatusBar.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/Login.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/ProtoList.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/HtmlSet.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/ParameterWin.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/ProtoProperty.js" %}"></script>
 
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/ProtoQBE.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/HelpQbe.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/ToolbarDroppable.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/ux/BoxReorderer.js"></script>
+		<script type="text/javascript" src="{% static "js/ux/ProtoQBE.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/HelpQbe.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/ToolbarDroppable.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/ux/BoxReorderer.js" %}"></script>
 
-		<script type="text/javascript" src="{{ STATIC_URL }}js/view/ProtoGrid.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/view/ProtoMasterDetail.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/view/ProtoForm.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/view/ProtoTabContainer.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/view/Viewport.js"></script>
+		<script type="text/javascript" src="{% static "js/view/ProtoGrid.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/view/ProtoMasterDetail.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/view/ProtoForm.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/view/ProtoTabContainer.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/view/Viewport.js" %}"></script>
 
 		{% block extjsloader %}{% endblock %}
-		<script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
+		<script type="text/javascript" src="{% static "js/app.js" %}"></script>
 		{% block javascript %}{% endblock %}
 
 	</head>

@@ -3,7 +3,7 @@
 #DGT : Verificar 
 
 from prototype.models import Model  
-from protoLib.protoAuth import getUserProfile
+from protoLib.getmodels import getUserProfile
 
 
 def doEttyChangeModel( request,  queryset , parameters ):
@@ -25,7 +25,7 @@ def doEttyChangeModel( request,  queryset , parameters ):
             return  {'success':False, 'message' : 'Must be in the same project' }
 
 
-    userProfile = getUserProfile( request.user, 'prototype', '' ) 
+    userProfile = getUserProfile( request.user) 
     defValues = {
         'smOwningTeam' : userProfile.userTeam,
         'smOwningUser' : userProfile.user,

@@ -2,7 +2,7 @@
 
 import traceback
 
-from protoLib.utilsBase import slugify
+from django.template.defaultfilters import slugify
 from protoLib.utils.downloadFile import getFullPath 
 
 from viewDefinition import getViewDefinition, getViewCode, getEntities
@@ -230,8 +230,8 @@ def doImportOMS( modeladmin, request, queryset, parameters):
     if queryset.count() != 1:
         return  {'success':False, 'message' : 'No record selected' }
 
-    from protoLib.protoAuth import getUserProfile
-    userProfile = getUserProfile( request.user, 'prototype', '' )
+    from protoLib.getmodels import getUserProfile
+    userProfile = getUserProfile( request.user)
     
     try: 
 
