@@ -1,5 +1,15 @@
 # -*- coding: utf-8 -*-
-import traceback
+
+
+def doAddUser(modeladmin, request, queryset, parameters):
+    """ 
+    Add user  
+    parameters : sUser,sPwd,sMail,sTeam,[sGroups]
+    """
+
+#   El QSet viene con la lista de Ids  
+    from protoExt.actionsusr.addUser import actionAddUser   
+    return actionAddUser(request, queryset, parameters)
 
 
 def doFindReplace(modeladmin, request, queryset, parameters):
@@ -18,14 +28,3 @@ def doFindReplace(modeladmin, request, queryset, parameters):
     from protoLib.actions.findReplace import actionFindReplace  
     return actionFindReplace(request, queryset, parameters)
 
-
-# def doClearLog(modeladmin, request, queryset, parameters):
-#     """ 
-#     TODO: Clear Log 
-#     """
-# 
-#     from protoLib.models import Logger
-# 
-#     Logger.objects.all().delete()
-# 
-#     return  {'success':True, 'message' : 'Ok' }

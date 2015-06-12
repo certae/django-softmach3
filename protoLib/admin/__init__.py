@@ -14,13 +14,8 @@ patch_admin(Group)
 # -----------------------------------------   AddUser  
 
 from protoLib.models import UserProfile
-from protoLib.actions import doAddUser 
-class UserProfileAdmin( reversion.VersionAdmin ):
-    actions = [ doAddUser ]
-
-admin.site.register( UserProfile, UserProfileAdmin )
-
-
+admin.site.register( UserProfile )
+patch_admin(UserProfile)
 
 # -----------------------------------------     
 

@@ -1,165 +1,65 @@
 [
 {
   "fields": {
-    "code": "proto",
-    "parentNode": null,
     "description": null,
-    "site": null
+    "site": null,
+    "code": "proto",
+    "parentNode": null
   },
   "pk": 1,
   "model": "protoLib.teamhierarchy"
 },
 {
   "fields": {
-    "code": "Dos",
-    "parentNode": 1,
     "description": null,
-    "site": null
+    "site": null,
+    "code": "Dos",
+    "parentNode": 1
   },
   "pk": 2,
   "model": "protoLib.teamhierarchy"
 },
 {
   "fields": {
-    "code": "Tres",
-    "parentNode": 2,
     "description": null,
-    "site": null
+    "site": null,
+    "code": "Tres",
+    "parentNode": 2
   },
   "pk": 3,
   "model": "protoLib.teamhierarchy"
 },
 {
   "fields": {
+    "userTree": "1,3,2",
+    "userConfig": {},
     "user": 1,
     "language": null,
-    "userTree": "3,2,1",
-    "userTeam": 1,
-    "userConfig": {}
+    "userTeam": 1
   },
   "pk": 1,
   "model": "protoLib.userprofile"
 },
 {
   "fields": {
+    "userTree": "3,2",
+    "userConfig": {},
     "user": 2,
     "language": "",
-    "userTree": "3,2",
-    "userTeam": 2,
-    "userConfig": {}
+    "userTeam": 2
   },
   "pk": 3,
   "model": "protoLib.userprofile"
 },
 {
   "fields": {
+    "userTree": "3",
+    "userConfig": {},
     "user": 3,
     "language": "",
-    "userTree": "3",
-    "userTeam": 3,
-    "userConfig": {}
+    "userTeam": 3
   },
   "pk": 4,
   "model": "protoLib.userprofile"
-},
-{
-  "fields": {
-    "active": true,
-    "smUUID": "dbfa5a91-3bf0-40a8-a15b-f16ed0699d13",
-    "metaDefinition": {},
-    "smOwningTeam": 1,
-    "description": "",
-    "smModifiedBy": 1,
-    "smCreatedOn": "2015-06-10T17:08:07.994Z",
-    "overWrite": false,
-    "smModifiedOn": "2015-06-10T17:08:07.994Z",
-    "smCreatedBy": 1,
-    "code": "human",
-    "smRegStatus": null,
-    "smOwningUser": 1,
-    "smWflowStatus": null
-  },
-  "pk": 1,
-  "model": "protoLib.customdefinition"
-},
-{
-  "fields": {
-    "active": true,
-    "smUUID": "729f8e25-ecf4-4cab-8625-6812e1c1060f",
-    "metaDefinition": {},
-    "smOwningTeam": 2,
-    "description": "",
-    "smModifiedBy": 2,
-    "smCreatedOn": "2015-06-10T20:58:02.804Z",
-    "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:02.804Z",
-    "smCreatedBy": 2,
-    "code": "A1",
-    "smRegStatus": null,
-    "smOwningUser": 2,
-    "smWflowStatus": null
-  },
-  "pk": 2,
-  "model": "protoLib.customdefinition"
-},
-{
-  "fields": {
-    "active": true,
-    "smUUID": "6e9ecb8d-7fed-473b-93e4-86ccc19c9ed8",
-    "metaDefinition": {},
-    "smOwningTeam": 2,
-    "description": "",
-    "smModifiedBy": 2,
-    "smCreatedOn": "2015-06-10T20:58:08.490Z",
-    "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:08.491Z",
-    "smCreatedBy": 2,
-    "code": "a2",
-    "smRegStatus": null,
-    "smOwningUser": 2,
-    "smWflowStatus": null
-  },
-  "pk": 3,
-  "model": "protoLib.customdefinition"
-},
-{
-  "fields": {
-    "active": true,
-    "smUUID": "f449b3c9-c010-4970-8bdd-b6a2c8606a00",
-    "metaDefinition": {},
-    "smOwningTeam": 3,
-    "description": "",
-    "smModifiedBy": 3,
-    "smCreatedOn": "2015-06-10T20:58:30.653Z",
-    "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:30.654Z",
-    "smCreatedBy": 3,
-    "code": "x1",
-    "smRegStatus": null,
-    "smOwningUser": 3,
-    "smWflowStatus": null
-  },
-  "pk": 4,
-  "model": "protoLib.customdefinition"
-},
-{
-  "fields": {
-    "active": true,
-    "smUUID": "64f8f9ea-6564-49c8-86a3-19ac9bff1257",
-    "metaDefinition": {},
-    "smOwningTeam": 3,
-    "description": "",
-    "smModifiedBy": 3,
-    "smCreatedOn": "2015-06-10T20:58:34.908Z",
-    "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:34.908Z",
-    "smCreatedBy": 3,
-    "code": "x2",
-    "smRegStatus": null,
-    "smOwningUser": 3,
-    "smWflowStatus": null
-  },
-  "pk": 5,
-  "model": "protoLib.customdefinition"
 }
 ]

@@ -1,0 +1,82 @@
+[
+{
+  "fields": {
+    "active": true,
+    "smUUID": "729f8e25-ecf4-4cab-8625-6812e1c1060f",
+    "metaDefinition": {},
+    "smOwningTeam": 2,
+    "description": "",
+    "smModifiedBy": 2,
+    "smCreatedOn": "2015-06-10T20:58:02.804Z",
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:02.804Z",
+    "smCreatedBy": 2,
+    "code": "A1",
+    "smRegStatus": null,
+    "smOwningUser": 2,
+    "smWflowStatus": null
+  },
+  "pk": 2,
+  "model": "protoLib.customdefinition"
+},
+{
+  "fields": {
+    "active": true,
+    "smUUID": "6e9ecb8d-7fed-473b-93e4-86ccc19c9ed8",
+    "metaDefinition": {},
+    "smOwningTeam": 2,
+    "description": "",
+    "smModifiedBy": 2,
+    "smCreatedOn": "2015-06-10T20:58:08.490Z",
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:08.491Z",
+    "smCreatedBy": 2,
+    "code": "a2",
+    "smRegStatus": null,
+    "smOwningUser": 2,
+    "smWflowStatus": null
+  },
+  "pk": 3,
+  "model": "protoLib.customdefinition"
+},
+{
+  "fields": {
+    "active": true,
+    "smUUID": "f449b3c9-c010-4970-8bdd-b6a2c8606a00",
+    "metaDefinition": {},
+    "smOwningTeam": 3,
+    "description": "",
+    "smModifiedBy": 3,
+    "smCreatedOn": "2015-06-10T20:58:30.653Z",
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:30.654Z",
+    "smCreatedBy": 3,
+    "code": "x1",
+    "smRegStatus": null,
+    "smOwningUser": 3,
+    "smWflowStatus": null
+  },
+  "pk": 4,
+  "model": "protoLib.customdefinition"
+},
+{
+  "fields": {
+    "active": true,
+    "smUUID": "64f8f9ea-6564-49c8-86a3-19ac9bff1257",
+    "metaDefinition": {},
+    "smOwningTeam": 3,
+    "description": "",
+    "smModifiedBy": 3,
+    "smCreatedOn": "2015-06-10T20:58:34.908Z",
+    "overWrite": false,
+    "smModifiedOn": "2015-06-10T20:58:34.908Z",
+    "smCreatedBy": 3,
+    "code": "x2",
+    "smRegStatus": null,
+    "smOwningUser": 3,
+    "smWflowStatus": null
+  },
+  "pk": 5,
+  "model": "protoLib.customdefinition"
+}
+]
