@@ -17,7 +17,7 @@ from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, t
 from protoExt.utils.utilsBase import JSONEncoder, getReadableError, list2dict
 from protoExt.utils.utilsWeb import doReturn
 
-from protoLib.getmodels import getUserProfile, getModelPermissions, getUserNodes
+from protoLib.getmodels import getUserProfile, getModelPermission, getUserNodes
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'
@@ -67,7 +67,7 @@ def _protoEdit(request, myAction):
     model = getDjangoModel(viewEntity)
 
 #   Autentica
-    if not getModelPermissions(request.user, model, myAction):
+    if not getModelPermission(request.user, model, myAction):
         return doReturn ({'success':False , 'message' : 'No ' + myAction + 'permission'})
 
 #   Obtiene el profile para saber el teamhierarchi
@@ -83,14 +83,14 @@ def _protoEdit(request, myAction):
     userNodes = []
     refAllow = False
     if myAction in [ACT_DEL, ACT_UPD] and isProtoModel and not request.user.is_superuser  :
-        refAllow = getModelPermissions(request.user, model, 'refallow')
+        refAllow = getModelPermission(request.user, model, 'refallow')
         if refAllow:
             userNodes = getUserNodes(request.user, viewEntity)
 
 #   WorkFlow
     hasWFlow = hasattr(model , '_WorkFlow') and isProtoModel
     if hasWFlow:
-        wfadmin = getModelPermissions(request.user , model, 'wfadmin')
+        wfadmin = getModelPermission(request.user , model, 'wfadmin')
         WFlowControl = getattr(model, '_WorkFlow', {})
         initialWfStatus = WFlowControl.get('initialStatus', '0')
 

@@ -5,13 +5,13 @@
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponse
-
+from django.utils import six
 
 import json
 
 from protoExt.models import CustomDefinition, ViewDefinition
 from .protoActionEdit import setSecurityInfo
-from protoLib.getmodels import getUserProfile, getModelPermissions, getOptionPermissions
+from protoLib.getmodels import getUserProfile, getModelPermission
 from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import verifyList
 
@@ -66,7 +66,7 @@ def protoGetMenuData(request):
             menuLabel = 'auth' 
         
         # Verifica q el usuairo tenga permiso, considera el admin 
-        if not getModelPermissions(currentUser, model, 'menu') :
+        if not getModelPermission(currentUser, model, 'menu') :
             return  
         
         pTitle = protoAdmin.get('title', model._meta.verbose_name.title())
@@ -138,8 +138,11 @@ def protoGetMenuData(request):
             getMenuItem(protoAdmin, model, menuNode)
     
         # Sort the apps alphabetically.
-        app_list = app_dict.values()
+#         app_list = app_dict.values()
+#         app_list.sort(key=lambda x: x['index'])
+        app_list = list(six.itervalues(app_dict))
         app_list.sort(key=lambda x: x['index'])
+
     
         # Sort the models alphabetically within each app.
         for app in app_list:

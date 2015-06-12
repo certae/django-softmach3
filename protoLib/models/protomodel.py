@@ -40,6 +40,8 @@ class ProtoModelBase(models.Model):
 
     class Meta:
         abstract = True
+
+        # https://docs.djangoproject.com/en/1.8/ref/models/options/#permissions
         permissions = (
             ("list_%(class)", "Can list available %(class)s"),
         )

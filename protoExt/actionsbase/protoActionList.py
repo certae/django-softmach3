@@ -13,7 +13,7 @@ from protoExt.utils.utilsBase import verifyStr, verifyList, list2dict
 from protoExt.utils.utilsConvert import getTypedValue
 
 from .protoQbe import getSearcheableFields, getQbeStmt
-from protoLib.getmodels import  getModelPermissions, getUserNodes
+from protoLib.getmodels import  getModelPermission, getUserNodes
 
 from .protoField import TypeEquivalence
 from protoExt.models import ViewDefinition
@@ -315,7 +315,7 @@ def getQSet(protoMeta, protoFilter, baseFilter , sort , pUser):
     model = getDjangoModel(viewEntity)
 
 #   Autentica '
-    if not getModelPermissions(pUser, model, 'list'):
+    if not getModelPermission(pUser, model, 'list'):
         return model.objects.none(), [], False, False 
 
 #   modelo Administrado
@@ -339,7 +339,7 @@ def getQSet(protoMeta, protoFilter, baseFilter , sort , pUser):
     Qs = model.objects
 
 #   Permite la lectura de todos los registros 
-    refAllow = getModelPermissions(pUser, model, 'refallow')
+    refAllow = getModelPermission(pUser, model, 'refallow')
     
 
 #   Solamenete valida si es     

@@ -9,7 +9,7 @@ from .protoGrid import ProtoGridFactory
 from .protoField import setFieldDict, isAdmField 
 from protoExt.models import ViewDefinition, CustomDefinition 
 
-from protoLib.getmodels import getDjangoModel, getUserProfile, getModelPermissions
+from protoLib.getmodels import getDjangoModel, getUserProfile, getModelPermission, getAllModelPermissions
 
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
@@ -130,7 +130,7 @@ def protoGetPCI(request):
     if hasattr(model , '_WorkFlow') : 
         wflowControl = getattr(model, '_WorkFlow', {})
 
-        if request.user.is_superuser  or getModelPermissions(request.user , model, 'wfadmin') :
+        if request.user.is_superuser  or getModelPermission(request.user , model, 'wfadmin') :
             protoMeta['WFlowActions'] = wflowControl.get('transitions', []) 
 
         wfFilterSet = wflowControl.get('wfFilters', []) 
@@ -163,7 +163,7 @@ def protoGetPCI(request):
             'messageProperty': 'message',
             },
         'protoMeta': protoMeta,
-        'permissions': getModelPermissions(request.user, model),
+        'permissions': getAllModelPermissions(request.user, model),
         
         'rows':[],
         'totalCount': 0,
@@ -366,7 +366,7 @@ def protoSaveProtoObj(request):
         # Verifica los permisos  
         viewEntity = getBaseModelName(viewCode)
         model = getDjangoModel(viewEntity)
-        if not getModelPermissions(request.user, model, 'config') : 
+        if not getModelPermission(request.user, model, 'config') : 
             return JsonError('permission denied') 
 
         try:
