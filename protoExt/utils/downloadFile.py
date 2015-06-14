@@ -6,8 +6,7 @@ import os
 from django.http import HttpResponse
 from django.utils.http import http_date
 
-from protoLib.utilsWeb import JsonError
-
+from protoExt.utils.utilsWeb import JsonError 
 
 """
 Views and functions for serving downloads files

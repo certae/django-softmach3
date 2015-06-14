@@ -195,7 +195,7 @@ def doImportSchema( modeladmin, request, queryset, parameters):
     funcion para Importar la def de una Db ( basado en inspectDb ) 
     """
 
-    from reverseDb import getDbSchemaDef 
+    from .reverseDb import getDbSchemaDef 
 
 #   El QSet viene con la lista de Ids  
     if queryset.count() != 1:

@@ -198,7 +198,7 @@ def doGenericFuntion(sQBE):
     # fCall = explode(sQBE[1:])
 
     # # obtiene la definicion de la funcion
-    # from models import PtFunction, getDjangoModel
+    # from .models import PtFunction, getDjangoModel
     # fBase = PtFunction.objects.get(code=fCall[0])
 
     # # Construyte las variables de entorno

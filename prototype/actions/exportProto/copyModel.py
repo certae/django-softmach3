@@ -7,7 +7,7 @@
 # from django.db import router
 # from django.utils.encoding import force_unicode
 # from django.utils.translation import ugettext_lazy, ugettext as _
-# from models import * 
+# from .models import * 
 
 
 # def createNewModel( modeladmin, request, queryset):

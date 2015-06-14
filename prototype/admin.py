@@ -2,14 +2,14 @@
 # for project : "Modelibra.py" >
 
 
-from models import ProtoTable
-# from models import Service #, ServiceRef
+from .models import ProtoTable
+# from .models import Service #, ServiceRef
 
 from django.contrib import admin
 
 # -----------------------------------------   Model  
-from actions import doModelPrototype, doDiagram, doExportPrototype, doExportProtoJson, doExport2Json , doImport4Json, doModelDiagram 
-from models import Project,  Model, Property,  Relationship  #, Prototype
+from .actions import doModelPrototype, doDiagram, doExportPrototype, doExportProtoJson, doExport2Json , doImport4Json, doModelDiagram 
+from .models import Project,  Model, Property,  Relationship  #, Prototype
 
 class MyModelAdmin( admin.ModelAdmin ):
     actions = [ doModelPrototype, doModelDiagram, doExportPrototype, doExportProtoJson, doExport2Json, doImport4Json ]
@@ -17,8 +17,8 @@ class MyModelAdmin( admin.ModelAdmin ):
 admin.site.register(Model, MyModelAdmin)
 
 # ------------------------------------------  Entity
-from actions import  doEntityPrototype
-from models import Entity
+from .actions import  doEntityPrototype
+from .models import Entity
 
 class MyEntityAdmin( admin.ModelAdmin ):
     actions = [ doEntityPrototype  ]
@@ -27,7 +27,7 @@ admin.site.register(Entity, MyEntityAdmin )
 
 
 # ------------------------------------------  Entity
-from actions import doImportSchema, doImportOMS
+from .actions import doImportSchema, doImportOMS
 
 class MyProjectAdmin( admin.ModelAdmin ):
     actions = [ doImportSchema, doImportOMS  ]
@@ -37,7 +37,7 @@ admin.site.register(Project, MyProjectAdmin )
 
 # ------------------------------------------
 
-from models import Diagram
+from .models import Diagram
 
 class MyDiagramAdmin( admin.ModelAdmin ):
     actions = [  doDiagram  ]

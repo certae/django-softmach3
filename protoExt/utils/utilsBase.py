@@ -1,15 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 # some common routines
-# Compiled by : Dgt 11/11
+# Compiled by : Dgt 11/11  - 15/06
 
+import os, re
+import datetime, decimal, json
 
-import os
-import re
-
-import datetime, decimal
-import json
 from django.utils.encoding import smart_str
+from django.template.defaultfilters import slugify
 from django.utils import six
 
 # TODO : Borrar  JSONEncoder  
@@ -21,7 +19,6 @@ class JSONEncoder(json.JSONEncoder):
             return str( obj )
         else:
             return json.JSONEncoder.default(self, obj)
-
 
 
 def verifyList(obj, defList = []):
@@ -341,38 +338,6 @@ def explode(s):
     else:
         return []
 
-def findBrackets( aString ):
-    # busca el primer paraentesis
-    if '(' in aString:
-        match = aString.split('(',1)[1]
-        openB = 1
-        for index in xrange(len(match)):
-            if match[index] in '()':
-                openB = (openB + 1) if match[index] == '(' else (openB - 1)
-            if not openB:
-                return match[:index]
-
-
-
-from unicodedata import normalize
-
-_punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.:]+')
-
-def slugify(text, delim=u'-'):
-    """Generates an slightly worse ASCII-only slug.
-       Normaliza los nombres para usarlos como codigos
-       uso:  slugify(u'My International Text: åäö', delim='_')
-    """
-    text = unicode( text )
-    result = []
-    for word in _punct_re.split(text.lower()):
-        word = normalize('NFKD', word).encode('ascii', 'ignore')
-        if word:
-            result.append(word)
-
-    rText = unicode(delim.join(result)).replace( '--', '-')
-
-    return rText
 
 
 def repStr(string_to_expand, length):

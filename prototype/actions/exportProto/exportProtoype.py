@@ -14,8 +14,9 @@
   
 from prototype.actions.pttActionTools import TypeEquivalence  
 from django.template.defaultfilters import slugify
-# Fix: , repStr, getClassName
-from cStringIO import StringIO
+
+from protoExt.utils.utilsBase import repStr, getClassName
+from io import StringIO
 
 def exportPrototypeModel(request, pModel):
 

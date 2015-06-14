@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'reversion',
     'protoLib', 
     'protoExt', 
+    'prototype', 
 )
 
 MIDDLEWARE_CLASSES = (

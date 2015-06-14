@@ -35,7 +35,7 @@ def getTypedValue (sAux , sType):
 
 def isNumeric(s):
     try:
-      i = float(s)
+        i = float(s)
     except:
         return False
     else:
