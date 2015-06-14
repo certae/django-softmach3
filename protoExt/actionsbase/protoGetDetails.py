@@ -9,7 +9,7 @@ from protoExt.utils.utilsBase import getReadableError
 
 import json
 
-PROTO_PREFIX = "prototype.ProtoTable."
+# PROTO_PREFIX = "prototype.ProtoTable."
 
 def protoGetDetailsTree(request):
     """ return full field tree 

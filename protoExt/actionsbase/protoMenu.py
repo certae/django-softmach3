@@ -15,8 +15,8 @@ from protoLib.getmodels import getUserProfile, getModelPermission
 from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import verifyList
 
-from prototype.models import Prototype 
-PROTO_PREFIX = "prototype.ProtoTable."
+# from prototype.models import Prototype 
+# PROTO_PREFIX = "prototype.ProtoTable."
 
 class cAux: 
     pass 
