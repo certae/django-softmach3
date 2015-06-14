@@ -92,16 +92,12 @@ def getAllModelPermissions(pUser, model ):
 #  ---------------
 
 
-# def  getUserProfile(pUser):
+def  getUserLanguage( usrLanguage ):
 
-#         usrLanguage = uProfile.language
-#         if usrLanguage not in ['es', 'en', 'fr' ] :
-#             usrLanguage = 'fr'
-#         usrLanguage = 'protoLib.localisation.' + usrLanguage
-#         myModule = __import__(usrLanguage, globals(), locals(), ['__language' ], -1)
+    if usrLanguage not in ['es', 'en', 'fr' ] :
+        usrLanguage = 'en'
+    usrLanguage = 'protoExt.localisation.' + usrLanguage
+    myModule = __import__( usrLanguage, globals(), locals(), ['__language' ], 0)
 
-#         return myModule.__language
-
-#     return uProfile
-
+    return myModule.__language
 

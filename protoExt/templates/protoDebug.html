@@ -42,39 +42,15 @@
 
 		<script type="text/javascript" src="{% static "js/globals/Tools.js" %}"></script>
 		<script type="text/javascript" src="{% static "js/globals/ProtoStore.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/globals/locale/SM__lang-fr.js" %}"></script>
 
 		<!-- load i18n files on the fly -->
 		<script type="text/javascript" id="extlocale"></script>
 		<script type="text/javascript" id="protolocale"></script>
+
 		<script type="text/javascript">
 			getParams = '{{ isPasswordReseted }}';
 			window.isPasswordReseted = getParams;
-            // get the system language
-            var userLang = '{{LANGUAGE_CODE}}';
-            if (/en-[US|us]/.test(userLang)) {
-                userLang = 'en';
-            }
-            // available locale files
-            var locales = ['fr', 'es', 'en'];
-            // default locale
-            var locale = 'fr';
-            // check browser language against available locale files
-            for (var i = locales.length - 1; i >= 0; i--) {
-                if (userLang === locales[i]) {
-                    locale = userLang;
-                    break;
-                }
-            };
-
-            // Insert src attribute to extlocale and protolocale
-            if (locale) {
-                Ext.fly('extlocale').set({
-                    src: 'http://cdn.sencha.com/ext/gpl/4.2.1/locale/ext-lang-' + locale + '.js'
-                });
-                Ext.fly('protolocale').set({
-                    src: '{% static "js/globals/locale/SM__lang-' + locale + '.js'
-                });
-            }
 		</script>
 		<!-- ==== i18n ==== -->
 

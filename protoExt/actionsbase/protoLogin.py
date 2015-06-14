@@ -9,7 +9,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.conf import settings
 from django.template import loader
 
-from protoLib.getmodels import getUserProfile
+from protoLib.getmodels import getUserProfile, getUserLanguage
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
 
 
@@ -43,7 +43,8 @@ def protoGetUserRights(request):
             userInfo[ 'fullName' ] = pUser.get_full_name()  
 
             # Si es login retorna la lengua del usuario  
-            language = getUserProfile( pUser).language or 'en' 
+            userProfile = getUserProfile( pUser )
+            language = getUserLanguage( userProfile.language or 'en' ) 
             
         else:
             # Return a 'disabled account' error message
