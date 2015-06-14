@@ -17,8 +17,13 @@ from protoExt.utils.utilsWeb import JsonError, JsonSuccess
 from .protoActionEdit import setSecurityInfo
 from .protoQbe import getSearcheableFields
 
-# Fix:
-# from prototype.models import Prototype, Entity  
+
+try:
+    from prototype.models import Prototype, Entity
+    installedProto = True 
+except:
+    installedProto = False 
+
 
 
 PROTO_PREFIX = "prototype.ProtoTable."
@@ -61,11 +66,11 @@ def protoGetPCI(request):
     isPrototype = False 
     if viewCode.startswith(PROTO_PREFIX)  and viewCode != viewEntity :
         try:
-#             prototypeView = viewCode.replace(PROTO_PREFIX, '')
-#             protoDef = Prototype.objects.get(code=prototypeView, smOwningTeam=userProfile.userTeam)
-#             created = False   
+            prototypeView = viewCode.replace(PROTO_PREFIX, '')
+            protoDef = Prototype.objects.get(code=prototypeView, smOwningTeam=userProfile.userTeam)
+            created = False   
             isPrototype = True 
-             
+            
         except:
             return JsonError('prototype not found: {0}'.format( viewCode ))
 
@@ -347,19 +352,19 @@ def protoSaveProtoObj(request):
             return JsonError(getReadableError(e)) 
 
     # Es prototype
-#     elif prototype: 
-# 
-#         try:
-#             # debe existir previamente
-#             protoCode = viewCode.replace(PROTO_PREFIX, '')
-#             
-#             protoMeta = json.loads(sMeta)
-#             entityId = protoMeta['protoEntityId'] 
-#             entityObj = Entity.objects.get(id=entityId)
-#             protoDef, create = Prototype.objects.get_or_create(code=protoCode, entity=entityObj, smOwningTeam=userProfile.userTeam)
-#  
-#         except Exception as e:
-#             return JsonError(getReadableError(e)) 
+    elif prototype: 
+
+        try:
+            # debe existir previamente
+            protoCode = viewCode.replace(PROTO_PREFIX, '')
+            
+            protoMeta = json.loads(sMeta)
+            entityId = protoMeta['protoEntityId'] 
+            entityObj = Entity.objects.get(id=entityId)
+            protoDef, create = Prototype.objects.get_or_create(code=protoCode, entity=entityObj, smOwningTeam=userProfile.userTeam)
+ 
+        except Exception as e:
+            return JsonError(getReadableError(e)) 
 
     else: 
 

@@ -138,8 +138,6 @@ def protoGetMenuData(request):
             getMenuItem(protoAdmin, model, menuNode)
     
         # Sort the apps alphabetically.
-#         app_list = app_dict.values()
-#         app_list.sort(key=lambda x: x['index'])
         app_list = list(six.itervalues(app_dict))
         app_list.sort(key=lambda x: x['index'])
 
@@ -150,61 +148,61 @@ def protoGetMenuData(request):
 
 
 #=====  lee las opciones del prototipo -----------------------------------------------
-#         prototypes = Prototype.objects.filter(smOwningTeam=userProfile.userTeam)
-#         prNodes = {  
-#             'text': 'ProtoOptions' ,
-#             'expanded': True ,
-#             'index': 1000 ,
-#             'children': [],
-#             'leaf': False 
-#         }
-#         app_list.append(prNodes)
-# 
-#         ix = 0 
-#         for option in prototypes:
-# 
-#             prBase = getNodeBaseProto(prNodes, option)
-#             prBase['children'].append({
-#                 'text':  option.code,
-#                 'expanded': True ,
-#                 'viewCode': PROTO_PREFIX + option.code,
-#                 'iconCls': 'icon-proto',
-#                 'index':  ix,
-#                 'leaf': True 
-#                  })
-# 
-#             ix += 1 
-# 
-# #=====  lee las vistas  -----------------------------------------------
-#         prototypes = ViewDefinition.objects.all()
-#         prNodes = {  
-#             'text': 'ProtoViews' ,
-#             'expanded': True ,
-#             'index': 2000 ,
-#             'children': [],
-#             'leaf': False 
-#         }
-#         app_list.append(prNodes)
-# 
-#         ix = 0 
-#         for option in prototypes:
-# 
-#             appName, modName = option.code.split('.')[:2]
-#             if not getOptionPermissions(currentUser, appName, modName.lower() , 'menu'):
-#                 continue 
-# 
-#             prBase = getNodeBaseViews(prNodes, option)
-#             if prBase is None: continue  
-#             prBase['children'].append({
-#                 'text':  option.code,
-#                 'expanded': True ,
-#                 'viewCode': option.code,
-#                 'iconCls': 'icon-1',
-#                 'index':  ix,
-#                 'leaf': True 
-#                  })
-# 
-#             ix += 1 
+        prototypes = Prototype.objects.filter(smOwningTeam=userProfile.userTeam)
+        prNodes = {  
+            'text': 'ProtoOptions' ,
+            'expanded': True ,
+            'index': 1000 ,
+            'children': [],
+            'leaf': False 
+        }
+        app_list.append(prNodes)
+
+        ix = 0 
+        for option in prototypes:
+
+            prBase = getNodeBaseProto(prNodes, option)
+            prBase['children'].append({
+                'text':  option.code,
+                'expanded': True ,
+                'viewCode': PROTO_PREFIX + option.code,
+                'iconCls': 'icon-proto',
+                'index':  ix,
+                'leaf': True 
+                 })
+
+            ix += 1 
+
+#=====  lee las vistas  -----------------------------------------------
+        prototypes = ViewDefinition.objects.all()
+        prNodes = {  
+            'text': 'ProtoViews' ,
+            'expanded': True ,
+            'index': 2000 ,
+            'children': [],
+            'leaf': False 
+        }
+        app_list.append(prNodes)
+
+        ix = 0 
+        for option in prototypes:
+
+            appName, modName = option.code.split('.')[:2]
+            if not getOptionPermissions(currentUser, appName, modName.lower() , 'menu'):
+                continue 
+
+            prBase = getNodeBaseViews(prNodes, option)
+            if prBase is None: continue  
+            prBase['children'].append({
+                'text':  option.code,
+                'expanded': True ,
+                'viewCode': option.code,
+                'iconCls': 'icon-1',
+                'index':  ix,
+                'leaf': True 
+                 })
+
+            ix += 1 
 
         # Pega el menu sobre la definicion anterior  
         try: 

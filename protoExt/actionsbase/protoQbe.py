@@ -191,6 +191,7 @@ def doGenericFuntion(sQBE):
     de la ejecucion del wKflow
     
     """
+    # Fix:
     # from protoExt.utils.utilsBase import explode
 
     # # obtiene los parametros
@@ -212,4 +213,3 @@ def doGenericFuntion(sQBE):
     # exec(fBase.functionBody, myVars)
     # return myVars [ 'ret' ]
     pass 
-# Fix:

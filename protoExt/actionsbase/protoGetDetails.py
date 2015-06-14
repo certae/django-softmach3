@@ -9,7 +9,7 @@ from protoExt.utils.utilsBase import getReadableError
 
 import json
 
-# PROTO_PREFIX = "prototype.ProtoTable."
+PROTO_PREFIX = "prototype.ProtoTable."
 
 def protoGetDetailsTree(request):
     """ return full field tree 
@@ -34,17 +34,16 @@ def protoGetDetailsTree(request):
     detailList = []
 
     if viewCode.startswith( PROTO_PREFIX )  and viewCode != viewEntity :
-        pass 
         # # Fix: -------------------------------------------------------------------------  Prototipos 
-        # protoEntityId = request.POST.get( 'protoEntityId' )
-        # if not protoEntityId >= 0:
-        #     return JsonError('invalid idEntity')
+        protoEntityId = request.POST.get( 'protoEntityId' )
+        if not protoEntityId >= 0:
+            return JsonError('invalid idEntity')
 
-        # try:  
-        #     from prototype.actions.viewDefinition import GetDetailsConfigTree
-        #     detailList = GetDetailsConfigTree(  protoEntityId )
-        # except: 
-        #     return JsonError( 'invalid idEntity')
+        try:  
+            from prototype.actions.viewDefinition import GetDetailsConfigTree
+            detailList = GetDetailsConfigTree(  protoEntityId )
+        except: 
+            return JsonError( 'invalid idEntity')
 
     else: 
         modelDetails = getModelDetails( model )
