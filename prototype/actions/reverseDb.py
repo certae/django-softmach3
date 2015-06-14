@@ -11,7 +11,7 @@
 import keyword, re, traceback
 from prototype.models import Model, Entity, Property, Relationship
 from protoLib.getmodels import getUserProfile
-from protoLib.utilsDb import setDefaults2Obj
+from protoExt.utils.utilsDb import setDefaults2Obj
 from django.template.defaultfilters import slugify
 
 from django.db import connections, transaction, IntegrityError, DatabaseError
@@ -120,7 +120,7 @@ def readSchemaDef(dProject):
                 pProperty['code'] = att_name
                 pProperty['notes'] += 'field renamed because it was a reserved word;'
 
-            if  unicode(column_name) != unicode(att_name) :
+            if  str(column_name) != str(att_name) :
                 pProperty['dbName'] = column_name
 
             # Don't output 'id = meta.AutoField(isPrimary=True)', because

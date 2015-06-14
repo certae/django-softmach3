@@ -3,9 +3,11 @@
 import traceback
 
 from django.template.defaultfilters import slugify
-from protoLib.utils.downloadFile import getFullPath 
+from django.conf import settings
 
-from viewDefinition import getViewDefinition, getViewCode, getEntities
+from protoExt.utils.downloadFile import getFullPath 
+
+from .viewDefinition import getViewDefinition, getViewCode, getEntities
 
 
 
@@ -96,7 +98,7 @@ def doDiagram(modeladmin, request, queryset, parameters):
 
     try:
 
-        from graphModel import GraphModel 
+        from .graphModel import GraphModel 
         gModel = GraphModel()
     
         gModel.getDiagramDefinition( queryset  )
@@ -224,7 +226,7 @@ def doImportOMS( modeladmin, request, queryset, parameters):
     funcion para importar modelos realizados en OMS ( Open Model Spher )  
     """
 
-    from softmachine.settings import MEDIA_ROOT
+    MEDIA_ROOT = settings.MEDIA_ROOT
 
 #   El QSet viene con la lista de Ids  
     if queryset.count() != 1:
@@ -238,7 +240,7 @@ def doImportOMS( modeladmin, request, queryset, parameters):
         import os 
         fileName = os.path.join(MEDIA_ROOT, 'OMS.exp' ) 
     
-        import importOMS 
+        from . import importOMS 
         cOMS = importOMS.importOMS( userProfile )
     
         cOMS.loadFile( fileName  )

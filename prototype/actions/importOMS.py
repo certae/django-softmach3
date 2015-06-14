@@ -8,8 +8,7 @@ import logging
 
 # Import Database class
 from prototype.models import  Model, Entity, Property, Relationship     
-from protoLib.utilsConvert import toBoolean
-from protoLib.protoActionEdit import setSecurityInfo 
+from protoExt.utils.utilsConvert import toBoolean
 
 
 class importOMS():
@@ -107,7 +106,6 @@ class importOMS():
                             modelUdps.append((xUdp.tag, xUdp.get('text')))
 
                 try:
-                    setSecurityInfo(dModel, data, self.userProfile, True )
                     dModel.save()
                 except:  
                     self.__logger.info("Error dModel.save")
@@ -129,7 +127,6 @@ class importOMS():
                             setattr(dEntity, 'dbName' , child.text)
                         
                     try:              
-                        setSecurityInfo(dEntity, data, self.userProfile, True )
                         dEntity.save()
                     except: 
                         self.__logger.info("Error dEntity.save")
@@ -157,7 +154,6 @@ class importOMS():
 
 
                         try: 
-                            setSecurityInfo(dProperty, data, self.userProfile, True )
                             dProperty.save()
                         except: 
                             self.__logger.info("Error prpDom.save")
@@ -187,9 +183,8 @@ class importOMS():
                                 setattr(dForeign, child.tag, bValue)
 
                         try:
-                            setSecurityInfo(dForeign, data, self.userProfile, True )
                             dForeign.save()
-                        except Exception, e: 
+                        except Exception as e: 
                             self.__logger.info("Error dForeign.save" + str(e))
                             return
 
@@ -218,7 +213,7 @@ class importOMS():
 
             try: 
                 dForeign.save()
-            except Exception, e: 
+            except Exception as e: 
                 self.__logger.info("Error dForeign.save" + str(e))
                 continue 
                 

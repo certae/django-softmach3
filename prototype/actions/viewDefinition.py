@@ -3,12 +3,11 @@
 #import django.utils.simplejson as json #DeprecationWarning: django.utils.simplejson is deprecated; use json instead
 import json
 
-from pttActionTools import getViewCode
-from viewTemplate import baseDefinition
+from .pttActionTools import getViewCode
+from .viewTemplate import baseDefinition
 from prototype.models import Entity,  Prototype
 
-from protoLib.protoActionEdit import setSecurityInfo 
-from protoLib.utilsBase import JSONEncoder, slugify
+from protoExt.utils.utilsBase import JSONEncoder, slugify
 from protoLib.getmodels import getUserProfile
 
 
@@ -272,7 +271,6 @@ def createView( pEntity, viewTitle, userProfile ):
     rec.metaDefinition = json.dumps( infoEntity, cls=JSONEncoder ) 
     rec.description = infoEntity['description'] 
     
-    setSecurityInfo( rec, {}, userProfile, True    )
     rec.save()
 
 

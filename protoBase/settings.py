@@ -110,3 +110,8 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+
+# SoftMach Settings ==========================================
+
+PROTO_PREFIX = "prototype.ProtoTable."

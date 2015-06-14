@@ -7,8 +7,8 @@
 
 # Import Database class
 from prototype.models import  Entity, Property, Relationship, Prototype 
-from protoLib.utilsBase import reduceDict
-from protoLib.protoActionEdit import setSecurityInfo 
+from protoExt.utils.utilsBase import reduceDict
+from protoExt.actionsbase.protoActionEdit import setSecurityInfo 
 from protoLib.getmodels import getUserProfile
 
 #  Export 2 Json 

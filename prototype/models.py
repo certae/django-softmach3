@@ -1,14 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
-140325:  Before merge 
-	Drop PropertyEquivalence 
-	Drop PropertyModel 
-	Drop Diagram
-	Drop DiagramEntity 
-
-	Do syncDb
+TODO: Agregar tags 
 """
 
 from django.db import models
@@ -21,8 +14,9 @@ from .protoRules import  ONDELETE_TYPES, BASE_TYPES, CRUD_TYPES, DB_ENGINE
 
 
 from django.template.defaultfilters import slugify
+from django.conf import settings
 
-PROTO_PREFIX = "prototype.ProtoTable."
+PROTO_PREFIX = settings.PROTO_PREFIX
 
 """
     la generacion de las VISTAS se hace como una creacion de una pcl,
@@ -340,10 +334,9 @@ class PropertyEquivalence(ProtoModelExt):
     class Meta:
         unique_together = ('sourceProperty', 'targetProperty', 'smOwningTeam')
 
-    def delete(self, *args, **kwargs):
+#     def delete(self, *args, **kwargs):
 #       twoWayPropEquivalence( self, PropertyEquivalence, True )
-        super(PropertyEquivalence, self).delete(*args, **kwargs)
-
+#       super(PropertyEquivalence, self).delete(*args, **kwargs)
 
     protoExt = { 
 #       "menuApp" : "dictionary", 
