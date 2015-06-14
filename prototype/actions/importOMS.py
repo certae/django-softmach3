@@ -83,8 +83,6 @@ class importOMS():
         
         fdsRelationship = ('code', 'baseMin', 'baseMax', 'refMin', 'refMax',)
 
-        # need for setSecurityInfo 
-        data = {}
 
         # We populate the database
         if (self.__tree != None):  # A file has been loaded

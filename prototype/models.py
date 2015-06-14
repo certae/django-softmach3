@@ -7,8 +7,8 @@ TODO: Agregar tags
 from django.db import models
 # from django.db.models.signals import post_save, post_delete 
 
-from protoLib.models import ProtoModelExt   
-from jsonfield2 import JSONField, JSONAwareManager
+from protoLib.models import ProtoModelBase, ProtoModelExt, ProtoJSONManager 
+from jsonfield2 import JSONField
 
 from .protoRules import  ONDELETE_TYPES, BASE_TYPES, CRUD_TYPES, DB_ENGINE
 
@@ -205,17 +205,12 @@ class Property(ProtoModelExt):
     prpLength = models.IntegerField(blank=True, null=True)
     prpScale = models.IntegerField(blank=True, null=True)
 
-    """vType : validation type ( formatos predefinidos email, .... ) """
-    vType = models.CharField(blank=True, null=True, max_length=50, choices=BASE_TYPES, default='string')
 
     """prpDefault: Puede variar en cada instancia """ 
     prpDefault = models.CharField(blank=True, null=True, max_length=50)
     
     """prpChoices:  Lista de valores CSV ( idioma?? ) """ 
     prpChoices = models.TextField(blank=True, null=True)
-
-    """isSensitive: Should increase security level """  
-    isSensitive = models.BooleanField(default=False)
 
     description = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
@@ -233,10 +228,6 @@ class Property(ProtoModelExt):
 
     """isReadOnly: ReadOnly field ( frontEnd"""
     isReadOnly = models.BooleanField(default=False)
-
-
-    """isEssential: Indica si las propiedades saldran en la vista por defecto """ 
-    isEssential = models.BooleanField(default=False)
 
     """isForeign: indica si la propiedad ha sido definida en  Relationship"""
     isForeign = models.BooleanField( editable=False, default=False)
@@ -364,7 +355,7 @@ class PropertyEquivalence(ProtoModelExt):
 
 
 
-class Prototype(ProtoModelExt):
+class Prototype(ProtoModelBase):
     """
     Esta tabla manejar la lista de  prototypos almacenados en customDefinicion, 
     Genera la "proto" pci;  con la lista de campos a absorber y los detalles posibles        
@@ -377,7 +368,8 @@ class Prototype(ProtoModelExt):
     description = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
-    metaDefinition = models.TextField(blank=True, null=True)
+    metaDefinition = JSONField(blank=True, null=True)
+    objects = ProtoJSONManager(json_fields=['metaDefinition'])
 
     def __str__(self):
         return slugify(self.code)  
@@ -392,13 +384,14 @@ class Prototype(ProtoModelExt):
         unique_together = ('code', 'smOwningTeam')
 
 
-class ProtoTable(ProtoModelExt):
+class ProtoTable(ProtoModelBase):
     """
     Esta es el store de los prototipos   
     """
     
     entity = models.ForeignKey(Entity, blank=False, null=False)
     info = JSONField(default={})
+    objects = ProtoJSONManager(json_fields=['info'])
 
     def __str__(self):
         return self.entity.code + ':' + self.info.__str__()  
@@ -413,7 +406,6 @@ class ProtoTable(ProtoModelExt):
                 pass 
         return  val[1:] 
 
-    objects = JSONAwareManager(json_fields=['info'])
     protoExt = { 'jsonField' : 'info' }
    
     protoExt = { 
@@ -458,8 +450,8 @@ class Diagram(ProtoModelExt):
 
 
     """Information graphique  ( labels, etc... ) """
-    info = JSONField(default={})
-    objects = JSONAwareManager(json_fields=['info'])
+    graphInfo = JSONField(default={})
+    objects = ProtoJSONManager(json_fields=['sminfo', 'graphInfo'])
 
     # Propieadad para ordenar el __str__ 
     unicode_sort = ('project', 'code',)
@@ -495,7 +487,7 @@ class DiagramEntity(ProtoModelExt):
 
     """Information graphique ( position, color, ... )  """
     info = JSONField(default={})
-    objects = JSONAwareManager(json_fields=['info'])
+    objects = ProtoJSONManager(json_fields=['info'])
 
     # Propieadad para ordenar el __str__ 
     unicode_sort = ('diagram', 'entity',)

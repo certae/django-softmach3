@@ -158,8 +158,6 @@ def _protoEdit(request, myAction):
                 except Exception as e:
                     data['_ptStatus'] = data['_ptStatus'] + getReadableError(e)
 
-            if isProtoModel:
-                setSecurityInfo(rec, data, userProfile, (myAction == ACT_INS))
 
 
             if len(jsonField) > 0:
@@ -220,28 +218,7 @@ def _protoEdit(request, myAction):
     return HttpResponse(json.dumps(context, cls=JSONEncoder), content_type="application/json")
 
 
-def setSecurityInfo(rec, data, userProfile, insAction):
-    """
-    rec      : record that the security info is added
-    data     : buffer object {} that can be used to return the saved info
-    insAction: True if insert,  False if update
-    """
-    setProtoData(rec, data, 'smModifiedBy', userProfile.user)
-
-
-    if insAction:
-        setProtoData(rec, data, 'smOwningUser', userProfile.user)
-        setProtoData(rec, data, 'smOwningTeam', userProfile.userTeam)
-        setProtoData(rec, data, 'smCreatedBy', userProfile.user)
-        setProtoData(rec, data, 'smRegStatus', '0')
-
-
 # ---------------------
-
-def setProtoData(rec, data, key, value):
-    setattr(rec, key, value)
-    if not isinstance(value, models.Model):
-        data[ key ] = value
 
 
 def setRegister(model, rec, key, data):

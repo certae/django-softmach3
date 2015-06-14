@@ -8,7 +8,6 @@
 # Import Database class
 from prototype.models import  Entity, Property, Relationship, Prototype 
 from protoExt.utils.utilsBase import reduceDict
-from protoExt.actionsbase.protoActionEdit import setSecurityInfo 
 from protoLib.getmodels import getUserProfile
 
 #  Export 2 Json 
@@ -38,7 +37,6 @@ def importProto4Json(request, pModel):
  
         pEntity = Entity.objects.get_or_create( model = pModel, code = defAux['code'], defaults= defAux )[0]
         pModel.entity_set.add( pEntity )
-        setSecurityLocal ( pEntity, userProfile )
 
 
 #       property      ==============================
@@ -47,14 +45,12 @@ def importProto4Json(request, pModel):
 
             pProp = Property.objects.get_or_create( entity = pEntity, code = jAux['code'], defaults= jAux )[0]
             pEntity.property_set.add( pProp )
-            setSecurityLocal ( pProp, userProfile )
 
 #       Prototype      ==============================
         for jAux in jEntity.get( 'prototype_set' ): 
             jAux['metaDefinition']  = json.dumps( jAux['metaDefinition'] )
             pProp = Prototype.objects.get_or_create( entity = pEntity, code = jAux['code'], defaults= jAux )[0]
             pEntity.prototype_set.add( pProp )
-            setSecurityLocal ( pProp, userProfile )
 
 
 #   entity      ==============================
@@ -67,20 +63,7 @@ def importProto4Json(request, pModel):
         del jAux['refEntity']
 
         Relationship.objects.get_or_create( entity = pEntity, refEntity = pRefEntity, defaults = jAux )[0]
-        setSecurityLocal ( Relationship, userProfile )
 
 
     return 'Ok'
-
-
-def setSecurityLocal( dModel, userProfile ):
-
-    # need for setSecurityInfo 
-    data = {}
-
-    try:
-        setSecurityInfo(dModel, data, userProfile, True )
-        dModel.save()
-    except:  
-        return
 

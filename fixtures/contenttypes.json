@@ -1,202 +1,202 @@
 [
 {
   "pk": 1,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "logentry",
-    "app_label": "admin"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "admin",
+    "model": "logentry"
+  }
 },
 {
   "pk": 2,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "permission",
-    "app_label": "auth"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "auth",
+    "model": "permission"
+  }
 },
 {
   "pk": 3,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "group",
-    "app_label": "auth"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "auth",
+    "model": "group"
+  }
 },
 {
   "pk": 4,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "user",
-    "app_label": "auth"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "auth",
+    "model": "user"
+  }
 },
 {
   "pk": 5,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "contenttype",
-    "app_label": "contenttypes"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
 },
 {
   "pk": 6,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "session",
-    "app_label": "sessions"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "sessions",
+    "model": "session"
+  }
 },
 {
   "pk": 7,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "teamhierarchy",
-    "app_label": "protoLib"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "protoLib",
+    "model": "teamhierarchy"
+  }
 },
 {
   "pk": 8,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "userprofile",
-    "app_label": "protoLib"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "protoLib",
+    "model": "userprofile"
+  }
 },
 {
   "pk": 9,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "entitymap",
-    "app_label": "protoLib"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "protoLib",
+    "model": "entitymap"
+  }
 },
 {
   "pk": 12,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "tag",
-    "app_label": "taggit"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "taggit",
+    "model": "tag"
+  }
 },
 {
   "pk": 13,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "taggeditem",
-    "app_label": "taggit"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "taggit",
+    "model": "taggeditem"
+  }
 },
 {
   "pk": 14,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "revision",
-    "app_label": "reversion"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "reversion",
+    "model": "revision"
+  }
 },
 {
   "pk": 15,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "version",
-    "app_label": "reversion"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "reversion",
+    "model": "version"
+  }
 },
 {
   "pk": 16,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "viewdefinition",
-    "app_label": "protoExt"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "protoExt",
+    "model": "viewdefinition"
+  }
 },
 {
   "pk": 17,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "customdefinition",
-    "app_label": "protoExt"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "protoExt",
+    "model": "customdefinition"
+  }
 },
 {
   "pk": 18,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "project",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "project"
+  }
 },
 {
   "pk": 19,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "model",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "model"
+  }
 },
 {
   "pk": 20,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "entity",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "entity"
+  }
 },
 {
   "pk": 21,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "property",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "property"
+  }
 },
 {
   "pk": 22,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "relationship",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "relationship"
+  }
 },
 {
   "pk": 23,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "propertyequivalence",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "propertyequivalence"
+  }
 },
 {
   "pk": 24,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "prototype",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "prototype"
+  }
 },
 {
   "pk": 25,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "prototable",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "prototable"
+  }
 },
 {
   "pk": 26,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "diagram",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "diagram"
+  }
 },
 {
   "pk": 27,
+  "model": "contenttypes.contenttype",
   "fields": {
-    "model": "diagramentity",
-    "app_label": "prototype"
-  },
-  "model": "contenttypes.contenttype"
+    "app_label": "prototype",
+    "model": "diagramentity"
+  }
 }
 ]

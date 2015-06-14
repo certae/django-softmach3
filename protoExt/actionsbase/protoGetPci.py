@@ -14,7 +14,6 @@ from protoLib.getmodels import getDjangoModel, getUserProfile, getModelPermissio
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
 
-from .protoActionEdit import setSecurityInfo
 from .protoQbe import getSearcheableFields
 
 
@@ -388,9 +387,6 @@ def protoSaveProtoObj(request):
         except:
             pass
 
-    if custom or prototype: 
-        setSecurityInfo(protoDef, {}, userProfile, create)
-        
 
     protoDef.metaDefinition = sMeta 
     protoDef.save()    

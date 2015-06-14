@@ -4,6 +4,7 @@ from .usermodel import User, AUTH_USER_MODEL
 
 from .smbase import TeamHierarchy, UserProfile, EntityMap
 from .protomodel import ProtoModelBase, ProtoModelExt
+from .protomanager import ProtoJSONManager
 
 # ---------  SIGNALS 
 

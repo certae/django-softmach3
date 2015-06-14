@@ -2,7 +2,6 @@
 
 
 # Importa el sitio con las collecciones admin ya definidas
-from django.db import models
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils import six
@@ -10,13 +9,18 @@ from django.utils import six
 import json
 
 from protoExt.models import CustomDefinition, ViewDefinition
-from .protoActionEdit import setSecurityInfo
-from protoLib.getmodels import getUserProfile, getModelPermission
+from protoLib.getmodels import getUserProfile, getModelPermission, getDjangoModel
 from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import verifyList
 
-# from prototype.models import Prototype 
-# PROTO_PREFIX = "prototype.ProtoTable."
+PROTO_PREFIX = settings.PROTO_PREFIX
+
+try:
+    from django.apps import apps
+    get_models = apps.get_models
+except ImportError:
+    from django.db.models.loading import get_models  
+
 
 class cAux: 
     pass 
@@ -24,6 +28,80 @@ class cAux:
 
 # Ix tree 
 ix = 0 
+
+
+
+
+def getAutoMenuProto( app_list, userProfile ):
+    """
+    lee las opciones de base de prototipos
+    """
+
+    try: 
+        from prototype.models import Prototype
+    except:
+        return  
+
+    prototypes = Prototype.objects.filter(smOwningTeam=userProfile.userTeam)
+    prNodes = {  
+        'text': 'ProtoOptions' ,
+        'expanded': True ,
+        'index': 1000 ,
+        'children': [],
+        'leaf': False 
+    }
+    app_list.append(prNodes)
+
+    ix = 0 
+    for option in prototypes:
+
+        prBase = getNodeBaseProto(prNodes, option)
+        prBase['children'].append({
+            'text':  option.code,
+            'expanded': True ,
+            'viewCode': PROTO_PREFIX + option.code,
+            'iconCls': 'icon-proto',
+            'index':  ix,
+            'leaf': True 
+             })
+
+        ix += 1 
+    
+
+def getAutoMenuViews(app_list, currentUser ):
+    """
+    Carga las vistas definidas 
+    """
+
+    prototypes = ViewDefinition.objects.all()
+    prNodes = {  
+        'text': 'ProtoViews' ,
+        'expanded': True ,
+        'index': 2000 ,
+        'children': [],
+        'leaf': False 
+    }
+    app_list.append(prNodes)
+
+    ix = 0 
+    for option in prototypes:
+
+        model = getDjangoModel( option.code ) 
+        if not getModelPermission(currentUser, model , 'menu'):
+            continue 
+
+        prBase = getNodeBaseViews(prNodes, option)
+        if prBase is None: continue  
+        prBase['children'].append({
+            'text':  option.code,
+            'expanded': True ,
+            'viewCode': option.code,
+            'iconCls': 'icon-1',
+            'index':  ix,
+            'leaf': True 
+             })
+
+        ix += 1 
 
 def protoGetMenuData(request):
     """
@@ -104,31 +182,10 @@ def protoGetMenuData(request):
             appAux.ixApp += 1
              
         appAux.ixMod += 1 
-    
-
-#-- Lectura de la Db ------------------------------------------------------------- 
-
-    try:
-        from django.apps import apps
-        get_model = apps.get_model
-        get_models = apps.get_models
-    except ImportError:
-        from django.db.models.loading import get_model, get_models  
 
 
-    forceDefault = request.POST.get('forceDefault', '') 
+    def getAutoMenu():    
 
-    viewCode = '__menu'
-    protoDef = CustomDefinition.objects.get_or_create(
-           code=viewCode, smOwningTeam=userProfile.userTeam,
-           defaults={'active': False, 'code' : viewCode, 'smOwningTeam' : userProfile.userTeam }
-           )[0]
-
-    # El default solo parece funcionar al insertar en la Db
-    if protoDef.active and (forceDefault == '0') :  
-        context = protoDef.metaDefinition 
-
-    else:
 
         for model in get_models(include_auto_created=True):
         # for model, model_admin in site._registry.items():
@@ -141,73 +198,20 @@ def protoGetMenuData(request):
         app_list = list(six.itervalues(app_dict))
         app_list.sort(key=lambda x: x['index'])
 
-    
         # Sort the models alphabetically within each app.
         for app in app_list:
             app['children'].sort(key=lambda x: x['index'])
 
 
-#=====  lee las opciones del prototipo -----------------------------------------------
-        prototypes = Prototype.objects.filter(smOwningTeam=userProfile.userTeam)
-        prNodes = {  
-            'text': 'ProtoOptions' ,
-            'expanded': True ,
-            'index': 1000 ,
-            'children': [],
-            'leaf': False 
-        }
-        app_list.append(prNodes)
+#=====  Carga las diferentes opciones posibles en el menu 
+        getAutoMenuProto( app_list, userProfile)
+        getAutoMenuViews( app_list, currentUser)
 
-        ix = 0 
-        for option in prototypes:
-
-            prBase = getNodeBaseProto(prNodes, option)
-            prBase['children'].append({
-                'text':  option.code,
-                'expanded': True ,
-                'viewCode': PROTO_PREFIX + option.code,
-                'iconCls': 'icon-proto',
-                'index':  ix,
-                'leaf': True 
-                 })
-
-            ix += 1 
-
-#=====  lee las vistas  -----------------------------------------------
-        prototypes = ViewDefinition.objects.all()
-        prNodes = {  
-            'text': 'ProtoViews' ,
-            'expanded': True ,
-            'index': 2000 ,
-            'children': [],
-            'leaf': False 
-        }
-        app_list.append(prNodes)
-
-        ix = 0 
-        for option in prototypes:
-
-            appName, modName = option.code.split('.')[:2]
-            if not getOptionPermissions(currentUser, appName, modName.lower() , 'menu'):
-                continue 
-
-            prBase = getNodeBaseViews(prNodes, option)
-            if prBase is None: continue  
-            prBase['children'].append({
-                'text':  option.code,
-                'expanded': True ,
-                'viewCode': option.code,
-                'iconCls': 'icon-1',
-                'index':  ix,
-                'leaf': True 
-                 })
-
-            ix += 1 
 
         # Pega el menu sobre la definicion anterior  
         try: 
             menuAux = []
-            menuTmp = verifyList(json.loads(protoDef.metaDefinition))
+            menuTmp = verifyList(protoDef.metaDefinition)
             for menuOp in menuTmp:
                 if menuOp.get( 'text', '') != 'AutoMenu':
                     menuAux.append (menuOp) 
@@ -223,18 +227,41 @@ def protoGetMenuData(request):
         except: 
             menuAux = app_list 
 
-        context = json.dumps(menuAux) 
 
         # Lo guarda  ( created : true  --> new
-        protoDef.metaDefinition = context  
+        protoDef.metaDefinition = menuAux  
         protoDef.active = True  
         protoDef.description = 'Menu' 
-
-        setSecurityInfo(protoDef, {}, userProfile, True)
-
         protoDef.save()
-    
 
+        return menuAux 
+
+
+
+#--------------------------------------------------------------------------------- 
+#-- Lectura de la Db ------------------------------------------------------------- 
+#-- Lectura de la Db ------------------------------------------------------------- 
+#--------------------------------------------------------------------------------- 
+#--------------------------------------------------------------------------------- 
+
+
+
+    # Indica si debe recargar el menu 
+    forceDefault = request.POST.get('forceDefault', '') 
+
+    viewCode = '__menu'
+    protoDef = CustomDefinition.objects.get_or_create(
+           code=viewCode, smOwningTeam=userProfile.userTeam,
+           defaults={'active': False, 'code' : viewCode, 'smOwningTeam' : userProfile.userTeam }
+           )[0]
+
+    # El default solo parece funcionar al insertar en la Db
+    if protoDef.active and (forceDefault == '0') :  
+        menuAux = protoDef.metaDefinition  
+    else:
+        menuAux = getAutoMenu()
+
+    context = json.dumps( menuAux ) 
     return HttpResponse(context, content_type="application/json")
 
 
@@ -281,3 +308,5 @@ def getMenuNode(prNodes, optText):
     prNodes['children'].append(prNBase)
     
     return prNBase  
+
+
