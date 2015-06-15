@@ -1,107 +1,29 @@
 # -*- coding: utf-8 -*-
 
 
-# Importa el sitio con las collecciones admin ya definidas
+
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils import six
+from django.apps.apps import get_models
 
 import json
 
 from protoExt.models import CustomDefinition, ViewDefinition
-from protoLib.getmodels import getUserProfile, getModelPermission, getDjangoModel
+from protoLib.getStuff import getUserProfile, getModelPermission, getDjangoModel, isInstalledApp 
 from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import verifyList
 
 PROTO_PREFIX = settings.PROTO_PREFIX
 
-try:
-    from django.apps import apps
-    get_models = apps.get_models
-except ImportError:
-    from django.db.models.loading import get_models  
 
 
 class cAux: 
     pass 
 
-
 # Ix tree 
 ix = 0 
 
-
-
-
-def getAutoMenuProto( app_list, userProfile ):
-    """
-    lee las opciones de base de prototipos
-    """
-
-    try: 
-        from prototype.models import Prototype
-    except:
-        return  
-
-    prototypes = Prototype.objects.filter(smOwningTeam=userProfile.userTeam)
-    prNodes = {  
-        'text': 'ProtoOptions' ,
-        'expanded': True ,
-        'index': 1000 ,
-        'children': [],
-        'leaf': False 
-    }
-    app_list.append(prNodes)
-
-    ix = 0 
-    for option in prototypes:
-
-        prBase = getNodeBaseProto(prNodes, option)
-        prBase['children'].append({
-            'text':  option.code,
-            'expanded': True ,
-            'viewCode': PROTO_PREFIX + option.code,
-            'iconCls': 'icon-proto',
-            'index':  ix,
-            'leaf': True 
-             })
-
-        ix += 1 
-    
-
-def getAutoMenuViews(app_list, currentUser ):
-    """
-    Carga las vistas definidas 
-    """
-
-    prototypes = ViewDefinition.objects.all()
-    prNodes = {  
-        'text': 'ProtoViews' ,
-        'expanded': True ,
-        'index': 2000 ,
-        'children': [],
-        'leaf': False 
-    }
-    app_list.append(prNodes)
-
-    ix = 0 
-    for option in prototypes:
-
-        model = getDjangoModel( option.code ) 
-        if not getModelPermission(currentUser, model , 'menu'):
-            continue 
-
-        prBase = getNodeBaseViews(prNodes, option)
-        if prBase is None: continue  
-        prBase['children'].append({
-            'text':  option.code,
-            'expanded': True ,
-            'viewCode': option.code,
-            'iconCls': 'icon-1',
-            'index':  ix,
-            'leaf': True 
-             })
-
-        ix += 1 
 
 def protoGetMenuData(request):
     """
@@ -203,9 +125,12 @@ def protoGetMenuData(request):
             app['children'].sort(key=lambda x: x['index'])
 
 
-#=====  Carga las diferentes opciones posibles en el menu 
-        getAutoMenuProto( app_list, userProfile)
+        #=====  Carga las diferentes opciones posibles en el menu
+        
         getAutoMenuViews( app_list, currentUser)
+
+        if isInstalledApp( 'prototype' ):  
+            getAutoMenuProto( app_list, userProfile)
 
 
         # Pega el menu sobre la definicion anterior  
@@ -310,3 +235,74 @@ def getMenuNode(prNodes, optText):
     return prNBase  
 
 
+
+def getAutoMenuProto( app_list, userProfile ):
+    """
+    lee las opciones de base de prototipos
+    """
+
+    try: 
+        from prototype.models import Prototype
+    except:
+        return  
+
+    prototypes = Prototype.objects.filter(smOwningTeam=userProfile.userTeam)
+    prNodes = {  
+        'text': 'ProtoOptions' ,
+        'expanded': True ,
+        'index': 1000 ,
+        'children': [],
+        'leaf': False 
+    }
+    app_list.append(prNodes)
+
+    ix = 0 
+    for option in prototypes:
+
+        prBase = getNodeBaseProto(prNodes, option)
+        prBase['children'].append({
+            'text':  option.code,
+            'expanded': True ,
+            'viewCode': PROTO_PREFIX + option.code,
+            'iconCls': 'icon-proto',
+            'index':  ix,
+            'leaf': True 
+             })
+
+        ix += 1 
+    
+
+def getAutoMenuViews(app_list, currentUser ):
+    """
+    Carga las vistas definidas 
+    """
+
+    prototypes = ViewDefinition.objects.all()
+    prNodes = {  
+        'text': 'ProtoViews' ,
+        'expanded': True ,
+        'index': 2000 ,
+        'children': [],
+        'leaf': False 
+    }
+    app_list.append(prNodes)
+
+    ix = 0 
+    for option in prototypes:
+
+        model = getDjangoModel( option.code ) 
+        if not getModelPermission(currentUser, model , 'menu'):
+            continue 
+
+        prBase = getNodeBaseViews(prNodes, option)
+        if prBase is None: continue  
+        prBase['children'].append({
+            'text':  option.code,
+            'expanded': True ,
+            'viewCode': option.code,
+            'iconCls': 'icon-1',
+            'index':  ix,
+            'leaf': True 
+             })
+
+        ix += 1 

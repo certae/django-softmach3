@@ -232,7 +232,7 @@ def doImportOMS( modeladmin, request, queryset, parameters):
     if queryset.count() != 1:
         return  {'success':False, 'message' : 'No record selected' }
 
-    from protoLib.getmodels import getUserProfile
+    from protoLib.getStuff import getUserProfile
     userProfile = getUserProfile( request.user)
     
     try: 

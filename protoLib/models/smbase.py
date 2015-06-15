@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
 from protoLib.models.usermodel import AUTH_USER_MODEL
-from protoLib.getmodels import getNodeHierarchy 
+from protoLib.getStuff import getNodeHierarchy 
 
 from jsonfield2 import JSONField, JSONAwareManager
 

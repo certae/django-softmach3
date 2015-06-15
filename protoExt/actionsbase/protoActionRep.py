@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.utils.encoding import smart_str
 # , smart_unicode
 
-from protoLib.getmodels import getDjangoModel
+from protoLib.getStuff import getDjangoModel
 from protoExt.models import ViewDefinition
 from .protoActionList  import Q2Dict, getQSet
 from .protoGrid import  getBaseModelName

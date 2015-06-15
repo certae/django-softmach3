@@ -9,7 +9,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.conf import settings
 from django.template import loader
 
-from protoLib.getmodels import getUserProfile, getUserLanguage
+from protoLib.getStuff import getUserProfile, getUserLanguage
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
 
 

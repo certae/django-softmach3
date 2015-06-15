@@ -101,3 +101,9 @@ def  getUserLanguage( usrLanguage ):
 
     return myModule.__language
 
+
+def isInstalledApp( app ):
+    
+    from django.conf import settings 
+    return (app in settings.INSTALLED_APPS)  
+

@@ -9,7 +9,7 @@ from django.db import models
 from django.utils.encoding import smart_str
 
 from protoExt.models import ViewDefinition
-from protoLib.getmodels import getDjangoModel
+from protoLib.getStuff import getDjangoModel
 
 from .protoActionList import Q2Dict
 
@@ -17,7 +17,7 @@ from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, t
 from protoExt.utils.utilsBase import JSONEncoder, getReadableError, list2dict
 from protoExt.utils.utilsWeb import doReturn
 
-from protoLib.getmodels import getUserProfile, getModelPermission, getUserNodes
+from protoLib.getStuff import getUserProfile, getModelPermission, getUserNodes
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'

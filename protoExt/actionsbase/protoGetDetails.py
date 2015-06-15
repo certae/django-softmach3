@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.http import HttpResponse
-from protoLib.getmodels import getDjangoModel 
+from protoLib.getStuff import getDjangoModel 
 from .protoGrid import  getBaseModelName, getModelDetails
 
 from protoExt.utils.utilsWeb import JsonError

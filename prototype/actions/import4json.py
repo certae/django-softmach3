@@ -8,7 +8,7 @@
 # Import Database class
 from prototype.models import  Entity, Property, Relationship, Prototype 
 from protoExt.utils.utilsBase import reduceDict
-from protoLib.getmodels import getUserProfile
+from protoLib.getStuff import getUserProfile
 
 #  Export 2 Json 
 import json

@@ -6,7 +6,7 @@ from .protoGrid import getBaseModelName
 
 # from .models import  WflowUserReponse
 
-from protoLib.getmodels import getDjangoModel
+from protoLib.getStuff import getDjangoModel
 
 
 import json
@@ -15,7 +15,7 @@ from datetime import datetime
 from time import strftime
 from protoExt.utils.utilsWeb import doReturn
 
-from protoLib.getmodels import getUserProfile
+from protoLib.getStuff import getUserProfile
 
 
 def protoExecuteAction(request):

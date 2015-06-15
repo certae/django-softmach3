@@ -10,7 +10,7 @@
 
 import keyword, re, traceback
 from prototype.models import Model, Entity, Property, Relationship
-from protoLib.getmodels import getUserProfile
+from protoLib.getStuff import getUserProfile
 from protoExt.utils.utilsDb import setDefaults2Obj
 from django.template.defaultfilters import slugify
 

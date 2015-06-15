@@ -8,7 +8,7 @@ from .viewTemplate import baseDefinition
 from prototype.models import Entity,  Prototype
 
 from protoExt.utils.utilsBase import JSONEncoder, slugify
-from protoLib.getmodels import getUserProfile
+from protoLib.getStuff import getUserProfile
 
 
 PROTO_PREFIX = "prototype.ProtoTable."

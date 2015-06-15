@@ -1,20 +1,24 @@
 # -*- coding: utf-8 -*-
 
-from django.http import HttpResponse
+"""
+ProtoGetPci 
+"""
 
+from django.http import HttpResponse
 from django.db.models import Max
 
-from .protoGrid import getBaseModelName, setDefaultField , getProtoAdmin
-from .protoGrid import ProtoGridFactory
-from .protoField import setFieldDict, isAdmField 
+from protoLib.getStuff import getDjangoModel, getUserProfile, getModelPermission, getAllModelPermissions
 from protoExt.models import ViewDefinition, CustomDefinition 
 
-from protoLib.getmodels import getDjangoModel, getUserProfile, getModelPermission, getAllModelPermissions
 
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
 
 from .protoQbe import getSearcheableFields
+from .protoGrid import getBaseModelName, setDefaultField , getProtoAdmin
+from .protoGrid import ProtoGridFactory
+from .protoField import setFieldDict, isAdmField 
+
 
 
 try:

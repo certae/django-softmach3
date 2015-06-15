@@ -13,14 +13,14 @@ from protoExt.utils.utilsBase import verifyStr, verifyList, list2dict
 from protoExt.utils.utilsConvert import getTypedValue
 
 from .protoQbe import getSearcheableFields, getQbeStmt
-from protoLib.getmodels import  getModelPermission, getUserNodes
+from protoLib.getStuff import  getModelPermission, getUserNodes
 
 from .protoField import TypeEquivalence
 from protoExt.models import ViewDefinition
 
 from protoExt.utils.utilsWeb import doReturn
 
-from protoLib.getmodels import getDjangoModel
+from protoLib.getStuff import getDjangoModel
 
 import json
 import traceback

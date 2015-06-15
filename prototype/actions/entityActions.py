@@ -3,7 +3,7 @@
 # DGT : Verificar
 
 from prototype.models import Model
-from protoLib.getmodels import getUserProfile
+from protoLib.getStuff import getUserProfile
 
 
 def doEttyChangeModel(request, queryset , parameters):

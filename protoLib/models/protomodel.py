@@ -6,7 +6,7 @@ from .usermodel import AUTH_USER_MODEL
 
 from protoLib.models import TeamHierarchy 
 from protoLib.middleware import CurrentUserMiddleware
-from protoLib.getmodels import getUserTeam
+from protoLib.getStuff import getUserTeam
 
 from .protomanager import ProtoManager, ProtoJSONManager
 
