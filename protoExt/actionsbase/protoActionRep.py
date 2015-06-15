@@ -10,7 +10,7 @@ from django.utils.encoding import smart_str
 from protoLib.getStuff import getDjangoModel
 from protoExt.models import ViewDefinition
 from .protoActionList  import Q2Dict, getQSet
-from .protoGrid import  getBaseModelName
+from protoLib.getStuff import getBaseModelName
 from protoExt.utils.utilsBase import  getReadableError
 from .protoQbe import addFilter
 

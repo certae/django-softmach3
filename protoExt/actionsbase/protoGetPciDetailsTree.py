@@ -2,12 +2,14 @@
 
 from django.http import HttpResponse
 from protoLib.getStuff import getDjangoModel 
-from .protoGrid import  getBaseModelName, getModelDetails
+from protoLib.getStuff import getBaseModelName 
 
 from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import getReadableError
 
 import json
+
+from .protoGrid import  getModelDetails
 
 PROTO_PREFIX = "prototype.ProtoTable."
 

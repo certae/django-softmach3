@@ -2,7 +2,7 @@
 
 from django.contrib.admin.sites import  site
 from django.contrib.auth.models import User
-from .protoGrid import getBaseModelName
+from protoLib.getStuff import getBaseModelName
 
 # from .models import  WflowUserReponse
 

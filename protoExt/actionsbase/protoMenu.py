@@ -5,23 +5,18 @@
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils import six
-from django.apps.apps import get_models
 
 import json
 
 from protoExt.models import CustomDefinition, ViewDefinition
-from protoLib.getStuff import getUserProfile, getModelPermission, getDjangoModel, isInstalledApp 
+from protoLib.getStuff import getUserProfile, getModelPermission, getDjangoModel, isInstalledApp, get_models, cAux
 from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import verifyList
 
 PROTO_PREFIX = settings.PROTO_PREFIX
 
 
-
-class cAux: 
-    pass 
-
-# Ix tree 
+# DGT ????  Ix tree 
 ix = 0 
 
 

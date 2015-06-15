@@ -1,76 +1,35 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.admin.sites import  site
 
-
-from protoExt.utils.utilsBase import verifyList, copyProps, list2dict
+from protoExt.utils.utilsBase import verifyList,  list2dict
 from .protoField import  setFieldDict
-
-
-def getProtoAdmin(model):
-    """ 
-    Carga la protoDefinicion, del modelo y luego del admin,
-    La definicion del admin sirve para definir los EntryPoint, 
-    pero no es necesario, la protoDefinicion se puede guardar directamente 
-    en el modelo 
-    """
-
-    # Siempre existe, la creacion del site la asigna por defecto
-    model_admin = site._registry.get(model)
-
-    # Si no esta registrado genera una definicion en blanco
-    if not model_admin: model_admin = {}
-
-    protoExclude = getattr(model_admin , 'exclude', [])
-    if protoExclude is None: protoExclude = []
-
-    protoModel = getattr(model, 'protoExt', {})
-    protoAdmin = getattr(model_admin, 'protoExt', {})
-
-    protoModel[ 'exclude'] = protoModel.get('exclude', []) + protoExclude
-
-    if not isinstance(protoModel, dict): protoModel = {}
-    if not isinstance(protoAdmin, dict): protoAdmin = {}
-
-    #  PAra garantizar la creacion la meta 
-    protoMeta = {}
-    protoMeta.update( protoModel ) 
-    protoMeta.update( protoAdmin)
-
-    return  model_admin, protoMeta
 
 
 class ProtoGridFactory(object):
     """ Construye la definicion por defecto de la interface 
     """
 
-    def __init__(self, model, viewCode, model_admin, protoMeta):
+    def __init__(self, cBase ):
+        # model, viewCode, model_admin, protoMeta
 
-        self.model = model# the model to use as reference
-        self.title = self.model._meta.verbose_name.title()
-
-        # importa las definiciones del modelo y del admin
-        self.model_admin = model_admin
-        self.protoMeta = protoMeta
-
-        # garantiza la llave
-        self.viewCode = viewCode
+        self.cBase = cBase
+        self.title = cBase.model._meta.verbose_name.title()
 
         # Inicializa
         self.fields = []
         self.fieldsDict = {}
-        self.gridConfig = self.protoMeta.get('gridConfig', {})
+        self.gridConfig = cBase.protoMeta.get('gridConfig', {})
 
         # Los campos deben ser inicialmente un diccionario para poder validarlos
-        protoMeta[ 'fields' ] = protoMeta.get('fields', [])
-        if isinstance(protoMeta[ 'fields' ], list)  :
-            self.fieldsDict = list2dict(protoMeta[ 'fields' ], 'name')
+        cBase.protoMeta[ 'fields' ] = cBase.protoMeta.get('fields', [])
+        if isinstance(cBase.protoMeta[ 'fields' ], list)  :
+            self.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
 
         # lista de campos para la presentacion en la grilla
         pListDisplay = verifyList(self.gridConfig.get('listDisplay', []))
         if not pListDisplay:
-            pListDisplay = verifyList(getattr(self.model_admin , 'list_display', []))
+            pListDisplay = verifyList(getattr(cBase.model_admin , 'list_display', []))
 
             # Por defecto solo vienen  Chk, _str_
             try:
@@ -86,12 +45,12 @@ class ProtoGridFactory(object):
 
         # Se leen los excluidos del admin, no se requiere
         # en la protoDef, pues los campos se enumeran explicitamente
-        protoExclude = verifyList(self.protoMeta.get('exclude', []))
+        protoExclude = verifyList(cBase.protoMeta.get('exclude', []))
 
         # Se leen los readonly fields para setear el attr readOnly = true
         pReadOnlyFlds = verifyList(self.gridConfig.get('readOnlyFields', []))
         if not pReadOnlyFlds:
-            pReadOnlyFlds = verifyList(getattr(self.model_admin , 'readonly_fields', []))
+            pReadOnlyFlds = verifyList(getattr(cBase.model_admin , 'readonly_fields', []))
 
         self.gridConfig['readOnlyFields'] = pReadOnlyFlds
 
@@ -100,13 +59,12 @@ class ProtoGridFactory(object):
 
         # La lista de campos del admin sirve de base, pues puede haber muchos mas campos en proto q en admin
         # Si solo queda el __str__ , asume todos los campos del modelo
-
-#        iCount = len( pListDisplay )
-#        if ( iCount == 0  ) or ( iCount == 1 and (pListDisplay[0] == '__str__')) :
+        # iCount = len( pListDisplay )
+        # if ( iCount == 0  ) or ( iCount == 1 and (pListDisplay[0] == '__str__')) :
 
         # Se crean los campos con base al modelo ( trae todos los campos del modelo )
-        # for field in self.model._meta._fields(): #only for django 1.4
-        for field in self.model._meta.fields:
+        # for field in cBase.model._meta._fields(): #only for django 1.4
+        for field in cBase.model._meta.fields:
             if field.name in protoExclude:
                 continue
             setFieldDict (self.fieldsDict , field)
@@ -119,7 +77,7 @@ class ProtoGridFactory(object):
             fdict['name'] = fName
             self.fieldsDict[ fName ] = fdict
 
-            setDefaultField (fdict, self.model, self.viewCode)
+            setDefaultField (fdict, cBase.model, cBase.viewCode)
 
 
         # Genera la lista de campos y agrega el nombre al diccionario
@@ -134,7 +92,7 @@ class ProtoGridFactory(object):
             # Repasa las propiedades de base, ver por q no esta pasando trayendo las props de base ( ie:  defaulValue )
             if (not (key.startswith('udp__'))):
                 try:
-                    field = self.model._meta.get_field(key)
+                    field = cBase.model._meta.get_field(key)
                     setFieldDict (self.fieldsDict , field)
                     fdict = self.fieldsDict[ key ]
                 except:
@@ -146,15 +104,15 @@ class ProtoGridFactory(object):
     def getFieldSets(self):
         """ El field set determina la distribucion de los campos en la forma
         """
-
-        pForm = self.protoMeta.get('formConfig', { 'items' : [] })
+        cBase = self.cBase 
+        pForm = cBase.protoMeta.get('formConfig', { 'items' : [] })
         prFieldSet = pForm[ 'items' ]
 
         # Si no han sido definido genera por defecto
         if (len(prFieldSet) == 0):
 
             # Toma la lista del field set si no existe lo crea de base,
-            baseFieldSet = verifyList(getattr(self.model_admin , 'fieldsets', []))
+            baseFieldSet = verifyList(getattr(cBase.model_admin , 'fieldsets', []))
 
             if (len(baseFieldSet) == 0):
                 # Genera la lista de campos y agrega el nombre al diccionario
@@ -255,12 +213,13 @@ class ProtoGridFactory(object):
     def get_details(self):
 
         # Inicializa con los valores definidos,
-        details = self.protoMeta.get('detailsConfig', [])
+        cBase = self.cBase 
+        details = cBase.protoMeta.get('detailsConfig', [])
 
 
         # Si no han sido definido genera por defecto
         if (len(details) == 0):
-            details = getModelDetails(self.model)
+            details = getModelDetails(cBase.model)
 
         return details
 
@@ -296,22 +255,8 @@ def getModelDetails(model):
             "masterField"   : 'pk',
             })
 
-    # Tabla intermedia referenciada en N2N ( desde la tabla referenciada )
-    for field in opts._many_to_many():
-        tmpTable = field.rel.through._meta
-        if not tmpTable.auto_created:
-            continue
-
-        relTable = field.related.parent_model._meta
-        details.append({
-            "menuText"      : tmpTable.object_name,
-            "conceptDetail" : tmpTable.app_label + '.' + tmpTable.object_name,
-            "relatedN2N"    : relTable.app_label + '.' + relTable.object_name,
-            "detailField"   : field.related.var_name + '__pk',
-            "detailName"    : field.related.var_name,
-            "masterField"   : 'pk',
-            })
-
+    # OLD: Tabla intermedia referenciada en N2N ( desde la tabla referenciada )
+    # for field in opts._many_to_many():
 
     return details
 
@@ -332,38 +277,6 @@ def setDefaultField (fdict, model, viewCode):
 
 
 
-def getBaseModelName(viewCode):
-#    Verifica si es una instancia del modelo ( vista )
-#    Concept Format :    app.model.view
-#    Return :  app.model ,  view
-
-#     from protoGetPci import PROTO_PREFIX
-    from protoExt.models import ViewDefinition
-
-    # import django.utils.simplejson as json
-    import json
-
-    if viewCode.count(".") >= 2:
-        app, model = viewCode.split(".")[:2]
-        viewEntity = app + '.' + model
-
-    else:
-        viewEntity = viewCode
-
-    # TODO : RAIVerificar q funcione bien con prototipos 
-
-    # if not(viewEntity.startswith(PROTO_PREFIX)  and viewEntity != PROTO_PREFIX):
-    #     try:
-    #         protoDef = ViewDefinition.objects.get(code=viewEntity)
-    #     except:
-    #         return viewEntity
-
-    #     protoMeta = json.loads(protoDef.metaDefinition)
-    #     viewEntity = protoMeta.get('viewEntity', viewCode)
-
-    return viewEntity
-
-
 def getFieldsInSet(self, prItems, formFields):
     # Al recorrer el fieldset pueden venir tuplas o arrays anidados, se manejan en una unica lista
 
@@ -380,13 +293,14 @@ def getFieldsInSet(self, prItems, formFields):
 
 
 def verifyField(self, fName):
+    cBase = self.cBase 
+    
     try:
         # Recibe los parametros de los campos del modelo
-        field = self.model._meta.get_field(fName)
+        field = cBase.model._meta.get_field(fName)
         setFieldDict (self.fieldsDict , field)
         fdict = self.fieldsDict[ fName ]
         self.fields.append(fdict)
         return True
     except:
         return False
-

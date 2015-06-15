@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+try:
+    from django.apps import apps
+    get_model = apps.get_model
+    get_models = apps.get_models
+except ImportError:
+    from django.db.models.loading import get_model, get_models  
+
 
 def getUserProfile( cuser):
     from protoLib.models.smbase import UserProfile
@@ -14,29 +21,39 @@ def getDjangoModel(modelName):
     Obtiene el modelo
     """
 
-    try:
-        from django.apps import apps
-        get_model = apps.get_model
-        get_models = apps.get_models
-    except ImportError:
-        from django.db.models.loading import get_model, get_models  
-
     if modelName.count('.') == 1:
         model = get_model(*modelName.split('.'))
 
     elif modelName.count('.') == 0:
+        # No trae app ( caso extremandamente raro )          
         for m in get_models(include_auto_created=True):
             if m._meta.object_name.lower() == modelName.lower():
                 model = m
                 break
 
     elif modelName.count(".") == 2:
+        # Es una vista, ( prototype or referentiel )          
         model = get_model(*modelName.split(".")[0:2])
 
     if model is None:
         raise Exception('model not found:' + modelName)
 
     return model
+
+
+def getBaseModelName(viewCode):
+#    Verifica si es una vista del modelo y obtiene el nombre base 
+#    Concept Format :    "app.model[.view]"
+#    Return :  "app.model" 
+
+    if viewCode.count(".") >= 2:
+        app, model = viewCode.split(".")[:2]
+        viewEntity = app + '.' + model
+
+    else:
+        viewEntity = viewCode
+
+    return viewEntity
 
 
 def getNodeHierarchy(record, parentField, codeField, pathFunction):
@@ -106,4 +123,47 @@ def isInstalledApp( app ):
     
     from django.conf import settings 
     return (app in settings.INSTALLED_APPS)  
+
+
+class cAux: 
+    """
+    Vide class for passing parameters 
+    """
+    pass 
+
+
+
+def getProtoAdmin(model):
+    """ 
+    Carga la protoDefinicion, del modelo y luego del admin,
+    La definicion del admin sirve para definir los EntryPoint, 
+    pero no es necesario, la protoDefinicion se puede guardar directamente 
+    en el modelo 
+    """
+
+    from django.contrib.admin.sites import  site
+
+    # Siempre existe, la creacion del site la asigna por defecto
+    model_admin = site._registry.get(model)
+
+    # Si no esta registrado genera una definicion en blanco
+    if not model_admin: model_admin = {}
+
+    protoExclude = getattr(model_admin , 'exclude', [])
+    if protoExclude is None: protoExclude = []
+
+    protoModel = getattr(model, 'protoExt', {})
+    protoAdmin = getattr(model_admin, 'protoExt', {})
+
+    protoModel[ 'exclude'] = protoModel.get('exclude', []) + protoExclude
+
+    if not isinstance(protoModel, dict): protoModel = {}
+    if not isinstance(protoAdmin, dict): protoAdmin = {}
+
+    #  PAra garantizar la creacion la meta 
+    protoMeta = {}
+    protoMeta.update( protoModel ) 
+    protoMeta.update( protoAdmin)
+
+    return  model_admin, protoMeta
 
