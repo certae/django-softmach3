@@ -11,6 +11,7 @@ from protoExt.utils.utilsBase import getReadableError
 from . import getReturnMsg, validateRequest 
 
 from .protoGrid import  getModelDetails
+from .prototypeActions import isProtoPci, getProtoPci 
 
 
 def protoGetDetailsTree(request):
@@ -22,7 +23,7 @@ def protoGetDetailsTree(request):
 
     
     try: 
-        model = getDjangoModel(viewEntity)
+        model = getDjangoModel(cBase.viewEntity)
     except :
         return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
         
@@ -33,8 +34,8 @@ def protoGetDetailsTree(request):
 
     detailList = []
 
-    if viewCode.startswith( PROTO_PREFIX )  and viewCode != viewEntity :
-        # # Fix: -------------------------------------------------------------------------  Prototipos 
+    if isProtoPci( cBase ): 
+
         protoEntityId = request.POST.get( 'protoEntityId' )
         if not protoEntityId >= 0:
             return JsonError('invalid idEntity')

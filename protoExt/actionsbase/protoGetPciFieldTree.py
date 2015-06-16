@@ -15,6 +15,7 @@ from protoExt.utils.utilsBase import JSONEncoder, getReadableError
 from .protoQbe import getSearcheableFields
 from .protoGrid import ProtoGridFactory, setDefaultField 
 from .protoField import setFieldDict, isAdmField 
+from .prototypeActions import isProtoPci, getProtoPci 
 
 # ------------------------------------------------------------------------
 
@@ -36,7 +37,10 @@ def protoGetFieldTree(request):
         return JsonError(getReadableError(e)) 
     
     fieldList = []
-    if viewCode.startswith(PROTO_PREFIX) and viewCode != viewEntity :
+
+#     FIX: 
+    cBase = cAux()
+    if isProtoPci( cBase ): 
         # ---------------------------------------------------              Prototipos 
         protoEntityId = request.POST.get('protoEntityId')
         if not protoEntityId >= 0:

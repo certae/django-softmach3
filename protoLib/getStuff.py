@@ -167,3 +167,18 @@ def getProtoAdmin(model):
 
     return  model_admin, protoMeta
 
+
+
+def getRowById(myModelName, myId):
+    """
+    Retorna un registro dado un cBase.modelo y un id
+    """
+
+#   Obtiene los datos
+    model = getDjangoModel(myModelName)
+    myList = model.objects.filter(pk=myId)
+    if len(myList) > 0:
+        return myList[0]
+    else:  
+        return None
+

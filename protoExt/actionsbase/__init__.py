@@ -3,10 +3,21 @@
 import json
 
 from django.contrib.admin.sites import  site
-from protoLib.getStuff import getBaseModelName, getDjangoModel, getUserProfile, cAux 
+from protoLib.getStuff import getBaseModelName, getDjangoModel, getUserProfile 
 
 from protoExt.utils.utilsWeb import JsonError 
 from protoExt.utils.utilsWeb import doReturn
+
+
+class cAux: 
+    """
+    Class for passing parameters 
+    """
+    def __init__(self):
+        self.viewCode = ''  
+        self.viewEntity = ''  
+        self.userProfile = None   
+
 
 def validateRequest( request ): 
 

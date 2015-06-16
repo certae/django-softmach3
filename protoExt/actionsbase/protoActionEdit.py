@@ -49,20 +49,16 @@ def _protoEdit(request, myAction):
     if msgError: return msgError  
 
 
-    viewCode = cBase.viewCode
-    viewEntity = cBase.viewEntity
-    userProfile = cBase.userProfile 
-
     message = ''
 
     try:
-        protoDef = ViewDefinition.objects.get(code=viewCode)
+        protoDef = ViewDefinition.objects.get(code=cBase.viewCode)
         protoMeta = json.loads(protoDef.metaDefinition)
     except Exception as e :
-        return doReturn ({'success':False , 'message' : 'ViewDefinition {0} not found '.format( viewCode) })
+        return doReturn ({'success':False , 'message' : 'ViewDefinition {0} not found '.format( cBase.viewCode) })
 
 
-    model = getDjangoModel(viewEntity)
+    model = getDjangoModel(cBase.viewEntity)
 
 #   Autentica
     if not getModelPermission(request.user, model, myAction):
@@ -82,7 +78,7 @@ def _protoEdit(request, myAction):
     if myAction in [ACT_DEL, ACT_UPD] and isProtoModel and not request.user.is_superuser  :
         refAllow = getModelPermission(request.user, model, 'refallow')
         if refAllow:
-            userNodes = getUserNodes(request.user, viewEntity)
+            userNodes = getUserNodes(request.user, cBase.viewEntity)
 
 #   WorkFlow
     hasWFlow = hasattr(model , '_WorkFlow') and isProtoModel
