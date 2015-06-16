@@ -17,7 +17,7 @@ from protoExt.actionsbase.protoLogin import protoGetUserRights, protoLogout, pro
 from protoExt.actionsbase.protoActionList import protoList
 from protoExt.actionsbase.protoActionRep  import sheetConfigRep, protoCsv
 from protoExt.actionsbase.protoActionEdit  import protoCreate, protoUpdate, protoDelete
-from protoExt.actionsbase.protoActions  import protoExecuteAction
+from protoExt.actionsbase import protoExecuteAction
 
 # Fix:
 # from protoExt.actionsbase.utils.loadFile import loadFiles

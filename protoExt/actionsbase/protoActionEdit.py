@@ -15,8 +15,10 @@ from . import validateRequest
 from .protoActionList import Q2Dict
 
 from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, toFloat, toDecimal, toBoolean
-from protoExt.utils.utilsBase import JSONEncoder, getReadableError, list2dict
+from protoExt.utils.utilsBase import  getReadableError, list2dict
 from protoExt.utils.utilsWeb import doReturn
+from jsonfield2.utils import JSONEncoder 
+
 
 from protoLib.getStuff import getModelPermission, getUserNodes
 

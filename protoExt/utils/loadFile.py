@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from protoExt.utils.utilsWeb import JsonError
-from protoExt.actionsbase.protoActions import protoExecuteAction
+from protoExt.actionsbase import protoExecuteAction
 from django.views.decorators.csrf import csrf_exempt    
 import datetime 
 

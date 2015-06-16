@@ -29,8 +29,6 @@ import json
 import traceback
 
 
-REFONLY = 'REF_ONLY'
-
 def protoList(request):
 #   Vista simple para cargar la informacion,
 
@@ -40,11 +38,6 @@ def protoList(request):
     cBase, msgError = validateRequest( request )
     if msgError: return msgError  
     
-    try: 
-        cBase.model = getDjangoModel(cBase.viewEntity)
-    except :
-        return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
-
     # Lee la pci      
     try:
         protoDef = ViewDefinition.objects.get( code=cBase.viewCode )
@@ -60,15 +53,13 @@ def protoList(request):
     cBase.start = int(request.POST.get('start', 0))
     cBase.page = int(request.POST.get('page', 1))
     cBase.limit = int(request.POST.get('limit', PAGESIZE))
+#   Fix: Cuando esta en la pagina el filtro continua en la pagina 2 y no muestra nada.
+#   if ( ( cBase.page -1 ) *cBase.limit >= pRowsCount ): cBase.page = 1
 
 
 #   Obtiene las filas del cBase.modelo
-    Qs, orderBy, fakeId, refAllow = getQSet( cBase )
+    Qs, orderBy, fakeId  = getQSet( cBase )
     pRowsCount = Qs.count()
-
-
-#   Fix: Cuando esta en la pagina el filtro continua en la pagina 2 y no muestra nada.
-#   if ( ( cBase.page -1 ) *cBase.limit >= pRowsCount ): cBase.page = 1
 
     if orderBy:
         try:
@@ -79,16 +70,9 @@ def protoList(request):
         pRows = Qs.all()[ cBase.start: cBase.page * cBase.limit ]
 
 
-    # Verifica los nodos validos 
-    if refAllow: 
-        userNodes = getUserNodes(request.user, cBase.protoMeta.get('viewEntity', ''))
-    else: 
-        userNodes = []
-
 #   Prepara las cols del Query
     try:
-        # TODO: improve performance
-        pList = Q2Dict(cBase.protoMeta , pRows, fakeId, userNodes)
+        pList = Q2Dict(cBase , pRows, fakeId )
         bResult = True
     except Exception as e:
         traceback.print_exc()
@@ -103,7 +87,7 @@ def protoList(request):
             'totalCount': pRowsCount,
             'filter': cBase.protoFilter,
             'rows': pList,
-            }, cls=JSONEncoder)
+        }, cls=JSONEncoder)
 
 
     return HttpResponse(context, content_type="application/json")
@@ -113,14 +97,13 @@ def protoList(request):
 # Obtiene el diccionario basado en el Query Set
 def Q2Dict ( cBase, pRows, fakeId, userNodes=[]):
     """
-        userNodes : Para el manejo de refAllow : contiene los Id de los teams validos  
-        return the row list from given queryset
+    return the row list from given queryset
     """
 
 #    pStyle = cBase.protoMeta.get( 'pciStyle', '')
-    JsonField = cBase.protoMeta.get('jsonField', '')
-    if not isinstance(JsonField, six.string_types): 
-        JsonField = ''
+    cBase.JsonField = cBase.protoMeta.get('jsonField', '')
+    if not isinstance(cBase.JsonField, six.string_types): 
+        cBase.JsonField = ''
 
     rows = []
 
@@ -190,12 +173,12 @@ def Q2Dict ( cBase, pRows, fakeId, userNodes=[]):
             elif bCopyFromFld and isAbsorbedField(lField, cBase.protoMeta) :
                 continue
 
-            rowdict[ fName ] = getFieldValue(pName, lField[ 'type'], rowData, JsonField)
+            rowdict[ fName ] = getFieldValue(pName, lField[ 'type'], rowData, cBase )
 
 
         # REaliza la absorcion de datos provenientes de un zoom
         if bCopyFromFld:
-            rowdict = copyValuesFromFields(cBase.protoMeta, rowdict, relModels, JsonField)
+            rowdict = copyValuesFromFields(cBase , rowdict, relModels )
 
 #        Dont delete  ( Dgt ) 
 #        if pStyle == 'tree':
@@ -208,10 +191,6 @@ def Q2Dict ( cBase, pRows, fakeId, userNodes=[]):
             rowdict[ 'id'] = rowId
 
 
-        # Verifica el refAllow 
-        if len(userNodes) > 0  and  not (str(rowData.smOwningTeam_id) in userNodes) :
-            rowdict['_ptStatus'] = REFONLY 
-        
         # Agrega la fila al diccionario
         rows.append(rowdict)
 
@@ -222,7 +201,7 @@ def Q2Dict ( cBase, pRows, fakeId, userNodes=[]):
 
 def isAbsorbedField(lField , cBase ):
     """ Determina si el campo es heredado de un zoom,
-    Pueden existir herencias q no tienen cBase.modelo, estas se manejar directamente por el ORM
+    Pueden existir herencias q no tienen modelo, estas se manejar directamente por el ORM
     Las herencias manejadas aqui son las q implican un select adicional al otro registro,
     utilizan la logica del zoom para traer la llave correspondiente
     """
@@ -233,7 +212,7 @@ def isAbsorbedField(lField , cBase ):
     return False
 
 
-def copyValuesFromFields( cBase, rowdict, relModels, JsonField):
+def copyValuesFromFields( cBase, rowdict, relModels ):
     """
     Permite copiar campos q vienen de los zooms,
     En el caso de prototipos hace un select a la instancia relacionada
@@ -286,7 +265,7 @@ def copyValuesFromFields( cBase, rowdict, relModels, JsonField):
             rowData = relModel['rowData']
             if rowData is not None  :
                 # interpreta los datos del registro
-                val = getFieldValue(cpFromField, lField[ 'type'], rowData  , JsonField)
+                val = getFieldValue(cpFromField, lField[ 'type'], rowData  , cBase )
             else: 
                 val = ''
 
@@ -298,59 +277,20 @@ def copyValuesFromFields( cBase, rowdict, relModels, JsonField):
 def getQSet( cBase ):
 
 #   Decodifica los eltos
-    pUser = cBase.userProfile.user 
     cBase.viewEntity = cBase.protoMeta.get('viewEntity', '')
     cBase.model = getDjangoModel(cBase.viewEntity)
+    cBase.JsonField = cBase.protoMeta.get('jsonField', '')
 
 #   Autentica '
-    if not getModelPermission(pUser, cBase.model, 'list'):
-        return cBase.model.objects.none(), [], False, False 
+    if not getModelPermission( cBase.userProfile.user, cBase.model, 'list'):
+        return cBase.model.objects.none(), [], False
 
-#   cBase.modelo Administrado
-    isProtoModel = hasattr(cBase.model , '_protoObj')
-    if isProtoModel:
-        userNodes = getUserNodes(pUser, cBase.viewEntity)
-
-#   WorkFlow Model 
-    hasWFlow = hasattr(cBase.model , '_WorkFlow')
-    if hasWFlow: 
-        WFlowControl = getattr(cBase.model, '_WorkFlow', {})
-        OkStatus = WFlowControl.get('OkStatus', 'Ok')
-        
-#   JsonField
-    JsonField = cBase.protoMeta.get('jsonField', '')
-    if not isinstance(JsonField, six.string_types): 
-        JsonField = ''
-
-#   QSEt
-#   Qs = cBase.model.objects.select_related(depth=1)
     Qs = cBase.model.objects
 
-#   Permite la lectura de todos los registros 
-    refAllow = getModelPermission(pUser, cBase.model, 'refallow')
-    
-
-#   Solamenete valida si es     
-    if isProtoModel and not pUser.is_superuser :
-
-        # Si no tiene wflow y tampoco permiso de referencia, se cBase.limita a los nodos de su equipo    
-        if not refAllow :
-            Qs = Qs.filter(smOwningTeam__in=userNodes)
-
-        # Si tiene permiso de referencia y ademas WF, trae todos los propios o los demas en estado valido 
-        elif hasWFlow:
-            Qs = Qs.filter(Q(smOwningTeam__in=userNodes) | Q(~Q(smOwningTeam__in=userNodes) , Q(smWflowStatus=OkStatus))) 
-
-#   TODO: Agregar solomente los campos definidos en el safeMeta  ( only,  o defer )
-#   Qs.query.select_fields = [f1, f2, .... ]
-
-
-#   Le pega la meta al cBase.modelo para tomar por ejemplo searchFields
-    cBase.model.cBase.protoMeta = cBase.protoMeta
 
 #   El filtro base viene en la configuracion MD
     try:
-        Qs = addQbeFilter(cBase.baseFilter, cBase.model, Qs , JsonField)
+        Qs = addQbeFilter(cBase, Qs)
     except Exception as e:
         traceback.print_exc()
         getReadableError(e)
@@ -361,9 +301,6 @@ def getQSet( cBase ):
     if not localSort :
         cBase.sort = verifyList(cBase.sort)
         for sField in cBase.sort:
-
-            # Verificar que el campo de cBase.sort haga parte de los campos del cBase.modelo
-            # blacklist = [f.name for f in instance._meta.fields] + ['id', 'user']
 
             # Unicode cBase.sort
             if sField['property'] == '__str__' :
@@ -384,7 +321,7 @@ def getQSet( cBase ):
     orderBy = tuple(orderBy)
 
     try:
-        Qs = addQbeFilter(cBase.protoFilter, cBase.model, Qs, JsonField)
+        Qs = addQbeFilter(cBase, Qs)
     except Exception as e:
         traceback.print_exc()
         getReadableError(e)
@@ -392,14 +329,12 @@ def getQSet( cBase ):
     # DbFirst en caso de q no exista una llave primaria
     fakeId = hasattr(cBase.model , '_fakeId')
 
-    # Solo retorna refAllow si este es valido para la tabla ( no es un super usuario y es un cBase.modelo manejado por sm )  
-    refAllow = refAllow and isProtoModel and not pUser.is_superuser 
+    return Qs, orderBy, fakeId
 
-    return Qs, orderBy, fakeId, refAllow
 
 def getUnicodeFields( cBase ):
     unicodeSort = ()
-    if hasattr(cBase.model , 'unicode_cBase.sort'):
+    if hasattr(cBase.model , 'unicode_.sort'):
         unicodeSort = cBase.model.unicode_cBase.sort
     elif hasattr(cBase.model._meta , 'unique_together') and len(cBase.model._meta.unique_together) > 0:
         unicodeSort = cBase.model._meta.unique_together[0]
@@ -409,7 +344,7 @@ def getUnicodeFields( cBase ):
     return unicodeSort
 
 
-def addQbeFilter( cBase, Qs, JsonField):
+def addQbeFilter( cBase, Qs ):
 
     # No hay criterios
     if len(cBase.protoFilter) == 0:
@@ -421,7 +356,7 @@ def addQbeFilter( cBase, Qs, JsonField):
 
         if sFilter[ 'property' ] == '_allCols':
             # debe descomponer la busqueda usando el objeto Q
-            QTmp = getTextSearch(sFilter, cBase.model, JsonField)
+            QTmp = getTextSearch(sFilter, cBase )
             if QTmp is None:  
                 QTmp = cBase.models.Q()
 
@@ -432,7 +367,7 @@ def addQbeFilter( cBase, Qs, JsonField):
 
         else:
             # Los campos simples se filtran directamente, se require para el JSonField
-            QTmp = addQbeFilterStmt(sFilter, cBase.model, JsonField)
+            QTmp = addQbeFilterStmt(sFilter, cBase )
             QTmp = dict((x, y) for x, y in QTmp.children)
             try:
                 Qs = Qs.filter(**QTmp)
@@ -444,7 +379,7 @@ def addQbeFilter( cBase, Qs, JsonField):
 
 
 
-def addQbeFilterStmt( sFilter, cBase, JsonField):
+def addQbeFilterStmt( sFilter, cBase ):
     """ Verifica casos especiales y obtiene el QStmt
         retorna un objeto Q
     """
@@ -458,7 +393,7 @@ def addQbeFilterStmt( sFilter, cBase, JsonField):
         # El campo especial __str__ debe ser descompuesto en los seachFields en forma explicita
         return Q()
 
-    elif fieldName.cBase.startswith(JsonField + '__'):
+    elif fieldName.startswith(cBase.JsonField + '__'):
         sType = 'string'
 
     else:
@@ -474,7 +409,7 @@ def addQbeFilterStmt( sFilter, cBase, JsonField):
     return QStmt
 
 
-def getTextSearch(sFilter, cBase , JsonField):
+def getTextSearch(sFilter, cBase ):
 
     #   Busqueda Textual ( no viene con ningun tipo de formato solo el texto a buscar
     #   Si no trae nada deja el Qs con el filtro de base
@@ -499,7 +434,7 @@ def getTextSearch(sFilter, cBase , JsonField):
         if fAux.get('type', '')  not in [ 'string', 'text', 'jsonfield' ]: 
             continue
 
-        QTmp = addQbeFilterStmt({'property': fName, 'filterStmt': sFilter['filterStmt'] } , cBase.model, JsonField)
+        QTmp = addQbeFilterStmt({'property': fName, 'filterStmt': sFilter['filterStmt'] } , cBase )
 
         if QStmt is None:  
             QStmt = QTmp
@@ -509,7 +444,7 @@ def getTextSearch(sFilter, cBase , JsonField):
     return QStmt
 
 
-def getFieldValue(fName, fType, rowData, JsonField):
+def getFieldValue(fName, fType, rowData, cBase ):
 
     # Es una funcion
     if (fName == '__str__'):
@@ -519,10 +454,10 @@ def getFieldValue(fName, fType, rowData, JsonField):
         except:
             val = 'Id#' + verifyStr(rowData.pk, '?')
 
-    elif fName.cBase.startswith('@'):
+    elif fName.startswith('@'):
         val = evalueFuncion(fName, rowData)
 
-    elif (fName == JsonField):
+    elif (fName == cBase.JsonField):
         # Master JSonField ( se carga texto )
         try:
             val = rowData.__getattribute__(fName)
@@ -531,11 +466,11 @@ def getFieldValue(fName, fType, rowData, JsonField):
         if isinstance(val, dict):
             val = json.dumps(val , cls=JSONEncoder)
 
-    elif fName.cBase.startswith(JsonField + '__'):
+    elif fName.startswith(cBase.JsonField + '__'):
         # JSon fields
         try:
-            val = rowData.__getattribute__(JsonField)
-            val = val.get(fName[ len(JsonField + '__'):])
+            val = rowData.__getattribute__(cBase.JsonField)
+            val = val.get(fName[ len(cBase.JsonField + '__'):])
             val = getTypedValue(val, fType)
 
         except: 
@@ -555,7 +490,7 @@ def getFieldValue(fName, fType, rowData, JsonField):
     else:
         try:
             val = getattr(rowData, fName)
-            # Si es una referencia ( fk ) es del tipo model
+            # Si es una referencia ( fk ) es del tipo cBase.model
             if isinstance(val, models.Model):
                 val = verifyStr(val , '')
         except: 

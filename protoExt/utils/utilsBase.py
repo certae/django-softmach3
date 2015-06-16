@@ -3,22 +3,13 @@
 # some common routines
 # Compiled by : Dgt 11/11  - 15/06
 
-import os, re
-import datetime, decimal, json
+import os, re, json 
+
+from jsonfield2.utils import JSONEncoder 
 
 from django.utils.encoding import smart_str
 from django.template.defaultfilters import slugify
 from django.utils import six
-
-# TODO : Borrar  JSONEncoder  
-class JSONEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, ( datetime.date, datetime.time, datetime.datetime)):
-            return obj.isoformat()
-        elif isinstance(obj,  decimal.Decimal ):
-            return str( obj )
-        else:
-            return json.JSONEncoder.default(self, obj)
 
 
 def verifyList(obj, defList = []):
