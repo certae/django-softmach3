@@ -227,20 +227,20 @@ class ProtoGridFactory(object):
 def getModelDetails(model):
 
     details = []
-    opts = model._meta
+    baseMeta = model._meta
 
-    for detail in opts.get_all_related_objects():
-        oMeta = detail.model._meta
+    for detail in baseMeta.get_all_related_objects():
+        detMeta = detail.related_model._meta
         details.append({
-            "menuText"      : oMeta.object_name.capitalize() + '.' + detail.field.name,
-            "conceptDetail" : oMeta.app_label + '.' + oMeta.object_name,
+            "menuText"      : detMeta.object_name.capitalize() + '.' + detail.field.name,
+            "conceptDetail" : detMeta.app_label + '.' + detMeta.object_name,
+            "detailName"    : detMeta.model_name + '.' + detail.field.name,
             "detailField"   : detail.field.name + '__pk',
-            "detailName"    : detail.field.name,
             "masterField"   : 'pk',
             })
 
     # Tabla intermedia referenciada en N2N ( desde la tabla base )
-    for detail in opts.get_all_related_many_to_many_objects():
+    for detail in baseMeta.get_all_related_many_to_many_objects():
         tmpTable = detail.field.rel.through._meta
         if not tmpTable.auto_created:
             continue
@@ -256,7 +256,7 @@ def getModelDetails(model):
             })
 
     # OLD: Tabla intermedia referenciada en N2N ( desde la tabla referenciada )
-    # for field in opts._many_to_many():
+    # for field in baseMeta._many_to_many():
 
     return details
 

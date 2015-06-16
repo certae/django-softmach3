@@ -13,6 +13,13 @@ from .protomanager import ProtoManager, ProtoJSONManager
 import uuid 
 
 
+smControlFields = [
+    'smOwningUser', 'smOwningTeam', 'smOwningUser_id', 'smOwningTeam_id', \
+    'smCreatedBy',  'smModifiedBy', 'smCreatedBy_id',  'smModifiedBy_id', \
+    'smCreatedOn', 'smModifiedOn', \
+    'smWflowStatus', 'smRegStatus', \
+    'smNaturalCode', 'smUUID']
+
 class ProtoModelBase(models.Model):
     """
     Tabla modelo para la creacion de entidades de usuario     ( sm  security mark )

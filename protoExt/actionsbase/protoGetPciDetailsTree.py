@@ -6,12 +6,10 @@ from django.http import HttpResponse
 from protoLib.getStuff import getDjangoModel 
 
 from protoExt.utils.utilsWeb import JsonError
-from protoExt.utils.utilsBase import getReadableError
-
-from . import getReturnMsg, validateRequest 
+from . import validateRequest 
 
 from .protoGrid import  getModelDetails
-from .prototypeActions import isProtoPci, getProtoPci 
+from .prototypeActions import isProtoPci 
 
 
 def protoGetDetailsTree(request):
@@ -27,10 +25,6 @@ def protoGetDetailsTree(request):
     except :
         return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
         
-    except Exception as  e:
-        jsondict = { 'success':False, 'message': getReadableError( e ) }
-        context = json.dumps( jsondict)
-        return HttpResponse(context, content_type="application/json")
 
     detailList = []
 

@@ -3,14 +3,14 @@ from django.views.generic import TemplateView
 
 # Fix: 
 # from protoExt.actionsbase.utils.generic_views import DirectTemplateView
+# getFieldIncrement
 
 from protoExt.actionsbase.protoMenu import protoGetMenuData
 from protoExt.actionsbase.protoGetPci import protoGetPCI 
 
-# from protoExt.actionsbase.protoSaveProtoObj import protoSaveProtoObj
-#  protoGetFieldTree,
-#  getFieldIncrement
-#  from protoExt.actionsbase.protoGetDetails import protoGetDetailsTree
+from protoExt.actionsbase.protoSaveProtoObj import protoSaveProtoObj
+from protoExt.actionsbase.protoGetPciFieldTree import  protoGetFieldTree
+from protoExt.actionsbase.protoGetPciDetailsTree import protoGetDetailsTree
 
 from protoExt.actionsbase.protoLogin import protoGetUserRights, protoLogout, protoGetPasswordRecovery, resetpassword, changepassword
 
@@ -39,9 +39,9 @@ urlpatterns = patterns('',
     url('protoGetMenuData/$', protoGetMenuData),
     url('protoGetPCI/$', protoGetPCI),
 
-    # url('protoSaveProtoObj/$', protoSaveProtoObj),
-    # url('protoGetFieldTree/$', protoGetFieldTree),
-    # url('protoGetDetailsTree/$', protoGetDetailsTree),
+    url('protoSaveProtoObj/$', protoSaveProtoObj),
+    url('protoGetFieldTree/$', protoGetFieldTree),
+    url('protoGetDetailsTree/$', protoGetDetailsTree),
 
     url('protoGetUserRights/$', protoGetUserRights),
     url('protoGetPasswordRecovery/$', protoGetPasswordRecovery),
@@ -49,7 +49,6 @@ urlpatterns = patterns('',
     url('submitChangePassword/$', changepassword),
     url('protoLogout/$', protoLogout),
 
-    # url('getFieldIncrement/$', getFieldIncrement),
-
+#     url('getFieldIncrement/$', getFieldIncrement),
 #     url('loadFile/$', loadFiles),
 )

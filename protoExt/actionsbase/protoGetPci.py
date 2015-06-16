@@ -9,8 +9,7 @@ import traceback
 from django.http import HttpResponse
 
 from protoExt.models import ViewDefinition, CustomDefinition 
-from protoLib.getStuff import getDjangoModel, getProtoAdmin, getUserProfile 
-from protoLib.getStuff import getBaseModelName
+from protoLib.getStuff import getDjangoModel, getProtoAdmin 
 from protoExt.utils.utilsWeb import JsonError 
 
 from . import getReturnMsg, validateRequest 

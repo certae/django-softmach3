@@ -98,7 +98,7 @@ def getQSet( cBase ):
     cBase.viewEntity = cBase.protoMeta.get('viewEntity', '')
     cBase.model = getDjangoModel(cBase.viewEntity)
 
-    cBase.JsonField = cBase.protoMeta.get('jsonField', '')
+    cBase.jsonField = cBase.protoMeta.get('jsonField', '')
     cBase.isProtoModel = hasattr( cBase.model , '_protoObj')
     cBase.fakeId = hasattr(cBase.model , '_cBase.fakeId')
     cBase.orderBy = []
@@ -193,7 +193,8 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
 
 
     # 2.  borra los q no tienen marca
-    for relName in relModels.keys():
+    lAux = list( relModels.keys() )
+    for relName in lAux:
         relModel = relModels[ relName ]
         if not relModel[ 'loaded']: 
             del relModels[ relName ]
@@ -335,7 +336,7 @@ def addQbeFilter( cBase, Qs ):
                 traceback.print_exc()
 
         else:
-            # Los campos simples se filtran directamente, se require para el JSonField
+            # Los campos simples se filtran directamente, se require para el jsonField
             QTmp = addQbeFilterStmt(sFilter, cBase )
             QTmp = dict((x, y) for x, y in QTmp.children)
             try:
@@ -363,7 +364,7 @@ def addQbeFilterStmt( sFilter, cBase ):
         # El campo especial __str__ debe ser descompuesto en los seachFields en forma explicita
         return Q()
 
-    elif fieldName.startswith(cBase.JsonField + '__'):
+    elif fieldName.startswith(cBase.jsonField + '__'):
         sType = 'string'
 
     else:
@@ -402,7 +403,7 @@ def getTextSearch(sFilter, cBase ):
 
     for fName in pSearchFields:
         fAux = fieldsDict.get(fName, {})
-        if fAux.get('type', '')  not in [ 'string', 'text', 'jsonfield' ]: 
+        if fAux.get('type', '')  not in [ 'string', 'text', 'jsonField' ]: 
             continue
 
         QTmp = addQbeFilterStmt({'property': fName, 'filterStmt': sFilter['filterStmt'] } , cBase )
@@ -431,19 +432,19 @@ def getFieldValue(fName, fType, rowData, cBase ):
     elif fName.startswith('@'):
         val = evalueFuncion(fName, rowData)
 
-    elif (fName == cBase.JsonField):
-        # Master JSonField ( se carga texto )
+    elif (fName == cBase.jsonField):
+        # Master jsonField ( se carga texto )
         try:
             val = rowData.__getattribute__(fName)
         except: val = {}
         if isinstance(val, dict):
             val = json.dumps(val , cls=JSONEncoder)
 
-    elif fName.startswith(cBase.JsonField + '__'):
+    elif fName.startswith(cBase.jsonField + '__'):
         # JSon fields
         try:
-            val = rowData.__getattribute__(cBase.JsonField)
-            val = val.get(fName[ len(cBase.JsonField + '__'):])
+            val = rowData.__getattribute__(cBase.jsonField)
+            val = val.get(fName[ len(cBase.jsonField + '__'):])
             val = getTypedValue(val, fType)
 
         except: 

@@ -139,7 +139,6 @@ def protoExecuteAction(request):
 
 def getReturnMsg( cBase  ):
 
-    import json
     from protoLib.getStuff import getAllModelPermissions 
 
     jsondict = {

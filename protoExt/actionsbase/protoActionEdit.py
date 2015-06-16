@@ -5,11 +5,11 @@
 
 import json
 from django.http import HttpResponse
-from django.db import models
 from django.utils.encoding import smart_str
 
 from protoExt.models import ViewDefinition
 from protoLib.getStuff import getDjangoModel
+from protoLib.models.protomodel import smControlFields 
 
 from . import validateRequest 
 from .protoActionList import Q2Dict
@@ -20,7 +20,7 @@ from protoExt.utils.utilsWeb import doReturn
 from jsonfield2.utils import JSONEncoder 
 
 
-from protoLib.getStuff import getModelPermission, getUserNodes
+from protoLib.getStuff import getModelPermission
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'
@@ -55,54 +55,32 @@ def _protoEdit(request, myAction):
 
     try:
         protoDef = ViewDefinition.objects.get(code=cBase.viewCode)
-        protoMeta = json.loads(protoDef.metaDefinition)
+        cBase.protoMeta = protoDef.metaDefinition
     except Exception as e :
         return doReturn ({'success':False , 'message' : 'ViewDefinition {0} not found '.format( cBase.viewCode) })
 
 
-    model = getDjangoModel(cBase.viewEntity)
+    cBase.model = getDjangoModel(cBase.viewEntity)
 
 #   Autentica
-    if not getModelPermission(request.user, model, myAction):
+    if not getModelPermission(request.user, cBase.model, myAction):
         return doReturn ({'success':False , 'message' : 'No ' + myAction + 'permission'})
-
-#   Obtiene el profile para saber el teamhierarchi
 
 
 #   Verfica si es un protoModel ( maneja TeamHierarchy )
-    isProtoModel = hasattr(model , '_protoObj')
-    isPJsonModel = hasattr(model , '_protoJson')
+    cBase.isProtoModel = hasattr(cBase.model , '_protoObj')
+    cBase.isPJsonModel = hasattr(cBase.model , '_protoJson')
+    cBase.jsonField = cBase.protoMeta.get('jsonField', '')
 
-
-#   Verifica si hay registros que son solo de referencia
-    userNodes = []
-    refAllow = False
-    if myAction in [ACT_DEL, ACT_UPD] and isProtoModel and not request.user.is_superuser  :
-        refAllow = getModelPermission(request.user, model, 'refallow')
-        if refAllow:
-            userNodes = getUserNodes(request.user, cBase.viewEntity)
-
-#   WorkFlow
-    hasWFlow = hasattr(model , '_WorkFlow') and isProtoModel
-    if hasWFlow:
-        wfadmin = getModelPermission(request.user , model, 'wfadmin')
-        WFlowControl = getattr(model, '_WorkFlow', {})
-        initialWfStatus = WFlowControl.get('initialStatus', '0')
 
 #   Decodifica los eltos
+    # Verifica q sea una lista de registros, (no deberia pasar, ya desde Extjs se controla )
     rows = request.POST.get('rows', [])
     rows = json.loads(rows)
-
+    if type(rows).__name__ == 'dict': rows = [rows]
 
 #   Fields 
-    fieldsDict = list2dict(protoMeta[ 'fields' ], 'name')
-
-#   JsonField
-    jsonField = protoMeta.get('jsonField', '')
-
-    # Verifica q sea una lista de registros, (no deberia pasar, ya desde Extjs se controla )
-    if type(rows).__name__ == 'dict':
-        rows = [rows]
+    fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
 
     pList = []
@@ -111,22 +89,15 @@ def _protoEdit(request, myAction):
         data['_ptStatus'] = ''
 
         if myAction == ACT_INS:
-            rec = model()
+            rec = cBase.model()
         else:
             try:
-                rec = model.objects.get(pk=data['id'])
+                rec = cBase.model.objects.get(pk=data['id'])
             except:
                 data['_ptStatus'] = data['_ptStatus'] + ERR_NOEXIST + '<br>'
                 pList.append(data)
                 continue
 
-
-        # refAllow verifica si corresponde a los registros modificables  ( solo es true en myAction in [ACT_DEL, ACT_UPD] )
-        if refAllow and isProtoModel :
-            if not (str(rec.smOwningTeam_id) in userNodes) :
-                data['_ptStatus'] = ERR_REFONLY + '<br>'
-                pList.append(data)
-                continue
 
         if not (myAction == ACT_DEL):
             # Upd, Ins
@@ -140,34 +111,30 @@ def _protoEdit(request, myAction):
                     continue
 
                 #  Los campos de seguridad se manejan a nivel registro
-                if isProtoModel:
-                    if key in ['smOwningUser', 'smOwningTeam', 'smOwningUser_id', 'smOwningTeam_id', 'smCreatedBy',  'smModifiedBy', 'smCreatedBy_id',  'smModifiedBy_id', 'smCreatedOn', 'smModifiedOn', 'smWflowStatus', 'smRegStatus', 'smUUID']:
-                        continue
+                if cBase.isProtoModel and key in smControlFields :
+                    continue
 
-                #  JsonField
-                if key == jsonField or key.startswith(jsonField + '__'):
+                #  cBase.JsonField
+                if key == cBase.jsonField or key.startswith(cBase.jsonField + '__'):
                     continue
 
                 try:
-                    setRegister(model, rec, key, data)
+                    setRegister(cBase , rec, key, data)
                 except Exception as e:
                     data['_ptStatus'] = data['_ptStatus'] + getReadableError(e)
 
 
 
-            if len(jsonField) > 0:
+            if len(cBase.jsonField) > 0:
                 jsonInfo = {}
                 for key in data:
-                    if not key.startswith(jsonField + '__'):
+                    if not key.startswith(cBase.jsonField + '__'):
                         continue
-                    jKey = key[ len(jsonField) + 2 : ]
+                    jKey = key[ len(cBase.jsonField) + 2 : ]
                     jsonInfo[ jKey ] = data[ key ]
-                setattr(rec, jsonField , jsonInfo)
+                setattr(rec, cBase.jsonField , jsonInfo)
 
 
-            # Inicializa el estado del WF
-            if hasWFlow:
-                setattr(rec, 'smWflowStatus' , initialWfStatus)
 
             # Guarda el idInterno para concatenar registros nuevos en la grilla
             try:
@@ -180,7 +147,7 @@ def _protoEdit(request, myAction):
 
                 # -- Los tipos complejos ie. date, generan un error, es necesario hacerlo detalladamente
                 # Convierte el registro en una lista y luego toma solo el primer elto de la lista resultado.
-                data = Q2Dict(protoMeta , [rec], False)[0]
+                data = Q2Dict(cBase.protoMeta , [rec], False)[0]
                 data['_ptId'] = _ptId
 
             except Exception as  e:
@@ -216,10 +183,10 @@ def _protoEdit(request, myAction):
 # ---------------------
 
 
-def setRegister(model, rec, key, data):
+def setRegister(cBase , rec, key, data):
 
     try:
-        field = model._meta.get_field(key)
+        field = cBase.model._meta.get_field(key)
     except:
         return
 
