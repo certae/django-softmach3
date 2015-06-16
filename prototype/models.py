@@ -415,7 +415,6 @@ class ProtoTable(ProtoModelBase):
     } 
     
 
-#   --------------------------------------------------------------------------------
 
 class Diagram(ProtoModelExt):
 
@@ -448,10 +447,6 @@ class Diagram(ProtoModelExt):
     """Show ForeignKeys"""
     showFKey  = models.BooleanField(default=False)
 
-
-    """Information graphique  ( labels, etc... ) """
-    graphInfo = JSONField(default={})
-    objects = ProtoJSONManager(json_fields=['sminfo', 'graphInfo'])
 
     # Propieadad para ordenar el __str__ 
     unicode_sort = ('project', 'code',)

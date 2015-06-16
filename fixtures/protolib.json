@@ -1,65 +1,65 @@
 [
 {
+  "model": "protoLib.teamhierarchy",
   "fields": {
+    "site": null,
     "description": null,
     "parentNode": null,
-    "code": "proto",
-    "site": null
+    "code": "proto"
   },
-  "model": "protoLib.teamhierarchy",
   "pk": 1
 },
 {
+  "model": "protoLib.teamhierarchy",
   "fields": {
+    "site": null,
     "description": null,
     "parentNode": 1,
-    "code": "Dos",
-    "site": null
+    "code": "Dos"
   },
-  "model": "protoLib.teamhierarchy",
   "pk": 2
 },
 {
+  "model": "protoLib.teamhierarchy",
   "fields": {
+    "site": null,
     "description": null,
     "parentNode": 2,
-    "code": "Tres",
-    "site": null
+    "code": "Tres"
   },
-  "model": "protoLib.teamhierarchy",
   "pk": 3
 },
 {
-  "fields": {
-    "user": 1,
-    "userConfig": {},
-    "language": null,
-    "userTeam": 1,
-    "userTree": "1,3,2"
-  },
   "model": "protoLib.userprofile",
+  "fields": {
+    "userConfig": {},
+    "user": 1,
+    "userTree": "1,3,2",
+    "userTeam": 1,
+    "language": null
+  },
   "pk": 1
 },
 {
-  "fields": {
-    "user": 2,
-    "userConfig": {},
-    "language": "",
-    "userTeam": 2,
-    "userTree": "3,2"
-  },
   "model": "protoLib.userprofile",
+  "fields": {
+    "userConfig": {},
+    "user": 2,
+    "userTree": "3,2",
+    "userTeam": 2,
+    "language": ""
+  },
   "pk": 3
 },
 {
-  "fields": {
-    "user": 3,
-    "userConfig": {},
-    "language": "",
-    "userTeam": 3,
-    "userTree": "3"
-  },
   "model": "protoLib.userprofile",
+  "fields": {
+    "userConfig": {},
+    "user": 3,
+    "userTree": "3",
+    "userTeam": 3,
+    "language": ""
+  },
   "pk": 4
 }
 ]

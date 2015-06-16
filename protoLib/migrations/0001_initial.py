@@ -9,15 +9,15 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('contenttypes', '0002_remove_content_type_name'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='EntityMap',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('entityConfig', jsonfield2.fields.JSONField(default={})),
                 ('entityBase', models.OneToOneField(to='contenttypes.ContentType')),
             ],
@@ -25,22 +25,22 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TeamHierarchy',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('code', models.CharField(max_length=200, unique=True)),
-                ('description', models.TextField(blank=True, null=True, verbose_name='Descriptions')),
+                ('description', models.TextField(verbose_name='Descriptions', blank=True, null=True)),
                 ('site', models.IntegerField(blank=True, null=True)),
-                ('parentNode', models.ForeignKey(related_name='downHierachy', blank=True, null=True, to='protoLib.TeamHierarchy')),
+                ('parentNode', models.ForeignKey(blank=True, null=True, to='protoLib.TeamHierarchy', related_name='downHierachy')),
             ],
         ),
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('language', models.CharField(blank=True, max_length=500, null=True)),
                 ('userTree', models.CharField(blank=True, max_length=500, null=True)),
                 ('userConfig', jsonfield2.fields.JSONField(default={})),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
-                ('userTeam', models.ForeignKey(related_name='userTeam', blank=True, null=True, to='protoLib.TeamHierarchy')),
+                ('userTeam', models.ForeignKey(blank=True, null=True, to='protoLib.TeamHierarchy', related_name='userTeam')),
             ],
         ),
     ]

@@ -2,45 +2,46 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import jsonfield2.fields
 from django.conf import settings
 import uuid
+import jsonfield2.fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('protoLib', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='CustomDefinition',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('smRegStatus', models.CharField(max_length=50, blank=True, null=True, editable=False)),
-                ('smWflowStatus', models.CharField(max_length=50, blank=True, null=True, editable=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('smNaturalCode', models.CharField(null=True, blank=True, max_length=50)),
+                ('smRegStatus', models.CharField(null=True, blank=True, max_length=50, editable=False)),
+                ('smWflowStatus', models.CharField(null=True, blank=True, max_length=50, editable=False)),
                 ('smCreatedOn', models.DateTimeField(null=True, auto_now_add=True)),
                 ('smModifiedOn', models.DateTimeField(null=True, auto_now=True)),
                 ('smUUID', models.UUIDField(default=uuid.uuid4, editable=False)),
                 ('code', models.CharField(max_length=200)),
-                ('description', models.TextField(blank=True, verbose_name='Descriptions', null=True)),
+                ('description', models.TextField(null=True, blank=True, verbose_name='Descriptions')),
                 ('active', models.BooleanField(default=True)),
                 ('overWrite', models.BooleanField(default=False)),
                 ('metaDefinition', jsonfield2.fields.JSONField(default={})),
-                ('smCreatedBy', models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, related_name='+')),
-                ('smModifiedBy', models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, related_name='+')),
-                ('smOwningTeam', models.ForeignKey(blank=True, editable=False, to='protoLib.TeamHierarchy', null=True, related_name='+')),
-                ('smOwningUser', models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, related_name='+')),
+                ('smCreatedBy', models.ForeignKey(null=True, blank=True, related_name='+', editable=False, to=settings.AUTH_USER_MODEL)),
+                ('smModifiedBy', models.ForeignKey(null=True, blank=True, related_name='+', editable=False, to=settings.AUTH_USER_MODEL)),
+                ('smOwningTeam', models.ForeignKey(null=True, blank=True, related_name='+', editable=False, to='protoLib.TeamHierarchy')),
+                ('smOwningUser', models.ForeignKey(null=True, blank=True, related_name='+', editable=False, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='ViewDefinition',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('code', models.CharField(max_length=200, unique=True)),
-                ('description', models.TextField(blank=True, verbose_name='Description', null=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('code', models.CharField(unique=True, max_length=200)),
+                ('description', models.TextField(null=True, blank=True, verbose_name='Description')),
                 ('active', models.BooleanField(default=True)),
                 ('overWrite', models.BooleanField(default=False)),
                 ('metaDefinition', jsonfield2.fields.JSONField(default={})),

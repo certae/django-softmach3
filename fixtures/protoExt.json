@@ -1,82 +1,1250 @@
 [
 {
+  "model": "protoExt.viewdefinition",
+  "pk": 8,
   "fields": {
+    "code": "admin.LogEntry",
+    "overWrite": true,
+    "metaDefinition": {
+      "viewEntity": "admin.LogEntry",
+      "formConfig": {
+        "items": [
+          {
+            "items": [
+              {
+                "name": "action_flag",
+                "__ptType": "formField"
+              },
+              {
+                "name": "object_repr",
+                "__ptType": "formField"
+              },
+              {
+                "name": "user",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "items": [
+              {
+                "name": "action_time",
+                "__ptType": "formField"
+              },
+              {
+                "name": "content_type",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "items": [
+              {
+                "name": "object_id",
+                "__ptType": "formField"
+              },
+              {
+                "name": "change_message",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "1col",
+            "__ptType": "fieldset"
+          }
+        ]
+      },
+      "gridConfig": {
+        "hideRowNumbers": false,
+        "initialSort": [],
+        "filterSetABC": "",
+        "readOnlyFields": [],
+        "searchFields": [
+          "object_id",
+          "object_repr",
+          "change_message"
+        ],
+        "sortFields": [
+          "object_id",
+          "object_repr",
+          "change_message"
+        ],
+        "hiddenFields": [
+          "id"
+        ],
+        "baseFilter": [],
+        "initialFilter": [],
+        "listDisplay": [
+          "__str__"
+        ]
+      },
+      "idProperty": "id",
+      "gridSets": {},
+      "shortTitle": [
+        "Log Entry"
+      ],
+      "viewCode": "admin.LogEntry",
+      "fields": [
+        {
+          "vType": "plainText",
+          "header": "object id",
+          "searchable": true,
+          "sortable": true,
+          "name": "object_id",
+          "type": "text"
+        },
+        {
+          "header": "action time",
+          "searchable": true,
+          "sortable": true,
+          "name": "action_time",
+          "readOnly": true,
+          "type": "datetime"
+        },
+        {
+          "header": "action flag",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "action_flag",
+          "type": "string"
+        },
+        {
+          "hidden": true,
+          "name": "user_id",
+          "readOnly": true,
+          "fkField": "user",
+          "type": "foreignid"
+        },
+        {
+          "vType": "plainText",
+          "header": "change message",
+          "searchable": true,
+          "sortable": true,
+          "name": "change_message",
+          "type": "text"
+        },
+        {
+          "header": "object repr",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "object_repr",
+          "type": "string"
+        },
+        {
+          "zoomModel": "contenttypes.ContentType",
+          "header": "content type",
+          "fkId": "content_type_id",
+          "searchable": false,
+          "sortable": true,
+          "name": "content_type",
+          "type": "foreigntext"
+        },
+        {
+          "hidden": true,
+          "name": "content_type_id",
+          "readOnly": true,
+          "fkField": "content_type",
+          "type": "foreignid"
+        },
+        {
+          "zoomModel": "admin.LogEntry",
+          "header": "Log Entry",
+          "fkId": "id",
+          "flex": 1,
+          "cellLink": true,
+          "sortable": true,
+          "name": "__str__",
+          "readOnly": true,
+          "type": "string"
+        },
+        {
+          "zoomModel": "auth.User",
+          "header": "user",
+          "required": true,
+          "fkId": "user_id",
+          "searchable": false,
+          "sortable": true,
+          "name": "user",
+          "type": "foreigntext"
+        },
+        {
+          "header": "ID",
+          "required": false,
+          "searchable": false,
+          "sortable": false,
+          "name": "id",
+          "readOnly": true,
+          "type": "autofield"
+        }
+      ],
+      "metaVersion": "130310",
+      "viewIcon": "icon-1",
+      "detailsConfig": [],
+      "exclude": [],
+      "description": "Log Entry"
+    },
     "active": true,
-    "smUUID": "729f8e25-ecf4-4cab-8625-6812e1c1060f",
-    "metaDefinition": {},
-    "smOwningTeam": 2,
-    "description": "",
-    "smModifiedBy": 2,
-    "smCreatedOn": "2015-06-10T20:58:02.804Z",
-    "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:02.804Z",
-    "smCreatedBy": 2,
-    "code": "A1",
-    "smRegStatus": null,
-    "smOwningUser": 2,
-    "smWflowStatus": null
-  },
-  "pk": 2,
-  "model": "protoLib.customdefinition"
+    "description": "Log Entry"
+  }
 },
 {
+  "model": "protoExt.viewdefinition",
+  "pk": 9,
   "fields": {
-    "active": true,
-    "smUUID": "6e9ecb8d-7fed-473b-93e4-86ccc19c9ed8",
-    "metaDefinition": {},
-    "smOwningTeam": 2,
-    "description": "",
-    "smModifiedBy": 2,
-    "smCreatedOn": "2015-06-10T20:58:08.490Z",
+    "code": "auth.User",
     "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:08.491Z",
-    "smCreatedBy": 2,
-    "code": "a2",
-    "smRegStatus": null,
-    "smOwningUser": 2,
-    "smWflowStatus": null
-  },
-  "pk": 3,
-  "model": "protoLib.customdefinition"
+    "metaDefinition": {
+      "viewEntity": "auth.User",
+      "formConfig": {
+        "items": [
+          {
+            "items": [
+              {
+                "name": "username",
+                "__ptType": "formField"
+              },
+              {
+                "name": "password",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "title": "Personal info",
+            "items": [
+              {
+                "name": "first_name",
+                "__ptType": "formField"
+              },
+              {
+                "name": "last_name",
+                "__ptType": "formField"
+              },
+              {
+                "name": "email",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "title": "Permissions",
+            "items": [
+              {
+                "name": "is_active",
+                "__ptType": "formField"
+              },
+              {
+                "name": "is_staff",
+                "__ptType": "formField"
+              },
+              {
+                "name": "is_superuser",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "title": "Important dates",
+            "items": [
+              {
+                "name": "last_login",
+                "__ptType": "formField"
+              },
+              {
+                "name": "date_joined",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          }
+        ]
+      },
+      "gridConfig": {
+        "hideRowNumbers": false,
+        "initialSort": [],
+        "filterSetABC": "",
+        "readOnlyFields": [],
+        "searchFields": [
+          "password",
+          "username",
+          "first_name",
+          "last_name"
+        ],
+        "sortFields": [
+          "password",
+          "username",
+          "first_name",
+          "last_name"
+        ],
+        "hiddenFields": [
+          "id"
+        ],
+        "baseFilter": [],
+        "initialFilter": [],
+        "listDisplay": [
+          "username",
+          "email",
+          "first_name",
+          "last_name",
+          "is_staff"
+        ]
+      },
+      "idProperty": "id",
+      "gridSets": {},
+      "shortTitle": [
+        "User"
+      ],
+      "viewCode": "auth.User",
+      "fields": [
+        {
+          "sortable": true,
+          "name": "first_name",
+          "header": "first name",
+          "type": "string",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "email",
+          "header": "email address",
+          "type": "string",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "last_login",
+          "header": "last login",
+          "type": "datetime",
+          "searchable": true
+        },
+        {
+          "zoomModel": "auth.User",
+          "header": "User",
+          "fkId": "id",
+          "flex": 1,
+          "cellLink": true,
+          "sortable": true,
+          "name": "__str__",
+          "readOnly": true,
+          "type": "string"
+        },
+        {
+          "header": "ID",
+          "required": false,
+          "searchable": false,
+          "sortable": false,
+          "name": "id",
+          "readOnly": true,
+          "type": "autofield"
+        },
+        {
+          "header": "password",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "password",
+          "type": "string"
+        },
+        {
+          "header": "username",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "username",
+          "type": "string"
+        },
+        {
+          "sortable": true,
+          "name": "is_active",
+          "header": "active",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "is_staff",
+          "header": "staff status",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "is_superuser",
+          "header": "superuser status",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "header": "date joined",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "date_joined",
+          "type": "datetime"
+        },
+        {
+          "sortable": true,
+          "name": "last_name",
+          "header": "last name",
+          "type": "string",
+          "searchable": true
+        },
+        {
+          "header": "username",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "username",
+          "type": "string"
+        },
+        {
+          "header": "password",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "password",
+          "type": "string"
+        },
+        {
+          "sortable": true,
+          "name": "first_name",
+          "header": "first name",
+          "type": "string",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "last_name",
+          "header": "last name",
+          "type": "string",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "email",
+          "header": "email address",
+          "type": "string",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "is_active",
+          "header": "active",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "is_staff",
+          "header": "staff status",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "is_superuser",
+          "header": "superuser status",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "sortable": true,
+          "name": "last_login",
+          "header": "last login",
+          "type": "datetime",
+          "searchable": true
+        },
+        {
+          "header": "date joined",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "date_joined",
+          "type": "datetime"
+        }
+      ],
+      "metaVersion": "130310",
+      "viewIcon": "icon-1",
+      "detailsConfig": [
+        {
+          "detailName": "user",
+          "conceptDetail": "auth.User",
+          "masterField": "pk",
+          "detailField": "user__pk",
+          "menuText": "User.user"
+        },
+        {
+          "detailName": "user",
+          "conceptDetail": "auth.User",
+          "masterField": "pk",
+          "detailField": "user__pk",
+          "menuText": "User.user"
+        },
+        {
+          "detailName": "user",
+          "conceptDetail": "auth.User",
+          "masterField": "pk",
+          "detailField": "user__pk",
+          "menuText": "User.user"
+        }
+      ],
+      "exclude": [],
+      "description": "User"
+    },
+    "active": true,
+    "description": "User"
+  }
 },
 {
+  "model": "protoExt.viewdefinition",
+  "pk": 10,
   "fields": {
-    "active": true,
-    "smUUID": "f449b3c9-c010-4970-8bdd-b6a2c8606a00",
-    "metaDefinition": {},
-    "smOwningTeam": 3,
-    "description": "",
-    "smModifiedBy": 3,
-    "smCreatedOn": "2015-06-10T20:58:30.653Z",
+    "code": "protoExt.CustomDefinition",
     "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:30.654Z",
-    "smCreatedBy": 3,
-    "code": "x1",
-    "smRegStatus": null,
-    "smOwningUser": 3,
-    "smWflowStatus": null
-  },
-  "pk": 4,
-  "model": "protoLib.customdefinition"
+    "metaDefinition": {
+      "viewEntity": "protoExt.CustomDefinition",
+      "formConfig": {
+        "items": [
+          {
+            "items": [
+              {
+                "name": "code",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "items": [
+              {
+                "name": "overWrite",
+                "__ptType": "formField"
+              },
+              {
+                "name": "active",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "items": [
+              {
+                "name": "description",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "1col",
+            "__ptType": "fieldset"
+          },
+          {
+            "title": "Admin",
+            "collapsed": true,
+            "__ptType": "fieldset",
+            "collapsible": true,
+            "items": [
+              {
+                "name": "smModifiedOn",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smModifiedBy",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smOwningTeam",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smCreatedOn",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smWflowStatus",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smRegStatus",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smUUID",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smCreatedBy",
+                "__ptType": "formField"
+              },
+              {
+                "name": "smOwningUser",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col"
+          }
+        ]
+      },
+      "gridConfig": {
+        "hideRowNumbers": false,
+        "initialSort": [],
+        "filterSetABC": "",
+        "readOnlyFields": [],
+        "searchFields": [
+          "smRegStatus",
+          "smWflowStatus",
+          "code",
+          "description",
+          "metaDefinition"
+        ],
+        "sortFields": [
+          "smRegStatus",
+          "smWflowStatus",
+          "code",
+          "description",
+          "metaDefinition"
+        ],
+        "hiddenFields": [
+          "id"
+        ],
+        "baseFilter": [],
+        "initialFilter": [],
+        "listDisplay": [
+          "__str__",
+          "description",
+          "smOwningTeam"
+        ]
+      },
+      "idProperty": "id",
+      "gridSets": {},
+      "shortTitle": [
+        "Custom Definition"
+      ],
+      "viewCode": "protoExt.CustomDefinition",
+      "fields": [
+        {
+          "sortable": true,
+          "name": "overWrite",
+          "header": "overWrite",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "header": "smModifiedOn",
+          "searchable": true,
+          "sortable": true,
+          "name": "smModifiedOn",
+          "readOnly": true,
+          "type": "datetime"
+        },
+        {
+          "zoomModel": "protoExt.CustomDefinition",
+          "header": "Custom Definition",
+          "fkId": "id",
+          "flex": 1,
+          "cellLink": true,
+          "sortable": true,
+          "name": "__str__",
+          "readOnly": true,
+          "type": "string"
+        },
+        {
+          "header": "smModifiedBy",
+          "searchable": true,
+          "sortable": true,
+          "name": "smModifiedBy",
+          "readOnly": true,
+          "type": "foreigntext"
+        },
+        {
+          "header": "smOwningTeam",
+          "searchable": true,
+          "sortable": true,
+          "name": "smOwningTeam",
+          "readOnly": true,
+          "type": "foreigntext"
+        },
+        {
+          "header": "ID",
+          "required": false,
+          "searchable": false,
+          "sortable": false,
+          "name": "id",
+          "readOnly": true,
+          "type": "autofield"
+        },
+        {
+          "header": "code",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "header": "smCreatedOn",
+          "searchable": true,
+          "sortable": true,
+          "name": "smCreatedOn",
+          "readOnly": true,
+          "type": "datetime"
+        },
+        {
+          "vType": "plainText",
+          "header": "Descriptions",
+          "searchable": true,
+          "sortable": true,
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "header": "smWflowStatus",
+          "searchable": true,
+          "sortable": true,
+          "name": "smWflowStatus",
+          "readOnly": true,
+          "type": "string"
+        },
+        {
+          "header": "smRegStatus",
+          "searchable": true,
+          "sortable": true,
+          "name": "smRegStatus",
+          "readOnly": true,
+          "type": "string"
+        },
+        {
+          "header": "smUUID",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "smUUID",
+          "readOnly": true,
+          "type": "string"
+        },
+        {
+          "header": "smCreatedBy",
+          "searchable": true,
+          "sortable": true,
+          "name": "smCreatedBy",
+          "readOnly": true,
+          "type": "foreigntext"
+        },
+        {
+          "sortable": true,
+          "name": "active",
+          "header": "active",
+          "type": "bool",
+          "searchable": true
+        },
+        {
+          "header": "metaDefinition",
+          "required": true,
+          "crudType": "storeOnly",
+          "searchable": true,
+          "sortable": false,
+          "name": "metaDefinition",
+          "readOnly": true,
+          "type": "text"
+        },
+        {
+          "header": "smOwningUser",
+          "searchable": true,
+          "sortable": true,
+          "name": "smOwningUser",
+          "readOnly": true,
+          "type": "foreigntext"
+        }
+      ],
+      "metaVersion": "130310",
+      "viewIcon": "icon-1",
+      "detailsConfig": [],
+      "exclude": [],
+      "description": "Custom Definition"
+    },
+    "active": true,
+    "description": "Custom Definition"
+  }
 },
 {
+  "model": "protoExt.viewdefinition",
+  "pk": 11,
   "fields": {
-    "active": true,
-    "smUUID": "64f8f9ea-6564-49c8-86a3-19ac9bff1257",
-    "metaDefinition": {},
-    "smOwningTeam": 3,
-    "description": "",
-    "smModifiedBy": 3,
-    "smCreatedOn": "2015-06-10T20:58:34.908Z",
+    "code": "protoLib.TeamHierarchy",
     "overWrite": false,
-    "smModifiedOn": "2015-06-10T20:58:34.908Z",
-    "smCreatedBy": 3,
-    "code": "x2",
+    "metaDefinition": {
+      "viewEntity": "protoLib.TeamHierarchy",
+      "formConfig": {
+        "items": [
+          {
+            "items": [
+              {
+                "name": "code",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "items": [
+              {
+                "name": "site",
+                "__ptType": "formField"
+              },
+              {
+                "name": "parentNode",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "2col",
+            "__ptType": "fieldset"
+          },
+          {
+            "items": [
+              {
+                "name": "description",
+                "__ptType": "formField"
+              }
+            ],
+            "fsLayout": "1col",
+            "__ptType": "fieldset"
+          }
+        ]
+      },
+      "gridConfig": {
+        "hideRowNumbers": false,
+        "initialSort": [],
+        "filterSetABC": "",
+        "readOnlyFields": [],
+        "searchFields": [
+          "code",
+          "description"
+        ],
+        "sortFields": [
+          "code",
+          "description"
+        ],
+        "hiddenFields": [
+          "id"
+        ],
+        "baseFilter": [],
+        "initialFilter": [],
+        "listDisplay": [
+          "__str__"
+        ]
+      },
+      "idProperty": "id",
+      "gridSets": {},
+      "shortTitle": [
+        "Team Hierarchy"
+      ],
+      "viewCode": "protoLib.TeamHierarchy",
+      "fields": [
+        {
+          "header": "code",
+          "required": true,
+          "searchable": true,
+          "sortable": true,
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "vType": "plainText",
+          "header": "Descriptions",
+          "searchable": true,
+          "sortable": true,
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "sortable": true,
+          "name": "site",
+          "header": "site",
+          "type": "int",
+          "searchable": true
+        },
+        {
+          "header": "ID",
+          "required": false,
+          "searchable": false,
+          "sortable": false,
+          "name": "id",
+          "readOnly": true,
+          "type": "autofield"
+        },
+        {
+          "zoomModel": "protoLib.TeamHierarchy",
+          "header": "parentNode",
+          "fkId": "parentNode_id",
+          "searchable": false,
+          "sortable": true,
+          "name": "parentNode",
+          "type": "foreigntext"
+        },
+        {
+          "hidden": true,
+          "name": "parentNode_id",
+          "readOnly": true,
+          "fkField": "parentNode",
+          "type": "foreignid"
+        },
+        {
+          "zoomModel": "protoLib.TeamHierarchy",
+          "header": "Team Hierarchy",
+          "fkId": "id",
+          "flex": 1,
+          "cellLink": true,
+          "sortable": true,
+          "name": "__str__",
+          "readOnly": true,
+          "type": "string"
+        }
+      ],
+      "metaVersion": "130310",
+      "viewIcon": "icon-1",
+      "detailsConfig": [
+        {
+          "detailName": "parentNode",
+          "conceptDetail": "protoLib.TeamHierarchy",
+          "masterField": "pk",
+          "detailField": "parentNode__pk",
+          "menuText": "Teamhierarchy.parentNode"
+        },
+        {
+          "detailName": "userTeam",
+          "conceptDetail": "protoLib.TeamHierarchy",
+          "masterField": "pk",
+          "detailField": "userTeam__pk",
+          "menuText": "Teamhierarchy.userTeam"
+        }
+      ],
+      "exclude": [],
+      "description": "Team Hierarchy"
+    },
+    "active": true,
+    "description": "Team Hierarchy"
+  }
+},
+{
+  "model": "protoExt.customdefinition",
+  "pk": 1,
+  "fields": {
+    "smCreatedOn": "2015-06-14T18:42:22.791Z",
+    "smNaturalCode": null,
+    "code": "__menu",
     "smRegStatus": null,
-    "smOwningUser": 3,
-    "smWflowStatus": null
-  },
-  "pk": 5,
-  "model": "protoLib.customdefinition"
+    "active": true,
+    "smWflowStatus": null,
+    "smOwningTeam": 1,
+    "smUUID": "e66c02c9-3be4-4f39-a992-e9698430dbca",
+    "overWrite": false,
+    "smModifiedOn": "2015-06-14T20:15:50.377Z",
+    "smCreatedBy": 1,
+    "smModifiedBy": 1,
+    "metaDefinition": [
+      {
+        "qtip": "",
+        "leaf": false,
+        "qtitle": "",
+        "id": "protoMenu-ext-gen1241",
+        "index": 0,
+        "expanded": false,
+        "text": "ProtoViews",
+        "children": [],
+        "iconCls": ""
+      },
+      {
+        "leaf": false,
+        "children": [
+          {
+            "text": "admin",
+            "children": [
+              {
+                "leaf": true,
+                "text": "Log Entry",
+                "viewCode": "admin.LogEntry",
+                "index": 1,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 1
+          },
+          {
+            "text": "auth",
+            "children": [
+              {
+                "leaf": true,
+                "text": "Permission",
+                "viewCode": "auth.Permission",
+                "index": 2,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Group-Permission Relationship",
+                "viewCode": "auth.Group_permissions",
+                "index": 3,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Group",
+                "viewCode": "auth.Group",
+                "index": 4,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "User-Group Relationship",
+                "viewCode": "auth.User_groups",
+                "index": 5,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "User-Permission Relationship",
+                "viewCode": "auth.User_user_permissions",
+                "index": 6,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "User",
+                "viewCode": "auth.User",
+                "index": 7,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Content Type",
+                "viewCode": "contenttypes.ContentType",
+                "index": 8,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 2
+          },
+          {
+            "text": "sessions",
+            "children": [
+              {
+                "leaf": true,
+                "text": "Session",
+                "viewCode": "sessions.Session",
+                "index": 9,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 3
+          },
+          {
+            "text": "taggit",
+            "children": [
+              {
+                "leaf": true,
+                "text": "Tag",
+                "viewCode": "taggit.Tag",
+                "index": 10,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Tagged Item",
+                "viewCode": "taggit.TaggedItem",
+                "index": 11,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 4
+          },
+          {
+            "text": "reversion",
+            "children": [
+              {
+                "leaf": true,
+                "text": "Revision",
+                "viewCode": "reversion.Revision",
+                "index": 12,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Version",
+                "viewCode": "reversion.Version",
+                "index": 13,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 5
+          },
+          {
+            "text": "protoLib",
+            "children": [
+              {
+                "leaf": true,
+                "text": "Team Hierarchy",
+                "viewCode": "protoLib.TeamHierarchy",
+                "index": 14,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "User Profile",
+                "viewCode": "protoLib.UserProfile",
+                "index": 15,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Entity Map",
+                "viewCode": "protoLib.EntityMap",
+                "index": 16,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 6
+          },
+          {
+            "text": "protoExt",
+            "children": [
+              {
+                "leaf": true,
+                "text": "View Definition",
+                "viewCode": "protoExt.ViewDefinition",
+                "index": 17,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Custom Definition",
+                "viewCode": "protoExt.CustomDefinition",
+                "index": 18,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 7
+          },
+          {
+            "text": "prototype",
+            "children": [
+              {
+                "leaf": true,
+                "text": "Project",
+                "viewCode": "prototype.Project",
+                "index": 19,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Model",
+                "viewCode": "prototype.Model",
+                "index": 20,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Entity",
+                "viewCode": "prototype.Entity",
+                "index": 21,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Property",
+                "viewCode": "prototype.Property",
+                "index": 22,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Relationship",
+                "viewCode": "prototype.Relationship",
+                "index": 23,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Property Equivalence",
+                "viewCode": "prototype.PropertyEquivalence",
+                "index": 24,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Prototype",
+                "viewCode": "prototype.Prototype",
+                "index": 25,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Proto Table",
+                "viewCode": "prototype.ProtoTable",
+                "index": 26,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Diagram",
+                "viewCode": "prototype.Diagram",
+                "index": 27,
+                "iconCls": "icon-1"
+              },
+              {
+                "leaf": true,
+                "text": "Diagram Entity",
+                "viewCode": "prototype.DiagramEntity",
+                "index": 28,
+                "iconCls": "icon-1"
+              }
+            ],
+            "expanded": false,
+            "index": 8
+          },
+          {
+            "leaf": false,
+            "text": "ProtoOptions",
+            "children": [],
+            "expanded": true,
+            "index": 1000
+          },
+          {
+            "leaf": false,
+            "text": "ProtoViews",
+            "children": [],
+            "expanded": true,
+            "index": 2000
+          }
+        ],
+        "expanded": true,
+        "id": "prototype.auto.nodes",
+        "text": "AutoMenu",
+        "index": 1000
+      }
+    ],
+    "smOwningUser": 1,
+    "description": "Menu"
+  }
 }
 ]
