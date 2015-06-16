@@ -82,8 +82,6 @@ class Project(ProtoModelExt):
         "gridConfig" : {
             "listDisplay": ["__str__", "description", "smOwningTeam"]      
         }
-
-
     } 
 
 

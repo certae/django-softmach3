@@ -1,5 +1,4 @@
 # This is an auto-generated model module by CeRTAE OMS PlugIn
-# for project : "Modelibra.py" >
 
 
 from .models import ProtoTable
