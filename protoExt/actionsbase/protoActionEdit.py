@@ -11,13 +11,14 @@ from django.utils.encoding import smart_str
 from protoExt.models import ViewDefinition
 from protoLib.getStuff import getDjangoModel
 
+from . import validateRequest 
 from .protoActionList import Q2Dict
 
 from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, toFloat, toDecimal, toBoolean
 from protoExt.utils.utilsBase import JSONEncoder, getReadableError, list2dict
 from protoExt.utils.utilsWeb import doReturn
 
-from protoLib.getStuff import getUserProfile, getModelPermission, getUserNodes
+from protoLib.getStuff import getModelPermission, getUserNodes
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'
@@ -44,18 +45,16 @@ def protoDelete(request):
 
 def _protoEdit(request, myAction):
 
-    if not request.user.is_authenticated():
-        return doReturn ({'success':False , 'message' : 'readOnly User'})
+    cBase, msgError = validateRequest( request )
+    if msgError: return msgError  
 
-    if request.method != 'POST':
-        return doReturn ({'success':False, 'message' : 'invalid message'})
+
+    viewCode = cBase.viewCode
+    viewEntity = cBase.viewEntity
+    userProfile = cBase.userProfile 
 
     message = ''
 
-#   Carga el modelo
-#   protoMeta = request.POST.get('protoMeta', '')
-#   protoMeta = json.loads(protoMeta)
-    viewCode = request.POST.get('viewCode', '')
     try:
         protoDef = ViewDefinition.objects.get(code=viewCode)
         protoMeta = json.loads(protoDef.metaDefinition)
@@ -63,7 +62,6 @@ def _protoEdit(request, myAction):
         return doReturn ({'success':False , 'message' : 'ViewDefinition {0} not found '.format( viewCode) })
 
 
-    viewEntity = protoMeta.get('viewEntity', '')
     model = getDjangoModel(viewEntity)
 
 #   Autentica
@@ -71,7 +69,6 @@ def _protoEdit(request, myAction):
         return doReturn ({'success':False , 'message' : 'No ' + myAction + 'permission'})
 
 #   Obtiene el profile para saber el teamhierarchi
-    userProfile = getUserProfile(request.user )
 
 
 #   Verfica si es un protoModel ( maneja TeamHierarchy )

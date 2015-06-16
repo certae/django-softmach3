@@ -11,7 +11,6 @@ import json
 
 from .protoGrid import  getModelDetails
 
-PROTO_PREFIX = "prototype.ProtoTable."
 
 def protoGetDetailsTree(request):
     """ return full field tree 

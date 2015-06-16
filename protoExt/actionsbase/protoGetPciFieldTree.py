@@ -1,3 +1,20 @@
+# -*- coding: utf-8 -*-
+
+import traceback, json 
+
+from django.http import HttpResponse
+from django.db.models import Max
+from django.conf import settings 
+
+from protoExt.models import ViewDefinition, CustomDefinition 
+from protoLib.getStuff import getDjangoModel, getProtoAdmin, getUserProfile, getAllModelPermissions, cAux 
+from protoLib.getStuff import getBaseModelName
+from protoExt.utils.utilsWeb import JsonError 
+from protoExt.utils.utilsBase import JSONEncoder, getReadableError
+
+from .protoQbe import getSearcheableFields
+from .protoGrid import ProtoGridFactory, setDefaultField 
+from .protoField import setFieldDict, isAdmField 
 
 # ------------------------------------------------------------------------
 

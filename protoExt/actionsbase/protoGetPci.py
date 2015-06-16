@@ -7,18 +7,15 @@ ProtoGetPci
 import traceback
 
 from django.http import HttpResponse
-from django.db.models import Max
-from django.conf import settings 
 
 from protoExt.models import ViewDefinition, CustomDefinition 
-from protoLib.getStuff import getDjangoModel, getProtoAdmin, getUserProfile, getAllModelPermissions, cAux 
+from protoLib.getStuff import getDjangoModel, getProtoAdmin, getUserProfile 
 from protoLib.getStuff import getBaseModelName
 from protoExt.utils.utilsWeb import JsonError 
 
+from . import getReturnMsg, validateRequest 
 from .protoQbe import getSearcheableFields
-from .protoGrid import ProtoGridFactory, setDefaultField 
-from .protoField import setFieldDict, isAdmField 
-# TODO: from .protoPci import verifyMeta
+from .protoGrid import ProtoGridFactory 
 
 
 # 12/10/28 Permite la carga directa de json de definicion. 
@@ -30,17 +27,8 @@ def protoGetPCI(request):
     Return full metadata (columns, renderers, totalcount...)
     """
 
-    if not request.user.is_authenticated(): 
-        return JsonError('readOnly User')
-    
-    if request.method != 'POST':
-        return JsonError('invalid message') 
-
-    cBase = cAux()
-    
-    cBase.viewCode = request.POST.get('viewCode', '') 
-    cBase.viewEntity = getBaseModelName( cBase.viewCode)
-    cBase.userProfile = getUserProfile( request.user ) 
+    cBase, msgError = validateRequest( request )
+    if msgError: return msgError  
     
     try: 
         cBase.model = getDjangoModel(cBase.viewEntity)
@@ -49,7 +37,9 @@ def protoGetPCI(request):
     
 
     # =============  PROTOTIPOS
-    if isProtoPci( cBase ): return getProtoPci( cBase )
+    from .prototypeActions import isProtoPci, getProtoPci 
+    if isProtoPci( cBase ): 
+        return getProtoPci( cBase )
 
 
 
@@ -103,41 +93,6 @@ def protoGetPCI(request):
 
     context =  getReturnMsg( cBase  )
     return HttpResponse(context, content_type="application/json")
-
-
-# --------------------
-
-
-def getReturnMsg( cBase  ):
-
-    import json
-
-    jsondict = {
-        'success':True,
-        'message': '',
-        'metaData':{
-            # The name of the property which contains the Array of row objects. ...
-            'root': 'rows',
-
-            # Name of the property within a row object that contains a record identifier value. ...
-            'idProperty': cBase.protoMeta['idProperty'],
-
-            # Name of the property from which to retrieve the total number of records in t
-            'totalProperty':'totalCount',
-
-            # Name of the property from which to retrieve the success attribute. ...
-            'successProperty':'success',
-            
-            # The name of the property which contains a response message. (optional)
-            'messageProperty': 'message',
-            },
-        'protoMeta': cBase.protoMeta,
-        'permissions': getAllModelPermissions(cBase.userProfile.user, cBase.model),
-        'rows':[],
-        'totalCount': 0,
-    }
-
-    return json.dumps( jsondict )
 
 
 # protoGetPCI ----------------------------
@@ -259,28 +214,6 @@ def createProtoMeta( cBase, grid ):
     return True 
     
 
-# -------------------------------------------------------------------------
-
-def addWfParameters(  cBase  ):
-    pass 
-    # if hasattr(cBase.model , '_WorkFlow') : 
-    #     wflowControl = getattr(cBase.model, '_WorkFlow', {})
-
-    #     if request.user.is_superuser  or getModelPermission(request.user , cBase.model, 'wfadmin') :
-    #         cBase.protoMeta['WFlowActions'] = wflowControl.get('transitions', []) 
-
-    #     wfFilterSet = wflowControl.get('wfFilters', []) 
-    #     if len(wfFilterSet) > 0: 
-    #         cBase.protoMeta['gridSets'] = cBase.protoMeta.get('gridSets', {})
-    #         cBase.protoMeta['gridSets']['filtersSet'] = wfFilterSet
-    #         for lFilter in wfFilterSet:
-    #             lFilter['customFilter'] = [{
-    #                         "property": "smWflowStatus",
-    #                         "filterStmt": lFilter[ 'wfStatus']
-    #             }]
-
-
-
 # --------------------------------------------------------------------------
 
 def isFieldDefined(pFields , fName):
@@ -295,25 +228,3 @@ def verifyMeta( cBase , pciType ):
     # TODO: verifyMeta
     return cBase.protoMeta
 
-
-def isProtoPci( cBase   ):
-
-    PROTO_PREFIX = settings.PROTO_PREFIX
-    if cBase.viewCode.startswith(PROTO_PREFIX)  and cBase.viewCode != cBase.viewEntity :
-        return True
-    return False 
-
-
-def getProtoPci( cBase ):
-
-    from prototype.models import Prototype, Entity
-    PROTO_PREFIX = settings.PROTO_PREFIX
-
-    try:
-        prototypeView = cBase.viewCode.replace( PROTO_PREFIX, '')
-        protoDef = Prototype.objects.get(code=prototypeView, smOwningTeam=cBase.userProfile.userTeam)
-        
-    except:
-        return JsonError('prototype not found: {0}'.format( cBase.viewCode ))
-
-        
