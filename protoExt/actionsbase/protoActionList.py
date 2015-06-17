@@ -146,9 +146,8 @@ def getQSet( cBase ):
                     continue  
     
 
-            if sName in cBase.model._meta.get_all_field_names() :
-                if sField['direction'] == 'DESC': sName = '-' + sName
-                cBase.orderBy.append(sName)
+            if sField['direction'] == 'DESC': sName = '-' + sName
+            cBase.orderBy.append(sName)
 
     cBase.orderBy = tuple(cBase.orderBy)
 
@@ -336,7 +335,7 @@ def addQbeFilter( cBase, Qs ):
         if sFilter[ 'property' ] == '_allCols':
             # debe descomponer la busqueda usando el objeto Q
             QTmp = getTextSearch(sFilter, cBase )
-            if QTmp is None: QTmp = cBase.models.Q()
+            if QTmp is None: QTmp = models.Q()
             Qs = Qs.filter(QTmp)
 
 
@@ -396,8 +395,8 @@ def getTextSearch(sFilter, cBase ):
     QStmt = None
 
     try:
-        pSearchFields = cBase.model.cBase.protoMeta['gridConfig']['searchFields']
-        fieldsDict = list2dict(cBase.model.cBase.protoMeta[ 'fields' ], 'name')
+        pSearchFields = cBase.protoMeta['gridConfig']['searchFields']
+        fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
     except:
         pSearchFields = getSearcheableFields(cBase.model)
         fieldsDict = {}
