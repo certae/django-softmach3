@@ -240,24 +240,24 @@ def getModelDetails(model):
             "masterField"   : 'pk',
             })
 
-    # Tabla intermedia referenciada en N2N ( desde la tabla base )
-    for detail in baseMeta.get_all_related_many_to_many_objects():
-        tmpTable = detail.field.rel.through._meta
-        if not tmpTable.auto_created:
-            continue
+# FUTURE: Tabla intermedia referenciada en N2N ( desde la tabla base )
+#     for detail in baseMeta.get_all_related_many_to_many_objects():
+#         detMeta = detail.field.rel.through._meta
+#         if not detMeta.auto_created:
+#             continue
+# 
+#         relMeta = detail.model._meta
+#         details.append({
+#             "relatedN2N"    : relMeta.app_label + '.' + relMeta.object_name,
+#             "menuText"      : detMeta.object_name,
+#             "conceptDetail" : detMeta.app_label + '.' + detMeta.object_name,
+#             "detailName"    : detMeta.model_name + '.' + detail.field.name,
+#             "detailField"   : detail.field.name + '__pk',
+#             "masterField"   : 'pk',
+#             })
 
-        relTable = detail.model._meta
-        details.append({
-            "menuText"      : tmpTable.object_name,
-            "conceptDetail" : tmpTable.app_label + '.' + tmpTable.object_name,
-            "relatedN2N"    : relTable.app_label + '.' + relTable.object_name,
-            "detailField"   : detail.parent_model._meta.module_name + '__pk',# ???
-            "detailName"    : detail.parent_model._meta.module_name,
-            "masterField"   : 'pk',
-            })
-
-    # OLD: Tabla intermedia referenciada en N2N ( desde la tabla referenciada )
-    # for field in baseMeta._many_to_many():
+# FUTURE: Tabla intermedia referenciada en N2N ( desde la tabla referenciada )
+# for field in baseMeta._many_to_many():
 
     return details
 

@@ -149,7 +149,7 @@ def getReturnMsg( cBase  ):
             'root': 'rows',
 
             # Name of the property within a row object that contains a record identifier value. ...
-            'idProperty': cBase.protoMeta['idProperty'],
+            'idProperty': cBase.protoMeta.get( 'idProperty', 'id'),
 
             # Name of the property from which to retrieve the total number of records in t
             'totalProperty':'totalCount',
