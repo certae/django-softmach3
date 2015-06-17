@@ -154,7 +154,7 @@ def createProtoMeta( cBase, grid ):
     
     # FIX: busca el id en la META  ( id_field = cBase.model._meta.pk.name ) 
     id_field = u'id'
-    shortTitle = cBase.protoMeta.get('shortTitle', grid.title),
+    shortTitle = cBase.protoMeta.get('shortTitle', grid.title)
 
     # Manejo de documentos rai          
     if getattr(cBase.model, '_uddObject', False ):
