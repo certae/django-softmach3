@@ -2,6 +2,7 @@
 
 
 from django.db import models
+from django.utils import six 
 from django.http import HttpResponse
 from django.contrib.admin.utils import  get_fields_from_path
 from django.utils.encoding import smart_str
@@ -53,19 +54,21 @@ def protoList(request):
 #   Fix: Cuando esta en la pagina el filtro continua en la pagina 2 y no muestra nada.
 #   if ( ( cBase.page -1 ) *cBase.limit >= pRowsCount ): cBase.page = 1
 
+    cBase.jsonLookups = [] 
+    cBase.jsonSorters = [] 
+    
 
 #   Obtiene las filas del cBase.modelo
     Qs = getQSet( cBase )
-    pRowsCount = Qs.count()
 
-    if cBase.orderBy:
-        try:
-            pRows = Qs.order_by(*cBase.orderBy)[ cBase.start: cBase.page * cBase.limit ]
-        except:
-            pRows = Qs.all()[ cBase.start: cBase.page * cBase.limit ]
-    else: 
+    try:
+        pRows = Qs.order_by(*cBase.orderBy)[ cBase.start: cBase.page * cBase.limit ]
+    except:
         pRows = Qs.all()[ cBase.start: cBase.page * cBase.limit ]
 
+
+    if cBase.jsonLookups: 
+        pass 
 
 #   Prepara las cols del Query
     try:
@@ -81,7 +84,7 @@ def protoList(request):
     context = json.dumps({
             'success': bResult,
             'message': message,
-            'totalCount': pRowsCount,
+            'totalCount': len( pList ),
             'filter': cBase.protoFilter,
             'rows': pList,
         }, cls=JSONEncoder)
@@ -98,9 +101,12 @@ def getQSet( cBase ):
     cBase.viewEntity = cBase.protoMeta.get('viewEntity', '')
     cBase.model = getDjangoModel(cBase.viewEntity)
 
-    cBase.jsonField = cBase.protoMeta.get('jsonField', '')
     cBase.isProtoModel = hasattr( cBase.model , '_protoObj')
-    cBase.fakeId = hasattr(cBase.model , '_cBase.fakeId')
+    cBase.isPJsonModel = hasattr(cBase.model , '_protoJson')
+    cBase.jsonField = cBase.protoMeta.get('jsonField', '')
+    if cBase.isPJsonModel: cBase.jsonField = 'smInfo' 
+    
+    cBase.fakeId = hasattr(cBase.model , '_fakeId')
     cBase.orderBy = []
     # pStyle = cBase.protoMeta.get( 'pciStyle', '')
 
@@ -109,8 +115,8 @@ def getQSet( cBase ):
     if not getModelPermission( cBase.userProfile.user, cBase.model, 'list'):
         return cBase.model.objects.none()
 
-    Qs = cBase.model.objects
-
+#   Usa el manager de base 
+    Qs = cBase.model.smObjects
 
 #   El filtro base viene en la configuracion MD
     try:
@@ -119,7 +125,7 @@ def getQSet( cBase ):
         traceback.print_exc()
         getReadableError(e)
 
-#   PROBAR: Order by
+#   Order by
     localSort = cBase.protoMeta.get('localSort', False)
     if not localSort :
         cBase.sort = verifyList(cBase.sort)
@@ -127,16 +133,17 @@ def getQSet( cBase ):
 
             sName = sField['property']
             if cBase.isProtoModel:
+
                 # Permite el ordenamiento sobre la funcion de presentacion 
                 if sName == '__str__': 
                     sName = 'smNaturalCode'
                 
                 # Permite el ordenamiento sobre maestros e impide sobre jsofield 
-                sName = sName.split('__')[0]
-                if sName == 'smInfo': 
-                    continue 
-                else:  sName = sField['property']
+                elif sName.split('__')[0] in ['smInfo', cBase.jsonField] : 
+                    cBase.jsonSorters.append( sField )
+                    continue  
     
+
             if sName in cBase.model._meta.get_all_field_names() :
                 if sField['direction'] == 'DESC': sName = '-' + sName
                 cBase.orderBy.append(sName)
@@ -327,26 +334,18 @@ def addQbeFilter( cBase, Qs ):
         if sFilter[ 'property' ] == '_allCols':
             # debe descomponer la busqueda usando el objeto Q
             QTmp = getTextSearch(sFilter, cBase )
-            if QTmp is None:  
-                QTmp = cBase.models.Q()
+            if QTmp is None: QTmp = cBase.models.Q()
+            Qs = Qs.filter(QTmp)
 
-            try:
-                Qs = Qs.filter(QTmp)
-            except:
-                traceback.print_exc()
 
         else:
             # Los campos simples se filtran directamente, se require para el jsonField
             QTmp = addQbeFilterStmt(sFilter, cBase )
             QTmp = dict((x, y) for x, y in QTmp.children)
-            try:
-                Qs = Qs.filter(**QTmp)
-            except:
-                traceback.print_exc()
+            Qs = Qs.filter(**QTmp)
 
 
     return Qs
-
 
 
 def addQbeFilterStmt( sFilter, cBase ):
@@ -364,8 +363,9 @@ def addQbeFilterStmt( sFilter, cBase ):
         # El campo especial __str__ debe ser descompuesto en los seachFields en forma explicita
         return Q()
 
-    elif fieldName.startswith(cBase.jsonField + '__'):
-        sType = 'string'
+    elif fieldName.split('__')[0] == cBase.jsonField:
+        cBase.jsonLookups.append( sFilter ) 
+        return Q()
 
     else:
         try:
@@ -492,3 +492,52 @@ def evalueFuncion(fName, rowData):
         val = fName + '?'
 
     return val
+
+
+def _evaluate_json_lookup(self, item, lookup, value):
+    """
+    TODO:  Prototypos 
+    """
+
+    oper = 'exact'
+
+    evaluators = {
+        'icontains': lambda item, value: item.lower() in value.lower(),
+        'contains': lambda item, value: item in value,
+        'in': lambda item, value: item in value,
+        'iexact': lambda item, value: item.lower() == value.lower(),
+        'exact': lambda item, value: item == value,
+        'lt': lambda item, value: item < value,
+        'lte': lambda item, value: item <= value,
+        'gt': lambda item, value: item > value,
+        'gte': lambda item, value: item >= value,
+        'range': lambda item, value: item >= value[0] and item <= value[1],
+    }
+
+    def _getattr(obj, key):
+        if isinstance(obj, dict):
+            return obj[key]
+        return getattr(obj, key)
+
+    if lookup.split('__')[-1] in evaluators.keys():
+        oper = lookup.split('__')[-1]
+        lookup = '__'.join(lookup.split('__')[:-1])
+
+    # DGT Verifica que el objeto json se un dictionario o lo convierte          
+    field = getattr(item, lookup.split('__')[0])
+    if isinstance(field, dict) : 
+        jdict = field
+    elif isinstance( field, ( six.string_types, six.text_type, bytes)) :
+        try:
+            jdict = json.loads(field)
+        except :
+            return False
+    else: return False
+
+    for key in lookup.split('__')[1:]:
+        try:
+            jdict = _getattr(jdict, key)
+        except (AttributeError, KeyError):
+            return False
+
+    return evaluators[oper](jdict, value)

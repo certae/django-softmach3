@@ -42,6 +42,7 @@ class ProtoModelBase(models.Model):
     smUUID = models.UUIDField( default=uuid.uuid4, editable=False)
 
     objects = ProtoManager()
+    smObjects = models.Manager()
 
     # Security indicator used to control permissions
     _protoObj = True
@@ -61,7 +62,7 @@ class ProtoModelBase(models.Model):
         if not isRaw :
             cuser = CurrentUserMiddleware.get_user( False )
             
-            if not self.smNaturalCode:
+            if self.pk or not self.smNaturalCode:
                 self.smNaturalCode = self.__str__()
                  
             if cuser: 
@@ -83,7 +84,9 @@ class ProtoModelExt(ProtoModelBase):
     """ 
 
     smInfo = JSONField(default={})
+
     objects = ProtoJSONManager(json_fields = ['smInfo'])
+    smObjects = models.Manager()
 
     _protoJson = True
 

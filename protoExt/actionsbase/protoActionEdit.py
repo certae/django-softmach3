@@ -71,6 +71,8 @@ def _protoEdit(request, myAction):
     cBase.isProtoModel = hasattr(cBase.model , '_protoObj')
     cBase.isPJsonModel = hasattr(cBase.model , '_protoJson')
     cBase.jsonField = cBase.protoMeta.get('jsonField', '')
+    cBase.fakeId = hasattr(cBase.model , '_fakeId')
+    
     if cBase.isPJsonModel: cBase.jsonField = 'smInfo' 
 
 #   Decodifica los eltos
@@ -144,17 +146,18 @@ def _protoEdit(request, myAction):
 
             try:
                 rec.save()
-
-                # -- Los tipos complejos ie. date, generan un error, es necesario hacerlo detalladamente
-                # Convierte el registro en una lista y luego toma solo el primer elto de la lista resultado.
-                data = Q2Dict(cBase.protoMeta , [rec], False)[0]
-                data['_ptId'] = _ptId
+                saveOk = True 
 
             except Exception as  e:
-                data['_ptStatus'] = data['_ptStatus'] + getReadableError(e)
+                data['_ptStatus'] = data['_ptStatus'] +  getReadableError(e)
                 data['_ptId'] = _ptId
-                # traceback.print_exc()
-                # return doReturn ({'success':False ,'message' : str( e )})
+
+            if saveOk:
+                # -- Los tipos complejos ie. date, generan un error, es necesario hacerlo detalladamente
+                # Convierte el registro en una lista y luego toma solo el primer elto de la lista resultado.
+                data = Q2Dict(cBase, [rec])[0]
+                data['_ptId'] = _ptId
+
 
         else:# Action Delete
             try:
