@@ -71,7 +71,7 @@ def _protoEdit(request, myAction):
     cBase.isProtoModel = hasattr(cBase.model , '_protoObj')
     cBase.isPJsonModel = hasattr(cBase.model , '_protoJson')
     cBase.jsonField = cBase.protoMeta.get('jsonField', '')
-
+    if cBase.isPJsonModel: cBase.jsonField = 'smInfo' 
 
 #   Decodifica los eltos
     # Verifica q sea una lista de registros, (no deberia pasar, ya desde Extjs se controla )
@@ -229,6 +229,9 @@ def setRegister(cBase , rec, key, data):
             value = toDecimal(value)
         elif cName == 'FloatField':
             value = toFloat(value)
+        elif cName == 'JsonField':
+            if type(value) == type('') and len( value ) == 0:
+                value = {}
 
         setattr(rec, key, value)
 

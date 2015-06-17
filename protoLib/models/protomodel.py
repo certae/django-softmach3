@@ -26,7 +26,7 @@ class ProtoModelBase(models.Model):
     related_name="%(app_label)s_%(class)s"
     """ 
 
-    smNaturalCode = models.CharField(max_length=50, null=True, blank=True, editable=True)
+    smNaturalCode = models.CharField(max_length=50, null=True, blank=True, editable=False)
     smRegStatus = models.CharField(max_length=50, null=True, blank=True, editable=False)
     smWflowStatus = models.CharField(max_length=50, null=True, blank=True, editable=False)
 
@@ -56,20 +56,19 @@ class ProtoModelBase(models.Model):
         
     def save(self, *args, **kwargs):
         # Disabled for loaddata
-        isNew = kwargs.get('created', True) 
         isRaw = kwargs.get('raw', False)          
 
         if not isRaw :
             cuser = CurrentUserMiddleware.get_user( False )
             
             if not self.smNaturalCode:
-                self.smNaturalCode - self.__str__()
+                self.smNaturalCode = self.__str__()
                  
             if cuser: 
                 setattr(self, 'smModifiedBy', cuser)
     
-                # Insert not self.pk:
-                if isNew:   
+                # Insert 
+                if not self.pk:   
                     setattr(self, 'smCreatedBy', cuser)
                     setattr(self, 'smOwningUser', cuser)
                     setattr(self, 'smOwningTeam', getUserTeam( cuser))

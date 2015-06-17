@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import json 
-
 from protoExt.models import ViewDefinition, CustomDefinition 
 from protoLib.getStuff import getDjangoModel, getModelPermission 
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess
@@ -41,13 +39,8 @@ def protoSaveProtoObj(request):
         return saveProtoPci( cBase )
 
 
-    model = getDjangoModel( cBase.viewEntity )
-
     if cBase.viewCode.find('_') == 0 :
         # Es customProperty 
-
-        if not getModelPermission(request.user, model, 'custom') : 
-            return JsonError('permission denied') 
 
         try:
             protoDef = CustomDefinition.objects.get_or_create(\
@@ -60,8 +53,10 @@ def protoSaveProtoObj(request):
 
     else: 
 
+        cBase.model = getDjangoModel( cBase.viewEntity )
+
         # Verifica los permisos  
-        if not getModelPermission(request.user, model, 'config') : 
+        if not getModelPermission(request.user, cBase.model, 'config') : 
             return JsonError('permission denied') 
 
         try:

@@ -2,6 +2,7 @@
 
 
 from protoExt.utils.utilsBase import verifyList,  list2dict
+from protoLib.models.protomodel import smControlFields 
 from .protoField import  setFieldDict
 
 
@@ -131,7 +132,7 @@ class ProtoGridFactory(object):
                     if (vFld.get('crudType') == 'storeOnly') or (vFld.get('hidden', False)) :
                         continue
 
-                    if (key in [ 'smOwningUser', 'smOwningTeam', 'smCreatedBy',  'smCreatedOn', 'smModifiedBy', 'smModifiedOn', 'smWflowStatus','smRegStatus',  'smUUID' ]) :
+                    if key in smControlFields :
                         prAdmin.append({ 'name' : key  , '__ptType' : 'formField'})
 
                     elif (fType == 'text') :
