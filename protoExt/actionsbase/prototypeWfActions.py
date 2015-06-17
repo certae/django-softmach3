@@ -1,4 +1,9 @@
 
+"""
+Funciones asociadas al manejo de Workflow, 
+DESACTIVADO POR EL MOMENTO en espera de una solucion mas integral  
+"""
+
 def doWfAction(model, selectedKeys, parameters, actionDef, viewEntity, pUser):
     pass 
 #     userProfile = getUserProfile(pUser)

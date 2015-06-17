@@ -41,11 +41,17 @@ class ProtoModelBase(models.Model):
 
     smUUID = models.UUIDField( default=uuid.uuid4, editable=False)
 
+    # Este manager tiene problemas con el order_by      
     objects = ProtoManager()
+    
+    
     smObjects = models.Manager()
 
     # Security indicator used to control permissions
     _protoObj = True
+    
+    # En los modelos q esto es falso NaturalCode debe manejarse directamente      
+    _setNaturalCode = True
 
     class Meta:
         abstract = True
@@ -62,7 +68,7 @@ class ProtoModelBase(models.Model):
         if not isRaw :
             cuser = CurrentUserMiddleware.get_user( False )
             
-            if self.pk or not self.smNaturalCode:
+            if self._setNaturalCode:
                 self.smNaturalCode = self.__str__()
                  
             if cuser: 
@@ -92,7 +98,5 @@ class ProtoModelExt(ProtoModelBase):
 
     class Meta:
         abstract = True
-
-
 
         

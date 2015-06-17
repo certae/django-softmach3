@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 
+"""
+Funciones asociadas al manejo de prototype 
+"""
+
 import json 
 
 from django.conf import settings 
-from protoExt.utils.utilsWeb import JsonError 
+from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
+from protoExt.utils.utilsBase import getReadableError
 
 try:
     PROTO_PREFIX = settings.PROTO_PREFIX or "prototype.ProtoTable."
@@ -20,7 +25,7 @@ def isProtoPci( cBase   ):
 
 
 def getProtoPci( cBase ):
-
+# TODO:  Por ahora no retorna nada, completar con returnmsg 
 
     try:
         prototypeView = cBase.viewCode.replace( PROTO_PREFIX, '')
@@ -36,7 +41,7 @@ def saveProtoPci( cBase ):
     protoCode = cBase.viewCode.replace( PROTO_PREFIX, '' )
 
     try:
-        protoMeta = json.loads(sMeta)
+        protoMeta = json.loads( cBase.sMeta)
 
         entityId = protoMeta['protoEntityId'] 
         entityObj = Entity.objects.get(id=entityId)

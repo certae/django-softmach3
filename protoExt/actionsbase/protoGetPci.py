@@ -85,7 +85,7 @@ def protoGetPCI(request):
 #   ============== Verificacion de la metadata 
     try:
         cBase.protoMeta = verifyMeta( cBase , 'pci')
-    except Exception as e:
+    except Exception:
         traceback.print_exc()    
         return JsonError('invalid definition: {0}'.format( cBase.viewEntity )) 
 

@@ -116,7 +116,9 @@ def getQSet( cBase ):
         return cBase.model.objects.none()
 
 #   Usa el manager de base 
-    Qs = cBase.model.smObjects
+    if cBase.isProtoModel:
+        Qs = cBase.model.smObjects
+    else: Qs = cBase.model.objects
 
 #   El filtro base viene en la configuracion MD
     try:
