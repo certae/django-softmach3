@@ -4,8 +4,7 @@ import traceback, json
 
 from django.http import HttpResponse
 
-from protoLib.getStuff import getDjangoModel, cAux 
-from protoLib.getStuff import getBaseModelName
+from protoLib.getStuff import getDjangoModel 
 from protoExt.utils.utilsWeb import JsonError 
 from protoExt.utils.utilsBase import getReadableError
 
@@ -13,7 +12,7 @@ from .protoGrid import setDefaultField
 from .protoField import setFieldDict, isAdmField 
 from .prototypeActions import isProtoPci 
 
-# ------------------------------------------------------------------------
+from . import validateRequest 
 
 
 
@@ -21,38 +20,28 @@ def protoGetFieldTree(request):
     """ return full field tree 
     """
 
-    if request.method != 'POST':
-        return JsonError('Invalid message') 
-    
-    viewCode = request.POST.get('viewCode', '') 
-    viewEntity = getBaseModelName(viewCode)
+    cBase, msgError = validateRequest( request )
+    if msgError: return msgError  
     
     try: 
-        model = getDjangoModel(viewEntity)
-    except Exception as e:
-        return JsonError(getReadableError(e)) 
+        cBase.model = getDjangoModel(cBase.viewEntity)
+    except :
+        return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
+
     
     fieldList = []
-
-#     FIX: 
-    cBase = cAux()
     if isProtoPci( cBase ): 
-        # ---------------------------------------------------              Prototipos 
         protoEntityId = request.POST.get('protoEntityId')
-        if not protoEntityId >= 0:
-            return JsonError('invalid idEntity')
+        if not protoEntityId >= 0: return JsonError('invalid idEntity')
 
-        try:  
-            from prototype.actions.viewDefinition import GetProtoFieldsTree
-            fieldList = GetProtoFieldsTree(protoEntityId)
-        except: 
-            return JsonError('invalid idEntity')
+        from prototype.actions.viewDefinition import GetProtoFieldsTree
+        fieldList = GetProtoFieldsTree(protoEntityId)
+
 
     else: 
-        # -----------------------------------------------------------------------------------------------------
         # Se crean los campos con base al modelo ( trae todos los campos del modelo 
-        # for field in model._meta._fields(): # only for django 1.4
-        for field in model._meta.fields:
+        # for field in cBase.model._meta._fields(): # only for django 1.4
+        for field in cBase.model._meta.fields:
             try: 
                 addFiedToList(fieldList, field , '')
             except Exception as  e:
@@ -68,11 +57,10 @@ def protoGetFieldTree(request):
          }
         
         # Defaults values
-        setDefaultField(myField, model , viewCode)
+        setDefaultField(myField, cBase.model , cBase.viewCode)
         
-        # FormLink redefinition to original view 
-        # myField['zoomModel'] =  viewCode  
-        
+        # FUTURE: FormLink redefinition to original view 
+        # myField['zoomModel'] =  cBase.viewCode  
         fieldList.append(myField)
 
     # Codifica el mssage json 
@@ -138,9 +126,8 @@ def addFiedToList(fieldList , field, fieldBase):
 
         # itera sobre el campo para heredar de sus padres  
         fkFieldList = []
-        model = field.rel.to
-        # for fAux in model._meta._fields(): #django 1.4
-        for fAux in model._meta.fields:
+        relmodel = field.rel.to
+        for fAux in relmodel._meta.fields:
             # los id de los campos heredados tampoco se presentan 
             if fAux.name == 'id' :
                 continue 
