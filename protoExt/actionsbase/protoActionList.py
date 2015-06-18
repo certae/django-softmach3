@@ -129,6 +129,7 @@ def getQSet( cBase ):
         traceback.print_exc()
         getReadableError(e)
 
+
 #   Order by
     localSort = cBase.protoMeta.get('localSort', False)
     if not localSort :
@@ -156,15 +157,6 @@ def getQSet( cBase ):
 
     cBase.orderBy = tuple(cBase.orderBy)
 
-    # Probar: 
-    try:
-        Qs = addQbeFilter(cBase, Qs)
-    except Exception as e:
-        traceback.print_exc()
-        getReadableError(e)
-
-    # DbFirst en caso de q no exista una llave primaria
-
     return Qs
 
 
@@ -184,9 +176,6 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
         myZoomModel = lField.get('zoomModel', '')
         if (len(myZoomModel) > 0) and (myZoomModel != cBase.protoMeta['viewEntity']):
             relModels[ fName ] = { 'zoomModel' : myZoomModel, 'fkId' : lField.get('fkId', '') , 'loaded' : False }
-
-        # if fName.startswith(cBase.jsonField + '__'):
-        #     cBase.udpFields.append( lField )
 
 
     # Verifica si existen reemplazos por hacer ( cpFromField )
@@ -336,9 +325,10 @@ def addQbeFilter( cBase, Qs ):
     if len(cBase.protoFilter) == 0:
         return Qs
 
+    cBase.baseFilter = verifyList(cBase.baseFilter)
     cBase.protoFilter = verifyList(cBase.protoFilter)
 
-    for sFilter in cBase.protoFilter:
+    for sFilter in cBase.baseFilter + cBase.protoFilter:
 
         if sFilter[ 'property' ] == '_allCols':
             # debe descomponer la busqueda usando el objeto Q
@@ -364,15 +354,16 @@ def addQbeFilterStmt( sFilter, cBase ):
     """
     fieldName = sFilter['property'].replace('.', '__')
 
+    if fieldName == '__str__':
+        if cBase.isProtoModel:  
+            fieldName = 'smNaturalCode'
+        else : return Q()
+
     if fieldName.endswith('__pk') or fieldName.endswith('_id') or fieldName == 'pk':
         # Los id por ahora son numericos
         sType = 'int'
 
-    elif fieldName == '__str__':
-        # El campo especial __str__ debe ser descompuesto en los seachFields en forma explicita
-        return Q()
-
-    elif fieldName.split('__')[0] == cBase.jsonField:
+    elif fieldName.startswith(cBase.jsonField + '__'):
         cBase.jsonLookups.append( sFilter ) 
         return Q()
 
@@ -502,51 +493,3 @@ def evalueFuncion(fName, rowData):
 
     return val
 
-
-def _evaluate_json_lookup(self, item, lookup, value):
-    """
-    TODO:  Prototypos 
-    """
-
-    oper = 'exact'
-
-    evaluators = {
-        'icontains': lambda item, value: item.lower() in value.lower(),
-        'contains': lambda item, value: item in value,
-        'in': lambda item, value: item in value,
-        'iexact': lambda item, value: item.lower() == value.lower(),
-        'exact': lambda item, value: item == value,
-        'lt': lambda item, value: item < value,
-        'lte': lambda item, value: item <= value,
-        'gt': lambda item, value: item > value,
-        'gte': lambda item, value: item >= value,
-        'range': lambda item, value: item >= value[0] and item <= value[1],
-    }
-
-    def _getattr(obj, key):
-        if isinstance(obj, dict):
-            return obj[key]
-        return getattr(obj, key)
-
-    if lookup.split('__')[-1] in evaluators.keys():
-        oper = lookup.split('__')[-1]
-        lookup = '__'.join(lookup.split('__')[:-1])
-
-    # DGT Verifica que el objeto json se un dictionario o lo convierte          
-    field = getattr(item, lookup.split('__')[0])
-    if isinstance(field, dict) : 
-        jdict = field
-    elif isinstance( field, ( six.string_types, six.text_type, bytes)) :
-        try:
-            jdict = json.loads(field)
-        except :
-            return False
-    else: return False
-
-    for key in lookup.split('__')[1:]:
-        try:
-            jdict = _getattr(jdict, key)
-        except (AttributeError, KeyError):
-            return False
-
-    return evaluators[oper](jdict, value)
