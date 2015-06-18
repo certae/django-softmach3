@@ -15,7 +15,7 @@ from protoExt.actionsbase.protoGetPciDetailsTree import protoGetDetailsTree
 from protoExt.actionsbase.protoLogin import protoGetUserRights, protoLogout, protoGetPasswordRecovery, resetpassword, changepassword
 
 from protoExt.actionsbase.protoActionList import protoList
-from protoExt.actionsbase.protoActionRep  import sheetConfigRep, protoCsv
+from protoExt.actionsbase.protoActionExport  import protoExport
 from protoExt.actionsbase.protoActionEdit  import protoCreate, protoUpdate, protoDelete
 from protoExt.actionsbase import protoExecuteAction
 
@@ -27,8 +27,8 @@ urlpatterns = patterns('',
 #     url(r'^protoExtReset$', DirectTemplateView.as_view(template_name='protoExt.html',extra_context={ 'isPasswordReseted': True })),
 
     url('protoList/$', protoList),
-    url('sheetConfigRep/$', sheetConfigRep),
-    url('protoCsv/$', protoCsv),
+    # url('sheetConfigRep/$', sheetConfigRep),
+    url('protoExport/$', protoExport),
 
     url('protoDoActions/$', protoExecuteAction),
 

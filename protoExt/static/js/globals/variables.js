@@ -26,7 +26,7 @@ _SM._PConfig = {
     urlGetPasswordRecovery: 'protoLib/protoGetPasswordRecovery/',
     urlSubmitChangePassword: 'protoLib/submitChangePassword/',
     urlGetSheetReport: 'protoLib/sheetConfigRep/',
-    urlGetProtoCsv: 'protoLib/protoCsv/',
+    urlGetProtoExport: 'protoLib/protoExport/',
     urlDoAction: 'protoLib/protoDoActions/',
     urlHelpQbe: 'protoLib/protoGetHelpQbe/',
     urlLogOut: 'protoLib/protoLogout/',

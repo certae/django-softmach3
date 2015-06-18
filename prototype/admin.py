@@ -1,5 +1,8 @@
 # This is an auto-generated model module by CeRTAE OMS PlugIn
 
+from import_export import resources
+from import_export.admin import ImportExportActionModelAdmin # ImportExportModelAdmin
+
 from reversion.helpers import patch_admin
 from .models import ProtoTable
 from django.contrib import admin
@@ -8,38 +11,45 @@ from django.contrib import admin
 from .actions import doModelPrototype, doDiagram, doExportPrototype, doExportProtoJson, doExport2Json , doImport4Json, doModelDiagram 
 from .models import Project,  Model, Property,  Relationship  #, Prototype
 
-class MyModelAdmin( admin.ModelAdmin ):
+class ModelAdmin( admin.ModelAdmin ):
     actions = [ doModelPrototype, doModelDiagram, doExportPrototype, doExportProtoJson, doExport2Json, doImport4Json ]
 
-admin.site.register(Model, MyModelAdmin)
+admin.site.register(Model, ModelAdmin)
 
 # ------------------------------------------  Entity
 from .actions import  doEntityPrototype
 from .models import Entity
 
-class MyEntityAdmin( admin.ModelAdmin ):
-    actions = [ doEntityPrototype  ]
 
-admin.site.register(Entity, MyEntityAdmin )
+class EntityResource(resources.ModelResource):
+    class Meta:
+        model = Entity
+
+class EntityAdmin( ImportExportActionModelAdmin ):
+    actions = [ doEntityPrototype  ]
+    resource_class = EntityResource
+
+admin.site.register(Entity, EntityAdmin )
+patch_admin(Entity)
 
 
 # ------------------------------------------  Entity
 from .actions import doImportSchema, doImportOMS
 
-class MyProjectAdmin( admin.ModelAdmin ):
+class ProjectAdmin( admin.ModelAdmin ):
     actions = [ doImportSchema, doImportOMS  ]
 
-admin.site.register(Project, MyProjectAdmin )
+admin.site.register(Project, ProjectAdmin )
 
 
 # ------------------------------------------
 
 from .models import Diagram
 
-class MyDiagramAdmin( admin.ModelAdmin ):
+class DiagramAdmin( admin.ModelAdmin ):
     actions = [  doDiagram  ]
 
-admin.site.register(Diagram , MyDiagramAdmin)
+admin.site.register(Diagram , DiagramAdmin)
 
 
 admin.site.register(Property )
@@ -50,7 +60,6 @@ admin.site.register( ProtoTable )
 
 patch_admin(Project)
 patch_admin(Model)
-patch_admin(Entity)
 patch_admin(Property)
 patch_admin(Relationship)
 patch_admin(Diagram)

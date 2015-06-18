@@ -127,7 +127,7 @@ Ext.define('ProtoUL.UI.MDPrintOptsController', {
 
             Ext.Ajax.request({
                 method: 'POST',
-                url: _SM._PConfig.urlGetProtoCsv,
+                url: _SM._PConfig.urlGetProtoExport,
                 params: pGrid.store.proxy.extraParams,
                 success: function(result, request) {
                     var myResult = Ext.decode(result.responseText);

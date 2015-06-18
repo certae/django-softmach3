@@ -24,41 +24,18 @@ import traceback
 def protoList(request):
 #   Vista simple para cargar la informacion,
 
-    PAGESIZE = 50
-    message = ''
+    cBase, message = prepareListEnv( request )
+    if message: return message  
 
-    cBase, msgError = validateRequest( request )
-    if msgError: return msgError  
-    
-    # Lee la pci      
-    try:
-        protoDef = ViewDefinition.objects.get( code = cBase.viewCode )
-        cBase.protoMeta = protoDef.metaDefinition
-    except Exception as e :
-        return JsonError('ViewDefinition not found: {0}'.format( cBase.viewCode  )) 
-
-    cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
-
-#   Parametros de la consulta 
-    cBase.protoFilter = verifyList( request.POST.get('protoFilter', []))
-    cBase.baseFilter = verifyList( request.POST.get('baseFilter', [] )) 
-    cBase.sort = verifyList( request.POST.get('sort', []))
-
-    cBase.start = int(request.POST.get('start', 0))
-    cBase.page = int(request.POST.get('page', 1))
-    cBase.limit = int(request.POST.get('limit', PAGESIZE))
-#   Fix: Cuando esta en la pagina el filtro continua en la pagina 2 y no muestra nada.
-#   if ( ( cBase.page -1 ) *cBase.limit >= pRowsCount ): cBase.page = 1
-
-    cBase.jsonLookups = [] 
-    cBase.jsonSorters = [] 
-    cBase.qsLookups = [] 
+    # Fix: Cuando esta en la pagina el filtro continua en la pagina 2 y no muestra nada.
+    # if ( ( cBase.page -1 ) *cBase.limit >= pRowsCount ): cBase.page = 1
 
 #   Prepara las cols del Query
     try:
 
         # Obtiene las filas del cBase.modelo
         Qs = getQSet( cBase )
+        cBase.totalCount = len( Qs )
         pRows = Qs[ cBase.start: cBase.page * cBase.limit ]
         pList = Q2Dict(cBase , pRows  )
         bResult = True
@@ -73,13 +50,47 @@ def protoList(request):
     context = json.dumps({
             'success': bResult,
             'message': message,
-            'totalCount': len( pList ),
+            'totalCount': cBase.totalCount,
             'filter': cBase.protoFilter,
             'rows': pList,
         }, cls=JSONEncoder)
 
 
     return HttpResponse(context, content_type="application/json")
+
+
+def prepareListEnv( request ):
+    """
+    Preapar las variables para los llamados de tipo lista ( list, csv )
+    """
+    PAGESIZE = 50
+
+    cBase, message = validateRequest( request )
+    if message: return message  
+    
+    # Lee la pci      
+    try:
+        protoDef = ViewDefinition.objects.get( code = cBase.viewCode )
+        cBase.protoMeta = protoDef.metaDefinition
+    except Exception :
+        return JsonError('ViewDefinition not found: {0}'.format( cBase.viewCode  )) 
+
+    cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
+
+#   Parametros de la consulta 
+    cBase.protoFilter = verifyList( request.POST.get('protoFilter', []))
+    cBase.baseFilter = verifyList( request.POST.get('baseFilter', [] )) 
+    cBase.sort = verifyList( request.POST.get('sort', []))
+
+    cBase.start = int(request.POST.get('start', 0))
+    cBase.page = int(request.POST.get('page', 1))
+    cBase.limit = int(request.POST.get('limit', PAGESIZE))
+
+    cBase.jsonLookups = [] 
+    cBase.jsonSorters = [] 
+    cBase.qsLookups = [] 
+
+    return cBase, message 
 
 
 def getSortOrder( cBase ):
@@ -144,14 +155,11 @@ def getQSet( cBase ):
             cBase.jsonLookups.append( sFilter ) 
         else: cBase.qsLookups.append( sFilter ) 
 
-#   FIX: !!! Usa el manager de base 
-    if False and cBase.isProtoModel  :
-        Qs = cBase.model.smObjects
-    else: Qs = cBase.model.objects
-
+ 
     getSortOrder(cBase )
     QStmt = getQbeFilter(cBase, cBase.qsLookups )
-    Qs = Qs.filter( QStmt ).order_by(*cBase.orderBy)
+
+    Qs = cBase.model.objects.filter( QStmt ).order_by(*cBase.orderBy)
     
     if cBase.jsonLookups: 
         QStmt = getQbeFilter(cBase, cBase.jsonLookups )

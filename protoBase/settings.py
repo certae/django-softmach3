@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'jsonfield2', 
     'taggit',
+    'import_export',
     'reversion',
     'protoLib', 
     'protoExt', 
