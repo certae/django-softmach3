@@ -68,9 +68,9 @@ Ext.define('ProtoUL.proto.ProtoFieldSelector', {
                     if (btn != 'ok') {
                         return;
                     }
-                    elemTree.addUdpField( {'name' : pName , 'checked' : false } );
+                    elemTree.addUdpField( {'name' : 'smInfo__' + pName , 'checked' : false } );
 
-                }, me, false , 'udp__');
+                }, me, false , '');
 
             },
             scope: me }
@@ -342,11 +342,14 @@ Ext.define('ProtoUL.proto.ProtoFieldTree', {
 
     addUdpField:  function( vFld ) {
 
-          // No lo encontro, lo agrega
+        // No lo encontro, lo agrega 
+        var sname = vFld.name; 
+        // if (  sname.indexOf( 'smInfo__') ==  0  ) { sname = sname.substring(8) }
+
         tNode = {
             'id'         : vFld.name,
-            'text'       : vFld.name,
-            'type'       : 'udp',
+            'text'       : sname,
+            'type'       : 'string',
             'checked'    : vFld.checked,
             'required'   : false,
             'leaf'       : true

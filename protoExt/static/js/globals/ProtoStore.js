@@ -497,6 +497,7 @@ _SM.getColDefinition = function(vFld) {
 
     if (!vFld.header) {
         vFld.header = vFld.name;
+        if (  vFld.header.indexOf( 'smInfo__') ==  0  ) { vFld.header = vFld.header.substring(8) }
     }
 
     var colDefinition, lstProps, editor;
@@ -808,6 +809,7 @@ _SM.getFormFieldDefinition = function(vFld) {
     formEditor.fieldLabel = vFld.fieldLabel || vFld.header || vFld.name;
     formEditor.fieldLabel = formEditor.fieldLabel.replace('<strong>', '').replace('</strong>', '');
     formEditor.fieldLabel = formEditor.fieldLabel.replace('<b>', '').replace('</b>', '');
+
     if (vFld.required) {
         formEditor.fieldLabel = '<strong>' + formEditor.fieldLabel + '</strong>';
     }

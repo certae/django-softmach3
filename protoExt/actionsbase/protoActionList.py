@@ -66,6 +66,8 @@ def protoList(request):
     except:
         pRows = Qs.all()[ cBase.start: cBase.page * cBase.limit ]
 
+#   Asegura la carga 
+    cBase.regCount = pRows.count()      
 
     if cBase.jsonLookups: 
         pass 
@@ -144,6 +146,9 @@ def getQSet( cBase ):
                 elif sName.split('__')[0] in ['smInfo', cBase.jsonField] : 
                     cBase.jsonSorters.append( sField )
                     continue  
+
+            # __str__ is not sortable 
+            if sName == '__str__': continue
     
 
             if sField['direction'] == 'DESC': sName = '-' + sName
@@ -169,10 +174,9 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
     """
 
     rows = []
+    relModels = {}      # Tablas de zoom para absorcion de campos
 
-    # Tablas de zoom para absorcion de campos
-    relModels = {}
-
+    # cBase.udpFields = [] 
 
     # Alimenta la coleccion de zooms, por cada campo pues hay q hacer un select para esto
     for lField  in cBase.protoMeta['fields']:
@@ -180,6 +184,9 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
         myZoomModel = lField.get('zoomModel', '')
         if (len(myZoomModel) > 0) and (myZoomModel != cBase.protoMeta['viewEntity']):
             relModels[ fName ] = { 'zoomModel' : myZoomModel, 'fkId' : lField.get('fkId', '') , 'loaded' : False }
+
+        # if fName.startswith(cBase.jsonField + '__'):
+        #     cBase.udpFields.append( lField )
 
 
     # Verifica si existen reemplazos por hacer ( cpFromField )
@@ -236,6 +243,7 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
                 continue
 
             rowdict[ fName ] = getFieldValue(pName, lField[ 'type'], rowData, cBase )
+
 
 
         # Realiza la absorcion de datos provenientes de un zoom

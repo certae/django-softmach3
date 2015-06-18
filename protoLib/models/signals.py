@@ -27,7 +27,7 @@ def login_teamtree_update(sender, user, **kwargs):
 
     uOrgTree = uProfile.userTeam.treeHierarchy
 
-#     # TODO: permisos adicionales, probar 
+#     # FUTURE: permisos compartidos 
 #     for item in pUser.usershare_set.all() :
 #         uOrgTree += ',' + item.userTeam.treeHierarchy
 

@@ -91,14 +91,13 @@ class ProtoGridFactory(object):
                 fdict[ 'readOnly' ] = True
 
             # Repasa las propiedades de base, ver por q no esta pasando trayendo las props de base ( ie:  defaulValue )
-            if (not (key.startswith('udp__'))):
-                try:
-                    field = cBase.model._meta.get_field(key)
-                    setFieldDict (self.fieldsDict , field)
-                    fdict = self.fieldsDict[ key ]
-                except:
-                    # Es posible q se puedan configuar propiedades no pertenecientes a la tabla como editables???
-                    fdict[ 'readOnly' ] = True
+            try:
+                field = cBase.model._meta.get_field(key)
+                setFieldDict (self.fieldsDict , field)
+                fdict = self.fieldsDict[ key ]
+            except:
+                # Es posible q se puedan configuar propiedades no pertenecientes a la tabla como editables???
+                fdict[ 'readOnly' ] = True
 
             self.fields.append(fdict)
 

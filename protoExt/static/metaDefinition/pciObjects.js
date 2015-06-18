@@ -442,8 +442,8 @@ _MetaObjects = {
     },
 
     "usrDefProps" : {
-        "description" : "User defined properties ( Fields created by the user, they do not participe in search and sort)",
-        "properties" : ["udpTable", "propertyRef", "keyField", "propertyPrefix", "propertyName", "propertyValue"]
+        "description" : "Udp User defined properties ( Fields created by the user, they do not participe in search and sort)",
+        "properties" : [ "propertyRef", "keyField", "propertyPrefix", "propertyName", "propertyValue"]
     },
 
     "sheetConfig" : {

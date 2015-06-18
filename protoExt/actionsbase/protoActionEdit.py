@@ -3,7 +3,8 @@
 # import traceback
 
 
-import json
+import json, reversion
+
 from django.http import HttpResponse
 from django.utils.encoding import smart_str
 

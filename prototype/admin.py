@@ -1,9 +1,7 @@
 # This is an auto-generated model module by CeRTAE OMS PlugIn
 
-
+from reversion.helpers import patch_admin
 from .models import ProtoTable
-# from .models import Service #, ServiceRef
-
 from django.contrib import admin
 
 # -----------------------------------------   Model  
@@ -49,6 +47,14 @@ admin.site.register(Property )
 
 admin.site.register(Relationship )
 admin.site.register( ProtoTable )
+
+patch_admin(Project)
+patch_admin(Model)
+patch_admin(Entity)
+patch_admin(Property)
+patch_admin(Relationship)
+patch_admin(Diagram)
+
 #admin.site.register( Prototype )
 
 #admin.site.register( Diagram )

@@ -21,7 +21,7 @@ def protoGetDetailsTree(request):
 
     
     try: 
-        model = getDjangoModel(cBase.viewEntity)
+        cBase.model = getDjangoModel(cBase.viewEntity)
     except :
         return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
         
@@ -41,7 +41,7 @@ def protoGetDetailsTree(request):
             return JsonError( 'invalid idEntity')
 
     else: 
-        modelDetails = getModelDetails( model )
+        modelDetails = getModelDetails( cBase.model )
         for detail in modelDetails: 
             addDetailToList( detailList,  detail ,  ''  )
     
@@ -86,8 +86,8 @@ def addDetailToList(  detailList , detail,  detailPath   ):
 
     else: 
         detailChild= []
-        model = getDjangoModel( detail[ 'conceptDetail' ]  )
-        modelDetails = getModelDetails( model )
+        relmodel = getDjangoModel( detail[ 'conceptDetail' ]  )
+        modelDetails = getModelDetails( relmodel )
         for sDetail in modelDetails: 
             sDetail[ 'detailField' ] = sDetail[ 'detailName' ] + '__' + detail[ 'detailField' ] 
             addDetailToList( detailChild,  sDetail ,  detailPath  )

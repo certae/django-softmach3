@@ -10,8 +10,10 @@ def getTypedValue (sAux , sType):
     * se usa sobre todo para las UDP y los JsonField 
     """
 
-    if sAux == 'None':
+    if sAux == None or sAux == 'None' : 
         sAux = ''
+        return sAux 
+    
     sAux = smart_str(sAux)
 
     if sType == 'bool':

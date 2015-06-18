@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 
-"""
-TODO: Agregar tags 
-"""
+# TODO: Agregar tags 
 
 from django.db import models
-# from django.db.models.signals import post_save, post_delete 
 
 from protoLib.models import ProtoModelBase, ProtoModelExt, ProtoJSONManager 
 from jsonfield2 import JSONField
 
 from .protoRules import  ONDELETE_TYPES, BASE_TYPES, CRUD_TYPES, DB_ENGINE
-
+from taggit.managers import TaggableManager
 
 from django.template.defaultfilters import slugify
 from django.conf import settings
+
+import reversion
+
 
 PROTO_PREFIX = settings.PROTO_PREFIX
 
@@ -100,6 +100,8 @@ class Model(ProtoModelExt):
     modelPrefix = models.CharField(blank=True, null=True, max_length=50)
     description = models.TextField(blank=True, null=True)
 
+    smTags = TaggableManager( blank=True )
+    
     class Meta:
         unique_together = ('project', 'code', 'smOwningTeam')
         
@@ -490,3 +492,15 @@ class DiagramEntity(ProtoModelExt):
 
     class Meta:
         unique_together = ('diagram', 'entity', 'smOwningTeam')
+
+
+
+reversion.register(Project)
+reversion.register(Model)
+reversion.register(Entity)
+reversion.register(Property)
+reversion.register(Relationship)
+reversion.register(PropertyEquivalence)
+reversion.register(Prototype)
+reversion.register(Diagram)
+reversion.register(DiagramEntity)

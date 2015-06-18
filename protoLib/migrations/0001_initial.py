@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EntityMap',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
                 ('entityConfig', jsonfield2.fields.JSONField(default={})),
                 ('entityBase', models.OneToOneField(to='contenttypes.ContentType')),
             ],
@@ -25,22 +25,22 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TeamHierarchy',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
                 ('code', models.CharField(max_length=200, unique=True)),
                 ('description', models.TextField(verbose_name='Descriptions', blank=True, null=True)),
-                ('site', models.IntegerField(blank=True, null=True)),
-                ('parentNode', models.ForeignKey(blank=True, null=True, to='protoLib.TeamHierarchy', related_name='downHierachy')),
+                ('site', models.IntegerField(null=True, blank=True)),
+                ('parentNode', models.ForeignKey(null=True, to='protoLib.TeamHierarchy', related_name='downHierachy', blank=True)),
             ],
         ),
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('language', models.CharField(blank=True, max_length=500, null=True)),
-                ('userTree', models.CharField(blank=True, max_length=500, null=True)),
+                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
+                ('language', models.CharField(max_length=500, null=True, blank=True)),
+                ('userTree', models.CharField(max_length=500, null=True, blank=True)),
                 ('userConfig', jsonfield2.fields.JSONField(default={})),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
-                ('userTeam', models.ForeignKey(blank=True, null=True, to='protoLib.TeamHierarchy', related_name='userTeam')),
+                ('userTeam', models.ForeignKey(null=True, to='protoLib.TeamHierarchy', related_name='userTeam', blank=True)),
             ],
         ),
     ]
