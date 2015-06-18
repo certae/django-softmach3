@@ -2,11 +2,10 @@
 
 
 from django.db import models
-from django.utils import six 
+# from django.utils import six 
 from django.http import HttpResponse
-from django.contrib.admin.utils import  get_fields_from_path
+# from django.contrib.admin.utils import  get_fields_from_path
 from django.utils.encoding import smart_str
-from django.db.models import Q
 
 from protoExt.utils.utilsBase import JSONEncoder, getReadableError
 from protoExt.utils.utilsBase import verifyStr, verifyList, list2dict
@@ -15,7 +14,7 @@ from protoExt.utils.utilsConvert import getTypedValue
 from .protoQbe import getSearcheableFields, getQbeStmt
 from protoLib.getStuff import  getModelPermission, getRowById
 
-from .protoField import TypeEquivalence
+# from .protoField import TypeEquivalence
 
 from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsWeb import JsonError 
@@ -43,10 +42,12 @@ def protoList(request):
     except Exception as e :
         return JsonError('ViewDefinition not found: {0}'.format( cBase.viewCode  )) 
 
+    cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
+
 #   Parametros de la consulta 
-    cBase.protoFilter = request.POST.get('protoFilter', '')
-    cBase.baseFilter = request.POST.get('baseFilter', '')
-    cBase.sort = request.POST.get('sort', '')
+    cBase.protoFilter = verifyList( request.POST.get('protoFilter', []))
+    cBase.baseFilter = verifyList( request.POST.get('baseFilter', [] )) 
+    cBase.sort = verifyList( request.POST.get('sort', []))
 
     cBase.start = int(request.POST.get('start', 0))
     cBase.page = int(request.POST.get('page', 1))
@@ -56,26 +57,17 @@ def protoList(request):
 
     cBase.jsonLookups = [] 
     cBase.jsonSorters = [] 
-    
-
-#   Obtiene las filas del cBase.modelo
-    Qs = getQSet( cBase )
-
-    try:
-        pRows = Qs.order_by(*cBase.orderBy)[ cBase.start: cBase.page * cBase.limit ]
-    except:
-        pRows = Qs.all()[ cBase.start: cBase.page * cBase.limit ]
-
-#   Asegura la carga 
-    cBase.regCount = pRows.count()      
-
-    if cBase.jsonLookups: 
-        pass 
+    cBase.qsLookups = [] 
 
 #   Prepara las cols del Query
     try:
+
+        # Obtiene las filas del cBase.modelo
+        Qs = getQSet( cBase )
+        pRows = Qs[ cBase.start: cBase.page * cBase.limit ]
         pList = Q2Dict(cBase , pRows  )
         bResult = True
+ 
     except Exception as e:
         traceback.print_exc()
         message = getReadableError(e)
@@ -97,8 +89,11 @@ def protoList(request):
 
 def getQSet( cBase ):
     """
-    Get QuerySet, order_by, isFakeId 
+    Get QuerySet
 
+    1. Ordena y filtra
+    2. Filtra Json 
+    3. Limita 
     """
     cBase.viewEntity = cBase.protoMeta.get('viewEntity', '')
     cBase.model = getDjangoModel(cBase.viewEntity)
@@ -117,45 +112,27 @@ def getQSet( cBase ):
     if not getModelPermission( cBase.userProfile.user, cBase.model, 'list'):
         return cBase.model.objects.none()
 
-#   Usa el manager de base 
-    if cBase.isProtoModel:
+#   Separa los filtros 
+    for sFilter in cBase.baseFilter + cBase.protoFilter:
+        fieldName = sFilter['property']
+        if fieldName.startswith(cBase.jsonField + '__'):
+            cBase.jsonLookups.append( sFilter ) 
+        else: cBase.qsLookups.append( sFilter ) 
+
+#   FIX: !!! Usa el manager de base 
+    if False and cBase.isProtoModel  :
         Qs = cBase.model.smObjects
     else: Qs = cBase.model.objects
 
-#   El filtro base viene en la configuracion MD
-    try:
-        Qs = addQbeFilter(cBase, Qs)
-    except Exception as e:
-        traceback.print_exc()
-        getReadableError(e)
-
-
-#   Order by
-    localSort = cBase.protoMeta.get('localSort', False)
-    if not localSort :
-        cBase.sort = verifyList(cBase.sort)
-        for sField in cBase.sort:
-
-            sName = sField['property']
-            if cBase.isProtoModel:
-
-                # Permite el ordenamiento sobre la funcion de presentacion 
-                if sName == '__str__': 
-                    sName = 'smNaturalCode'
-                
-                # Permite el ordenamiento sobre maestros e impide sobre jsofield 
-                elif sName.split('__')[0] in ['smInfo', cBase.jsonField] : 
-                    cBase.jsonSorters.append( sField )
-                    continue  
-
-            # __str__ is not sortable 
-            if sName == '__str__': continue
+    getSortOrder(cBase )
+    QStmt = getQbeFilter(cBase, cBase.qsLookups )
+    Qs = Qs.filter( QStmt ).order_by(*cBase.orderBy)
     
-
-            if sField['direction'] == 'DESC': sName = '-' + sName
-            cBase.orderBy.append(sName)
-
-    cBase.orderBy = tuple(cBase.orderBy)
+    if cBase.jsonLookups: 
+        QStmt = getQbeFilter(cBase, cBase.jsonLookups )
+        # se require para el jsonField, debe ir en **kwargs 
+        QTmp = dict((x, y) for x, y in QStmt.children)   
+        Qs = Qs.filter( **QTmp)
 
     return Qs
 
@@ -319,32 +296,38 @@ def copyValuesFromFields( cBase, rowdict, relModels ):
 
 
 
-def addQbeFilter( cBase, Qs ):
+def getQbeFilter( cBase,  lFilter  ):
+    """
+    Retorna oun objeto QStmt q se construye en forma independiente 
+
+    QResult = Q()
+
+    QResult.add(Q(), Q.AND)
+    QResult.add(Q(), Q.OR)
+
+    QResult = QResult & Qtmp
+    QResult = QResult | Qtmp
+
+    """
+
+    QBase = models.Q()
 
     # No hay criterios
-    if len(cBase.protoFilter) == 0:
-        return Qs
-
-    cBase.baseFilter = verifyList(cBase.baseFilter)
-    cBase.protoFilter = verifyList(cBase.protoFilter)
-
-    for sFilter in cBase.baseFilter + cBase.protoFilter:
+    if len(lFilter) == 0: return QBase
+    for sFilter in lFilter:
 
         if sFilter[ 'property' ] == '_allCols':
             # debe descomponer la busqueda usando el objeto Q
             QTmp = getTextSearch(sFilter, cBase )
             if QTmp is None: QTmp = models.Q()
-            Qs = Qs.filter(QTmp)
-
+            QBase = QBase & QTmp 
 
         else:
-            # Los campos simples se filtran directamente, se require para el jsonField
+            # Los campos simples se filtran directamente, 
             QTmp = addQbeFilterStmt(sFilter, cBase )
-            QTmp = dict((x, y) for x, y in QTmp.children)
-            Qs = Qs.filter(**QTmp)
+            QBase = QBase & QTmp 
 
-
-    return Qs
+    return QBase
 
 
 def addQbeFilterStmt( sFilter, cBase ):
@@ -357,23 +340,10 @@ def addQbeFilterStmt( sFilter, cBase ):
     if fieldName == '__str__':
         if cBase.isProtoModel:  
             fieldName = 'smNaturalCode'
-        else : return Q()
+        else : return models.Q()
 
-    if fieldName.endswith('__pk') or fieldName.endswith('_id') or fieldName == 'pk':
-        # Los id por ahora son numericos
-        sType = 'int'
-
-    elif fieldName.startswith(cBase.jsonField + '__'):
-        cBase.jsonLookups.append( sFilter ) 
-        return Q()
-
-    else:
-        try:
-            # Obtiene el tipo de dato, si no existe la col retorna elimina la condicion
-            field = get_fields_from_path(cBase.model, fieldName)[-1]
-            sType = TypeEquivalence.get(field.__class__.__name__, 'string')
-        except :
-            return Q()
+    fAux = cBase.fieldsDict.get(fieldName, {})
+    sType = fAux.get('type', '') 
 
     QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], sType)
 
@@ -395,14 +365,12 @@ def getTextSearch(sFilter, cBase ):
 
     try:
         pSearchFields = cBase.protoMeta['gridConfig']['searchFields']
-        fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
     except:
         pSearchFields = getSearcheableFields(cBase.model)
-        fieldsDict = {}
 
 
     for fName in pSearchFields:
-        fAux = fieldsDict.get(fName, {})
+        fAux = cBase.fieldsDict.get(fName, {})
         if fAux.get('type', '')  not in [ 'string', 'text', 'jsonField' ]: 
             continue
 
@@ -493,3 +461,32 @@ def evalueFuncion(fName, rowData):
 
     return val
 
+
+def getSortOrder( cBase ):
+    
+#   Order by
+    localSort = cBase.protoMeta.get('localSort', False)
+    if not localSort :
+        for sField in cBase.sort:
+
+            sName = sField['property']
+            if cBase.isProtoModel:
+
+                # Permite el ordenamiento sobre la funcion de presentacion 
+                if sName == '__str__': 
+                    sName = 'smNaturalCode'
+                
+                # Permite el ordenamiento sobre maestros e impide sobre jsofield 
+                elif sName.split('__')[0] in ['smInfo', cBase.jsonField] : 
+                    cBase.jsonSorters.append( sField )
+                    continue  
+
+            # __str__ is not sortable 
+            if sName == '__str__': continue
+    
+
+            if sField['direction'] == 'DESC': sName = '-' + sName
+            cBase.orderBy.append(sName)
+
+    cBase.orderBy = tuple(cBase.orderBy)
+    
