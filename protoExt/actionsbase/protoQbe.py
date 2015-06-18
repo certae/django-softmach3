@@ -1,8 +1,16 @@
 # -*- encoding: utf-8 -*-
 
+from django.db import models
 from django.db.models import Q
 from protoExt.utils.utilsConvert import isNumeric, toInteger
 import re
+
+
+from protoExt.utils.utilsBase import JSONEncoder
+from protoExt.utils.utilsBase import verifyStr 
+from protoExt.utils.utilsConvert import getTypedValue
+
+import json
 
 
 
@@ -72,12 +80,8 @@ def getQbeStmt(fieldName , sQBE, sType):
         sQBE = sQBE.strip()
 
         # Verifica si es una funcion
-        if (sQBE and sQBE[0] == '@'):
-            try:
-                sQBE = doGenericFuntion (sQBE)
-            except Exception as e:
-                # TODO: Log error y seguimeinto para hacer nulo el Qs
-                return None
+        # if (sQBE and sQBE[0] == '@'):
+        #     sQBE = evaluateFunction (sQBE)
 
         if sQBE == '' :
             return QResult
@@ -120,7 +124,6 @@ def getQbeStmt(fieldName , sQBE, sType):
         if bNot :
             QResult = ~QResult
         return QResult
-
 
 
 
@@ -181,16 +184,169 @@ def getQbeStmt(fieldName , sQBE, sType):
     return QResult
 
 
-def doGenericFuntion(sQBE):
+
+def getQbeFilter( cBase,  lFilter  ):
     """
+    Retorna oun objeto QStmt q se construye en forma independiente 
+
+    QResult = Q()
+
+    QResult.add(Q(), Q.AND)
+    QResult.add(Q(), Q.OR)
+
+    QResult = QResult & Qtmp
+    QResult = QResult | Qtmp
+
+    """
+
+    QBase = models.Q()
+
+    # No hay criterios
+    if len(lFilter) == 0: return QBase
+    for sFilter in lFilter:
+
+        if sFilter[ 'property' ] == '_allCols':
+            # debe descomponer la busqueda usando el objeto Q
+            QTmp = getTextSearch(sFilter, cBase )
+            if QTmp is None: QTmp = models.Q()
+            QBase = QBase & QTmp 
+
+        else:
+            # Los campos simples se filtran directamente, 
+            QTmp = addQbeFilterStmt(sFilter, cBase )
+            QBase = QBase & QTmp 
+
+    return QBase
+
+
+def addQbeFilterStmt( sFilter, cBase ):
+    """ 
+    Verifica casos especiales y obtiene el QStmt
+    retorna un objeto Q
+    """
+    fieldName = sFilter['property'].replace('.', '__')
+
+    if fieldName == '__str__':
+        if cBase.isProtoModel:  
+            fieldName = 'smNaturalCode'
+        else : return models.Q()
+
+    fAux = cBase.fieldsDict.get(fieldName, {})
+    sType = fAux.get('type', '') 
+
+    QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], sType)
+
+    return QStmt
+
+
+def getTextSearch(sFilter, cBase ):
+    """
+    Busqueda Textual ( no viene con ningun tipo de formato solo el texto a buscar
+    Si no trae nada deja el Qs con el filtro de base
+    Si trae algo y comienza por  "{" trae la estructura del filtro
+
+    Si solo viene el texto, se podria tomar la "lista" de campos "mostrados"
+    ya los campos q veo deben coincidir con el criterio, q pasa con los __str__ ??
+    Se busca sobre los campos del combo ( filtrables  )
+    """
+
+    QStmt = None
+
+    try:
+        pSearchFields = cBase.protoMeta['gridConfig']['searchFields']
+    except:
+        pSearchFields = getSearcheableFields(cBase.model)
+
+
+    for fName in pSearchFields:
+        fAux = cBase.fieldsDict.get(fName, {})
+        if fAux.get('type', '')  not in [ 'string', 'text', 'jsonField' ]: 
+            continue
+
+        QTmp = addQbeFilterStmt({'property': fName, 'filterStmt': sFilter['filterStmt'] } , cBase )
+
+        if QStmt is None:  
+            QStmt = QTmp
+        else: 
+            QStmt = QStmt | QTmp
+
+    return QStmt
+
+
+def getFieldValue(fName, fType, rowData, cBase ):
+
+    # Es una funcion
+    if (fName == '__str__'):
+        if cBase.isProtoModel:  
+            val = rowData.__getattribute__('smNaturalCode')
+        else: 
+            try:
+                val = eval('rowData.__str__()')
+                val = verifyStr(val , '')
+            except:
+                val = 'Id#' + verifyStr(rowData.pk, '?')
+
+    elif fName.startswith('@'):
+        val = evaluateFunction(fName, rowData)
+
+    elif (fName == cBase.jsonField):
+        # Master jsonField ( se carga texto )
+        try:
+            val = rowData.__getattribute__(fName)
+        except: val = {}
+        if isinstance(val, dict):
+            val = json.dumps(val , cls=JSONEncoder)
+
+    elif fName.startswith(cBase.jsonField + '__'):
+        # JSon fields
+        try:
+            val = rowData.__getattribute__(cBase.jsonField)
+            val = val.get(fName[ len(cBase.jsonField + '__'):])
+            val = getTypedValue(val, fType)
+
+        except: 
+            val = ''
+
+
+    elif ('__' in fName):
+        # Campo Absorbido modo objeto
+        try:
+            val = eval('rowData.' + fName.replace('__', '.'))
+            val = verifyStr(val , '')
+        except: 
+            val = '__?'
+
+
+    # Campo del cBase.modelo
+    else:
+        try:
+            val = getattr(rowData, fName)
+            # Si es una referencia ( fk ) es del tipo cBase.model
+            if isinstance(val, models.Model):
+                val = verifyStr(val , '')
+        except: 
+            val = 'vr?'
+
+        # Evita el valor null en el el frontEnd
+        if val is None: 
+            val = ''
+
+
+    return val
+
+
+def evaluateFunction(fName, rowData):
+    """ 
+    para evaluar las funciones @  declaradas en el cBase.modelo 
+    obtener el titulo y los parametros y enviar la tupla
+
     Se define una tabla de funciones genericas q seran ejectua dinamicamente por pyton 
     se ejectuan en el contexto actual, se deberia pasar algunas rutinas basicas en la medida q sean necesarias  
-        getModels 
      
     Esta rutina servira tambien para desencadenar reglas de gestion sobre modelos y podria ser la base 
     de la ejecucion del wKflow
-    
     """
+
     # Fix:
     # from protoExt.utils.utilsBase import explode
 
@@ -212,4 +368,14 @@ def doGenericFuntion(sQBE):
     # # ejecta y toma la base
     # exec(fBase.functionBody, myVars)
     # return myVars [ 'ret' ]
+
+    try:
+        expr = 'rowData.' + fName[1:]
+        val = eval(expr)
+        val = verifyStr(val , '')
+    except: 
+        val = fName + '?'
+
+    return val
+
     pass 

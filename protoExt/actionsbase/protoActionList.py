@@ -1,20 +1,15 @@
 # -*- coding: utf-8 -*-
 
-
-from django.db import models
-# from django.utils import six 
 from django.http import HttpResponse
 # from django.contrib.admin.utils import  get_fields_from_path
 from django.utils.encoding import smart_str
 
 from protoExt.utils.utilsBase import JSONEncoder, getReadableError
-from protoExt.utils.utilsBase import verifyStr, verifyList, list2dict
-from protoExt.utils.utilsConvert import getTypedValue
+from protoExt.utils.utilsBase import verifyList, list2dict
 
-from .protoQbe import getSearcheableFields, getQbeStmt
+from .protoQbe import getFieldValue, getQbeFilter 
 from protoLib.getStuff import  getModelPermission, getRowById
 
-# from .protoField import TypeEquivalence
 
 from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsWeb import JsonError 
@@ -85,6 +80,36 @@ def protoList(request):
 
 
     return HttpResponse(context, content_type="application/json")
+
+
+def getSortOrder( cBase ):
+    
+#   Order by
+    localSort = cBase.protoMeta.get('localSort', False)
+    if not localSort :
+        for sField in cBase.sort:
+
+            sName = sField['property']
+            if cBase.isProtoModel:
+
+                # Permite el ordenamiento sobre la funcion de presentacion 
+                if sName == '__str__': 
+                    sName = 'smNaturalCode'
+                
+                # Permite el ordenamiento sobre maestros e impide sobre jsofield 
+                elif sName.split('__')[0] in ['smInfo', cBase.jsonField] : 
+                    cBase.jsonSorters.append( sField )
+                    continue  
+
+            # __str__ is not sortable 
+            if sName == '__str__': continue
+    
+
+            if sField['direction'] == 'DESC': sName = '-' + sName
+            cBase.orderBy.append(sName)
+
+    cBase.orderBy = tuple(cBase.orderBy)
+    
 
 
 def getQSet( cBase ):
@@ -295,198 +320,3 @@ def copyValuesFromFields( cBase, rowdict, relModels ):
 
 
 
-
-def getQbeFilter( cBase,  lFilter  ):
-    """
-    Retorna oun objeto QStmt q se construye en forma independiente 
-
-    QResult = Q()
-
-    QResult.add(Q(), Q.AND)
-    QResult.add(Q(), Q.OR)
-
-    QResult = QResult & Qtmp
-    QResult = QResult | Qtmp
-
-    """
-
-    QBase = models.Q()
-
-    # No hay criterios
-    if len(lFilter) == 0: return QBase
-    for sFilter in lFilter:
-
-        if sFilter[ 'property' ] == '_allCols':
-            # debe descomponer la busqueda usando el objeto Q
-            QTmp = getTextSearch(sFilter, cBase )
-            if QTmp is None: QTmp = models.Q()
-            QBase = QBase & QTmp 
-
-        else:
-            # Los campos simples se filtran directamente, 
-            QTmp = addQbeFilterStmt(sFilter, cBase )
-            QBase = QBase & QTmp 
-
-    return QBase
-
-
-def addQbeFilterStmt( sFilter, cBase ):
-    """ 
-    Verifica casos especiales y obtiene el QStmt
-    retorna un objeto Q
-    """
-    fieldName = sFilter['property'].replace('.', '__')
-
-    if fieldName == '__str__':
-        if cBase.isProtoModel:  
-            fieldName = 'smNaturalCode'
-        else : return models.Q()
-
-    fAux = cBase.fieldsDict.get(fieldName, {})
-    sType = fAux.get('type', '') 
-
-    QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], sType)
-
-    return QStmt
-
-
-def getTextSearch(sFilter, cBase ):
-    """
-    Busqueda Textual ( no viene con ningun tipo de formato solo el texto a buscar
-    Si no trae nada deja el Qs con el filtro de base
-    Si trae algo y comienza por  "{" trae la estructura del filtro
-
-    Si solo viene el texto, se podria tomar la "lista" de campos "mostrados"
-    ya los campos q veo deben coincidir con el criterio, q pasa con los __str__ ??
-    Se busca sobre los campos del combo ( filtrables  )
-    """
-
-    QStmt = None
-
-    try:
-        pSearchFields = cBase.protoMeta['gridConfig']['searchFields']
-    except:
-        pSearchFields = getSearcheableFields(cBase.model)
-
-
-    for fName in pSearchFields:
-        fAux = cBase.fieldsDict.get(fName, {})
-        if fAux.get('type', '')  not in [ 'string', 'text', 'jsonField' ]: 
-            continue
-
-        QTmp = addQbeFilterStmt({'property': fName, 'filterStmt': sFilter['filterStmt'] } , cBase )
-
-        if QStmt is None:  
-            QStmt = QTmp
-        else: 
-            QStmt = QStmt | QTmp
-
-    return QStmt
-
-
-def getFieldValue(fName, fType, rowData, cBase ):
-
-    # Es una funcion
-    if (fName == '__str__'):
-        if cBase.isProtoModel:  
-            val = rowData.__getattribute__('smNaturalCode')
-        else: 
-            try:
-                val = eval('rowData.__str__()')
-                val = verifyStr(val , '')
-            except:
-                val = 'Id#' + verifyStr(rowData.pk, '?')
-
-    elif fName.startswith('@'):
-        val = evalueFuncion(fName, rowData)
-
-    elif (fName == cBase.jsonField):
-        # Master jsonField ( se carga texto )
-        try:
-            val = rowData.__getattribute__(fName)
-        except: val = {}
-        if isinstance(val, dict):
-            val = json.dumps(val , cls=JSONEncoder)
-
-    elif fName.startswith(cBase.jsonField + '__'):
-        # JSon fields
-        try:
-            val = rowData.__getattribute__(cBase.jsonField)
-            val = val.get(fName[ len(cBase.jsonField + '__'):])
-            val = getTypedValue(val, fType)
-
-        except: 
-            val = ''
-
-
-    elif ('__' in fName):
-        # Campo Absorbido modo objeto
-        try:
-            val = eval('rowData.' + fName.replace('__', '.'))
-            val = verifyStr(val , '')
-        except: 
-            val = '__?'
-
-
-    # Campo del cBase.modelo
-    else:
-        try:
-            val = getattr(rowData, fName)
-            # Si es una referencia ( fk ) es del tipo cBase.model
-            if isinstance(val, models.Model):
-                val = verifyStr(val , '')
-        except: 
-            val = 'vr?'
-
-        # Evita el valor null en el el frontEnd
-        if val is None: 
-            val = ''
-
-
-    return val
-
-
-def evalueFuncion(fName, rowData):
-    """ 
-    para evaluar las funciones @  declaradas en el cBase.modelo
-    obtener el titulo y los parametros y enviar la tupla
-    """
-
-    try:
-        expr = 'rowData.' + fName[1:]
-        val = eval(expr)
-        val = verifyStr(val , '')
-    except: 
-        val = fName + '?'
-
-    return val
-
-
-def getSortOrder( cBase ):
-    
-#   Order by
-    localSort = cBase.protoMeta.get('localSort', False)
-    if not localSort :
-        for sField in cBase.sort:
-
-            sName = sField['property']
-            if cBase.isProtoModel:
-
-                # Permite el ordenamiento sobre la funcion de presentacion 
-                if sName == '__str__': 
-                    sName = 'smNaturalCode'
-                
-                # Permite el ordenamiento sobre maestros e impide sobre jsofield 
-                elif sName.split('__')[0] in ['smInfo', cBase.jsonField] : 
-                    cBase.jsonSorters.append( sField )
-                    continue  
-
-            # __str__ is not sortable 
-            if sName == '__str__': continue
-    
-
-            if sField['direction'] == 'DESC': sName = '-' + sName
-            cBase.orderBy.append(sName)
-
-    cBase.orderBy = tuple(cBase.orderBy)
-    
