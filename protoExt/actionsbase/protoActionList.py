@@ -43,8 +43,7 @@ def protoList(request):
     except Exception as e:
         traceback.print_exc()
         message = getReadableError(e)
-        bResult = False
-        pList = []
+        return JsonError( message ) 
 
 
     context = json.dumps({

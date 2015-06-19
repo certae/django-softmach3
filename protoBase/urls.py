@@ -29,7 +29,7 @@ urlpatterns = [
 #     url(r'media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': PPATH + '/static'}),
 
 #   Generated files
-    # url(r'getFile/(?P<path>.*)$', 'protoLib.utils.downloadFile.getFile', {}),
+    url(r'getFile/(?P<path>.*)$', 'protoExt.utils.downloadFile.getFile', {}),
 
 #   Pour executer les tests avec Jasmine
     # url(r'^protoDiagram/', include('dbDesigner.urls')),

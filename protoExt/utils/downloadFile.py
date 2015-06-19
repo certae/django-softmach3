@@ -40,5 +40,8 @@ def getFile(request, path ):
 
 def getFullPath( request, filename ):
     from django.conf import settings
-    PPATH = settings.PPATH
+    PPATH = settings.BASE_DIR
     return os.path.join( PPATH , 'output', request.user.username + '.' + filename )
+
+
+

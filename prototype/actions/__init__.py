@@ -115,7 +115,7 @@ def doDiagram(modeladmin, request, queryset, parameters):
     fileName = 'gm_' + slugify( queryset[0].code ) + '.dot'
     fullPath = getFullPath( request, fileName )
  
-    fo = open( fullPath , "wb")
+    fo = open( fullPath , "w")
     fo.write( dotData.encode('utf-8'))
     fo.close()
  
