@@ -332,7 +332,7 @@ def getFieldValue(fName, fType, rowData, cBase ):
             val = ''
 
 
-    return val
+    return str( val ) 
 
 
 def evaluateFunction(fName, rowData):

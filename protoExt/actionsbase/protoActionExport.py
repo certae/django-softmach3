@@ -5,18 +5,20 @@ import traceback, tablib
 # from django.http import HttpResponse
 from django.template.defaultfilters import slugify
 
-from protoExt.utils.utilsBase import getReadableError
+from protoExt.utils.utilsBase import getReadableError, Enum 
 from protoExt.utils.utilsWeb import JsonError , JsonSuccess
 from protoExt.utils.downloadFile import getFullPath 
 
 from .protoActionList import prepareListEnv, getQSet, Q2Dict
-
-
 from import_export.formats import base_formats  
+
+
+# DGT: DEFAULT_FORMATS = Enum(['CSV', 'ODS', 'XLS', 'HTML', 'TXT', 'JSON', 'YAML','TSV'])
+
 DEFAULT_FORMATS = (
     base_formats.CSV,
-    base_formats.XLS,
     base_formats.ODS,
+    base_formats.XLS,
     base_formats.JSON,
     base_formats.YAML,
     base_formats.HTML,
@@ -63,8 +65,8 @@ def _doExportFile( cBase, pList, request ):
     fileName = "%s.%s" % (slugify( cBase.viewCode ), file_format.get_extension())
     fullPath = getFullPath(request, fileName)
 
-    open_mode = 'w' 
-    if file_format.is_binary(): open_mode = 'wb' 
+    open_mode = 'wb' 
+#     if file_format.get_extension() in ['ods','xls']: open_mode = 'wb' 
 
 #   Carga los datos
     headers = pList[0].keys()

@@ -338,26 +338,28 @@ def repStr(string_to_expand, length):
 
 
 class Enum(tuple):
-    # How to use it (forward and reverse lookup, keys, values, items, etc.)
+    """
+    How to use it (forward and reverse lookup, keys, values, items, etc.)
 
-    # >>> State = Enum(['Unclaimed', 'Claimed'])
-    # >>> State.Claimed
-    # 1
+    >>> State = Enum(['Unclaimed', 'Claimed'])
+    >>> State.Claimed
+    1
 
-    # >>> State[1]
-    # 'Claimed'
+    >>> State[1]
+    'Claimed'
 
-    # >>> State
-    # ('Unclaimed', 'Claimed')
+    >>> State
+    ('Unclaimed', 'Claimed')
 
-    # >>> range(len(State))
-    # [0, 1]
+    >>> range(len(State))
+    [0, 1]
 
-    # >>> [(k, State[k]) for k in range(len(State))]
-    # [(0, 'Unclaimed'), (1, 'Claimed')]
+    >>> [(k, State[k]) for k in range(len(State))]
+    [(0, 'Unclaimed'), (1, 'Claimed')]
 
-    # >>> [(k, getattr(State, k)) for k in State]
-    # [('Unclaimed', 0), ('Claimed', 1)]
+    >>> [(k, getattr(State, k)) for k in State]
+    [('Unclaimed', 0), ('Claimed', 1)]
+    """
     __getattr__ = tuple.index
 
 
