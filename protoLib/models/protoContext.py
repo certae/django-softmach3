@@ -4,6 +4,7 @@ from .protomodel import ProtoModelBase
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
+
 class UserContext(ProtoModelBase):
     """
     Esta tabla maneja los elementos que pueden servir como :

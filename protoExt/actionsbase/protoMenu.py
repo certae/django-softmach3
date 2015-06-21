@@ -171,8 +171,8 @@ def protoGetMenuData(request):
 
     viewCode = '__menu'
     protoDef = CustomDefinition.objects.get_or_create(
-           code=viewCode, smOwningTeam=userProfile.userTeam,
-           defaults={'active': False, 'code' : viewCode, 'smOwningTeam' : userProfile.userTeam }
+           code=viewCode, smOwningUser=userProfile.user,
+           defaults={'active': False, 'code' : viewCode, 'smOwningUser' : userProfile.user }
            )[0]
 
     # El default solo parece funcionar al insertar en la Db

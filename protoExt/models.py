@@ -50,10 +50,8 @@ class ViewDefinition(models.Model):
 
 class CustomDefinition(ProtoModelBase):
     """
-    maneja las definiciones por grupos
+    maneja las definiciones por usuarios
     aqui se guardan los menus personalizados, y las customOptions
-    DGT: por ahora el manejo es solo a nivel de grupos, pero dependiendo 
-    el nivel de amdin, se guardara como grupo o usuario
     """
 
     code = models.CharField(blank=False, null=False, max_length=200)
@@ -71,11 +69,18 @@ class CustomDefinition(ProtoModelBase):
         return self.code
 
     class Meta:
-        unique_together = ('smOwningTeam', 'code',)
+        unique_together = ('smOwningUser', 'code',)
 
     protoExt = {
         "gridConfig" : {
-            "listDisplay": ["__str__", "description", "smOwningTeam"]
+            "listDisplay": ["__str__", "description", "smOwningUser"]
         }
     }
 
+
+# --  Load fixture problem PK Conflict  
+from django.db.models.signals import post_save
+from protoLib.models import UserContext
+from protoExt.signals import context2customdefinition 
+ 
+post_save.connect(context2customdefinition, sender = UserContext)

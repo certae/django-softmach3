@@ -43,9 +43,9 @@ def protoSaveProtoObj(request):
         # Es customProperty 
 
         try:
-            protoDef = CustomDefinition.objects.get_or_create(\
-                            code= cBase.viewCode, \
-                            smOwningTeam= cBase.userProfile.userTeam\
+            protoDef = CustomDefinition.objects.get_or_create(
+                            code= cBase.viewCode, 
+                            smOwningUser= cBase.userProfile.user
                             )[0]
 
         except Exception as e:
@@ -71,7 +71,7 @@ def protoSaveProtoObj(request):
         try:
             CustomDefinition.objects.filter(\
                 code='_custom.' + cBase.viewCode,\
-                smOwningTeam=cBase.userProfile.userTeam
+                smOwningUser=cBase.userProfile.user
             ).delete()
 
         except:
