@@ -28,8 +28,8 @@ class UserContext(ProtoModelBase):
     Esto debe funcionar a nivel individual,  
     """
 
-    entity = models.ForeignKey(ContentType, blank=False, null=False)
-    property = models.CharField(blank=False, null=False, max_length=500)
+    modelCType = models.ForeignKey(ContentType, blank=False, null=False)
+    propName = models.CharField(blank=False, null=False, max_length=500)
 
     propValue = models.CharField(blank=False, null=False, max_length=200)
     propDescription = models.TextField(blank=True, null=True)
@@ -39,7 +39,7 @@ class UserContext(ProtoModelBase):
 
 
     def __str__(self):
-        return "%s %s" % ( self.entityBase.__str__() + self.property )   
+        return "%s %s" % ( self.modelCType.__str__(), self.propName )   
     
     protoExt = { 
         "gridConfig" : {
@@ -48,5 +48,4 @@ class UserContext(ProtoModelBase):
     } 
 
     class Meta:
-        unique_together = ('entity', 'property', 'smOwningUser')
-
+        unique_together = ('modelCType', 'propName', 'smOwningUser')

@@ -8,7 +8,7 @@ def doAddUser(modeladmin, request, queryset, parameters):
     """
 
 #   El QSet viene con la lista de Ids  
-    from protoExt.actionsusr.addUser import actionAddUser   
+    from protoExt.actions.addUser import actionAddUser   
     return actionAddUser(request, queryset, parameters)
 
 

@@ -43,6 +43,7 @@ def protoExecuteAction(request):
 
     def doAdminAction(model, selectedKeys, parameters, actionDef, modelAdmin):
 
+        # Fix : Si no lo encuenta toma el ultimo, no deberia          
         for action in modelAdmin.actions:
             if action.__name__ == actionName:
                 break

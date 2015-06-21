@@ -16,7 +16,7 @@ patch_admin(CustomDefinition)
 
 # -----------------------------------------   AddUser  
 
-from protoExt.actionsusr import doAddUser 
+from protoExt.actions import doAddUser 
 from protoLib.models import UserProfile
 
 class UserProfileAdmin( reversion.VersionAdmin ):

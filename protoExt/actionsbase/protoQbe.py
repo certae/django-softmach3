@@ -2,7 +2,7 @@
 
 from django.db import models
 from django.db.models import Q
-from protoExt.utils.utilsConvert import isNumeric, toInteger
+from protoExt.utils.utilsConvert import isNumeric, toInteger, toBoolean
 import re
 
 
@@ -317,11 +317,11 @@ def getFieldValue(fName, fType, rowData, cBase ):
             val = '__?'
 
 
-    # Campo del cBase.modelo
+    # Campo del modelo
     else:
         try:
             val = getattr(rowData, fName)
-            # Si es una referencia ( fk ) es del tipo cBase.model
+            # Si es una referencia ( fk ) es del tipo models
             if isinstance(val, models.Model):
                 val = verifyStr(val , '')
         except: 
@@ -332,7 +332,11 @@ def getFieldValue(fName, fType, rowData, cBase ):
             val = ''
 
 
-    return str( val ) 
+    if type( val ) == type(True):
+        val = toBoolean( val )  
+    else: str( val )
+
+    return val 
 
 
 def evaluateFunction(fName, rowData):

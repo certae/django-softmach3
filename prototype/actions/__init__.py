@@ -8,6 +8,15 @@ from django.conf import settings
 from protoExt.utils.downloadFile import getFullPath 
 
 from .viewDefinition import getViewDefinition, getViewCode, getEntities
+from protoLib.actions.setDefaults import actionSetDefaults
+
+
+
+
+def doSetDefaults( modeladmin, request, queryset, parameters):
+    """ 
+    """
+    return actionSetDefaults( modeladmin, request, queryset, parameters )
 
 
 
@@ -79,7 +88,7 @@ def doModelDiagram(modeladmin, request, queryset, parameters):
     # Si no existe le agrega todas las tablas del modelo 
     for entity in model.entity_set.all(): 
         try: 
-            diagEntity = DiagramEntity.objects.get_or_create(diagram = diagram, entity = entity, defaults = jAux)[0]
+            DiagramEntity.objects.get_or_create(diagram = diagram, entity = entity, defaults = jAux)[0]
         except: 
             continue
 

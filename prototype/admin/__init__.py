@@ -4,21 +4,19 @@ from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin # ImportExportModelAdmin
 
 from reversion.helpers import patch_admin
-from .models import ProtoTable
+from prototype.models import ProtoTable
 from django.contrib import admin
 
 # -----------------------------------------   Model  
-from .actions import doModelPrototype, doDiagram, doExportPrototype, doExportProtoJson, doExport2Json , doImport4Json, doModelDiagram 
-from .models import Project,  Model, Property,  Relationship  #, Prototype
-
-class ModelAdmin( admin.ModelAdmin ):
-    actions = [ doModelPrototype, doModelDiagram, doExportPrototype, doExportProtoJson, doExport2Json, doImport4Json ]
+from prototype.models import Project,  Model, Property,  Relationship  #, Prototype
+from prototype.admin.admmodel import ModelAdmin
+from prototype.admin.admproject import ProjectAdmin
 
 admin.site.register(Model, ModelAdmin)
 
 # ------------------------------------------  Entity
-from .actions import  doEntityPrototype
-from .models import Entity
+from prototype.actions import  doEntityPrototype, doDiagram
+from prototype.models import Entity
 
 
 class EntityResource(resources.ModelResource):
@@ -34,17 +32,13 @@ patch_admin(Entity)
 
 
 # ------------------------------------------  Entity
-from .actions import doImportSchema, doImportOMS
-
-class ProjectAdmin( admin.ModelAdmin ):
-    actions = [ doImportSchema, doImportOMS  ]
 
 admin.site.register(Project, ProjectAdmin )
 
 
 # ------------------------------------------
 
-from .models import Diagram
+from prototype.models import Diagram
 
 class DiagramAdmin( admin.ModelAdmin ):
     actions = [  doDiagram  ]

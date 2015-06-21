@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from protoExt.actionsbase.protoGrid import getModelDetails
-from pyexpat import model
 from django.views.generic import detail
-
+from django.contrib.contenttypes.models import ContentType
+from protoLib.models.protoContext import UserContext
 
 # -*- coding: utf-8 -*-
 
@@ -18,9 +18,20 @@ def actionSetDefaults(request, queryset , parameters):
 
     details = getModelDetails(baseModel, True)
 
+    vrDefault = {'propValue': baseReg.id , \
+                 'propDescription' : baseReg.__str__()}
+
+
     for detail in details: 
         # Obtiene el contenttye 
-        cType = detail.get( 'detailModel').getAttribute( 'contenttype' ) 
+        detModel = detail.get( 'detailModel')
+        modelCType = ContentType.objects.get_for_model(detModel)
+        detField =  detail.get( 'detailField' )
+        
+        UserContext.objects.update_or_create(
+           modelCType = modelCType,
+           propName = detField,
+           defaults = vrDefault )  
 
 
     return  {'success':True , 'message' :  'Ok' }

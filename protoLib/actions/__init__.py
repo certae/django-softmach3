@@ -4,7 +4,7 @@ import traceback
 
 
 
-def doSetDefault(modeladmin, request, queryset, parameters):
+def doSetDefaults(modeladmin, request, queryset, parameters):
     """ 
     find and replace sobre la tabla actual 
     parameters   campo,  findText, replaceText 
