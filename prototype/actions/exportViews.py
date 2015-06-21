@@ -7,7 +7,7 @@ Exportar vistas de un prototypo para ser usadas por una aplicacion generada a pa
   
 from django.template.defaultfilters import slugify
  #Fix:  JSONEncoder, getClassName 
-from protoLib.models import ProtoDefinition
+from protoLib.models import ViewDefinition
 
 import json
 
@@ -135,7 +135,7 @@ def exportProtoJson(request, pModel ):
 
             # Creacion de la vista 
             try:
-                protoDef  = ProtoDefinition.objects.get_or_create(code = cProto[ 'viewCode' ] )[0]
+                protoDef  = ViewDefinition.objects.get_or_create(code = cProto[ 'viewCode' ] )[0]
                 protoDef.active = True 
                 protoDef.overWrite = False 
                 protoDef.description  = cEntity.get('fullName','')  + ' - '  + cProto.get('viewCode','')  + '<br>'

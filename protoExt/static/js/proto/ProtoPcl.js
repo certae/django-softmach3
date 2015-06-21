@@ -2,7 +2,7 @@
  *  Proto Code Library    ( PCL )
  *
  *  Edicion de la plc
- *  Esta forma sera invocada desde la pcl o desde el respositorio de pcls ( ProtoLib.ProtoDefinition )
+ *  Esta forma sera invocada desde la pcl o desde el respositorio de pcls ( ProtoLib.ViewDefinition )
  *    Por lo tanto la Pcl ya viene dada,
  *
  */

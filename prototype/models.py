@@ -362,7 +362,7 @@ class Prototype(ProtoModelBase):
     """
     entity = models.ForeignKey(Entity, blank=False, null=False , related_name='prototype_set')
     
-    """Nombre (str) de la vista a buscar en protoDefinition  """
+    """Nombre (str) de la vista a buscar en viewDefinition  """
     code = models.CharField(blank=False, null=False, max_length=200, editable=False)
 
     description = models.TextField(blank=True, null=True)

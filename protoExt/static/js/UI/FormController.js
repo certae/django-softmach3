@@ -56,7 +56,7 @@ Ext.define('ProtoUL.UI.FormController', {
                 },
                 failure : function(obj, result, request) {
                     me._waitForDetails(me, detCode);
-                    _SM.errorMessage('ProtoDefinition Error :', detCode + ': protoDefinition not found');
+                    _SM.errorMessage('ViewDefinition Error :', detCode + ': viewDefinition not found');
                 }
             };
 
@@ -267,7 +267,7 @@ Ext.define('ProtoUL.UI.FormController', {
                 this._openAndLoad(this.viewCode, myRecordId);
             },
             failure : function(obj, result, request) {
-                _SM.errorMessage('ProtoDefinition Error :', this.viewCode + ': protoDefinition not found');
+                _SM.errorMessage('ViewDefinition Error :', this.viewCode + ': viewDefinition not found');
             }
         };
         if (_SM.loadPci(this.viewCode, true, options)) {

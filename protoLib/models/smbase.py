@@ -88,6 +88,7 @@ class UserProfile(models.Model):
     natural_key.dependencies = ['auth.user', 'protoLib.teamhierarchy']
 
 
+
 class EntityMap(models.Model):
     """
     DGT: Doc Json con definiciones adicionales,  WorkFlow, Secuences, ... 
@@ -119,4 +120,6 @@ class EntityMap(models.Model):
         return self.entityBase.natural_key()
 
     natural_key.dependencies = ['contenttypes.contenttype']
+
+
 

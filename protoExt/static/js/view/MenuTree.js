@@ -311,7 +311,7 @@ Ext.define('ProtoUL.view.form.MenuOption', {
                     __ptType: "formField",
                     editable: true,
                     xtype: "protoZoom",
-                    zoomModel: "protoLib.ProtoDefinition"
+                    zoomModel: "protoExt.ViewDefinition"
                 }]
             }, {
                 xtype: 'fieldset',

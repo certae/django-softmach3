@@ -96,3 +96,4 @@ def addDetailToList(  detailList , detail,  detailPath   ):
         if len( detailChild ) > 0:  
             menuDetail['leaf'] = False 
             menuDetail['children'] = detailChild
+            

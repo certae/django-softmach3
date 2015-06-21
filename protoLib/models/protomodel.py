@@ -20,6 +20,7 @@ smControlFields = [
     'smWflowStatus', 'smRegStatus', \
     'smNaturalCode', 'smUUID']
 
+
 class ProtoModelBase(models.Model):
     """
     Tabla modelo para la creacion de entidades de usuario     ( sm  security mark )
@@ -98,5 +99,8 @@ class ProtoModelExt(ProtoModelBase):
 
     class Meta:
         abstract = True
+
+
+
 
         

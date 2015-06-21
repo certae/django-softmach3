@@ -34,13 +34,11 @@ def setFieldDict(protoFields , field):
     modelField = getattr(field , 'protoExt', {})
 
 
-    # TODO:  useNull  para definirlo sobre el modelo
-
     # Recorrer el dict Field y agregar las prop q no estan  protoField
     setFieldProperty(pField, 'tooltip', '', field, 'help_text', '')
 
 
-#    TODO: Error msg es un dictionario con varios tipos de errores
+#    Dgt: Error msg es un dictionario con varios tipos de errores
 #    my_default_errors = {
 #        'required': 'This field is required',
 #        'blank' : '',
@@ -161,8 +159,9 @@ def setFieldProperty(pField, pProperty, pDefault, field, fProperty, fpDefault):
 def isAdmField(fName):
 
     # Los campos de seguridad
-    if (fName in [ 'smOwningUser', 'smCreatedBy', 'smModifiedBy', 'smCreatedOn', 'smOwningTeam', 'smModifiedOn', 'smWflowStatus', 'smRegStatus', 'smUUID']):
-        return True
-
-    return False
+    return  (fName in [ \
+        'smOwningUser', 'smCreatedBy', 'smModifiedBy', \
+        'smCreatedOn', 'smOwningTeam', 'smModifiedOn', \
+        'smWflowStatus', 'smRegStatus', \
+        'smUUID', 'smNaturalCode'])
 
