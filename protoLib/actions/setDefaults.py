@@ -31,6 +31,7 @@ def actionSetDefaults(request, queryset , parameters):
         UserContext.objects.update_or_create(
            modelCType = modelCType,
            propName = detField,
+           smOwningUser = request.user,
            defaults = vrDefault )  
 
 

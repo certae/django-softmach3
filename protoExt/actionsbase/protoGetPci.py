@@ -82,12 +82,12 @@ def protoGetPCI(request):
 
 #   ============  Lee el contexto 
 # TODO:  userContext = getContext( cBase )   
-    contextCode = '_context.' + cBase.viewEntity 
-    try:
-        custom = CustomDefinition.objects.get(code=customCode, smOwningUser= cBase.userProfile.user )
-        cBase.protoMeta['custom'] = custom.metaDefinition
-    except:
-        pass
+    # contextCode = '_context.' + cBase.viewEntity 
+    # try:
+    #     custom = CustomDefinition.objects.get(code=customCode, smOwningUser= cBase.userProfile.user )
+    #     cBase.protoMeta['custom'] = custom.metaDefinition
+    # except:
+    #     pass
 
 
 

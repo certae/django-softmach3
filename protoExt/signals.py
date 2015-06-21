@@ -1,31 +1,32 @@
 from protoExt.models import CustomDefinition
-from protoLib.models.protoContext import UserContext
 
-def context2customdefinition(sender, ctModel, created, **kwargs):
+def context2customdefinition(sender, instance, created, **kwargs):
     """
     Crea el filtro en el contexto dependiendo cuando se agregen o modifiquen criterios 
-    ctModel : UserContext() # instance  
+    instance : UserContext() #   
     
     TODO: delete 
     """
     
-    viewCode = '_context.' + ctModel.modelCType.__name  
+    viewCode = '_context.%s.%s' % ( instance.modelCType.app_label, instance.modelCType.name )    
 
     protoDef = CustomDefinition.objects.get_or_create(
            code = viewCode, 
-           metaDefinition = [], 
-           smOwningUser = ctModel.user 
-           )
+           smOwningUser = instance.smOwningUser, 
+           defaults = { 'metaDefinition' : [] }
+           )[0]
 
     # Elimina el filtro si existe      
     for i in range(len(protoDef.metaDefinition)-1, -1, -1): 
         item = protoDef.metaDefinition[ i ]    
-        if item.get('property', '') ==  ctModel.propName:
+        if item.get('property', '') ==  instance.propName:
             protoDef.metaDefinition.pop(i)
 
     protoDef.metaDefinition.append( {
-           'property': ctModel.propName,
-           'filterStmt': ctModel.propValue, 
+           'property': instance.propName,
+           'filterStmt': instance.propValue, 
+           'isFilter': instance.isFilter, 
+           'isDefault': instance.isDefault, 
            } )
 
     protoDef.active = True 
@@ -33,3 +34,5 @@ def context2customdefinition(sender, ctModel, created, **kwargs):
 
     protoDef.save()  
     
+
+

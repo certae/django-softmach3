@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# import traceback
-
-
-import json, reversion
+import json, traceback
 
 from django.http import HttpResponse
 from django.utils.encoding import smart_str
@@ -148,7 +145,7 @@ def _protoEdit(request, myAction):
             try:
                 rec.save()
 
-                # -- Los tipos complejos ie. date, generan un error, es necesario hacerlo detalladamente
+                # Para retornar el resultado, algunos tipos de datos (ie. date), generan un error, es necesario hacerlo detalladamente
                 # Convierte el registro en una lista y luego toma solo el primer elto de la lista resultado.
                 data = Q2Dict(cBase, [rec])[0]
                 data['_ptId'] = _ptId
