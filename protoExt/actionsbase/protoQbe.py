@@ -332,9 +332,14 @@ def getFieldValue(fName, fType, rowData, cBase ):
             val = ''
 
 
-    if type( val ) == type(True):
+    if fType == 'string':
+        pass
+    elif fType == 'bool':
         val = toBoolean( val )  
-    else: str( val )
+    elif type( val ).__name__ in ['list', 'dict']:
+        val = json.dumps( val, cls=JSONEncoder )
+    else: 
+        val = str( val )
 
     return val 
 
