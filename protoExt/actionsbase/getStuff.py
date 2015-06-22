@@ -52,3 +52,23 @@ def setContextDefaults( cBase ):
 
     return vFld 
 
+
+
+def setContextFilter( cBase ):
+    """
+    Define los filtros contextuales 
+    """
+
+    cBase.contextFilter = [] 
+
+    userContext = getContext(cBase)
+    if len( userContext ) == 0: return 
+
+    for lField in userContext:
+        if not lField[ 'isFilter' ]: continue 
+
+        cBase.contextFilter.append( { 
+            'property': lField['property'], 
+            'filterStmt' : '=%s' % lField.get( 'propValue' )   
+        } )
+        

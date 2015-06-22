@@ -19,20 +19,26 @@ from . import validateRequest
 
 import json
 import traceback
+from protoExt.actionsbase.getStuff import setContextFilter
 
 
 def protoList(request):
 #   Vista simple para cargar la informacion,
 
-    cBase, message = prepareListEnv( request )
-    if message: return message  
+    try:
+        cBase, message = prepareListEnv( request )
+        if message: return message  
+
+    except Exception as e:
+        traceback.print_exc()
+        message = getReadableError(e)
+        return JsonError( message ) 
 
     # Fix: Cuando esta en la pagina el filtro continua en la pagina 2 y no muestra nada.
     # if ( ( cBase.page -1 ) *cBase.limit >= pRowsCount ): cBase.page = 1
 
 #   Prepara las cols del Query
     try:
-
         # Obtiene las filas del cBase.modelo
         Qs = getQSet( cBase )
         cBase.totalCount = len( Qs )
@@ -88,6 +94,8 @@ def prepareListEnv( request ):
     cBase.jsonLookups = [] 
     cBase.jsonSorters = [] 
     cBase.qsLookups = [] 
+
+    setContextFilter( cBase )
 
     return cBase, message 
 
@@ -148,7 +156,7 @@ def getQSet( cBase ):
         return cBase.model.objects.none()
 
 #   Separa los filtros 
-    for sFilter in cBase.baseFilter + cBase.protoFilter:
+    for sFilter in cBase.baseFilter + cBase.protoFilter + cBase.contextFilter :
         fieldName = sFilter['property']
         if fieldName.startswith(cBase.jsonField + '__'):
             cBase.jsonLookups.append( sFilter ) 
