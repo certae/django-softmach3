@@ -243,7 +243,7 @@ def getModelDetails(model, lowLevel = False):
         else: 
             details.append({
             "detailModel"   : detail.related_model,
-            "detailField"   : detail.field.name + '__pk',
+            "detailField"   : detail.field.name + '_id',
             "detailName"    : detMeta.model_name + '.' + detail.field.name,
             })
 

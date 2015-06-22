@@ -8,7 +8,7 @@ from protoLib.models import TeamHierarchy
 from protoLib.middleware import CurrentUserMiddleware
 from protoLib.getStuff import getUserTeam
 
-from .protomanager import ProtoManager, ProtoJSONManager
+from .protomanager import ProtoTeamManager, ProtoJSONManager
 
 import uuid 
 
@@ -42,11 +42,10 @@ class ProtoModelBase(models.Model):
 
     smUUID = models.UUIDField( default=uuid.uuid4, editable=False)
 
-    # Este manager tiene problemas con el order_by      
-    objects = ProtoManager()
-    
-    
-    smObjects = models.Manager()
+
+    # Si la tabla no es manajada por teams,  debe cambiarse el manager 
+    objects = ProtoTeamManager()
+    smObjects = models.Manager()    
 
     # Security indicator used to control permissions
     _protoObj = True

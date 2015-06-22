@@ -15,6 +15,7 @@ from protoExt.utils.utilsWeb import JsonError
 from . import getReturnMsg, validateRequest 
 from .protoQbe import getSearcheableFields
 from .protoGrid import ProtoGridFactory 
+from protoExt.actionsbase.getStuff import setContextDefaults
 
 
 # 12/10/28 Permite la carga directa de json de definicion. 
@@ -79,24 +80,14 @@ def protoGetPCI(request):
     except:
         pass
 
-
-#   ============  Lee el contexto 
-# TODO:  userContext = getContext( cBase )   
-    # contextCode = '_context.' + cBase.viewEntity 
-    # try:
-    #     custom = CustomDefinition.objects.get(code=customCode, smOwningUser= cBase.userProfile.user )
-    #     cBase.protoMeta['custom'] = custom.metaDefinition
-    # except:
-    #     pass
-
-
-
-
-    #TODO:  addWfParameters( cBase  )
-
     
-#   ============== Verificacion de la metadata 
     try:
+
+#   ==============  Lee el contexto 
+        setContextDefaults( cBase )
+        #TODO:  addWfParameters( cBase  )
+
+#   ============== Verificacion de la metadata 
         cBase.protoMeta = verifyMeta( cBase , 'pci')
     except Exception:
         traceback.print_exc()    

@@ -7,10 +7,14 @@ def context2customdefinition(sender, instance, created, **kwargs):
     
     TODO: delete 
     """
+
+    isRaw = kwargs.get('raw', False)          
+    if isRaw : 
+      return 
     
     viewCode = '_context.%s.%s' % ( instance.modelCType.app_label, instance.modelCType.name )    
 
-    protoDef = CustomDefinition.objects.get_or_create(
+    protoDef = CustomDefinition.smObjects.get_or_create(
            code = viewCode, 
            smOwningUser = instance.smOwningUser, 
            defaults = { 'metaDefinition' : [] }
@@ -24,7 +28,8 @@ def context2customdefinition(sender, instance, created, **kwargs):
 
     protoDef.metaDefinition.append( {
            'property': instance.propName,
-           'filterStmt': instance.propValue, 
+           'propValue': instance.propValue, 
+           'propDescription': instance.propDescription,
            'isFilter': instance.isFilter, 
            'isDefault': instance.isDefault, 
            } )

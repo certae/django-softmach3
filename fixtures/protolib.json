@@ -1,65 +1,174 @@
 [
 {
-  "fields": {
-    "description": null,
-    "parentNode": null,
-    "site": null,
-    "code": "proto"
-  },
   "model": "protoLib.teamhierarchy",
+  "fields": {
+    "parentNode": null,
+    "code": "proto",
+    "site": null,
+    "description": null
+  },
   "pk": 1
 },
 {
-  "fields": {
-    "description": null,
-    "parentNode": 1,
-    "site": null,
-    "code": "Dos"
-  },
   "model": "protoLib.teamhierarchy",
+  "fields": {
+    "parentNode": 1,
+    "code": "Dos",
+    "site": null,
+    "description": null
+  },
   "pk": 2
 },
 {
-  "fields": {
-    "description": null,
-    "parentNode": 2,
-    "site": null,
-    "code": "Tres"
-  },
   "model": "protoLib.teamhierarchy",
+  "fields": {
+    "parentNode": 2,
+    "code": "Tres",
+    "site": null,
+    "description": null
+  },
   "pk": 3
 },
 {
+  "model": "protoLib.teamhierarchy",
+  "fields": {
+    "parentNode": null,
+    "code": "nuevo",
+    "site": null,
+    "description": null
+  },
+  "pk": 4
+},
+{
+  "model": "protoLib.userprofile",
   "fields": {
     "language": null,
-    "userConfig": {},
-    "user": 1,
+    "userTree": "3,1,2",
     "userTeam": 1,
-    "userTree": "3,1,2"
+    "user": 1,
+    "userConfig": {}
   },
-  "model": "protoLib.userprofile",
   "pk": 1
 },
 {
+  "model": "protoLib.userprofile",
   "fields": {
     "language": "",
-    "userConfig": {},
-    "user": 2,
+    "userTree": "2,3",
     "userTeam": 2,
-    "userTree": "3,2"
+    "user": 2,
+    "userConfig": {}
   },
-  "model": "protoLib.userprofile",
   "pk": 3
 },
 {
+  "model": "protoLib.userprofile",
   "fields": {
     "language": "",
-    "userConfig": {},
-    "user": 3,
+    "userTree": "3",
     "userTeam": 3,
-    "userTree": "3"
+    "user": 3,
+    "userConfig": {}
   },
+  "pk": 4
+},
+{
   "model": "protoLib.userprofile",
+  "fields": {
+    "language": null,
+    "userTree": null,
+    "userTeam": 4,
+    "user": 6,
+    "userConfig": {}
+  },
+  "pk": 5
+},
+{
+  "model": "protoLib.usercontext",
+  "fields": {
+    "smCreatedOn": "2015-06-22T01:12:35.292Z",
+    "propDescription": "projecto-1",
+    "smWflowStatus": null,
+    "propName": "project__id",
+    "smCreatedBy": 2,
+    "smModifiedOn": "2015-06-22T01:12:35.292Z",
+    "modelCType": 19,
+    "isFilter": true,
+    "smRegStatus": null,
+    "smModifiedBy": 2,
+    "smOwningUser": 2,
+    "propValue": "7",
+    "smUUID": "87b09961-0aca-44a2-aa78-46997d790e86",
+    "smOwningTeam": 2,
+    "smNaturalCode": "model project__id",
+    "isDefault": true
+  },
+  "pk": 1
+},
+{
+  "model": "protoLib.usercontext",
+  "fields": {
+    "smCreatedOn": "2015-06-22T01:12:35.562Z",
+    "propDescription": "projecto-1",
+    "smWflowStatus": null,
+    "propName": "project__id",
+    "smCreatedBy": 2,
+    "smModifiedOn": "2015-06-22T01:12:35.563Z",
+    "modelCType": 26,
+    "isFilter": true,
+    "smRegStatus": null,
+    "smModifiedBy": 2,
+    "smOwningUser": 2,
+    "propValue": "7",
+    "smUUID": "1c4e3063-b457-4bb3-91d3-553ee0169165",
+    "smOwningTeam": 2,
+    "smNaturalCode": "diagram project__id",
+    "isDefault": true
+  },
+  "pk": 2
+},
+{
+  "model": "protoLib.usercontext",
+  "fields": {
+    "smCreatedOn": "2015-06-22T01:13:37.755Z",
+    "propDescription": "dos",
+    "smWflowStatus": null,
+    "propName": "project__id",
+    "smCreatedBy": 1,
+    "smModifiedOn": "2015-06-22T01:13:37.756Z",
+    "modelCType": 19,
+    "isFilter": true,
+    "smRegStatus": null,
+    "smModifiedBy": 1,
+    "smOwningUser": 1,
+    "propValue": "12",
+    "smUUID": "71def16f-8fad-4fd8-8a51-4c83edf606b7",
+    "smOwningTeam": 1,
+    "smNaturalCode": "model project__id",
+    "isDefault": true
+  },
+  "pk": 3
+},
+{
+  "model": "protoLib.usercontext",
+  "fields": {
+    "smCreatedOn": "2015-06-22T01:13:38.048Z",
+    "propDescription": "dos",
+    "smWflowStatus": null,
+    "propName": "project__id",
+    "smCreatedBy": 1,
+    "smModifiedOn": "2015-06-22T01:13:38.048Z",
+    "modelCType": 26,
+    "isFilter": true,
+    "smRegStatus": null,
+    "smModifiedBy": 1,
+    "smOwningUser": 1,
+    "propValue": "12",
+    "smUUID": "4ef70ab0-4f6c-4b67-9858-dbf80af975d6",
+    "smOwningTeam": 1,
+    "smNaturalCode": "diagram project__id",
+    "isDefault": true
+  },
   "pk": 4
 }
 ]

@@ -5,7 +5,7 @@ from jsonfield2 import JSONField, JSONAwareManager
 
 
 from protoLib.models.protomodel import ProtoModelBase 
-from protoLib.models.protomanager import ProtoJSONManager 
+from protoLib.models.protomanager import ProtoUserManager, ProtoJSONManager
 
 
 """
@@ -63,13 +63,13 @@ class CustomDefinition(ProtoModelBase):
 
     metaDefinition = JSONField(default={})
 
-    objects = ProtoJSONManager(json_fields = ['metaDefinition'])
+    objects = ProtoUserManager()
 
     def __str__(self):
         return self.code
 
     class Meta:
-        unique_together = ('smOwningUser', 'code',)
+        unique_together = ('code', 'smOwningUser', )
 
     protoExt = {
         "gridConfig" : {
@@ -78,7 +78,7 @@ class CustomDefinition(ProtoModelBase):
     }
 
 
-# --  Load fixture problem PK Conflict  
+# --  Load fixture problem PK Conflict, marcar raw !!!   
 from django.db.models.signals import post_save
 from protoLib.models import UserContext
 from protoExt.signals import context2customdefinition 

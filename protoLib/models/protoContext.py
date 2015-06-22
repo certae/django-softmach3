@@ -3,7 +3,7 @@
 from .protomodel import ProtoModelBase 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-
+from protoLib.models.protomanager import ProtoUserManager
 
 class UserContext(ProtoModelBase):
     """
@@ -37,6 +37,8 @@ class UserContext(ProtoModelBase):
 
     isDefault = models.BooleanField(default=True) 
     isFilter = models.BooleanField(default=True) 
+
+    objects = ProtoUserManager()
 
 
     def __str__(self):

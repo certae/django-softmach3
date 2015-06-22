@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json, traceback
+import json
 
 from django.http import HttpResponse
 from django.utils.encoding import smart_str

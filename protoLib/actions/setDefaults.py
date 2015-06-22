@@ -28,10 +28,10 @@ def actionSetDefaults(request, queryset , parameters):
         modelCType = ContentType.objects.get_for_model(detModel)
         detField =  detail.get( 'detailField' )
         
-        UserContext.objects.update_or_create(
+        UserContext.smObjects.update_or_create(
            modelCType = modelCType,
-           propName = detField,
            smOwningUser = request.user,
+           propName = detField,
            defaults = vrDefault )  
 
 

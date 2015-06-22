@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+
 import traceback
-
-
+from protoExt.utils.utilsBase import getReadableError
 
 
 def doSetDefaults(modeladmin, request, queryset, parameters):
@@ -16,8 +16,15 @@ def doSetDefaults(modeladmin, request, queryset, parameters):
 
 
     from protoLib.actions.setDefaults import actionSetDefaults  
-    return actionSetDefaults(request, queryset, parameters)
 
+    try:
+        result = actionSetDefaults(request, queryset, parameters)
+
+    except Exception as e:
+        traceback.print_exc()
+        result = {'success':False, 'message' : getReadableError(e) }
+
+    return result  
 
 
 
