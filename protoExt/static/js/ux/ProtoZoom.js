@@ -234,71 +234,28 @@ Ext.define('ProtoUL.ux.protoZoom', {
         
         // TODO: verifica el zoomFilter 
         var myZoomFilter = getFilter();
-        if ( myZoomFilter) { if ( myZoomFilter.length > 0 ) {
-            this.zoomGrid.store.mySetBaseFilter( myZoomFilter );
-        }} 
+        if ( myZoomFilter) { 
+            this.zoomGrid.store.zoomFilterParams( myZoomFilter );
+        } 
 
         me.win.show();
         
         function getFilter() {
 
-            /*  zoomFilter = "field1 : condition ; 
-             *                field2 : [refCampoBase]; campo : 'vr'; 
-             *                field3 = @functionX( [refCampoBase], [refCampoBase] ); .. "
-             *  Ej:          "model_id : @getEntityModel( [entity_id]) "
+            /*  La cadena de zoom filter se envia junto con la fila actual de la grilla para que 
+                sea resuelta por el backend;  Las reglas de definicion se manejaran en el backend 
             */ 
-            var myFilter = me.zoomFilter;
             
-            if (!me.zoomFilter) {
-                return myFilter;
-            }
-            if (!me.idProtoGrid) {
-                return myFilter;
-            }  
-                        
-            // Obtiene los parametros ( campos en el registro base )
-            // var lFilters = me.zoomFilter.match(/[^[\]]+(?=])/g)
-            var lFilters =    me.zoomFilter.match(/\(([^()]+)\)/g);
-            
-            if ( lFilters ) if  ( lFilters.length > 0 ) { 
+            if (!me.zoomFilter) {return {}; }
+            if (!me.idProtoGrid) {return {}; }
 
-                //obtiene la meta 
-                var myGridBase = Ext.getCmp( me.idProtoGrid ); 
-                
-                // Remplaza en el filtro 
-                for ( var i in lFilters ) {
-                    var fStmt = lFilters[i].replace('(', '').replace(')', '').split(',');
-                    for ( var ix in fStmt ) {
-                        var fName = fStmt[ix], 
-						    fVal = getValueOrDefault(  myGridBase, fName );
-                        
-                        myFilter = myFilter.replace( '{0}'.format( fName ),  '{0}'.format( fVal)  );
-                     }
-                }
-            } 
+            // Esto trae la grilla activa, es correcto en la edicion, pero no en la creacion, debe existir un nuevo registro 
+            // var myGridBase = Ext.getCmp( me.idProtoGrid ); 
+            var rowData = me.up( 'form' ).getRecord().data 
+            var myFilter = { 'zoomFilter' : me.zoomFilter, 'baseRow' : rowData };
 
-            // Separa el filtro para generar el array 
-            myFilter = myFilter.split( ';'); 
-            for ( i = 0; i < myFilter.length; i++) {
-                var lFilter =  myFilter[i].split(':'); 
-                myFilter[i] = { 'property' : lFilter[0].trim(), 'filterStmt' : lFilter[1].trim() };   
-            }
             return myFilter;
         }
-        
-        function getValueOrDefault( myGridBase, fName ) {
-         	var fVal;
-         	try {
-	            if ( myGridBase.rowData ) { 
-	                fVal =  myGridBase.rowData[ fName.trim() ];
-	        	} else {
-	        		fVal  = myGridBase.myFieldDict[ fName.trim() ]['prpDefault'];
-	    		}
-	    	} catch(e)  { fVal = '-1'; } 
- 
-			return fVal; 
-        }
-        
     }, 
     
     setSelected: function  ( rowIndex, record, selModel) {

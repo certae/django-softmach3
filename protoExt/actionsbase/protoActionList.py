@@ -87,6 +87,11 @@ def prepareListEnv( request ):
     cBase.baseFilter = verifyList( request.POST.get('baseFilter', [] )) 
     cBase.sort = verifyList( request.POST.get('sort', []))
 
+#   TODO: Implementar zoomFilter 
+    cBase.zoomParams = request.POST.get('zoomParams', '')
+    if len( cBase.zoomParams ): 
+        cBase.zoomParams = json.loads( cBase.zoomParams )
+
     cBase.start = int(request.POST.get('start', 0))
     cBase.page = int(request.POST.get('page', 1))
     cBase.limit = int(request.POST.get('limit', PAGESIZE))
@@ -128,6 +133,17 @@ def getSortOrder( cBase ):
 
     cBase.orderBy = tuple(cBase.orderBy)
     
+
+
+def getZoomFilter():
+    """
+    TODO:  pasar a Backend 
+    zoomFilter = "field1 : condition ; 
+                 field2 : [refCampoBase]; campo : 'vr'; 
+                 field3 = @functionX( [refCampoBase], [refCampoBase] ); .. "
+    Ej:          "model_id : @getEntityModel( [entity_id]) "
+    """
+    pass 
 
 
 def getQSet( cBase ):

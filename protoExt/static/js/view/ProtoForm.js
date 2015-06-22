@@ -136,6 +136,7 @@ Ext.define('ProtoUL.view.ProtoForm', {
         // Lo genera de nuevo, quedaban componentes mal ubicados
         this.doLayout();
 
+
         function getDetails(prItems, me) {
             // Obtiene los store de las grillas recursivamente
             var cllDetGrids = [], lGrid, ixV;

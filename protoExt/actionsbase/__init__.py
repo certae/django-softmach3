@@ -95,7 +95,7 @@ def protoExecuteAction(request):
     viewCode = request.POST.get('viewCode', '')
     viewEntity = getBaseModelName(viewCode)
 
-    selectedKeys = request.POST.get('selectedKeys', [])
+    selectedKeys = request.POST.get('selectedKeys', '')
     selectedKeys = json.loads(selectedKeys)
 
     parameters = request.POST.get('parameters', [])

@@ -377,29 +377,6 @@ Ext.define('ProtoUL.UI.FormController', {
                     myFld = me.myFieldDict[protoIx];
                     if (myFld) {
                         template = getTemplate(__ptType, true, myFld);
-
-                        // if (myFld.required && !myFld.fkId && me.newForm) {
-	                       //  template.__ptConfig.listeners.render = function(field) {
-		                      //   Ext.Ajax.request({
-			                     //    url : _SM._PConfig.urlGetNextIncrement,
-			                     //    method : 'GET',
-			                     //    params : {
-				                    //     fieldName : myFld.name,
-				                    //     viewEntity : me.myMeta.viewEntity
-			                     //    },
-			                     //    success : function(result, request) {
-				                    //     var jsonData = Ext.decode(result.responseText);
-				                    //     if (jsonData.increment) {
-				                    //     	field.setValue(jsonData.increment);
-				                    //     }
-			                     //    },
-			                     //    failure : function() {
-			                     //    	console.log('failure on get increment');
-			                     //    }
-		                      //   });
-	                       //  };
-                        // }
-
                         prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);
 
                         // ReadOnlyCls

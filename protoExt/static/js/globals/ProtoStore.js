@@ -65,14 +65,15 @@ _SM.getStoreDefinition = function(stDef) {
 
         },
 
-        mySetBaseFilter : function(myFilter) {
+        zoomFilterParams : function( zoomParams ) {
             // Desde el zoom, para agregar el zoomFilter que debe ser parte de la base
             // pues no debe modeficarse con el filtro de usuario
             // recibe el filtro y lo mezcla con el baseFilter ( por ejemplo un estado )
 
             this.clearFilter();
             this.getProxy().extraParams.protoFilter = _SM.obj2tx([]);
-            this.getProxy().extraParams.baseFilter = _SM.obj2tx(myFilter.concat(this.storeDefinition.baseFilter));
+            this.getProxy().extraParams.baseFilter = _SM.obj2tx( this.storeDefinition.baseFilter );
+            this.getProxy().extraParams.zoomParams = _SM.obj2tx( zoomParams );
             this.load();
 
         },
@@ -818,15 +819,24 @@ _SM.getFormFieldDefinition = function(vFld) {
     }
     formEditor.fieldLabel = Ext.util.Format.capitalize(formEditor.fieldLabel);
 
-    // Add listener to avoid whitespaces
-    // This works fine with ExtJS 4.2.2
+    // Add listener to field change 
     // Fix : error when  butoonDetail.addForm 
-    if (vFld.required && !vFld.fkId) {
+    if ( vFld.type in _SM.objConv(['string', 'text', 'int', 'decimal', 'combo', 'foreignid', 'foreigntext'])) {
         formEditor.listeners = {
             // blur : function() {
                 // this.setValue(Ext.String.trim(this.getValue()));
             // },
             render : function(field) {
+            }, 
+            change : function(field, newValue, oldValue ) {
+                var form = field.up('form');
+                var record = form.getRecord();
+                var name = field.getName();
+                if (record.get(name) !== undefined) {
+                    // Update record with new value
+                    record.set(name, newValue);
+                }
+
             }
         };
     }
