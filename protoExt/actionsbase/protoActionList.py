@@ -137,8 +137,8 @@ def getSortOrder( cBase ):
 
 def getZoomFilter():
     """
-    TODO:  pasar a Backend 
-    zoomFilter = "field1 : condition ; 
+    TODO:  Implementar 
+    zoomFilter = field1 : condition ; 
                  field2 : [refCampoBase]; campo : 'vr'; 
                  field3 = @functionX( [refCampoBase], [refCampoBase] ); .. "
     Ej:          "model_id : @getEntityModel( [entity_id]) "

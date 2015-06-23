@@ -377,6 +377,26 @@ Ext.define('ProtoUL.UI.FormController', {
                     myFld = me.myFieldDict[protoIx];
                     if (myFld) {
                         template = getTemplate(__ptType, true, myFld);
+
+                        // Add listener to field 
+                        if ( myFld.type in _SM.objConv(['string', 'text', 'int', 'decimal', 'combo', 'foreignid', 'foreigntext'])) {
+                            template.__ptConfig.listeners = {
+                                // blur : function() {this.setValue(Ext.String.trim(this.getValue())); },
+                                // render : function(field) {},
+                                change : function(field, newValue, oldValue ) {
+                                    // Update record with new value
+                                    var form = field.up('form');
+                                    var record = form.getRecord();
+                                    var name = field.getName();
+                                    if (record.get(name) !== undefined) {
+                                        record.set(name, newValue);
+                                    }
+
+                                }
+                            };
+                        }
+
+
                         prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);
 
                         // ReadOnlyCls

@@ -318,7 +318,16 @@ _SM.getRecordByDataIx = function(myStore, fieldName, value) {
     return myStore.getAt(ix);
 };
 
+
+_SM.smFields = _SM.objConv( [
+        'smOwningUser', 'smOwningTeam', 'smOwningUser_id', 'smOwningTeam_id', 
+        'smCreatedBy',  'smModifiedBy', 'smCreatedBy_id',  'smModifiedBy_id', 
+        'smCreatedOn', 'smModifiedOn', 
+        'smWflowStatus', 'smRegStatus', 
+        'smNaturalCode', 'smUUID', 'id', 'smInfo'] )
+
 _SM.IsAdmField = function(vFld, myMeta) {
+
 
     // Oculta las llaves de zooms
     if (/_id$/.test(vFld.name)) {
@@ -330,21 +339,14 @@ _SM.IsAdmField = function(vFld, myMeta) {
         return true;
     }
 
+    // 'smOwningUser','smOwningTeam', 'smModifiedOn',
+    if (vFld.name in _SM.smFields ) {
+        return true;
+    }
+
     // prototipos
-    if (myMeta.protoEntityId) {
-
-        // 'smOwningUser','smOwningTeam', 'smModifiedOn',
-        if (vFld.name in _SM.objConv(['smCreatedBy', 'smModifiedBy', 'smCreatedOn', 'smWflowStatus', 'smRegStatus'])) {
+    if (myMeta.protoEntityId && vFld.name == 'entity' ) {
             return true;
-        }
-
-        if (vFld.name == 'id') {
-            return true;
-        }
-        if (vFld.name == 'entity') {
-            return true;
-        }
-
     }
 
     return false;
@@ -819,27 +821,6 @@ _SM.getFormFieldDefinition = function(vFld) {
     }
     formEditor.fieldLabel = Ext.util.Format.capitalize(formEditor.fieldLabel);
 
-    // Add listener to field change 
-    // Fix : error when  butoonDetail.addForm 
-    if ( vFld.type in _SM.objConv(['string', 'text', 'int', 'decimal', 'combo', 'foreignid', 'foreigntext'])) {
-        formEditor.listeners = {
-            // blur : function() {
-                // this.setValue(Ext.String.trim(this.getValue()));
-            // },
-            render : function(field) {
-            }, 
-            change : function(field, newValue, oldValue ) {
-                var form = field.up('form');
-                var record = form.getRecord();
-                var name = field.getName();
-                if (record.get(name) !== undefined) {
-                    // Update record with new value
-                    record.set(name, newValue);
-                }
-
-            }
-        };
-    }
     
     // Casos especiales
     switch( vFld.type ) {
