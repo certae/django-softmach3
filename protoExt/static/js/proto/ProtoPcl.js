@@ -434,8 +434,8 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
             if (!fList) {
                 // Crea los campos del store
                 fList = [];
-                for (ix in me.myMeta.fieldsBase ) {
-                    vFld = me.myMeta.fieldsBase[ix];
+                for (ix in me.myMeta.fields ) {
+                    vFld = me.myMeta.fields[ix];
                     fList.push(vFld.name);
                 }
             }
