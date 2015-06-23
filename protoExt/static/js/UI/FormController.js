@@ -389,11 +389,10 @@ Ext.define('ProtoUL.UI.FormController', {
                                     var record = form.getRecord();
                                     var name = field.getName();
                                     if (record.get(name) !== undefined) {
-                                        record.set(name, newValue);
+                                        record.data[ name ] = newValue;
                                         if ( field.fkId && field.zoomRecord ) {
-                                            record.set( field.fkId, field.zoomRecord.data.id )
+                                            record.data[ field.fkId ] = field.zoomRecord.data.id; 
                                         }
-
                                     }
 
                                 }
