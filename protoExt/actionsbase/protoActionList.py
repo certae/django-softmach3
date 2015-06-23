@@ -101,6 +101,7 @@ def prepareListEnv( request ):
     cBase.qsLookups = [] 
 
     setContextFilter( cBase )
+    setZoomFilter( cBase )
 
     return cBase, message 
 
@@ -135,15 +136,46 @@ def getSortOrder( cBase ):
     
 
 
-def getZoomFilter():
+def setZoomFilter( cBase ):
     """
-    TODO:  Implementar 
-    zoomFilter = field1 : condition ; 
-                 field2 : [refCampoBase]; campo : 'vr'; 
-                 field3 = @functionX( [refCampoBase], [refCampoBase] ); .. "
-    Ej:          "model_id : @getEntityModel( [entity_id]) "
+    cBase.zoomParams [  
+        zoomFilter : contenido del zoomFilter , 
+        baseRow    : los datos actuales del registro    
+    ]
+
+    Adiciona los filtros a la coleccion cBase.contextFilter 
+    retorna : Void 
+
+    * Pueden existir varios filtros q seran separados por ;  
+
+    @filter : patron pais-ciudad implica que deb filtrarse la ciudad por el pais q se encuentra en algun campo del registro, 
+    campobase : primero se necesita saber cual es el campo del registro q contiene el pais,  se toma de regData 
+    campozoom : luego a que campo del filtro del zoom debe aplicarse, 
+
+    campoRegBase,  campoZoom  ; 
     """
-    pass 
+
+    # Separar los filtros y hacer el loop 
+    for lFilter in  cBase.zoomParams.zoomFilter.split(';'): 
+        cBase.contextFilter.append(  _getZoomFiler( lFilter, cBase  ) )
+
+
+
+def _getZoomFilter( zoomFilter , cBase ): 
+    """ 
+    Genera el objeto filterStmt 
+    """
+
+    # FUTURO: podria manejar diferentes nombres de funciones 
+    # zoomFilter.match(/[^[\]]+(?=])/g)
+    # zoomFilter.match(/\(([^()]+)\)/g)
+
+    nBase, nFilter = zoomFilter.replace(' ','').split(',')
+
+    vFilter = cBase.zoomFilter.baseRow[ nBase ] 
+
+    return  { 'property' : nFilter, 'filterStmt' : vFilter };   
+
 
 
 def getQSet( cBase ):
