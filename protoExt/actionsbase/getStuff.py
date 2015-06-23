@@ -14,13 +14,16 @@ def getContext( cBase ):
     
     viewCode = '_context.%s' % cBase.viewEntity.lower()
 
-    protoDef = CustomDefinition.objects.get_or_create(
-           code = viewCode, 
-           smOwningUser = cBase.userProfile.user , 
-           defaults = { 'metaDefinition' : [] }
-           )[0]
+    try: 
+        protoDef = CustomDefinition.objects.get(
+               code = viewCode, 
+               smOwningUser = cBase.userProfile.user  
+               )
+    
+        return protoDef.metaDefinition 
 
-    return protoDef.metaDefinition 
+    except: 
+        return []
 
 
 def setContextDefaults( cBase ):

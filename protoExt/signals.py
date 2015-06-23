@@ -9,8 +9,7 @@ def context2customdefinition(sender, instance, created, **kwargs):
     """
 
     isRaw = kwargs.get('raw', False)          
-    if isRaw : 
-      return 
+    if isRaw : return 
     
     viewCode = '_context.%s.%s' % ( instance.modelCType.app_label, instance.modelCType.name )    
 
