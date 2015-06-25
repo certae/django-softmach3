@@ -258,6 +258,9 @@ class Property(ProtoModelExt):
     """isForeign: indica si la propiedad ha sido definida en  Relationship"""
     isForeign = models.BooleanField( editable=False, default=False)
 
+    isSensitive = models.BooleanField( editable=True, default=False)
+    isEssential = models.BooleanField( editable=True, default=False)
+
     crudType = models.CharField(blank=True, null=True, max_length=20, choices=CRUD_TYPES)
     dbName = models.CharField(blank=True, null=True, max_length=200)
     
