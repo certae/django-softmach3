@@ -17,7 +17,7 @@ def loadFiles(request):
     from django.conf import settings
     import os 
 
-    fileroot = request.user.__str__() + datetime.datetime.now().strftime("_%y%m%d%H%M%S_")
+    fileroot = request.user.__str__() + datetime.datetime.now().strftime("_%y%m%d_")
 
     actionFiles = {}
     try:     

@@ -361,4 +361,4 @@ class Enum(tuple):
 
 def getClassName( cName ):
     # Formatea un string tipo titulo
-    return ''.join( slugify( cName , ' ').title().split() )
+    return ''.join( slugify( cName ).title().split('-') )

@@ -258,8 +258,14 @@ class Property(ProtoModelExt):
     """isForeign: indica si la propiedad ha sido definida en  Relationship"""
     isForeign = models.BooleanField( editable=False, default=False)
 
-    isSensitive = models.BooleanField( editable=True, default=False)
-    isEssential = models.BooleanField( editable=True, default=False)
+    """vType : validation type ( formatos predefinidos email, .... ) """
+    vType = models.CharField(blank=True, null=True, max_length=50, choices=BASE_TYPES, default='string')
+
+    """isSensitive: Should increase security level """  
+    isSensitive = models.BooleanField(default=False)
+
+    """isEssential: Indica si las propiedades saldran en la vista por defecto """ 
+    isEssential = models.BooleanField(default=False)
 
     crudType = models.CharField(blank=True, null=True, max_length=20, choices=CRUD_TYPES)
     dbName = models.CharField(blank=True, null=True, max_length=200)

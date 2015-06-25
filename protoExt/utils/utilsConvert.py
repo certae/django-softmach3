@@ -5,6 +5,13 @@ import datetime, time
 from decimal import Decimal
 from django.utils.encoding import smart_str
 
+
+def slugify2 (sAux , sep ):
+    sAux = slugify( sAux )
+    if sep: sAux.replace('-', sep)
+    return sAux 
+
+
 def getTypedValue (sAux , sType):
     """ Retorna valores tipados segun el tipo definido 
     * se usa sobre todo para las UDP y los JsonField 

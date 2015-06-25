@@ -93,10 +93,10 @@ def protoExecuteAction(request):
 #   ----------------------------------------
 
     if not request.user.is_authenticated():
-        return doReturn ({'success':False , 'message' : 'readOnly User'})
+        return JsonError('readOnly User')
 
     if request.method != 'POST':
-        return doReturn ({'success':False , 'message' : 'PostAction required'})
+        return JsonError('PostAction required')
 
     actionName = request.POST.get('actionName', '')
 
