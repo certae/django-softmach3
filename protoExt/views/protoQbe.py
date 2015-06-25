@@ -231,10 +231,14 @@ def addQbeFilterStmt( sFilter, cBase ):
             fieldName = 'smNaturalCode'
         else : return models.Q()
 
-    fAux = cBase.fieldsDict.get(fieldName, {})
-    sType = fAux.get('type', '') 
+#   Para permitir filtros a diferentes niveles  context
+    if fieldName.endswith('_id'): 
+        QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], 'int')
+    else:   
+        fAux = cBase.fieldsDict.get(fieldName, {})
+        sType = fAux.get('type', '') 
 
-    QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], sType)
+        QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], sType)
 
     return QStmt
 

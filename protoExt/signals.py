@@ -5,7 +5,6 @@ def context2customdefinition(sender, instance, created, **kwargs):
     Crea el filtro en el contexto dependiendo cuando se agregen o modifiquen criterios 
     instance : UserContext() #   
     
-    TODO: delete 
     """
 
     isRaw = kwargs.get('raw', False)          

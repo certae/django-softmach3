@@ -86,7 +86,7 @@ def prepareListEnv( request ):
     cBase.baseFilter = verifyList( request.POST.get('baseFilter', [] )) 
     cBase.sort = verifyList( request.POST.get('sort', []))
 
-#   TODO: Implementar zoomFilter 
+#   zoomFilter 
     cBase.zoomParams = request.POST.get('zoomParams', '')
     if len( cBase.zoomParams ): 
         cBase.zoomParams = json.loads( cBase.zoomParams )

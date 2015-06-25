@@ -40,7 +40,7 @@ def actionSetDefaults(request, queryset , parameters):
     for detail in cBase.defTo: 
         # Obtiene el contenttye 
         detModel = detail.get( 'deftModel')
-        modelCType = ContentType.objects.get_for_model(detModel)
+        modelCType = ContentType.objects.get_by_natural_key( *detModel.strip().split('.')) 
         detField =  detail.get( 'deftField' )
         
         UserContext.smObjects.update_or_create(

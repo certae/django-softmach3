@@ -84,7 +84,7 @@ def protoGetPCI(request):
 
 #   ==============  Lee el contexto 
         setContextDefaults( cBase )
-        #TODO:  addWfParameters( cBase  )
+        #FUTURE:  addWfParameters( cBase  )
 
 #   ============== Verificacion de la metadata 
         cBase.protoMeta = verifyMeta( cBase , 'pci')
@@ -227,6 +227,13 @@ def isFieldDefined(pFields , fName):
 
 
 def verifyMeta( cBase , pciType ): 
-    # TODO: verifyMeta
+    """
+    FUTURE: verifyMeta
+    """
+
+
+    # TODO: Add setDefault Action 
+
+
     return cBase.protoMeta
 
