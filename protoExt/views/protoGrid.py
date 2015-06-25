@@ -4,6 +4,8 @@
 from protoExt.utils.utilsBase import verifyList,  list2dict
 from protoLib.models.protomodel import smControlFields 
 from protoExt.views.protoField import setFieldDict
+from protoExt.views.protoGetPci import PROTOVERSION
+from protoExt.views.protoQbe import getSearcheableFields
 
 
 
@@ -314,3 +316,121 @@ def verifyField(self, fName):
         return True
     except:
         return False
+
+
+
+def createProtoMeta( cBase, grid ):
+
+    # Los criterios de busqueda ni los ordenamientos son heredados del admin, 
+    pSearchFields = grid.gridConfig.get('searchFields', []) 
+    if len(pSearchFields) == 0:
+        pSearchFields = getSearcheableFields(cBase.model)
+
+    pSortFields = grid.gridConfig.get('sortFields', []) 
+    if len(pSortFields) == 0:
+        pSortFields = getSearcheableFields(cBase.model)
+
+    # Lista de campos precedidos con '-' para order desc  ( 'campo1' , '-campo2' )
+    # * o [{ "property": "code", "direction": "ASC" }, {  
+    initialSort = grid.gridConfig.get('initialSort', ())
+    sortInfo = []
+    for sField in initialSort:
+        # Si es un string lo convierte en objeto 
+        if type(sField).__name__ == type('').__name__ :  
+            sortOrder = 'ASC'
+            if sField[0] == '-':
+                sortOrder = 'DESC'
+                sField = sField[1:]
+            sField = { 'property': sField, 'direction' : sortOrder }
+            
+        sortInfo.append(sField)
+
+
+    # ----------- Completa las propiedades del gridConfig 
+    gridConfig = { 
+             'searchFields': pSearchFields,
+             'sortFields': pSortFields,
+             'initialSort': sortInfo,
+
+             # Si no es autoload  -  '{"pk" : 0,}'            
+             'baseFilter': grid.gridConfig.get('baseFilter', []),
+             'initialFilter': grid.gridConfig.get('initialFilter', []),
+
+             # Toma las definidas en la grilla 
+             'listDisplay' : grid.gridConfig.get('listDisplay', []),
+             'readOnlyFields' : grid.gridConfig.get('readOnlyFields', []),
+             
+             # Garantiza q existan en la definicion 
+             'hideRowNumbers' : grid.gridConfig.get('hideRowNumbers', False),
+             'filterSetABC': grid.gridConfig.get('filterSetABC', ''),
+
+             'hiddenFields': cBase.protoMeta.get('hiddenFields', ['id', ]),
+         } 
+
+    #---------- Ahora las propiedades generales de la PCI 
+    viewIcon = cBase.protoMeta.get('viewIcon', 'icon-1') 
+
+    pDescription = cBase.protoMeta.get('description', '')
+    if len(pDescription) == 0:
+        pDescription = cBase.protoMeta.get('title', grid.title)
+    
+    # FIX: busca el id en la META  ( id_field = cBase.model._meta.pk.name ) 
+    id_field = u'id'
+    shortTitle = cBase.protoMeta.get('shortTitle', grid.title)
+
+    # Manejo de documentos rai          
+    if getattr(cBase.model, '_uddObject', False ):
+        dBase = getattr(cBase.model, '_jDefValueDoc', False )    
+        idType = ''
+
+        try: 
+            idType =  cBase.viewCode.split('.')[2] 
+        except: pass 
+            # return False 
+
+
+        # TODO : Los hijos deben ser del mismo tipo, o deben eliminarse 
+
+        if len( dBase ) > 0 and len( idType ) > 0:
+
+            docFields, shortTitle  = cBase.model.getJfields( idType )
+
+            gridConfig['baseFilter'].append( { 'property':'docType', 'filterStmt' : '=' + idType  } )
+
+            grid.fieldsDict['docType_id']['prpDefault'] = idType 
+
+            grid.fieldsDict['docType']['prpDefault'] = shortTitle 
+            grid.fieldsDict['docType']['readOnly'] = True
+            grid.fieldsDict['docType']['hidden'] = True
+
+            grid.fieldsDict.update( docFields )
+
+            pDescription = '{0}: {1}'.format( dBase, shortTitle ).lower()
+            grid.fields = []
+            for lField in grid.fieldsDict.itervalues():
+                grid.fields.append( lField )
+
+
+    protoTmp = { 
+         'metaVersion' : PROTOVERSION ,
+         'viewCode' : cBase.viewCode,
+         'viewEntity' : cBase.viewEntity,
+         'idProperty': cBase.protoMeta.get('idProperty', id_field),
+         'shortTitle': shortTitle,
+         'description': pDescription ,
+         'viewIcon': viewIcon,
+
+         'fields': grid.fields,
+         'gridConfig' : gridConfig,
+         'gridSets': cBase.protoMeta.get('gridSets', {}),
+
+         'detailsConfig': grid.get_details() ,
+         'formConfig': grid.getFieldSets(),
+
+#        El resto  no las carga pues ya estan en la meta ... 
+         }
+    
+
+    cBase.protoMeta.update( protoTmp ) 
+    return True 
+    

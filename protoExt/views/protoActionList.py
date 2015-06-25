@@ -19,6 +19,8 @@ from . import validateRequest
 import json
 import traceback
 from protoExt.views.getStuff import setContextFilter
+from protoExt.views.protoGetPci import getBasePci
+from protoExt.views.prototypeActions import getPrototypePci, isPrototypePci
 
 
 def protoList(request):
@@ -72,12 +74,16 @@ def prepareListEnv( request ):
     cBase, message = validateRequest( request )
     if message: return None, message  
     
+    
     # Lee la pci      
-    try:
-        protoDef = ViewDefinition.objects.get( code = cBase.viewCode )
-        cBase.protoMeta = protoDef.metaDefinition
-    except Exception :
-        return None, JsonError('ViewDefinition not found: {0}'.format( cBase.viewCode  )) 
+    if isPrototypePci( cBase ): 
+        msgError = getPrototypePci( cBase )
+        if msgError: return msgError  
+    
+    else:  
+        msgError = getBasePci( cBase, True )
+        if msgError: return msgError  
+
 
     cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 

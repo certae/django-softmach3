@@ -5,7 +5,7 @@ from protoLib.getStuff import getDjangoModel, getModelPermission
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.views import validateRequest 
-from protoExt.views.prototypeActions import isProtoPci, saveProtoPci
+from protoExt.views.prototypeActions import isPrototypePci, saveProtoPci
 
 
 def protoSaveProtoObj(request):
@@ -34,7 +34,7 @@ def protoSaveProtoObj(request):
     cBase.sMeta = request.POST.get('protoMeta', '')
      
     # Reglas para definir q se guarda  
-    if isProtoPci( cBase ):
+    if isPrototypePci( cBase ):
         return saveProtoPci( cBase )
 
 

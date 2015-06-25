@@ -8,7 +8,7 @@ from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsWeb import JsonError
 from . import validateRequest 
 
-from protoExt.views.prototypeActions import isProtoPci 
+from protoExt.views.prototypeActions import isPrototypePci 
 from protoExt.views.protoGrid import getModelDetails
 
 
@@ -28,7 +28,7 @@ def protoGetDetailsTree(request):
 
     detailList = []
 
-    if isProtoPci( cBase ): 
+    if isPrototypePci( cBase ): 
 
         protoEntityId = request.POST.get( 'protoEntityId' )
         if not protoEntityId >= 0:

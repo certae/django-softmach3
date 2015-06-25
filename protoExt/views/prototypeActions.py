@@ -17,19 +17,22 @@ except:
     pass     
 
 
-def isProtoPci( cBase   ):
+def isPrototypePci( cBase   ):
 
     if cBase.viewCode.startswith(PROTO_PREFIX)  and cBase.viewCode != cBase.viewEntity :
         return True
     return False 
 
 
-def getProtoPci( cBase ):
+def getPrototypePci( cBase ):
 # TODO:  Por ahora no retorna nada, completar con returnmsg 
 
     try:
         prototypeView = cBase.viewCode.replace( PROTO_PREFIX, '')
         protoDef = Prototype.objects.get(code=prototypeView, smOwningTeam=cBase.userProfile.userTeam)
+
+        cBase.protoMeta = protoDef.metaDefinition
+        cBase.protoMeta['viewCode'] = cBase.viewCode  
         
     except:
         return JsonError('prototype not found: {0}'.format( cBase.viewCode ))

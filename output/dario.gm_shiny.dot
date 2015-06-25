@@ -1,0 +1,28 @@
+digraph Sm {fontname="Helvetica";fontsize = 8;rankdir = BT;node [shape=record,width=0,height=0,concentrate=true];
+
+subgraph cluster_Shiny {style=dotted;label="shiny";
+Client [label = "{Client|code-postal \lfax \llimite-credit \lnom-client \lnom-rue \l* numero-client \lpays \lprovince \lsolde \ltelephone \ltype-client \lville \l}"]
+
+Commande [label = "{Commande|date-commande \l* date-expedition \lexpedie \lnotes \lnumero-commande \l* total-commande \l+ cde-clt \l+ cde-fact \l}"]
+
+EntreeStock [label = "{EntreeStock|qte-entree \l*+ stock-pdt \l*+ stock-prod \l}"]
+
+Facture [label = "{Facture|commentaires \ldate-facture \l* numero-facture \ltotal-facture \l+ fact-clt \l}"]
+
+Famille [label = "{Famille|}"]
+
+LigneCommande [label = "{LigneCommande|* numero-ligne \lprix-vente \lqte-vendue \l*+ li-cde \l+ li-prt \l}"]
+
+Production [label = "{Production|date-production \l* numero-production \lremarque \l}"]
+
+Produit [label = "{Produit|nom-produit \l* numero-produit \lprix-production \lprix-produit \lqte-stock \l+ pdt-fam \l}"]
+}
+Commande -> Client [dir=both,arrowhead=diamond,arrowtail=none]
+Commande -> Facture [dir=both,arrowhead=diamond,arrowtail=none]
+EntreeStock -> Produit [dir=both,arrowhead=diamond,arrowtail=none]
+EntreeStock -> Production [dir=both,arrowhead=diamond,arrowtail=none]
+Facture -> Client [dir=both,arrowhead=diamond,arrowtail=none]
+LigneCommande -> Commande [dir=both,arrowhead=diamond,arrowtail=none]
+LigneCommande -> Produit [dir=both,arrowhead=diamond,arrowtail=none]
+Produit -> Famille [dir=both,arrowhead=diamond,arrowtail=none]
+}

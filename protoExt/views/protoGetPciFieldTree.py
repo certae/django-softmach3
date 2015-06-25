@@ -9,7 +9,7 @@ from protoExt.utils.utilsWeb import JsonError
 from protoExt.utils.utilsBase import getReadableError
 
 from protoExt.views import validateRequest 
-from protoExt.views.prototypeActions import isProtoPci
+from protoExt.views.prototypeActions import isPrototypePci
 from protoExt.views.protoField import isAdmField, setFieldDict
 from protoExt.views.protoGrid import setDefaultField
 
@@ -29,7 +29,7 @@ def protoGetFieldTree(request):
 
     
     fieldList = []
-    if isProtoPci( cBase ): 
+    if isPrototypePci( cBase ): 
         protoEntityId = request.POST.get('protoEntityId')
         if not protoEntityId >= 0: return JsonError('invalid idEntity')
 

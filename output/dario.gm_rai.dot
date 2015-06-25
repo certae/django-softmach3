@@ -1,0 +1,147 @@
+digraph Sm {fontname="Helvetica";fontsize = 8;rankdir = BT;node [shape=record,width=0,height=0,concentrate=true];
+
+subgraph cluster_Rai {style=dotted;label="rai";
+Specifications [label = "{Specifications|* nom-specification \lgabarit \llongueur \ltype-de-base \lnotes \lsource \luri-source \ldomaine-valeurs-spec \l+ norme-spec \l}"]
+
+IndexDesDonnees [label = "{IndexDesDonnees|* nom-donnee \ldefinition-donnee \l+ spec-index \l}"]
+
+DomaineAffaires [label = "{DomaineAffaires|* id-domaine-affaires \ldescription \l}"]
+
+Projet [label = "{Projet|* nom-projet \ldescription-projet \l*+ domaff-projet \l}"]
+
+RegroupementDesModeles [label = "{RegroupementDesModeles|commentaire \l*+ modele \l*+ projet \l}"]
+
+Entite [label = "{Entite|* nom-entite \ldescription-entite \lhistorique \lphysical-name \l*+ entite-mod \l}"]
+
+ReglesGestion [label = "{ReglesGestion|* id-regles-gestion \lnotes \l*+ eledon-regles \l+ typere_regges \l}"]
+
+ElementDonnee [label = "{ElementDonnee|* nom-element-donnee \lhistorique \lnumero-elem-cn \ltype-de-base \ldefinition \lcle-etrangere \lcle-primaire \llongueur \lelement-transforme \lgabarit \lelement-transmis \ldomaine-valeurs \ldate-entree-vigueur \lobligation \lmode-attribution \lprovenance-reference \lexceptions \lstatut-element \lsi-provenance \lmethode-transfert \ldate-derniere-modification \lconsignes-saisie \lpratiques-acceptees \lcontexte-particulier \lreference-foire-questions \lelement-provenance \lmethode-transformation \ldate-trans-bdm \ltype-mode-attribution \ldate-creation \lnotes \lelements-de-source \lvalidation-sur-element \lvalidations-inter-elements \lvalidations-inter-enregistrement \lrequis-par \lvolumetrie \lactivite \l+ eledon-spec \l+ eledon-index \l*+ entite-elem \l}"]
+
+PorteeRegleGestion [label = "{PorteeRegleGestion|*+ eledon-portee \l+ portee-regles \l}"]
+
+Raccordement [label = "{Raccordement|* no-raccordement \l+ eledon-rac1 \l+ modrac-rac \l}"]
+
+ModeleRaccordement [label = "{ModeleRaccordement|* nom-modele-raccordement \lnotes-modele-raccordement \l+ mod-modrac1 \l}"]
+
+Relation [label = "{Relation|* nom-relation \ldependence \ldescription \l*+ entite-rela1 \l}"]
+
+Modele [label = "{Modele|* nom-modele \ltype-modele \lversion-modele \lauteur-modele \lnom-si-bdm \ldocument-reference \lacronyme-si-bdm \ldate-doc-reference \lversion-doc-reference \ldescription-modele \ldate-creation-modele \ldate-derniere-modif-modele \lphysical-name \lacteur-principal \lautres-acteurs \lintrants-declencheurs \l*+ domaff-modele \l}"]
+
+Norme [label = "{Norme|* code-norme \lnom-norme \lnotes-norme \lversion-norme \l}"]
+
+TypeRegle [label = "{TypeRegle|* code-type-regle \ldescription-type \l}"]
+
+CodageNormalise [label = "{CodageNormalise|+ codnor-norme \l+ codnor-inddon \l+ codnor-spec \l}"]
+
+Exigence [label = "{Exigence|* nom-exigence \ldescription-exigence \lmemo \l*+ categorie-exigence \l+ domaine-affaires \l+ eclatement \l}"]
+
+CategorieExigence [label = "{CategorieExigence|* nom-categorie \ldescription-categorie \l}"]
+
+Source [label = "{Source|* nom-source \ldescription-source \lreference-source \ldate-mise-a-jour \l}"]
+
+Intervenant [label = "{Intervenant|* nom-intervenant \lcommentaire \lactif \l}"]
+
+AttributExigence [label = "{AttributExigence|* nom-attribut-exigence \ldescription \l*+ categorie-exigence \l}"]
+
+ValeurExigence [label = "{ValeurExigence|valeur-exigence \lmemo \l*+ exigence \l*+ attribut \l}"]
+
+CategorieArtefact [label = "{CategorieArtefact|* nom-categorie-artefact \ldescription-categorie-artefact \l}"]
+
+Artefact [label = "{Artefact|* nom-artefact \ldescription \lmemo \l+ domaine-affaires \l*+ categorie-artefact \l+ eclatement \l}"]
+
+AttributArtefact [label = "{AttributArtefact|* nom-attribut-artefact \ldescription \l*+ categorie-artefact \l}"]
+
+ValeurArtefact [label = "{ValeurArtefact|valeur-artefact \l*+ artefact \l*+ attribut \l}"]
+
+CategorieCapacite [label = "{CategorieCapacite|* nom-categorie-capacite \ldecription \l}"]
+
+Capacite [label = "{Capacite|* nom-capacite \ldescription \lmemo \l*+ categorie-capacite \l+ domaine-affaires \l+ eclatement \l}"]
+
+AttributCapacite [label = "{AttributCapacite|* nom \ldescription \lmemo \l*+ categorie-capacite \l}"]
+
+ValeurCapacite [label = "{ValeurCapacite|valeur-capacite \lmemo \l*+ capacite \l*+ attribut \l}"]
+
+RegroupementArtefacts [label = "{RegroupementArtefacts|commentaire \lmemo \l*+ artefacts \l*+ projet \l}"]
+
+RoleIntervenant [label = "{RoleIntervenant|* role \lcommentaire \lactif \l}"]
+
+InterventionArtefact [label = "{InterventionArtefact|commentaire \l*+ artefact \l*+ role \l*+ intervenant \l}"]
+
+InterventionExigence [label = "{InterventionExigence|commentaire \lmemo \l*+ intervenant \l*+ exigence \l*+ role-intervenant \l}"]
+
+InterventionCapacite [label = "{InterventionCapacite|commentaire \lmemo \l*+ intervenant \l*+ role-intervenant \l*+ capacite \l}"]
+
+RegroupementCapacites [label = "{RegroupementCapacites|commentaire \lmemo \l*+ projet \l*+ capacites \l}"]
+
+RegroupementExigences [label = "{RegroupementExigences|commentaire \lmemo \l*+ projet \l*+ exigences \l}"]
+
+SourcesArtefact [label = "{SourcesArtefact|commentaire \l+ source \l+ artefact \l}"]
+
+CompositionArtefact [label = "{CompositionArtefact|commentaire \lmemo \l+ artefact-parent \l}"]
+
+ExigencesArtefact [label = "{ExigencesArtefact|commentaire \lmemo \l*+ artefact \l*+ exigence \l}"]
+
+CapacitesArtefact [label = "{CapacitesArtefact|commentaire \lmemo \l*+ artefact \l*+ capacite \l}"]
+}
+Specifications -> Norme [dir=both,arrowhead=diamond,arrowtail=none]
+IndexDesDonnees -> Specifications [dir=both,arrowhead=diamond,arrowtail=none]
+Projet -> DomaineAffaires [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementDesModeles -> Modele [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementDesModeles -> Projet [dir=both,arrowhead=diamond,arrowtail=none]
+Entite -> Modele [dir=both,arrowhead=diamond,arrowtail=none]
+ReglesGestion -> ElementDonnee [dir=both,arrowhead=diamond,arrowtail=none]
+ReglesGestion -> TypeRegle [dir=both,arrowhead=diamond,arrowtail=none]
+ElementDonnee -> Specifications [dir=both,arrowhead=diamond,arrowtail=none]
+ElementDonnee -> IndexDesDonnees [dir=both,arrowhead=diamond,arrowtail=none]
+ElementDonnee -> Entite [dir=both,arrowhead=diamond,arrowtail=none]
+PorteeRegleGestion -> ElementDonnee [dir=both,arrowhead=diamond,arrowtail=none]
+PorteeRegleGestion -> ReglesGestion [dir=both,arrowhead=diamond,arrowtail=none]
+Raccordement -> ElementDonnee [dir=both,arrowhead=diamond,arrowtail=none]
+Raccordement -> ModeleRaccordement [dir=both,arrowhead=diamond,arrowtail=none]
+ModeleRaccordement -> Modele [dir=both,arrowhead=diamond,arrowtail=none]
+Relation -> Entite [dir=both,arrowhead=diamond,arrowtail=none]
+Modele -> DomaineAffaires [dir=both,arrowhead=diamond,arrowtail=none]
+CodageNormalise -> Norme [dir=both,arrowhead=diamond,arrowtail=none]
+CodageNormalise -> IndexDesDonnees [dir=both,arrowhead=diamond,arrowtail=none]
+CodageNormalise -> Specifications [dir=both,arrowhead=diamond,arrowtail=none]
+Exigence -> CategorieExigence [dir=both,arrowhead=diamond,arrowtail=none]
+Exigence -> DomaineAffaires [dir=both,arrowhead=diamond,arrowtail=none]
+Exigence -> Exigence [dir=both,arrowhead=diamond,arrowtail=none]
+AttributExigence -> CategorieExigence [dir=both,arrowhead=diamond,arrowtail=none]
+ValeurExigence -> Exigence [dir=both,arrowhead=diamond,arrowtail=none]
+ValeurExigence -> AttributExigence [dir=both,arrowhead=diamond,arrowtail=none]
+Artefact -> DomaineAffaires [dir=both,arrowhead=diamond,arrowtail=none]
+Artefact -> CategorieArtefact [dir=both,arrowhead=diamond,arrowtail=none]
+Artefact -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+AttributArtefact -> CategorieArtefact [dir=both,arrowhead=diamond,arrowtail=none]
+ValeurArtefact -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+ValeurArtefact -> AttributArtefact [dir=both,arrowhead=diamond,arrowtail=none]
+Capacite -> CategorieCapacite [dir=both,arrowhead=diamond,arrowtail=none]
+Capacite -> DomaineAffaires [dir=both,arrowhead=diamond,arrowtail=none]
+Capacite -> Capacite [dir=both,arrowhead=diamond,arrowtail=none]
+AttributCapacite -> CategorieCapacite [dir=both,arrowhead=diamond,arrowtail=none]
+ValeurCapacite -> Capacite [dir=both,arrowhead=diamond,arrowtail=none]
+ValeurCapacite -> AttributCapacite [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementArtefacts -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementArtefacts -> Projet [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionArtefact -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionArtefact -> RoleIntervenant [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionArtefact -> Intervenant [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionExigence -> Intervenant [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionExigence -> Exigence [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionExigence -> RoleIntervenant [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionCapacite -> Intervenant [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionCapacite -> RoleIntervenant [dir=both,arrowhead=diamond,arrowtail=none]
+InterventionCapacite -> Capacite [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementCapacites -> Projet [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementCapacites -> Capacite [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementExigences -> Projet [dir=both,arrowhead=diamond,arrowtail=none]
+RegroupementExigences -> Exigence [dir=both,arrowhead=diamond,arrowtail=none]
+SourcesArtefact -> Source [dir=both,arrowhead=diamond,arrowtail=none]
+SourcesArtefact -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+CompositionArtefact -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+ExigencesArtefact -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+ExigencesArtefact -> Exigence [dir=both,arrowhead=diamond,arrowtail=none]
+CapacitesArtefact -> Artefact [dir=both,arrowhead=diamond,arrowtail=none]
+CapacitesArtefact -> Capacite [dir=both,arrowhead=diamond,arrowtail=none]
+}
