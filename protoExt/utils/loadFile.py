@@ -26,7 +26,7 @@ def loadFiles(request):
             path = os.path.join(settings.MEDIA_ROOT, fileroot + fileObj.name ) 
             actionFiles[ key ] = path 
             
-            dest = open(path, 'w')
+            dest = open(path, 'wb')
             if fileObj.multiple_chunks:
                 for c in fileObj.chunks():
                     dest.write(c)

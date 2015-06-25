@@ -18,9 +18,7 @@ from protoExt.views.protoActionList import protoList
 from protoExt.views.protoActionExport  import protoExport
 from protoExt.views.protoActionEdit  import protoCreate, protoUpdate, protoDelete
 from protoExt.views import protoExecuteAction
-
-# Fix:
-# from protoExt.views.utils.loadFile import loadFiles
+from protoExt.utils.loadFile import loadFiles
 
 urlpatterns = patterns('',
     url(r'^protoExt$', TemplateView.as_view(template_name='protoExt.html')),
@@ -50,5 +48,5 @@ urlpatterns = patterns('',
     url('protoLogout/$', protoLogout),
 
 #     url('getFieldIncrement/$', getFieldIncrement),
-#     url('loadFile/$', loadFiles),
+    url('loadFile/$', loadFiles),
 )

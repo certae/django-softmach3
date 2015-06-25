@@ -116,3 +116,4 @@ except ImportError:
 # SoftMach Settings ==========================================
 
 PROTO_PREFIX = "prototype.ProtoTable."
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

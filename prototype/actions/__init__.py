@@ -8,6 +8,7 @@ from django.conf import settings
 from protoExt.utils.downloadFile import getFullPath 
 
 from .viewDefinition import getViewDefinition, getViewCode, getEntities
+from protoExt.utils.utilsBase import getReadableError
 
 # from protoLib.actions.setDefaults import actionSetDefaults
 # def doSetDefaults( modeladmin, request, queryset, parameters):
@@ -300,8 +301,12 @@ def doImport4Json( modeladmin, request, queryset, parameters):
 
     from prototype.actions.import4json import importProto4Json
 
-
 #   Recorre los registros selccionados   
-    returnTmp = importProto4Json( request, queryset[0] )
-    return {'success':True, 'message' :  returnTmp } 
+    try: 
+        returnTmp = importProto4Json( request, queryset[0] )
+        result = {'success':True, 'message' :  returnTmp }
+    except Exception as e:
+        traceback.print_exc()
+        result = {'success':False, 'message' : getReadableError(e) }
 
+    return result  
