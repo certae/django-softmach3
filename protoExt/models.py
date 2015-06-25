@@ -5,7 +5,7 @@ from jsonfield2 import JSONField, JSONAwareManager
 
 
 from protoLib.models.protomodel import ProtoModelBase 
-from protoLib.models.protomanager import ProtoUserManager, ProtoJSONManager
+from protoLib.models.protomanager import ProtoUserManager
 
 
 """

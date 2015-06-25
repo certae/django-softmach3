@@ -182,8 +182,8 @@ _MetaObjects = {
                 "jsonField", "returnField", "updateTime", 
                 "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciType"
                 ],
-        "objects" : ["gridConfig", "gridSets", "formConfig", "usrDefProps", "custom", "businessRules"],
-        "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig"],
+        "objects" : ["gridConfig", "gridSets", "formConfig", "custom", "businessRules"],
+        "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig", "defaultTo" ],
         "roProperties" : ["viewEntity", "idProperty", "updateTime", "metaVersion", "protoEntity", "protoEntityId"]
     },
 
@@ -434,6 +434,12 @@ _MetaObjects = {
         "allowAdd" : true
     },
 
+    "defaultTo" : {
+        "description" : "Context : Set default to [ model, field ] ",
+        "listOf" : "defaultToDef",
+        "allowAdd" : true
+    },
+
     "detailDef" : {
         "description" : "Master-Detail relationship definition",
         "properties" : ["menuText", "conceptDetail", "masterField", "detailField", "detailName", "detailTitleLbl", "masterTitleField", "detailTitleField"],
@@ -441,10 +447,13 @@ _MetaObjects = {
         "allowDel" : true
     },
 
-    "usrDefProps" : {
-        "description" : "Udp User defined properties ( Fields created by the user, they do not participe in search and sort)",
-        "properties" : [ "propertyRef", "keyField", "propertyPrefix", "propertyName", "propertyValue"]
+    "defaultToDef" : {
+        "description" : "Context, set default definition",
+        "properties" : ["deftModel", "deftField"],
+        "addPrompt" : "Please enter the name for model to set defaults:",
+        "allowDel" : true
     },
+
 
     "sheetConfig" : {
         "description" : "Information templates in HTML that are fed by data from the database",

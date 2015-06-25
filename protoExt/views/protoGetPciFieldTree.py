@@ -8,11 +8,10 @@ from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsWeb import JsonError 
 from protoExt.utils.utilsBase import getReadableError
 
-from .protoGrid import setDefaultField 
-from .protoField import setFieldDict, isAdmField 
-from .prototypeActions import isProtoPci 
-
-from . import validateRequest 
+from protoExt.views import validateRequest 
+from protoExt.views.prototypeActions import isProtoPci
+from protoExt.views.protoField import isAdmField, setFieldDict
+from protoExt.views.protoGrid import setDefaultField
 
 
 

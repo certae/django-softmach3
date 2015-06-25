@@ -150,6 +150,10 @@ _MetaProperties =  {
     "masterTitleField.help" : "Master field title (filter name)", 
     "detailTitleField.help" : "Master field title (copy from master title in detail edition)", 
 
+//  Set Defautls to ( context )
+    "deftModel.help"         : "Model to set default ( app.model )", 
+    "deftField.help"         : "Field to set default ( f1[__f2]_id )", 
+
 //  Udps 
     "propertyPrefix.help" : "udp prefix (upd__xxxxx)", 
     "propertyName.help" : "udp property name",

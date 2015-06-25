@@ -8,8 +8,8 @@ from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsWeb import JsonError
 from . import validateRequest 
 
-from .protoGrid import  getModelDetails
-from .prototypeActions import isProtoPci 
+from protoExt.views.prototypeActions import isProtoPci 
+from protoExt.views.protoGrid import getModelDetails
 
 
 def protoGetDetailsTree(request):

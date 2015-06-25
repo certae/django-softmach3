@@ -1,7 +1,7 @@
 
 
 from django.contrib import admin
-from protoLib.actions import doSetDefaults 
+from protoExt.actions import doSetDefaults 
 
 from prototype.actions import doImportSchema, doImportOMS
 

@@ -3,7 +3,8 @@
 
 from protoExt.utils.utilsBase import verifyList,  list2dict
 from protoLib.models.protomodel import smControlFields 
-from .protoField import  setFieldDict
+from protoExt.views.protoField import setFieldDict
+
 
 
 class ProtoGridFactory(object):

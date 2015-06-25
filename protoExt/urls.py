@@ -2,25 +2,25 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
 # Fix: 
-# from protoExt.actionsbase.utils.generic_views import DirectTemplateView
+# from protoExt.views.utils.generic_views import DirectTemplateView
 # getFieldIncrement
 
-from protoExt.actionsbase.protoMenu import protoGetMenuData
-from protoExt.actionsbase.protoGetPci import protoGetPCI 
+from protoExt.views.protoMenu import protoGetMenuData
+from protoExt.views.protoGetPci import protoGetPCI 
 
-from protoExt.actionsbase.protoSaveProtoObj import protoSaveProtoObj
-from protoExt.actionsbase.protoGetPciFieldTree import  protoGetFieldTree
-from protoExt.actionsbase.protoGetPciDetailsTree import protoGetDetailsTree
+from protoExt.views.protoSaveProtoObj import protoSaveProtoObj
+from protoExt.views.protoGetPciFieldTree import  protoGetFieldTree
+from protoExt.views.protoGetPciDetailsTree import protoGetDetailsTree
 
-from protoExt.actionsbase.protoLogin import protoGetUserRights, protoLogout, protoGetPasswordRecovery, resetpassword, changepassword
+from protoExt.views.protoLogin import protoGetUserRights, protoLogout, protoGetPasswordRecovery, resetpassword, changepassword
 
-from protoExt.actionsbase.protoActionList import protoList
-from protoExt.actionsbase.protoActionExport  import protoExport
-from protoExt.actionsbase.protoActionEdit  import protoCreate, protoUpdate, protoDelete
-from protoExt.actionsbase import protoExecuteAction
+from protoExt.views.protoActionList import protoList
+from protoExt.views.protoActionExport  import protoExport
+from protoExt.views.protoActionEdit  import protoCreate, protoUpdate, protoDelete
+from protoExt.views import protoExecuteAction
 
 # Fix:
-# from protoExt.actionsbase.utils.loadFile import loadFiles
+# from protoExt.views.utils.loadFile import loadFiles
 
 urlpatterns = patterns('',
     url(r'^protoExt$', TemplateView.as_view(template_name='protoExt.html')),

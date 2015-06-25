@@ -11,11 +11,10 @@ from django.http import HttpResponse
 from protoExt.models import ViewDefinition, CustomDefinition 
 from protoLib.getStuff import getDjangoModel, getProtoAdmin 
 from protoExt.utils.utilsWeb import JsonError 
-
-from . import getReturnMsg, validateRequest 
-from .protoQbe import getSearcheableFields
-from .protoGrid import ProtoGridFactory 
-from protoExt.actionsbase.getStuff import setContextDefaults
+from protoExt.views import getReturnMsg, validateRequest 
+from protoExt.views.protoQbe import getSearcheableFields
+from protoExt.views.protoGrid import ProtoGridFactory 
+from protoExt.views.getStuff import setContextDefaults
 
 
 # 12/10/28 Permite la carga directa de json de definicion. 
@@ -37,7 +36,7 @@ def protoGetPCI(request):
     
 
     # =============  PROTOTIPOS
-    from .prototypeActions import isProtoPci, getProtoPci 
+    from protoExt.views.prototypeActions import isProtoPci, getProtoPci 
     if isProtoPci( cBase ): 
         return getProtoPci( cBase )
 

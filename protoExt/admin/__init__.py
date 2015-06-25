@@ -14,6 +14,11 @@ patch_admin(ViewDefinition)
 patch_admin(CustomDefinition)
 
 
+
+from protoExt.actions import doSetDefaults
+admin.site.add_action(doSetDefaults)
+
+
 # -----------------------------------------   AddUser  
 
 from protoExt.actions import doAddUser 
@@ -24,6 +29,7 @@ class UserProfileAdmin( reversion.VersionAdmin ):
 
 try: 
     admin.site.unregister( UserProfile ) 
-    admin.site.register( UserProfile, UserProfileAdmin )
 except: 
     pass 
+
+admin.site.register( UserProfile, UserProfileAdmin )

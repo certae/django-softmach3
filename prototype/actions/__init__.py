@@ -8,15 +8,12 @@ from django.conf import settings
 from protoExt.utils.downloadFile import getFullPath 
 
 from .viewDefinition import getViewDefinition, getViewCode, getEntities
-from protoLib.actions.setDefaults import actionSetDefaults
 
-
-
-
-def doSetDefaults( modeladmin, request, queryset, parameters):
-    """ 
-    """
-    return actionSetDefaults( modeladmin, request, queryset, parameters )
+# from protoLib.actions.setDefaults import actionSetDefaults
+# def doSetDefaults( modeladmin, request, queryset, parameters):
+#     """ 
+#     """
+#     return actionSetDefaults( modeladmin, request, queryset, parameters )
 
 
 

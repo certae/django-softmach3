@@ -343,8 +343,7 @@ _SM.getSafeMeta = function (myMeta) {
             'name', 'type',
             'zoomModel', 'fkId',
             'crudType', 'cpFromField', 'cpFromZoom', 'physicalName'
-            ] ),
-        "usrDefProps": _SM.clone( myMeta.usrDefProps )
+        ])
     } ;
 
     return Ext.encode( safeMeta );

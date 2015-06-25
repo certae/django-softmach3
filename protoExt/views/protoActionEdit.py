@@ -8,9 +8,7 @@ from django.utils.encoding import smart_str
 from protoExt.models import ViewDefinition
 from protoLib.getStuff import getDjangoModel
 from protoLib.models.protomodel import smControlFields 
-
 from . import validateRequest 
-from .protoActionList import Q2Dict
 
 from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, toFloat, toDecimal, toBoolean
 from protoExt.utils.utilsBase import  getReadableError, list2dict
@@ -19,6 +17,7 @@ from jsonfield2.utils import JSONEncoder
 
 
 from protoLib.getStuff import getModelPermission
+from protoExt.views.protoActionList import Q2Dict
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'

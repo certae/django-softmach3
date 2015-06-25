@@ -14,12 +14,11 @@ from protoLib.getStuff import  getModelPermission, getRowById
 from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsWeb import JsonError 
 from protoExt.models import ViewDefinition 
-
 from . import validateRequest 
 
 import json
 import traceback
-from protoExt.actionsbase.getStuff import setContextFilter
+from protoExt.views.getStuff import setContextFilter
 
 
 def protoList(request):

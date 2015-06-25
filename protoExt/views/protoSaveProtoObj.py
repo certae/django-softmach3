@@ -4,9 +4,8 @@ from protoExt.models import ViewDefinition, CustomDefinition
 from protoLib.getStuff import getDjangoModel, getModelPermission 
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess
 from protoExt.utils.utilsBase import getReadableError
-
-from . import validateRequest 
-from .prototypeActions import isProtoPci, saveProtoPci 
+from protoExt.views import validateRequest 
+from protoExt.views.prototypeActions import isProtoPci, saveProtoPci
 
 
 def protoSaveProtoObj(request):

@@ -5,11 +5,11 @@ import traceback, tablib
 # from django.http import HttpResponse
 from django.template.defaultfilters import slugify
 
-from protoExt.utils.utilsBase import getReadableError, Enum 
+from protoExt.utils.utilsBase import getReadableError 
 from protoExt.utils.utilsWeb import JsonError , JsonSuccess
 from protoExt.utils.downloadFile import getFullPath 
 
-from .protoActionList import prepareListEnv, getQSet, Q2Dict
+from protoExt.views.protoActionList import prepareListEnv, getQSet, Q2Dict
 from import_export.formats import base_formats  
 
 
