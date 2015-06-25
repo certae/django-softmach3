@@ -93,16 +93,12 @@ def unique_id(more = ''):
 
 
 
-def reduceDict(inDict, keep_keys):
+def reduceDict(old_dict, keep_keys):
     """ keep only keep_keys in the dict (return a new one) 
-        inDict : {}
+        old_dict : {}
         keep_keys : []
     """
-    dict2 = inDict.copy()
-    for k in dict2.keys():
-        if k not in keep_keys:
-            del dict2[k]
-    return dict2
+    return { keep_k: old_dict[keep_k] for keep_k in keep_keys }
 
 
 def dict2tuple(indict):
