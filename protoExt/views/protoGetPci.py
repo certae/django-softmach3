@@ -233,6 +233,20 @@ def verifyMeta( cBase , pciType ):
 
 
     # TODO: Add setDefault Action 
+    if pciType == 'pci': 
+
+        ACTION_NAME =  "doSetDefaults"
+        if cBase.protoMeta.get( 'defaultTo', []): 
+
+            actionFound = False 
+            lActions = cBase.protoMeta.get( 'actions', [])
+            for lAction in lActions:
+                if lAction.get( 'name') == ACTION_NAME: 
+                    actionFound = True
+                    break
+
+            if not actionFound: 
+                lActions.append( { "name": ACTION_NAME, "selectionMode" : "optional"} )
 
 
     return cBase.protoMeta

@@ -326,11 +326,13 @@ _MetaProperties =  {
     "crudType.choices" : [ "", "editable", "screenOnly", "storeOnly", "insertOnly", "updateOnly", "linked", "copied" ], 
     
     "selectionMode.help" : "Grid selection mode for actions",
+
     // none : Envia la accion sin QSet 
     // single : Exige un unico reg 
     // multiple : Exige al menos un reg       
     // details : Envia la seleccion de detalles 
-    "selectionMode.choices" : [ "none", "single", "multiple", "details" ], 
+    // optional : Cero o un registro 
+    "selectionMode.choices" : [ "none", "optional", "single", "multiple", "details" ], 
 
     "addDetailForm.help" : "Shortcut to the add form", 
     "addDetailForm.type" : "boolean"

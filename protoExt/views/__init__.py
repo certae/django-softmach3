@@ -43,12 +43,20 @@ def protoExecuteAction(request):
 
     def doAdminAction(model, selectedKeys, parameters, actionDef, modelAdmin):
 
-        # Fix : Si no lo encuenta toma el ultimo, no deberia          
-        for action in modelAdmin.actions:
-            if action.__name__ == actionName:
-                break
+        try: 
+            action = site.get_action( actionName )
+            actionFound = True
+        except: 
+            action = None 
+            actionFound = False        
 
-        if not action:
+        if not actionFound:
+            for action in modelAdmin.actions:
+                if action.__name__ == actionName:
+                    actionFound = True
+                    break
+
+        if not actionFound:
             return doReturn ({'success':False, 'message' : 'Action notFound'})
 
 
@@ -105,7 +113,10 @@ def protoExecuteAction(request):
     actionDef = json.loads(actionDef)
 
     # hace el QSet de los registros seleccionados
-    if actionDef.get('selectionMode', '') != 'none' and selectedKeys.__len__() == 0:
+    if actionDef.get('selectionMode', '') == 'optional':
+        if selectedKeys.__len__() > 1:
+            return doReturn ({'success':False, 'message' : 'too many records selected'})
+    elif actionDef.get('selectionMode', '') != 'none' and selectedKeys.__len__() == 0:
         return doReturn ({'success':False, 'message' : 'No record selected'})
 
 

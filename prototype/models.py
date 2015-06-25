@@ -72,7 +72,6 @@ class Project(ProtoModelExt):
 
     protoExt = { 
         "actions": [
-            { "name": "doSetDefaults", "selectionMode" : "single"},
             { "name": "doImportSchema" },
             { "name": "doImportOMS", "selectionMode" : "single",
               "actionParams": [

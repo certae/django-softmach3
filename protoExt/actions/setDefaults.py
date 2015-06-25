@@ -29,9 +29,11 @@ def actionSetDefaults(request, queryset , parameters):
     # Obtiene el proyecto y se asegura q sean todas de un mismo proyecto
     if queryset: 
         baseReg = queryset[0]
-        vrDefault = {'propValue': baseReg.id , 'propDescription' : baseReg.__str__()}
+        vrDefault = {'propValue': baseReg.id , 'propDescription' : baseReg.__str__(), 
+                     'isDefault' : True , 'isFilter' : True }
     else: 
-        vrDefault = {'propValue': '' , 'propDescription' : ''}
+        vrDefault = {'propValue': '' , 'propDescription' : '', 
+                     'isDefault' : True , 'isFilter' : False }
 
 
     cBase.defTo = cBase.protoMeta.get( 'defaultTo' , [] )

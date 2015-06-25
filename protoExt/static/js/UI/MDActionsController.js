@@ -104,6 +104,10 @@ Ext.define('ProtoUL.UI.MDActionsController', {
                 _SM.__StBar.showMessage('TITLE_ACTION_SELECTION_SINLGLE', btn.actionName, 3000);
                 return;
 
+            } else if ((pAction.selectionMode == "optional"  ) && (selectedKeys.length > 1 )) {
+                _SM.__StBar.showMessage('TITLE_ACTION_SELECTION_OPTIONAL', btn.actionName, 3000);
+                return;
+
             } else if ((pAction.selectionMode == "multiple"  ) && (selectedKeys.length < 1 )) {
                 _SM.__StBar.showMessage('TITLE_ACTION_SELECTION_MULTI', btn.actionName, 3000);
                 return;
