@@ -8,6 +8,7 @@ from protoExt.utils.downloadFile import getFullPath
 
 from .viewDefinition import getViewDefinition, getViewCode, getEntities
 from protoExt.utils.utilsBase import getReadableError
+from protoExt.utils.utilsConvert import slugify2
 
 # from protoLib.actions.setDefaults import actionSetDefaults
 # def doSetDefaults( modeladmin, request, queryset, parameters):

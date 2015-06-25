@@ -5,6 +5,7 @@ Table format from  django-extensions
 """
 
 from protoExt.utils.utilsBase import Enum, getClassName
+from protoExt.utils.utilsConvert import slugify2
 
 class GraphModel():
 

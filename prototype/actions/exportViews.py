@@ -6,10 +6,10 @@ Exportar vistas de un prototypo para ser usadas por una aplicacion generada a pa
 '''
   
 from protoExt.utils.utilsConvert import slugify2
- #Fix:  JSONEncoder, getClassName 
-from protoLib.models import ViewDefinition
-
 import json
+from protoExt.utils.utilsBase import getClassName
+from jsonfield2.utils import JSONEncoder
+from protoExt.models import ViewDefinition
 
 
 def exportProtoJson(request, pModel ):

@@ -8,7 +8,6 @@
 # Import Database class
 from prototype.models import  Entity, Property, Relationship, Prototype 
 from protoExt.utils.utilsBase import reduceDict
-from protoLib.getStuff import getUserProfile
 
 #  Export 2 Json 
 import json
@@ -16,7 +15,7 @@ import json
 def importProto4Json(request, pModel):
 
 #   To set permissions 
-    userProfile = getUserProfile( request.user)
+#     userProfile = getUserProfile( request.user)
 
 #   Get filename   
     fileName = request.POST.get( 'actionFiles', {}).get('file')  
