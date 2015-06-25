@@ -2,7 +2,6 @@
 
 import traceback
 
-from django.template.defaultfilters import slugify
 from django.conf import settings
 
 from protoExt.utils.downloadFile import getFullPath 
@@ -119,7 +118,7 @@ def doDiagram(modeladmin, request, queryset, parameters):
 
 
 #   Genera el archvivo dot     
-    fileName = 'gm_' + slugify( queryset[0].code ) + '.dot'
+    fileName = 'gm_' + slugify2( queryset[0].code ) + '.dot'
     fullPath = getFullPath( request, fileName )
  
     fo = open( fullPath , "w")
@@ -158,7 +157,7 @@ def doExportPrototype( modeladmin, request, queryset, parameters):
     strModel = exportPrototypeModel ( request, queryset[0] )
         
 #   Genera el archvivo py      
-    fileName = 'model_{0}.py'.format( slugify( queryset[0].code ) )
+    fileName = 'model_{0}.py'.format( slugify2( queryset[0].code ) )
     fullPath = getFullPath( request, fileName )
 
     fo = open( fullPath , "w")
@@ -187,7 +186,7 @@ def doExportProtoJson( modeladmin, request, queryset, parameters):
 
         
 #   Genera el archvivo py      
-    fileName = 'proto_{0}.json'.format( slugify( queryset[0].code ) )
+    fileName = 'proto_{0}.json'.format( slugify2( queryset[0].code ) )
     fullPath = getFullPath( request, fileName )
 
     fo = open( fullPath , "w")
@@ -279,7 +278,7 @@ def doExport2Json( modeladmin, request, queryset, parameters):
     strModel = exportPrototype2Json( request, queryset[0] )
         
 #   Genera el archvivo py      
-    fileName = 'model_{0}.jex'.format( slugify( queryset[0].code ) )
+    fileName = 'model_{0}.jex'.format( slugify2( queryset[0].code ) )
     fullPath = getFullPath( request, fileName )
 
     fo = open( fullPath , "w")

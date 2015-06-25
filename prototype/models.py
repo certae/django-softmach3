@@ -10,7 +10,7 @@ from jsonfield2 import JSONField
 from .protoRules import  ONDELETE_TYPES, BASE_TYPES, CRUD_TYPES, DB_ENGINE
 from taggit.managers import TaggableManager
 
-from django.template.defaultfilters import slugify
+from protoExt.utils.utilsConvert import slugify2
 from django.conf import settings
 
 import reversion
@@ -64,7 +64,7 @@ class Project(ProtoModelExt):
     dbPort = models.CharField(blank=True, null=True, max_length=200)
 
     def __str__(self):
-        return slugify(self.code) 
+        return slugify2(self.code) 
 
     class Meta:
         unique_together = ('code', 'smOwningTeam')
@@ -125,7 +125,7 @@ class Model(ProtoModelExt):
     unicode_sort = ('project', 'code',)
 
     def __str__(self):
-        return slugify(self.code) 
+        return slugify2(self.code) 
     
     protoExt = { 
         "defaultTo": [{
@@ -170,7 +170,7 @@ class Entity(ProtoModelExt):
     unicode_sort = ('model', 'code',)
 
     def __str__(self):
-        return slugify(self.model.code + '-' + self.code) 
+        return slugify2(self.model.code + '-' + self.code) 
 
     class Meta:
         unique_together = ('model', 'code', 'smOwningTeam')
@@ -284,7 +284,7 @@ class Property(ProtoModelExt):
         unique_together = ('entity', 'code', 'smOwningTeam')
 
     def __str__(self):
-        return slugify(self.entity.code + '.' + self.code)      
+        return slugify2(self.entity.code + '.' + self.code)      
 
     unicode_sort = ('entity', 'code',)
 
@@ -318,7 +318,7 @@ class Relationship(Property):
     typeRelation = models.CharField(blank=True, null=True, max_length=50)
 
     def __str__(self):
-        return slugify(self.entity.code + '.' + self.code)     
+        return slugify2(self.entity.code + '.' + self.code)     
 
     def save(self, *args, **kwargs):
         self.isForeign = True 
@@ -355,7 +355,7 @@ class PropertyEquivalence(ProtoModelExt):
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return slugify(self.sourceProperty.code + ' - ' + self.targetProperty.code)   
+        return slugify2(self.sourceProperty.code + ' - ' + self.targetProperty.code)   
 
     class Meta:
         unique_together = ('sourceProperty', 'targetProperty', 'smOwningTeam')
@@ -407,7 +407,7 @@ class Prototype(ProtoModelBase):
     objects = ProtoJSONManager(json_fields=['metaDefinition'])
 
     def __str__(self):
-        return slugify(self.code)  
+        return slugify2(self.code)  
     
     protoExt = { 
         "gridConfig" : {
@@ -436,7 +436,7 @@ class ProtoTable(ProtoModelBase):
         val = ''
         for arg in args:
             try:
-                val = val + '.' + slugify( self.info.get( arg[6:] ) )
+                val = val + '.' + slugify2( self.info.get( arg[6:] ) )
             except:
                 pass 
         return  val[1:] 
@@ -494,7 +494,7 @@ class Diagram(ProtoModelExt):
             smUUID=self.smUUID)
         
     def __str__(self):
-        return slugify(self.project.code + '-' + self.code) 
+        return slugify2(self.project.code + '-' + self.code) 
 
     class Meta:
         unique_together = ('project', 'code', 'smOwningTeam')
@@ -523,7 +523,7 @@ class DiagramEntity(ProtoModelExt):
     unicode_sort = ('diagram', 'entity',)
 
     def __str__(self):
-        return slugify(self.diagram.code + '-' + self.entity.code) 
+        return slugify2(self.diagram.code + '-' + self.entity.code) 
 
     class Meta:
         unique_together = ('diagram', 'entity', 'smOwningTeam')

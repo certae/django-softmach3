@@ -7,7 +7,7 @@ from .pttActionTools import getViewCode
 from .viewTemplate import baseDefinition
 from prototype.models import Entity,  Prototype
 
-from protoExt.utils.utilsBase import JSONEncoder, slugify
+from protoExt.utils.utilsBase import JSONEncoder, slugify2
 from protoLib.getStuff import getUserProfile
 
 
@@ -27,7 +27,7 @@ def getViewDefinition( pEntity, viewTitle  ):
 
     for pProperty in pEntity.property_set.order_by('id'):
 
-        fName  = 'info__' + slugify( pProperty.code ) 
+        fName  = 'info__' + slugify2( pProperty.code ) 
         field = property2Field( fName, pProperty.__dict__ )
 
         if pProperty.isForeign: 
@@ -62,7 +62,7 @@ def getViewDefinition( pEntity, viewTitle  ):
         "sortable": True,
         "name": "__str__",
         "fkId": "id",
-        "zoomModel": PROTO_PREFIX + slugify( viewTitle  ),
+        "zoomModel": PROTO_PREFIX + slugify2( viewTitle  ),
         "cellLink": True,
         "header": viewTitle,
         "readOnly": True,
@@ -76,9 +76,9 @@ def getViewDefinition( pEntity, viewTitle  ):
     # Details
     for pDetail in pEntity.refEntity_set.all():
         detail =  {
-            "detailField": "info__" + slugify( pDetail.code ) + "_id",
+            "detailField": "info__" + slugify2( pDetail.code ) + "_id",
             "conceptDetail": PROTO_PREFIX + getViewCode( pDetail.entity  ),
-            "detailName": slugify( pDetail.entity.code ),
+            "detailName": slugify2( pDetail.entity.code ),
             "menuText": pDetail.entity.code ,
             "masterField": "pk"
         }
@@ -165,7 +165,7 @@ def addProtoFiedToList( fieldList,  pEntity , fieldBase, zoomName   ):
 
     for pProperty in pEntity.property_set.all():
 
-        fName  = 'info__' + slugify( pProperty.code ) 
+        fName  = 'info__' + slugify2( pProperty.code ) 
 
         field = property2Field( fName, pProperty.__dict__ , True,  fieldBase  )
 
@@ -189,7 +189,7 @@ def addProtoFiedToList( fieldList,  pEntity , fieldBase, zoomName   ):
             field["type"]     = "foreigntext"
 
             fkFieldList= []
-            addProtoFiedToList( fkFieldList, zoomEntity, fName, slugify( zoomEntity.code ) )
+            addProtoFiedToList( fkFieldList, zoomEntity, fName, slugify2( zoomEntity.code ) )
 
             field["leaf"] = False 
             field["children"] = fkFieldList
@@ -220,13 +220,13 @@ def GetDetailsConfigTree( protoEntityId ):
     for pDetail in pEntity.refEntity_set.all():
         
         detail =  {
-            "detailField": "info__" + slugify( pDetail.code ) + "_id",
+            "detailField": "info__" + slugify2( pDetail.code ) + "_id",
             "conceptDetail": PROTO_PREFIX + getViewCode( pDetail.entity  ),
-            "detailName": slugify( pDetail.entity.code ),
+            "detailName": slugify2( pDetail.entity.code ),
             "menuText": pDetail.entity.code ,
             "masterField": "pk", 
             
-            "id" : slugify( pDetail.entity.code ) ,  
+            "id" : slugify2( pDetail.entity.code ) ,  
             "leaf" : True 
         }
 
@@ -254,7 +254,7 @@ def getEntities( queryset , request, viewTitle  ):
 
 def createView( pEntity, viewTitle, userProfile ):
 
-    viewName    = slugify( viewTitle )
+    viewName    = slugify2( viewTitle )
     infoEntity  = getViewDefinition( pEntity , viewTitle  )
 
     # Debe corresponder al viewCodegenerado en el template ( infoEntity[viewCode] ) 

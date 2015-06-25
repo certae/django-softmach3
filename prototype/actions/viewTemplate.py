@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from django.template.defaultfilters import slugify
+from protoExt.utils.utilsConvert import slugify2
 
 PROTO_PREFIX = "prototype.ProtoTable."
 
@@ -9,7 +9,7 @@ def baseDefinition( pEntity , entityName, viewTitle  ):
     """ protoEntity: Es la traza de la generacion del protipo  dominio.modelo.entidad  
     """ 
     
-    viewName   = slugify( viewTitle  )
+    viewName   = slugify2( viewTitle  )
 
     return  {
     "__ptType": "pcl",

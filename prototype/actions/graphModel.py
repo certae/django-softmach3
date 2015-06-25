@@ -4,7 +4,6 @@ Prototype to DOT (Graphviz) converter by Dario Gomez
 Table format from  django-extensions 
 """
 
-from django.template.defaultfilters import slugify  
 from protoExt.utils.utilsBase import Enum, getClassName
 
 class GraphModel():
@@ -45,14 +44,14 @@ class GraphModel():
             
             gDiagram = {
                 'code': getClassName(pDiag.code) ,
-                'label': slugify( pDiag.code ),
-                'clusterName': slugify( getattr(pDiag, 'title', pDiag.code)),
+                'label': slugify2( pDiag.code ),
+                'clusterName': slugify2( getattr(pDiag, 'title', pDiag.code)),
                 'graphLevel' : getattr(pDiag, 'graphLevel' , self.GRAPH_LEVEL.all),
                 'graphForm'  : getattr(pDiag, 'graphForm' , self.GRAPH_FORM.orf),
                 'showPrpType': getattr(pDiag, 'showPrpType' , False),
                 'showBorder' : getattr(pDiag, 'showBorder' , False),
                 'showFKey'   : getattr(pDiag, 'showFKey' , False),
-                'prefix'     : slugify( getattr(pDiag, 'prefix' , '')),
+                'prefix'     : slugify2( getattr(pDiag, 'prefix' , '')),
                 'entities': []
             }
 
@@ -75,7 +74,7 @@ class GraphModel():
     
                 for pProperty in pEntity.property_set.all():
     
-                    pptCode = slugify(pProperty.code, '_')
+                    pptCode = slugify2(pProperty.code, '_')
                      
                     if pProperty.isForeign:
                         pLinkTo = self.getEntityCode(pProperty.relationship.refEntity.code, gDiagram.get('prefix'))
@@ -91,7 +90,7 @@ class GraphModel():
                         })
                     
                     else: 
-                        pType = slugify(pProperty.baseType , '_')
+                        pType = slugify2(pProperty.baseType , '_')
     
                         gEntity['fields'].append({
                             'code': pptCode,

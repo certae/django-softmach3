@@ -45,8 +45,8 @@ def docProperty2Field( fName, propDict, fBase = 'info' ):
     """ Genera la definicion del campo en la pci a partir de un diccionario (RAI) 
     """
 
-    from django.template.defaultfilters import slugify
-    fCode = slugify( fName )
+    from protoExt.utils.utilsConvert import slugify2
+    fCode = slugify2( fName )
 
     field =  { 
         "name"    : '{0}__{1}'.format( fBase, fCode ), 

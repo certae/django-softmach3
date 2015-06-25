@@ -12,7 +12,7 @@ import keyword, re, traceback
 from prototype.models import Model, Entity, Property, Relationship
 from protoLib.getStuff import getUserProfile
 from protoExt.utils.utilsDb import setDefaults2Obj
-from django.template.defaultfilters import slugify
+from protoExt.utils.utilsConvert import slugify2
 
 from django.db import connections, transaction, IntegrityError, DatabaseError
 from django.db.transaction import TransactionManagementError
@@ -40,7 +40,7 @@ def readSchemaDef(dProject):
 
 
     # Add connection information dynamically..
-    pCode = slugify( dProject.code )
+    pCode = slugify2( dProject.code )
     connections.databases[ pCode ] = {
             'ENGINE': dProject.dbEngine ,
             'NAME':  dProject.dbName ,

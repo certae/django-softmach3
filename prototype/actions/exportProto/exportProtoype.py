@@ -13,7 +13,7 @@
   
   
 from prototype.actions.pttActionTools import TypeEquivalence  
-from django.template.defaultfilters import slugify
+from protoExt.utils.utilsConvert import slugify2
 
 from protoExt.utils.utilsBase import repStr, getClassName
 from io import StringIO
@@ -21,7 +21,7 @@ from io import StringIO
 def exportPrototypeModel(request, pModel):
 
     strModel = StringIO()        
-    modelCode = slugify(pModel.code, '_')
+    modelCode = slugify2(pModel.code, '_')
 
     strModel.write("# -*- coding: utf-8 -*-\n\n")
     strModel.write('# This is an auto-generated model module by CeRTAE SoftMachine v13.12dgt\n' )  
@@ -30,7 +30,7 @@ def exportPrototypeModel(request, pModel):
     strModel.write("#     * Add specific procedures  (WFlow)\n\n")
     strModel.write("from django.db import models\n")
     strModel.write("from protoLib.models import ProtoModelExt\n")    
-    strModel.write("from django.template.defaultfilters import slugify\n")
+    strModel.write("from protoExt.utils.utilsConvert import slugify2\n")
 
     for pEntity in pModel.entity_set.all():
 
@@ -45,12 +45,12 @@ def exportPrototypeModel(request, pModel):
         #     2. strNull,
         #     3. str( intLength ), 
         #     4. str( intScale ) 
-        #     5. slugify(pEntity.code, '_') 
+        #     5. slugify2(pEntity.code, '_') 
 
                                                      
         for pProperty in pEntity.property_set.all():
             
-            pCode = slugify(pProperty.code, '_')
+            pCode = slugify2(pProperty.code, '_')
             
             if pProperty.isForeign:
                 pType  = getClassName( pProperty.relationship.refEntity.code ) 
@@ -99,7 +99,7 @@ def exportPrototypeModel(request, pModel):
                           strNull,
                           str( intLength ), 
                           str( intScale ), 
-                          slugify(pEntity.code, '_') 
+                          slugify2(pEntity.code, '_') 
                           ))  
             
 
@@ -115,11 +115,11 @@ def exportPrototypeModel(request, pModel):
                 if strOptions.__len__() > 0:  strOptions += " +  '.' + " 
 
                 if pProperty.isForeign or not ( pProperty.baseType in  [ 'string', 'text' ] ):
-                    strAux = 'str( self.{0})'.format( slugify(pProperty.code, '_'))
-                else :  strAux = 'self.{0}'.format( slugify(pProperty.code, '_'))  
+                    strAux = 'str( self.{0})'.format( slugify2(pProperty.code, '_'))
+                else :  strAux = 'self.{0}'.format( slugify2(pProperty.code, '_'))  
                 strOptions += strAux  
 
-            strModel.write( repStr(' ',8) + "return slugify({0})\n".format( strOptions ))
+            strModel.write( repStr(' ',8) + "return slugify2({0})\n".format( strOptions ))
 
 
             #meta 

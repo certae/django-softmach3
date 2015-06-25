@@ -8,8 +8,8 @@ import os, re, json
 from jsonfield2.utils import JSONEncoder 
 
 from django.utils.encoding import smart_str
-from django.template.defaultfilters import slugify
 from django.utils import six
+from protoExt.utils.utilsConvert import slugify2
 
 
 def verifyList(obj, defList = []):
@@ -61,15 +61,16 @@ def parseEmailAddress(fullemail, delimitorLeft = '<', delimitorRight = '>'):
 
     return None
 
-def guessNextPath(dst, slugify = True, idx = 0, checkExists = True):
+
+def guessNextPath(dst, slugify2 = True, idx = 0, checkExists = True):
     """ return a renamed path if provided one already exists
-        if slugify, file name is slugified first (fs encodings problems quick & dirty workaround)
+        if slugify2, file name is slugified first (fs encodings problems quick & dirty workaround)
     """
     newpath = dst
     if idx == 0:
         (path, file) = os.path.split(newpath)
         (file, ext) =  os.path.splitext(file)
-        slug = slugify(file)
+        slug = slugify2(file)
 
         newpath = os.path.join(path, '%s%s' % (slug, ext))
 
@@ -77,7 +78,7 @@ def guessNextPath(dst, slugify = True, idx = 0, checkExists = True):
         idx += 1
         name, ext = os.path.splitext(newpath)
         newpath = '%s-copy%s' % (name, ext)
-        return guessNextPath(newpath, slugify, idx, checkExists)
+        return guessNextPath(newpath, slugify2, idx, checkExists)
 
     return newpath
 
@@ -201,7 +202,7 @@ def strip_accents(inStr):
             inStr = inStr.replace(ch, k)
 
     # De todas formas lo estandariza
-    return slugify( inStr )
+    return slugify2( inStr )
 
 def strip_euro(inStr):
     inStr = u'%s' % inStr
@@ -361,4 +362,4 @@ class Enum(tuple):
 
 def getClassName( cName ):
     # Formatea un string tipo titulo
-    return ''.join( slugify( cName ).title().split('-') )
+    return ''.join( slugify2( cName ).title().split('-') )

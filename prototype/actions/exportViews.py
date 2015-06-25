@@ -5,7 +5,7 @@ Dgt 1503
 Exportar vistas de un prototypo para ser usadas por una aplicacion generada a partir del prototypo
 '''
   
-from django.template.defaultfilters import slugify
+from protoExt.utils.utilsConvert import slugify2
  #Fix:  JSONEncoder, getClassName 
 from protoLib.models import ViewDefinition
 
@@ -16,7 +16,7 @@ def exportProtoJson(request, pModel ):
 
     cViews = { 
       'code' :  pModel.code, 
-      'model':  slugify(pModel.code, '_'), 
+      'model':  slugify2(pModel.code, '_'), 
       'entities' : {},
     }
 
@@ -39,7 +39,7 @@ def exportProtoJson(request, pModel ):
 #             
 #             cProperty =  {
 #                 'code'      : pProperty.code, 
-#                 'property'  : slugify(pProperty.code, '_'),
+#                 'property'  : slugify2(pProperty.code, '_'),
 #                 'isForeign' : pProperty.isForeign,  
 #                 
 #                 'baseType'   : pProperty.baseType,
@@ -86,7 +86,7 @@ def exportProtoJson(request, pModel ):
             # Migration proto - App
             sAux = pPrototype.metaDefinition.replace( "info__", "").replace( "-", "_" )
             sAux = sAux.replace( "prototype.ProtoTable.", "" )  
-            sAux = sAux.replace( '"' + slugify(pModel.code, '_') + '_', '"' + cViews['model' ] + '.' )
+            sAux = sAux.replace( '"' + slugify2(pModel.code, '_') + '_', '"' + cViews['model' ] + '.' )
               
             cProto = json.loads( sAux )
 

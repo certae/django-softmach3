@@ -3,7 +3,7 @@
 import traceback, tablib  
 
 # from django.http import HttpResponse
-from django.template.defaultfilters import slugify
+from protoExt.utils.utilsConvert import slugify2
 
 from protoExt.utils.utilsBase import getReadableError 
 from protoExt.utils.utilsWeb import JsonError , JsonSuccess
@@ -62,7 +62,7 @@ def _doExportFile( cBase, pList, request ):
     file_format = formats[ cBase.fileFormat ]()
 
 #   File creation 
-    fileName = "%s.%s" % (slugify( cBase.viewCode ), file_format.get_extension())
+    fileName = "%s.%s" % (slugify2( cBase.viewCode ), file_format.get_extension())
     fullPath = getFullPath(request, fileName)
 
     open_mode = 'wb' 

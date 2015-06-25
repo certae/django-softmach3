@@ -145,7 +145,7 @@ _PROTOSTRUCTURE = {
 Exportar vistas
 '''
 
-from django.template.defaultfilters import slugify
+from protoExt.utils.utilsConvert import slugify2
 # Fix:, JSONEncoder, getClassName
 from protoLib.models import ViewDefinition
 
@@ -158,7 +158,7 @@ def exportProtoJson(request,
     cViews = {
      'code' :  pModel.code,
 
-     'model':  slugify(pModel.code,
+     'model':  slugify2(pModel.code,
  '_'),
 
      'entities' : {},
@@ -186,7 +186,7 @@ def exportProtoJson(request,
 #             cProperty =  {
 #                 'code'      : pProperty.code,
 
-#                 'property'  : slugify(pProperty.code, '_'),
+#                 'property'  : slugify2(pProperty.code, '_'),
 #                 'isForeign' : pProperty.isForeign,
 
 #                 'baseType'   : pProperty.baseType,
@@ -248,7 +248,7 @@ def exportProtoJson(request,
             # Migration proto - App
             sAux = pPrototype.metaDefinition.replace("info__","").replace("-","_" )
             sAux = sAux.replace("prototype.ProtoTable.","" )
-            sAux = sAux.replace( '"' + slugify(pModel.code, '_') + '_', '"' + cViews['model' ] + '.' )
+            sAux = sAux.replace( '"' + slugify2(pModel.code, '_') + '_', '"' + cViews['model' ] + '.' )
 
             cProto = json.loads( sAux )
 
