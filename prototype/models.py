@@ -71,13 +71,30 @@ class Project(ProtoModelExt):
         # permissions = (( "read_domain", "Can read project"), )        
 
     protoExt = { 
+        "defaultTo": [{
+                "deftModel": "prototype.model",
+                "deftField": "project_id",
+                "name": "prototype.model"
+            }, {
+                "deftModel": "prototype.entity",
+                "deftField": "model__project_id",
+                "name": "prototype.entity"
+            }, {
+                "deftModel": "prototype.diagram",
+                "deftField": "project_id",
+                "name": "prototype.diagram"
+            }, {
+                "deftModel": "prototype.property",
+                "deftField": "entity__model__project_id",
+                "name": "prototype.property"
+            }],                 
         "actions": [
-            { "name": "doImportSchema" },
-            { "name": "doImportOMS", "selectionMode" : "single",
-              "actionParams": [
-                # {"name" : "fileName", "type" : "string", "required": False, "tooltip" : "option de menu (msi)" }
-                ] 
-            }
+#             { "name": "doImportSchema" },
+#             { "name": "doImportOMS", "selectionMode" : "single",
+#               "actionParams": [
+#                  {"name" : "fileName", "type" : "string", "required": False, "tooltip" : "option de menu (msi)" }
+#                 ] 
+#             }
         ],
         "gridConfig" : {
             "listDisplay": ["__str__", "description", "smOwningTeam"]      
@@ -111,6 +128,15 @@ class Model(ProtoModelExt):
         return slugify(self.code) 
     
     protoExt = { 
+        "defaultTo": [{
+                "deftModel": "prototype.entity",
+                "deftField": "model_id",
+                "name": "prototype.entity"
+            }, {
+                "deftModel": "prototype.property",
+                "deftField": "entity__model_id",
+                "name": "prototype.property"
+            }],                 
         "actions": [
             { "name": "doModelDiagram" },
             { "name": "doModelPrototype" },

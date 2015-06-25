@@ -70,14 +70,14 @@ def prepareListEnv( request ):
     PAGESIZE = 50
 
     cBase, message = validateRequest( request )
-    if message: return message  
+    if message: return None, message  
     
     # Lee la pci      
     try:
         protoDef = ViewDefinition.objects.get( code = cBase.viewCode )
         cBase.protoMeta = protoDef.metaDefinition
     except Exception :
-        return JsonError('ViewDefinition not found: {0}'.format( cBase.viewCode  )) 
+        return None, JsonError('ViewDefinition not found: {0}'.format( cBase.viewCode  )) 
 
     cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
