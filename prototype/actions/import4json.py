@@ -12,6 +12,8 @@ from protoExt.utils.utilsBase import reduceDict
 #  Export 2 Json 
 import json
 
+
+
 def importProto4Json(request, pModel):
 
 #   To set permissions 
@@ -47,7 +49,7 @@ def importProto4Json(request, pModel):
 
 #       Prototype      ==============================
         for jAux in jEntity.get( 'prototype_set' ): 
-            jAux['metaDefinition']  = json.dumps( jAux['metaDefinition'] )
+            setRealEntity( jAux, pEntity.id  )
             pProp = Prototype.objects.get_or_create( entity = pEntity, code = jAux['code'], defaults= jAux )[0]
             pEntity.prototype_set.add( pProp )
 
@@ -66,3 +68,21 @@ def importProto4Json(request, pModel):
 
     return 'Ok'
 
+
+def setRealEntity(jAux, id):
+    """
+    Import set the real EntityId in prototype definition 
+    """
+
+    pci = jAux[ 'metaDefinition' ] 
+    pci['protoEntityId'] = id 
+    
+    for lField in pci.get( 'fields', []) : 
+        if lField['name'] == "entity_id": 
+            lField['prpDefault'] = id 
+            lField['type'] =  'foreignid'
+        elif lField['name'] == "entity": 
+            lField['type'] =  'foreigntext'
+
+
+    pci.get("gridConfig", {})[ "baseFilter" ] = [ { 'property':'entity', 'filterStmt' : '=' + str( id ) } ]

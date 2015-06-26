@@ -36,12 +36,14 @@ def baseDefinition( pEntity , entityName, viewTitle  ):
             "name": "entity",
             "readOnly": True,
             "hidden": True,
+            "type": "foreigntext"
         },
         {
             "name": "entity_id",
             "readOnly": True,
             "hidden": True,
             "prpDefault" : pEntity.id, 
+            "type": "foreignid"
         },
         {
             "name": "info",

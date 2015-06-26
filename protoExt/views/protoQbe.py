@@ -128,7 +128,7 @@ def getQbeStmt(fieldName , sQBE, sType):
 
 
     # String:  \iexact, \icontains, \istartswith, isnull, search, TODO: \iendswith, \iregex
-    if sType in ([ 'string', 'text', 'jsonfield' ]) :
+    if sType in ([ 'string', 'text' ]) :
         if sQBE.startswith('^'):
             Qobj = { "{0}__istartswith".format(fieldName) :  sQBE[1:]  }
 
@@ -138,19 +138,25 @@ def getQbeStmt(fieldName , sQBE, sType):
         elif sQBE.startswith('='):
             Qobj = { "{0}__iexact".format(fieldName) :  sQBE[1:]  }
 
-        elif sQBE.startswith('@'):
-            Qobj = { "{0}__search".format(fieldName) :  sQBE[1:]  }
+        # elif sQBE.startswith('@'):
+        #     Qobj = { "{0}__search".format(fieldName) :  sQBE[1:]  }
 
         else:
             Qobj = { "{0}__icontains".format(fieldName) :  sQBE }
 
         QResult = Q(**Qobj)
 
+    elif sType in ([ 'foreignid', 'foreigntext' ]):
+        # La busqueda por llaves es siempre exact 
+        if sQBE.startswith("=") :
+            idValue = toInteger( sQBE[1:], None)
+        else: idValue = toInteger( sQBE, None)
 
-    # TODO: Verificar q sea numerico (
-    # foreignText es una simple representacion, es siempre el id
-    # Numericos : gt, gte, lt, lte,   TODO: in,   range,
-    elif sType in ([ 'int', 'foreignid', 'foreigntext', 'decimal' ]):
+        Qobj = { "{0}".format(fieldName) :  idValue  }
+        QResult = Q(**Qobj)
+
+    elif sType in ([ 'int', 'decimal' ]):
+        # Numericos : gt, gte, lt, lte,   TODO: in,   range,
 
         if sQBE.startswith(">=") :
             Qobj = { "{0}__gte".format(fieldName) :  sQBE[2:]  }

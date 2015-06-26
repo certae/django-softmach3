@@ -210,10 +210,7 @@ def setRegister(cBase , rec, key, data):
             if not key.endswith('_id'): 
                 keyId = key + '_id'
             else: keyId = key
-
-            value = data[keyId]
-            setattr(rec, keyId, value)
-#             exec('rec.' + keyId + ' =  ' + smart_str(value))
+            exec('rec.' + keyId + ' =  ' + smart_str( data[keyId] ))
             return
 
         elif cName == 'DateField':

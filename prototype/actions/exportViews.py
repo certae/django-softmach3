@@ -13,6 +13,9 @@ from protoExt.models import ViewDefinition
 
 
 def exportProtoJson(request, pModel ):
+    """
+    Genera la definicion de las vistas para los modelos Django 
+    """
 
     cViews = { 
       'code' :  pModel.code, 
