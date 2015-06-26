@@ -18,19 +18,13 @@ from protoExt.views.getStuff import setContextDefaults
 from protoExt.views.prototypeActions import isPrototypePci, getPrototypePci 
 
 
-# 12/10/28 Permite la carga directa de json de definicion. 
-PROTOVERSION = '130310'
-
-
-
-
 def protoGetPCI(request):
     """ 
     Return full metadata (columns, renderers, totalcount...)
     """
 
-    cBase, msgError = validateRequest( request )
-    if msgError: return msgError  
+    cBase, msgReturn = validateRequest( request )
+    if msgReturn: return msgReturn  
     
     try: 
         cBase.model = getDjangoModel(cBase.viewEntity)
@@ -39,12 +33,12 @@ def protoGetPCI(request):
     
 
     if isPrototypePci( cBase ): 
-        msgError = getPrototypePci( cBase, False  )
-        if msgError: return msgError  
+        msgReturn = getPrototypePci( cBase )
+        if msgReturn: return msgReturn  
     
     else:  
-        msgError = getBasePci( cBase )
-        if msgError: return msgError  
+        msgReturn = getBasePci( cBase, False )
+        if msgReturn: return msgReturn  
 
 #   ============  Collecciones personalizables  y elementos particulares 
     customCode = '_custom.' + cBase.viewCode 

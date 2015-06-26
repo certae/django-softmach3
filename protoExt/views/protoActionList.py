@@ -13,7 +13,6 @@ from protoLib.getStuff import  getModelPermission, getRowById
 
 from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsWeb import JsonError 
-from protoExt.models import ViewDefinition 
 from . import validateRequest 
 
 import json
@@ -77,12 +76,12 @@ def prepareListEnv( request ):
     
     # Lee la pci      
     if isPrototypePci( cBase ): 
-        msgError = getPrototypePci( cBase )
-        if msgError: return msgError  
+        msgReturn = getPrototypePci( cBase )
+        if msgReturn: return msgReturn  
     
     else:  
-        msgError = getBasePci( cBase, True )
-        if msgError: return msgError  
+        msgReturn = getBasePci( cBase, True )
+        if msgReturn: return msgReturn  
 
 
     cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')

@@ -18,6 +18,8 @@ from jsonfield2.utils import JSONEncoder
 
 from protoLib.getStuff import getModelPermission
 from protoExt.views.protoActionList import Q2Dict
+from protoExt.views.prototypeActions import isPrototypePci, getPrototypePci
+from protoExt.views.protoGetPci import getBasePci
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'
@@ -44,18 +46,21 @@ def protoDelete(request):
 
 def _protoEdit(request, myAction):
 
-    cBase, msgError = validateRequest( request )
-    if msgError: return msgError  
+    cBase, msgReturn = validateRequest( request )
+    if msgReturn: return msgReturn  
 
 
-    message = ''
+    # Lee la pci      
+    if isPrototypePci( cBase ): 
+        msgReturn = getPrototypePci( cBase )
+        if msgReturn: return msgReturn  
+    
+    else:  
+        msgReturn = getBasePci( cBase, True )
+        if msgReturn: return msgReturn  
 
-    try:
-        protoDef = ViewDefinition.objects.get(code=cBase.viewCode)
-        cBase.protoMeta = protoDef.metaDefinition
-    except Exception as e :
-        return doReturn ({'success':False , 'message' : 'ViewDefinition {0} not found '.format( cBase.viewCode) })
 
+    msgReturn = ''
 
     cBase.model = getDjangoModel(cBase.viewEntity)
 
@@ -165,13 +170,13 @@ def _protoEdit(request, myAction):
         pList.append(data)
 
         if data.get('_ptStatus', ''):
-            message += data['_ptStatus'] + ';'
+            msgReturn += data['_ptStatus'] + ';'
 
 
 
     context = {
         'totalCount': pList.__len__(),
-        'message': message,
+        'message': msgReturn,
         'rows': pList,
         'success': True
     }

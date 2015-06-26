@@ -27,8 +27,8 @@ def protoSaveProtoObj(request):
         prototype.protoTable.[protoModel-cBase.viewCode]  --> al leer la pcl se leera prototype.protoTable.[protoModel-cBase.viewCode]
     """
 
-    cBase, msgError = validateRequest( request )
-    if msgError: return msgError  
+    cBase, msgReturn = validateRequest( request )
+    if msgReturn: return msgReturn  
 
     # Carga la meta 
     cBase.sMeta = request.POST.get('protoMeta', '')

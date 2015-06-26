@@ -16,8 +16,8 @@ def protoGetDetailsTree(request):
     """ return full field tree 
     """
 
-    cBase, msgError = validateRequest( request )
-    if msgError: return msgError  
+    cBase, msgReturn = validateRequest( request )
+    if msgReturn: return msgReturn  
 
     
     try: 

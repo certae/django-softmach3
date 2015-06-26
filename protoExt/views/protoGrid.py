@@ -4,9 +4,10 @@
 from protoExt.utils.utilsBase import verifyList,  list2dict
 from protoLib.models.protomodel import smControlFields 
 from protoExt.views.protoField import setFieldDict
-from protoExt.views.protoGetPci import PROTOVERSION
 from protoExt.views.protoQbe import getSearcheableFields
 
+# 12/10/28 Permite la carga directa de json de definicion. 
+PROTOVERSION = '150625'
 
 
 class ProtoGridFactory(object):
