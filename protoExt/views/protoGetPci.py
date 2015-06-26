@@ -18,6 +18,8 @@ from protoExt.views.getStuff import setContextDefaults
 from protoExt.views.prototypeActions import isPrototypePci, getPrototypePci 
 
 
+
+
 def protoGetPCI(request):
     """ 
     Return full metadata (columns, renderers, totalcount...)
@@ -32,13 +34,9 @@ def protoGetPCI(request):
         return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
     
 
-    if isPrototypePci( cBase ): 
-        msgReturn = getPrototypePci( cBase )
-        if msgReturn: return msgReturn  
-    
-    else:  
-        msgReturn = getBasePci( cBase, False )
-        if msgReturn: return msgReturn  
+    msgReturn = getGenericPci( cBase, False  )
+    if msgReturn: return msgReturn  
+
 
 #   ============  Collecciones personalizables  y elementos particulares 
     customCode = '_custom.' + cBase.viewCode 
@@ -66,8 +64,20 @@ def protoGetPCI(request):
     return HttpResponse(context, content_type="application/json")
 
 
-# protoGetPCI ----------------------------
+# ----------------------------
 
+
+def getGenericPci(cBase, ReadOnly):
+    """
+    Obtiene la pci de manera gerica
+    """
+    if isPrototypePci( cBase ): 
+        msgReturn = getPrototypePci( cBase )
+        if msgReturn: return msgReturn  
+    
+    else:  
+        msgReturn = getBasePci( cBase, ReadOnly )
+        if msgReturn: return msgReturn  
 
 
 # --------------------------------------------------------------------------

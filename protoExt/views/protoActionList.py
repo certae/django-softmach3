@@ -18,8 +18,7 @@ from . import validateRequest
 import json
 import traceback
 from protoExt.views.getStuff import setContextFilter
-from protoExt.views.protoGetPci import getBasePci
-from protoExt.views.prototypeActions import getPrototypePci, isPrototypePci
+from protoExt.views.protoGetPci import getGenericPci
 
 
 def protoList(request):
@@ -73,16 +72,10 @@ def prepareListEnv( request ):
     cBase, message = validateRequest( request )
     if message: return None, message  
     
-    
-    # Lee la pci      
-    if isPrototypePci( cBase ): 
-        msgReturn = getPrototypePci( cBase )
-        if msgReturn: return msgReturn  
-    
-    else:  
-        msgReturn = getBasePci( cBase, True )
-        if msgReturn: return msgReturn  
 
+    msgReturn = getGenericPci( cBase, True  )
+    if msgReturn: return msgReturn  
+    
 
     cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
