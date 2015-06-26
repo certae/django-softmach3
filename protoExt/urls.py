@@ -1,9 +1,10 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
-# Fix: 
+# Fix: Login Change pwd 
 # from protoExt.views.utils.generic_views import DirectTemplateView
-# getFieldIncrement
+
+# FUTURE : Secuences  getFieldIncrement
 
 from protoExt.views.protoMenu import protoGetMenuData
 from protoExt.views.protoGetPci import protoGetPCI 

@@ -139,7 +139,7 @@ def verifyMeta( cBase , pciType ):
     """
 
 
-    # TODO: Add setDefault Action 
+    # Add setDefault Action 
     if pciType == 'pci': 
 
         ACTION_NAME =  "doSetDefaults"

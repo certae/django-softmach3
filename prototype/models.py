@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# TODO: Agregar tags 
+# FUTURE: Agregar tags 
 
 from django.db import models
 

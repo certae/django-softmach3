@@ -127,7 +127,7 @@ def getQbeStmt(fieldName , sQBE, sType):
 
 
 
-    # String:  \iexact, \icontains, \istartswith, isnull, search, TODO: \iendswith, \iregex
+    # String:  \iexact, \icontains, \istartswith, isnull, search, FUTURO: \iendswith, \iregex
     if sType in ([ 'string', 'text' ]) :
         if sQBE.startswith('^'):
             Qobj = { "{0}__istartswith".format(fieldName) :  sQBE[1:]  }
@@ -156,22 +156,27 @@ def getQbeStmt(fieldName , sQBE, sType):
         QResult = Q(**Qobj)
 
     elif sType in ([ 'int', 'decimal' ]):
-        # Numericos : gt, gte, lt, lte,   TODO: in,   range,
+        # TODO: QBE range,
 
         if sQBE.startswith(">=") :
             Qobj = { "{0}__gte".format(fieldName) :  sQBE[2:]  }
+
         elif sQBE.startswith("<=") :
             Qobj = { "{0}__lte".format(fieldName) :  sQBE[2:]  }
+        
         elif sQBE.startswith("<>") | sQBE.startswith("!=") :
             bNot = ~bNot
             Qobj = { "{0}".format(fieldName) :  sQBE[2:]  }
 
         elif sQBE.startswith(">") :
             Qobj = { "{0}__gt".format(fieldName) :  sQBE[1:]  }
+        
         elif sQBE.startswith("<") :
             Qobj = { "{0}__lt".format(fieldName) :  sQBE[1:]  }
+        
         elif sQBE.startswith("=") :
             Qobj = { "{0}".format(fieldName) :  sQBE[1:]  }
+        
         else:
             Qobj = { "{0}".format(fieldName) :  toInteger(sQBE)  }
 
@@ -180,11 +185,9 @@ def getQbeStmt(fieldName , sQBE, sType):
 
         QResult = Q(**Qobj)
 
-#    TODO: if sType == 'bool':
-#    Fechas: year, month, day,   
-#    TODO: if sType in ( [ 'date''datetime', 'time' ]) : 
+#    TODO: QBE if sType == 'bool':
+#    TODO: QBE if sType in ( [ 'date''datetime', 'time' ]) : 
 
-    
     if bNot :
         QResult = ~QResult
     return QResult

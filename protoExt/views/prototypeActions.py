@@ -25,7 +25,6 @@ def isPrototypePci( cBase   ):
 
 
 def getPrototypePci( cBase ):
-# TODO:  Por ahora no retorna nada, completar con returnmsg 
 
     try:
         prototypeView = cBase.viewCode.replace( PROTO_PREFIX, '')

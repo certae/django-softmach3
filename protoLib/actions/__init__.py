@@ -4,7 +4,7 @@
 
 # def doClearLog(modeladmin, request, queryset, parameters):
 #     """ 
-#     TODO: Clear Log 
+#     FUTURO: Clear Log 
 #     """
 # 
 #     from protoLib.models import Logger
