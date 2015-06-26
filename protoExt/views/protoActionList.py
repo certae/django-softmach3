@@ -294,14 +294,14 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
             if lField.get('crudType') == "screenOnly" : 
                 continue
 
-            elif (lField['type'] == 'protoN2N'):
+            elif (lField.get( 'type', 'none')  in ['protoN2N', 'none']):
                 continue
 
             # Si el campo es absorbido ( bCopyFromFld es un shortcut para evitar la evulacion en caso de q no haya ningun cpFromField )
             elif bCopyFromFld and (lField.get('isAbsorbed', False)) :
                 continue
 
-            rowdict[ fName ] = getFieldValue(pName, lField[ 'type'], rowData, cBase )
+            rowdict[ fName ] = getFieldValue(pName, lField.get( 'type', 'string'), rowData, cBase )
 
 
 

@@ -18,6 +18,7 @@ from jsonfield2.utils import JSONEncoder
 from protoLib.getStuff import getModelPermission
 from protoExt.views.protoActionList import Q2Dict
 from protoExt.views.protoGetPci import getGenericPci
+import traceback
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'
@@ -117,6 +118,7 @@ def _protoEdit(request, myAction):
                 try:
                     setRegister(cBase , rec, key, data)
                 except Exception as e:
+                    traceback.print_exc()
                     data['_ptStatus'] = data['_ptStatus'] + getReadableError(e)
 
 
@@ -205,9 +207,13 @@ def setRegister(cBase , rec, key, data):
             return
 
         elif  cName == 'ForeignKey':
-            keyId = key + '_id'
+            if not key.endswith('_id'): 
+                keyId = key + '_id'
+            else: keyId = key
+
             value = data[keyId]
-            exec('rec.' + keyId + ' =  ' + smart_str(value))
+            setattr(rec, keyId, value)
+#             exec('rec.' + keyId + ' =  ' + smart_str(value))
             return
 
         elif cName == 'DateField':
