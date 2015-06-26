@@ -143,11 +143,12 @@ def doDiagram(modeladmin, request, queryset, parameters):
 
 
 
-def doExportPrototype( modeladmin, request, queryset, parameters):
-
+def doExportDjModels( modeladmin, request, queryset, parameters):
+    """
+    Genera los modelos en Django 
+    """
     
-    from prototype.actions.exportProto.exportProtoype  import exportPrototypeModel
-    
+    from prototype.actions.exportDjango import exportDjangoModels
 
 #   El QSet viene con la lista de Ids  
     if queryset.count() != 1:
@@ -155,7 +156,7 @@ def doExportPrototype( modeladmin, request, queryset, parameters):
 
             
 #   Envia el QSet con la lista de modelos, 
-    strModel = exportPrototypeModel ( request, queryset[0] )
+    strModel = exportDjangoModels ( request, queryset[0] )
         
 #   Genera el archvivo py      
     fileName = 'model_{0}.py'.format( slugify2( queryset[0].code ) )
@@ -168,7 +169,7 @@ def doExportPrototype( modeladmin, request, queryset, parameters):
     return  {'success':True , 'message' : fileName,  'fileName' : fileName }
 
 
-def doExportProtoJson( modeladmin, request, queryset, parameters):
+def doExportDjViews( modeladmin, request, queryset, parameters):
 
     from prototype.actions.exportViews  import exportProtoJson
     
@@ -264,7 +265,7 @@ def doImportOMS( modeladmin, request, queryset, parameters):
 
 
 
-def doExport2Json( modeladmin, request, queryset, parameters):
+def doExportProtoModel( modeladmin, request, queryset, parameters):
 
     
     from prototype.actions.export2json  import exportPrototype2Json
@@ -290,7 +291,7 @@ def doExport2Json( modeladmin, request, queryset, parameters):
 
 
 
-def doImport4Json( modeladmin, request, queryset, parameters):
+def doImportProtoModel( modeladmin, request, queryset, parameters):
     """ 
     funcion para importar desde el export2json 
     """

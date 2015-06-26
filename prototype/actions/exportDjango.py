@@ -18,7 +18,7 @@ from protoExt.utils.utilsConvert import slugify2
 from protoExt.utils.utilsBase import repStr, getClassName
 from io import StringIO
 
-def exportPrototypeModel(request, pModel):
+def exportDjangoModels(request, pModel):
 
     strModel = StringIO()        
     modelCode = slugify2(pModel.code, '_')

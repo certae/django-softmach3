@@ -140,13 +140,13 @@ class Model(ProtoModelExt):
         "actions": [
             { "name": "doModelDiagram" },
             { "name": "doModelPrototype" },
-            { "name": "doExport2Json" },
-            { "name": "doImport4Json",  
+            { "name": "doExportProtoModel" },
+            { "name": "doImportProtoModel",  
               "actionParams": [
                 {"name" : "file", "type" : "filefield", "required": True, "tooltip" : "Select a file to upload" } ]
             },
-            { "name": "doExportPrototype" },
-            { "name": "doExportProtoJson" },            
+            { "name": "doExportDjModels" },
+            { "name": "doExportDjViews" },            
             
         ],
         "gridConfig" : {
