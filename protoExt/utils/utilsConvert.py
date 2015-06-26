@@ -7,8 +7,10 @@ from django.utils.encoding import smart_str
 from django.template.defaultfilters import slugify
 
 def slugify2 (sAux , sep = '' ):
-    sAux = slugify( sAux )
-    if sep: sAux.replace('-', sep)
+    try: 
+        sAux = slugify( sAux )
+        if sep: sAux.replace('-', sep)
+    except: sAux = ''
     return sAux 
 
 
