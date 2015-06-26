@@ -30,12 +30,11 @@ def protoGetPCI(request):
     
     try: 
         cBase.model = getDjangoModel(cBase.viewEntity)
+        msgReturn = getGenericPci( cBase, False  )
+        if msgReturn: return msgReturn  
     except :
+        traceback.print_exc()
         return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
-    
-
-    msgReturn = getGenericPci( cBase, False  )
-    if msgReturn: return msgReturn  
 
 
 #   ============  Collecciones personalizables  y elementos particulares 
@@ -103,8 +102,7 @@ def getBasePci(cBase, readOnly = False  ):
         if readOnly :
             return JsonError('pci not found: {0}'.format( cBase.viewCode ))
             
-        protoDef = ViewDefinition.objects.get(code=cBase.viewCode)
-        protoDef.save()
+        protoDef = ViewDefinition(code=cBase.viewCode)
         created = True  
         
 

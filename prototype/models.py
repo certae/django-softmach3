@@ -428,22 +428,22 @@ class ProtoTable(ProtoModelBase):
     info = JSONField(default={})
     objects = ProtoJSONManager(json_fields=['info'])
 
+    _setNaturalCode =False 
+
     def __str__(self):
-        return self.entity.code + ':' + self.info.__str__()  
+        return self.entity.code + '.' + str( self.pk )   
 
     def myStr(self, *args, **kwargs):
-        # Evalua el string de prototipos
-        val = ''
+        # Evalua el string de prototipos con la lista de campos seleccionados 
+        sAux = ''
         for arg in args:
-            try:
-                val = val + '.' + slugify2( self.info.get( arg[6:] ) )
-            except:
-                pass 
-        return  val[1:] 
-
-    protoExt = { 'jsonField' : 'info' }
+            if arg.startswith( 'info__' ): arg = arg[6:]
+            sAux = sAux + '.' + slugify2( self.info.get( arg, '' )) 
+        if len( sAux ) > 1:  sAux = sAux[1:]
+        return  sAux
    
-    protoExt = { 
+    protoExt = {
+        "jsonField" : "info",  
         "gridConfig" : {
             "listDisplay": ["__str__", "smOwningTeam"]      
         }
