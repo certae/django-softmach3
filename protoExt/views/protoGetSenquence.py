@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import  json
-
-from django.http import HttpResponse
-from django.db.models import Max
-
-from protoLib.getStuff import getDjangoModel 
-from protoExt.utils.utilsWeb import JsonError 
+# import  json
+# 
+# from django.http import HttpResponse
+# from django.db.models import Max
+# 
+# from protoLib.getStuff import getDjangoModel 
+# from protoExt.utils.utilsWeb import JsonError 
 
 
 # TODO: Sequences 
 
 def getFieldIncrement(request):
-    success = False
+    pass 
+#     success = False
     # fieldName = request.GET['fieldName']
     # viewEntity = request.GET['viewEntity']
     # try: 

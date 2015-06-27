@@ -1,0 +1,10 @@
+{% extends 'prototype/wikibase.txt' %}
+{% block modelw %}
+======= Models ======
+
+{% for model in project.model_set %}
+
+  * [{{ project.code }}:{{ model.code }}|{{ model.description }}]
+
+{% endfor %}
+{% endblock %}

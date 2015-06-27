@@ -3,23 +3,16 @@
 # Manejo de reportes basdaos en plantillas ( sheets )
 #Dg 121105   --------------------------------------------------
 # 
-from django.http import HttpResponse
-from django.utils.encoding import smart_str
-from django.shortcuts import render, get_object_or_404, redirect
-# , smart_unicode
-
-from protoLib.getStuff import getDjangoModel
-from protoExt.models import ViewDefinition
-from .protoActionList  import Q2Dict, getQSet
-from protoLib.getStuff import getBaseModelName
+from .protoActionList  import getQSet
 from protoExt.utils.utilsBase import  getReadableError
-from .protoQbe import addFilter
-
-# Fix:
-
-from protoExt.utils.utilsWeb import JsonError, JsonSuccess
+from protoExt.utils.utilsWeb import JsonError
 
 import json
+from protoExt.views.protoActionList import prepareListEnv
+import traceback
+from django.shortcuts import render
+from django.template import loader
+from django.template.context import Context
 
 def protoWiki(request):
     """ 
@@ -49,16 +42,20 @@ def protoWiki(request):
     try:
         # Obtiene las filas del cBase.modelo
         Qs = getQSet( cBase )
+#         wFile = render(request, 'prototype/wikiproject.txt', {'projects': Qs})
  
     except Exception as e:
         traceback.print_exc()
         message = getReadableError(e)
         return JsonError( message ) 
 
+    t = loader.get_template('prototype/wikiproject.txt')
 
-    posts = Post.objects.order_by('published_date')
-    wFile = render(request, 'prototype/wikiproject.txt', {'projects': Qs})
+    c = Context({'projects': Qs, })
+    wFile = t.render(c)
 
+
+    return wFile 
 
 
 
