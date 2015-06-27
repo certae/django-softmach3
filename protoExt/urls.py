@@ -26,8 +26,8 @@ urlpatterns = patterns('',
 #     url(r'^protoExtReset$', DirectTemplateView.as_view(template_name='protoExt.html',extra_context={ 'isPasswordReseted': True })),
 
     url('protoList/$', protoList),
-    # url('sheetConfigRep/$', sheetConfigRep),
     url('protoExport/$', protoExport),
+    url('protoWiki/$', protoWiki),
 
     url('protoDoActions/$', protoExecuteAction),
 
