@@ -2,64 +2,101 @@
 
 # Manejo de reportes basdaos en plantillas ( sheets )
 #Dg 121105   --------------------------------------------------
-# 
+#
 from .protoActionList  import getQSet
 from protoExt.utils.utilsBase import  getReadableError
 from protoExt.utils.utilsWeb import JsonError
 
-import json
 from protoExt.views.protoActionList import prepareListEnv
 import traceback
-from django.shortcuts import render
 from django.template import loader
 from django.template.context import Context
+from protoExt.views.getStuff import getParameter
+from protoExt.utils.utilsFile import joinPath, verifyDirPath, WriteFile
+
 
 def protoWiki(request):
     """ 
     Reporte basado en plantillas wiki 
 
     Recibe  opcion, plantilla base,  Qs ( lista de ids )
+
     La plantilla de base sera solicitada al usuario, si se deja en blanco usara el sheetSelector o el default
     Los detalles no tienen selector, siempre se usara el template marcado en el detalle.
+
     """
 
     try:
-        cBase, message = prepareListEnv( request )
-        if message: return message  
+        cBase, message = prepareListEnv(request)
+        if message: return message
 
     except Exception as e:
         traceback.print_exc()
         message = getReadableError(e)
-        return JsonError( message ) 
+        return JsonError(message)
 
 
-# 	Sheet et list selection 
-    sheetName = request.POST.get('sheetName', '')
+# 	Sheet et list selection
+    cBase.wikiPath = getParameter('wikiPath', '~/tmp/wiki')
 
-    selectedKeys = request.POST.get('selectedKeys', [])
-    selectedKeys = json.loads(selectedKeys)
+    cBase.templateName = request.POST.get('templateName', '')
+    sheetConf = _getSheetConf( cBase, cBase.templateName  )
 
     try:
         # Obtiene las filas del cBase.modelo
-        Qs = getQSet( cBase )
-#         wFile = render(request, 'prototype/wikiproject.txt', {'projects': Qs})
- 
+        Qs = getQSet(cBase)
+
     except Exception as e:
         traceback.print_exc()
         message = getReadableError(e)
-        return JsonError( message ) 
-
-    t = loader.get_template('prototype/wikiproject.txt')
-
-    c = Context({'projects': Qs, })
-    wFile = t.render(c)
+        return JsonError(message)
 
 
-    return wFile 
+    for reg in Qs:
+        _doWikiFile(cBase, reg)
 
 
 
-# 
+
+def _doWikiFile(cBase, longPath, pgExpr ,  reg ):
+    """
+    longPath     prefix, Campo ; prefix, Campo  
+    pgExpr       prefix, Campo
+    """
+    
+    myPath  = cBase.wikiPath
+    
+    # Obtiene los diferentes pedazos del path      
+    for relPath in longPath.replace('').split( ';' ):
+        if len( relPath ) == 0: continue 
+        preFix = _getPageName( relPath, reg  )
+        myPath  = joinPath( myPath, preFix  )
+        
+    # Verifica el path              
+    if not verifyDirPath( myPath ):
+        pass
+
+    #     
+    fileName = _getPageName( pgExpr , reg  )
+
+    # Carga el template   
+    t = loader.get_template(cBase.templateName)
+    wFile = t.render(Context({ 'reg': reg, }))
+
+    WriteFile(fileName, wFile, 'w')
+
+
+
+def _getPageName( relPath, reg ):
+    """ 
+    Construye el relPath basado en un prefijo y el vr de un campo
+    """
+    preFix, preVar =  relPath.replace('').split( ',' )
+    if len( preVar ):
+        preVar = reg.get( preVar ) 
+    return preFix + preVar
+    
+#
 #     protoMeta, Qs = getReportBase(viewCode)
 
 #     # Si no hay lista, los trae todos
@@ -68,24 +105,24 @@ def protoWiki(request):
 #         Qs = addFilter(Qs, pFilter)
 
 
-#     #  template 
-#     pSheet = getSheetConf (protoMeta, sheetName)
-#     sheetName = pSheet.get('name' , 'Auto')
+#     #  template
+#     pSheet = _getSheetConf (protoMeta, templateName)
+#     templateName = pSheet.get('name' , 'Auto')
 
-#     # === Get the templates 
+#     # === Get the templates
 #     # FirstPage  ( FP + BB  )
-#     templateFp = pSheet.get('templateFp' , '<span ' + sheetName + '.firstPage></span>')
-#     templateFp = templateFp + pSheet.get('templateBb' , '<span ' + sheetName + '.BeforeBlock></span>')
+#     templateFp = pSheet.get('templateFp' , '<span ' + templateName + '.firstPage></span>')
+#     templateFp = templateFp + pSheet.get('templateBb' , '<span ' + templateName + '.BeforeBlock></span>')
 
 #     # LastPage  ( AB + LP )
-#     templateLp = pSheet.get('templateAb' , '<span ' + sheetName + '.AfterBlock></span>')
-#     templateLp = templateLp + pSheet.get('templateLp' , '<span ' + sheetName + '.lastPage></span>')
+#     templateLp = pSheet.get('templateAb' , '<span ' + templateName + '.AfterBlock></span>')
+#     templateLp = templateLp + pSheet.get('templateLp' , '<span ' + templateName + '.lastPage></span>')
 
-#     # After Every Row 
+#     # After Every Row
 #     templateEr = pSheet.get('templateEr' , pSheet.get('template', ''))
 
 #     #  Variables de titulo
-#     templateFp = setTemplateVar(['reportTitle'], templateFp, {'reportTitle' : pSheet.get('title', sheetName)})
+#     templateFp = setTemplateVar(['reportTitle'], templateFp, {'reportTitle' : pSheet.get('title', templateName)})
 
 #     # Crea la clase del reporte
 #     MyReport = SheetReportFactory()
@@ -109,32 +146,6 @@ def protoWiki(request):
 
 
 # #------------
-
-# def getSheetConf(protoMeta , sheetName):
-#     """ 
-# 	Obtiene un sheetConfig dado su nombre
-#     recibe  la definicion ( protoMeta ) y el nombre ( str )
-#     retorna sheetConfig ( obj )
-#     """
-
-#     try:
-#         pSheets = protoMeta.get('sheetConfig', [])
-#     except Exception as e :
-#         return {}
-
-#     # Los recorre todos pero se queda con el primero
-#     # en caso de no encotrarl el nombre seleccionado
-#     pSheet = None
-#     for item in pSheets:
-#         if pSheet == None:
-#             pSheet = item
-#         if item.get('name', '') == sheetName :
-#             pSheet = item
-#             break
-
-#     if pSheet == None:
-#         pSheet = {}
-#     return pSheet
 
 
 # #------------
@@ -258,10 +269,34 @@ def protoWiki(request):
 #     return set(properties)
 
 
-# def getDetailConf(protoMeta, detailName):
+
+def _getSheetConf(cBase, templateName):
+    """ 
+    Obtiene un sheetConfig dado su nombre
+    recibe  la definicion ( protoMeta ) y el nombre ( str )
+    retorna sheetConfig ( obj )
+    """
+
+    pSheets = cBase.protoMeta.get('sheetConfig', [])
+
+    # Los recorre todos pero se queda con el primero en caso de no encotrarl el nombre seleccionado
+    pSheet = None
+    for item in pSheets:
+        if pSheet == None:
+            pSheet = item
+        if item.get('name', '') == templateName :
+            pSheet = item
+            break
+
+    if pSheet == None:
+        pSheet = {}
+    return pSheet
+
+
+# def getDetailConf( cBase, detailName):
 
 #     try:
-#         pDetails = protoMeta.get('detailsConfig', [])
+#         pDetails = cBase.protoMeta.get('detailsConfig', [])
 #     except Exception :
 #         return None
 

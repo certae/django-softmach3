@@ -55,7 +55,7 @@ Ext.define('ProtoUL.UI.MDPrintOptsController', {
 
                 myPrinterOpts.push(new Ext.Action({
                     text: pPrinterOpts.name,
-                    sheetName: pPrinterOpts.name,
+                    templateName: pPrinterOpts.name,
                     iconCls: pPrinterOpts.viewIcon || 'icon-printSheet',
                     tooltip: pPrinterOpts.title,
                     scope: me,
@@ -117,7 +117,7 @@ Ext.define('ProtoUL.UI.MDPrintOptsController', {
                 }
             };
 
-            _SM.getSheeReport(pGrid.viewCode, btn.sheetName, selectedKeys, options);
+            _SM.getSheeReport(pGrid.viewCode, btn.templateName, selectedKeys, options);
 
         }
 

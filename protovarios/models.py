@@ -38,8 +38,8 @@
 # 
 #     def __str__(self):
 #         return self.viewEntity
-
-
+# 
+# 
 # class UserFiles(ProtoModelExt):
 #     
 #     docfile = models.FileField(upload_to='media/%Y/%m/%d')
@@ -73,15 +73,6 @@
 #         }
 #     }
 # 
-# 
-# 
-# class ParametersBase(ProtoModelExt):
-#     parameterKey = models.CharField(max_length=250 , blank=False, null=False)
-#     parameterTag = models.CharField(max_length=250 , blank=False, null=False)
-#     parameterValue = models.CharField(max_length=250 , blank=False, null=False)
-# 
-#     def __str__(self):
-#         return self.parameterKey + '.' + self.parameterValue
 # 
 # 
 # 
@@ -181,5 +172,5 @@
 #         dLog.save()
 #     except: 
 #         pass  
-# 
+
 

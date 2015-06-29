@@ -34,7 +34,7 @@ Ext.define('ProtoUL.UI.GridSheetController', {
             me.IdeSheet = Ext.id();
 
             // Ojeto dinamicamente creada con las pSheetProps segun cada plantilla
-            // Indice  el sheetName y el indice segun se requieren
+            // Indice  el templateName y el indice segun se requieren
             this.pSheetsProps = {};
 
             return {

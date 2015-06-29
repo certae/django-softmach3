@@ -20,7 +20,7 @@ from protoExt.views.protoActionExport  import protoExport
 from protoExt.views.protoActionEdit  import protoCreate, protoUpdate, protoDelete
 from protoExt.views import protoExecuteAction
 from protoExt.utils.loadFile import loadFiles
-from protoExt.views.protoActionRep import protoWiki
+from protoExt.views.protoActionWiki import protoWiki
 
 urlpatterns = patterns('',
     url(r'^protoExt$', TemplateView.as_view(template_name='protoExt.html')),

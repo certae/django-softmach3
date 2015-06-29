@@ -4,13 +4,25 @@ from django.db import models
 from jsonfield2 import JSONField, JSONAwareManager
 
 
-from protoLib.models.protomodel import ProtoModelBase 
+from protoLib.models.protomodel import ProtoModelBase, ProtoModelExt
 from protoLib.models.protomanager import ProtoUserManager
 
 
 """
 DGT: Repositorios para manejo definiciones  
 """
+
+
+class Parameters(ProtoModelExt):
+    """
+    System parameters 
+    """
+    parameterKey = models.CharField(max_length=250 , blank=False, null=False)
+    parameterTag = models.CharField(max_length=250 , blank=True, null=True)
+    parameterValue = models.CharField(max_length=250 , blank=False, null=False)
+
+    def __str__(self):
+        return self.parameterKey + '.' + self.parameterValue
 
 
 class ViewDefinition(models.Model):
@@ -84,3 +96,5 @@ from protoLib.models import UserContext
 from protoExt.signals import context2customdefinition 
  
 post_save.connect(context2customdefinition, sender = UserContext)
+
+

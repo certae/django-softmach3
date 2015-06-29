@@ -463,21 +463,21 @@ _MetaObjects = {
 
     "sheetDef" : {
         "description" : "Templates definition ( the name is the selector )",
-        "properties" : ["name", "template", "title", "viewIcon", "sheetType", "templateFp", "templateBb", "templateEr", "templateAb", "templateLp"],
+        "properties" : ["name", "templateName", "title", "description", "viewIcon", "sheetType", ],
         "lists" : ["sheetDetails"],
-        "addPrompt" : "Please enter the name for your sheet:",
+        "addPrompt" : "Please enter the name for your report:",
         "allowDel" : true
     },
 
     "sheetDetails" : {
-        "description" : "Lista de detalles por hoja ( sheet )",
+        "description" : "Child reports",
         "listOf" : "sheetDetail",
         "allowAdd" : true
     },
 
     "sheetDetail" : {
         "description" : "Sheet detail configuration",
-        "properties" : ["name", "detailName", "detailSort", "templateBb", "templateEr", "templateAb"],
+        "properties" : ["name", "description", "detailName", "templateName", "detailSet", "detailSort"],
         "lists" : ["sheetDetails"],
         "addPrompt" : "Please enter the detailName:",
         "allowDel" : true

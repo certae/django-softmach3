@@ -44,4 +44,3 @@ def getFullPath( request, filename ):
     return os.path.join( PPATH , 'output', request.user.username + '.' + filename )
 
 
-

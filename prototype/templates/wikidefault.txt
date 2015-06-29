@@ -1,6 +1,6 @@
-{% load pydev_debug %}
 {% block content %}
-{% for project in projects %}
+{% for reg in qs %}
+
 ======= {{ project.code }} ======
 {{ project.description|default:".. description" }}
 

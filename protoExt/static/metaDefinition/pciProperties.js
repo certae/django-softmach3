@@ -163,7 +163,7 @@ _MetaProperties =  {
     "keyField.help" : "udp source<br>** Only for non MD udp (internal use)",
 
 // sheets
-    "sheetSelector.help": "field sheet selecto, null for DEFAULT sheet",
+    "sheetSelector.help": "field sheet selector, null for DEFAULT sheet",
     "template.help": "template definition", 
 
     "templateFp.help": "Templante FirstPage", 

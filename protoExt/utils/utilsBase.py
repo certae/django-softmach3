@@ -138,20 +138,6 @@ def CheckPathSecurity(testPath, rootPath):
     if not os.path.realpath(testPath).startswith(rootPath):
         raise Exception("forbidden path %s !" % os.path.realpath(testPath))
 
-def ReadFile(inFile, mode='r'):
-    contents = ""
-    try:
-        f=open(inFile, mode)
-        contents = f.read()
-        f.close()
-    except:
-        pass
-    return contents
-
-def WriteFile(inFile, contents):
-    f=open(inFile,'wb')
-    f.write(contents)
-    f.close()
 
 def PathToList(inPath, template_type="", showExt = True):
     mylist = []

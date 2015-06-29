@@ -4,7 +4,6 @@ Created on Jun 21, 2015
 @author: dario
 '''
 
-from protoExt.models import CustomDefinition
 from protoExt.utils.utilsBase import list2dict
 
 def getContext( cBase ):
@@ -12,6 +11,7 @@ def getContext( cBase ):
     Lee el contexto de customDefinition  
     """
     
+    from protoExt.models import CustomDefinition
     viewCode = '_context.%s' % cBase.viewEntity.lower()
 
     try: 
@@ -75,3 +75,12 @@ def setContextFilter( cBase ):
             'filterStmt' : '=%s' % lField.get( 'propValue' )   
         } )
         
+
+def getParameter(paramKey, default):
+
+    jAux  = {'parameterValue' : parameterValue, }
+
+    from protoExt.models import Parameters 
+    param  = Parameters.objects.get_or_create(parameterKey = paramKey , defaults = jAux )[0]
+    
+    return param.parameterValue 
