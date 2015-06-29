@@ -117,7 +117,8 @@ def _getRelNameSpace( relPath, reg ):
     """
     preFix, preVar =  relPath.replace(' ','').split( ',' )
     if len( preVar ):
-        preVar = slugify2( getattr( reg,  preVar ))  
+        preVar = preVar.replace( '__', '.')
+        preVar = slugify2( eval( '%s.%s' % ( 'reg',  preVar )))  
     return slugify2( preFix + preVar ) 
 
 

@@ -1,5 +1,6 @@
 from django.template.base import Library, Node, TemplateSyntaxError
 from django.template.defaultfilters import stringfilter
+from django.utils.safestring import mark_safe
 
 register = Library()
 
@@ -46,8 +47,7 @@ def wikisafe(value):
     example. Less useful for escaping JavaScript; use the ``escapejs``
     filter instead.
     """
-    return value.replace('\n', '\\ ')
-
+    return mark_safe( value.replace('\n', '\\\\ ') )
 
 class NewvarNode(Node):
     def __init__(self, impvars, asvar=None):
