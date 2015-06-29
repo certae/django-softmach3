@@ -7,7 +7,6 @@ from protoExt.utils.utilsWeb import JsonError , doReturn
 from . import validateRequest 
 
 import json
-import traceback
 from django.contrib.admin.sites import  site
 
 def protoExecuteAction(request):
@@ -52,7 +51,7 @@ def protoExecuteAction(request):
         return doAdminDetailAction( request, cBase  )
 
 #     elif cBase.actionDef.get('actionType', '') == 'wflow':
-#         return doWfAction(cBase.model, cBase.selectedKeys, cBase.parameters, cBase.actionDef, cBase.viewEntity, request.user)
+#         return doWfAction( request, cBase )
 
     elif hasattr(cBase.modelAdmin, 'actions'):
         return doAdminAction (request, cBase )

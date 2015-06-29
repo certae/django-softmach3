@@ -1,11 +1,10 @@
-{% load pydev_debug %} {% block content %}
+{% load prototags %}{% block content %}
 ======= Model : {{ model.code|capfirst }} =======
 {{ model.description|default:".. description" }}
 
 ====== Entities ======
-{% for entity in model.entity_set.all %}
 ^Entity ^Description ^
-|[[{{ fullname }}:{{ entity.code }}|{{ entity.code }}]] |{{ entity.description }} |
+{% for entity in model.entity_set.all %}|[[{{ fullname }}:{{ entity.code }}|{{ entity.code }}]] |{{ entity.description|wikisafe }} |
 {% endfor %}
 
 {% endblock %}

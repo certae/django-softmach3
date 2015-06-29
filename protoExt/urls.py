@@ -18,9 +18,10 @@ from protoExt.views.protoLogin import protoGetUserRights, protoLogout, protoGetP
 from protoExt.views.protoActionList import protoList
 from protoExt.views.protoActionExport  import protoExport
 from protoExt.views.protoActionEdit  import protoCreate, protoUpdate, protoDelete
-from protoExt.views import protoExecuteAction
 from protoExt.utils.loadFile import loadFiles
 from protoExt.views.protoActionWiki import protoWiki
+from protoExt.views.protoActionAction import protoExecuteAction
+
 
 urlpatterns = patterns('',
     url(r'^protoExt$', TemplateView.as_view(template_name='protoExt.html')),

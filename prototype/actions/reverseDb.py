@@ -8,14 +8,13 @@
 
 # ----------------------------------------------------
 
-import keyword, re, traceback
-from prototype.models import Model, Entity, Property, Relationship
+import keyword, re
+from prototype.models import Model, Entity,  Relationship
 from protoLib.getStuff import getUserProfile
 from protoExt.utils.utilsDb import setDefaults2Obj
 from protoExt.utils.utilsConvert import slugify2
 
-from django.db import connections, transaction, IntegrityError, DatabaseError
-from django.db.transaction import TransactionManagementError
+from django.db import connections, transaction, IntegrityError
 
 
 # Coleccion de entidades a importar
@@ -178,7 +177,7 @@ def readSchemaDef(dProject):
             m = re.search('references(\S*) ?\(["|]?(.*)["|]?\)', field_desc, re.I)
             if not m:
                 continue
-            table_ref, col_base = [s.strip('"') for s in m.groups()]
+            table_ref  = [s.strip('"') for s in m.groups()][0]
 
             try:
                 att_name = re.match('foreignkey\(([^\)]*)\).*', field_desc, re.I).groups()[0]
@@ -255,7 +254,7 @@ def saveProperty(dEntity, pProperty, defValues, userProfile, prpName, seq):
         dProperty.save()
         transaction.commit()
 
-    except Exception as e:
+    except:
         transaction.rollback()
         prpName = '{0}.{1}'.format(prpName.split('.')[0] , seq)
         saveProperty(dEntity, pProperty, defValues, userProfile, prpName, seq + 1)
@@ -301,7 +300,7 @@ def saveRelation(dProject, dEntity, dModel, pProperty, defValues, userProfile, p
         saveRelation(dProject, dEntity, dModel, pProperty, defValues, userProfile, prpName, seq + 1)
         return
 
-    except Exception as e:
+    except :
         transaction.rollback()
         # log
         return

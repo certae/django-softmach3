@@ -69,20 +69,20 @@ def importProto4Json(request, pModel):
     return 'Ok'
 
 
-def setRealEntity(jAux, id):
+def setRealEntity(jAux, entityId):
     """
     Import set the real EntityId in prototype definition 
     """
 
     pci = jAux[ 'metaDefinition' ] 
-    pci['protoEntityId'] = id 
+    pci['protoEntityId'] = entityId 
     
     for lField in pci.get( 'fields', []) : 
         if lField['name'] == "entity_id": 
-            lField['prpDefault'] = id 
+            lField['prpDefault'] = entityId 
             lField['type'] =  'foreignid'
         elif lField['name'] == "entity": 
             lField['type'] =  'foreigntext'
 
 
-    pci.get("gridConfig", {})[ "baseFilter" ] = [ { 'property':'entity', 'filterStmt' : '=' + str( id ) } ]
+    pci.get("gridConfig", {})[ "baseFilter" ] = [ { 'property':'entity', 'filterStmt' : '=' + str( entityId ) } ]

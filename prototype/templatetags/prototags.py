@@ -1,4 +1,5 @@
 from django.template.base import Library, Node, TemplateSyntaxError
+from django.template.defaultfilters import stringfilter
 
 register = Library()
 
@@ -35,6 +36,17 @@ def newvar(parser, token):
 
 
     return node
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def wikisafe(value):
+    """
+    Adds slashes before quotes. Useful for escaping strings in CSV, for
+    example. Less useful for escaping JavaScript; use the ``escapejs``
+    filter instead.
+    """
+    return value.replace('\n', '\\ ')
 
 
 class NewvarNode(Node):

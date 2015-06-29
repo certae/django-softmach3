@@ -3,8 +3,8 @@
 {{ project.description|default:".. description" }}
 
 ====== Models ======
-{% for model in project.model_set.all %}
 ^Models ^Description ^
+{% for model in project.model_set.all %}
 |[[{{ fullname }}:{{ model.code }}|{{ model.code }}]] |{{ model.description }} |
 {% endfor %}
 

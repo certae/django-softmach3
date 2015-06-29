@@ -108,7 +108,7 @@ DEBUG = True
 #     pass
 
 try:
-    from .local_settings import DATABASES
+    from .local_settings import DATABASES  # @UnusedImport
 except ImportError:
     pass
 

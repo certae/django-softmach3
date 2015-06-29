@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from protoExt.utils.utilsWeb import JsonError
-from protoExt.views import protoExecuteAction
 from django.views.decorators.csrf import csrf_exempt    
 import datetime 
+from protoExt.views.protoActionAction import protoExecuteAction
 
 @csrf_exempt
 def loadFiles(request):

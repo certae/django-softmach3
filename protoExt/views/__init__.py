@@ -31,14 +31,18 @@ def validateRequest( request ):
     cBase.viewCode = request.POST.get('viewCode', '').strip() 
     cBase.userProfile = getUserProfile( request.user ) 
 
+    # Elimina un punto extrano q viene de js      
+    if cBase.viewCode[-1] == '.':
+        cBase.viewCode = cBase.viewCode[:-1]
+
+    # Si viene el valor lo asume por defecto 
+    cBase.viewEntity = request.POST.get('viewEntity', cBase.viewCode ).strip() 
+
     # Verifica si es una vista del modelo y obtiene el nombre base 
-    if cBase.viewCode.count(".") >= 2:
-        app, model = cBase.viewCode.split(".")[:2]
+    if cBase.viewEntity.count(".") >= 2:
+        app, model = cBase.viewEntity.split(".")[:2]
         cBase.viewEntity = app + '.' + model
-    elif cBase.viewCode[-1] == '.':
-        cBase.viewEntity = cBase.viewCode[:-1]
-    else: 
-        cBase.viewEntity = cBase.viewCode
+
 
     return cBase, None  
 
