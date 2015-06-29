@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django.http import HttpResponse
-# from django.contrib.admin.utils import  get_fields_from_path
-from django.utils.encoding import smart_str
-
-from protoExt.utils.utilsBase import JSONEncoder, getReadableError
-from protoExt.utils.utilsBase import verifyList, list2dict
-
-from .protoQbe import getFieldValue, getQbeFilter 
-from protoLib.getStuff import  getModelPermission, getRowById
 
 
 from protoLib.getStuff import getDjangoModel
@@ -17,14 +8,11 @@ from . import validateRequest
 
 import json
 import traceback
-from protoExt.views.getStuff import setContextFilter
-from protoExt.views.protoGetPci import getGenericPci
 from django.contrib.admin.sites import  site
 
 def protoExecuteAction(request):
     """ Ejecuta una opcion
     """
-
 
     cBase, message = validateRequest( request )
     if message: return None, message  
@@ -57,17 +45,17 @@ def protoExecuteAction(request):
 
 
     # details
-    if actionDef.get('selectionMode', '') == 'details':
-        detKeys = request.POST.get('detKeys', {} )
-        detKeys = json.loads(detKeys)
+    if cBase.actionDef.get('selectionMode', '') == 'details':
+        cBase.detKeys = request.POST.get('detKeys', {} )
+        cBase.detKeys = json.loads(cBase.detKeys)
 
-        return doAdminDetailAction(model, selectedKeys, detKeys, parameters, actionDef, modelAdmin )
+        return doAdminDetailAction( request, cBase  )
 
-#     elif actionDef.get('actionType', '') == 'wflow':
-#         return doWfAction(model, selectedKeys, parameters, actionDef, viewEntity, request.user)
+#     elif cBase.actionDef.get('actionType', '') == 'wflow':
+#         return doWfAction(cBase.model, cBase.selectedKeys, cBase.parameters, cBase.actionDef, cBase.viewEntity, request.user)
 
-    elif hasattr(modelAdmin, 'actions'):
-        return doAdminAction (model, selectedKeys, parameters, actionDef, modelAdmin)
+    elif hasattr(cBase.modelAdmin, 'actions'):
+        return doAdminAction (request, cBase )
 
     else:
         return JsonError( 'Action notFound')
@@ -75,18 +63,18 @@ def protoExecuteAction(request):
 
 
 
-def doAdminAction(model, selectedKeys, parameters, actionDef, modelAdmin):
+def doAdminAction( request, cBase ):
 
     try: 
-        action = site.get_action( actionName )
+        action = site.get_action( cBase.actionName )
         actionFound = True
     except: 
         action = None 
         actionFound = False        
 
     if not actionFound:
-        for action in modelAdmin.actions:
-            if action.__name__ == actionName:
+        for action in cBase.modelAdmin.actions:
+            if action.__name__ == cBase.actionName:
                 actionFound = True
                 break
 
@@ -94,11 +82,11 @@ def doAdminAction(model, selectedKeys, parameters, actionDef, modelAdmin):
         return JsonError( 'Action notFound')
 
 
-    Qs = model.objects.select_related()
-    Qs = Qs.filter(pk__in=selectedKeys)
+    Qs = cBase.model.objects.select_related()
+    Qs = Qs.filter(pk__in=cBase.selectedKeys)
 
     try:
-        returnObj = action(modelAdmin, request, Qs , parameters)
+        returnObj = action(cBase.modelAdmin, request, Qs , cBase.parameters)
         return doReturn (returnObj)
 
     except Exception as e:
@@ -106,17 +94,17 @@ def doAdminAction(model, selectedKeys, parameters, actionDef, modelAdmin):
 
 
 
-def doAdminDetailAction(model, selectedKeys, detKeys, parameters, actionDef, modelAdmin ):
+def doAdminDetailAction( request, cBase  ):
 
-    for action in modelAdmin.actions:
-        if action.__name__ == actionName:
+    for action in cBase.modelAdmin.actions:
+        if action.__name__ == cBase.actionName:
             break
 
     if not action:
         return JsonError( 'Action notFound')
 
     try:
-        returnObj = action( modelAdmin, request, selectedKeys, detKeys, parameters )
+        returnObj = action( cBase.modelAdmin, request, cBase.selectedKeys, cBase.detKeys, cBase.parameters )
         return doReturn(returnObj)
 
     except Exception as e:
