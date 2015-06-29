@@ -13,6 +13,8 @@ from django.template import loader
 from django.template.context import Context
 from protoExt.views.getStuff import getParameter
 from protoExt.utils.utilsFile import joinPath, verifyDirPath, WriteFile
+from protoLib.getStuff import cAux
+from protoExt.utils.utilsConvert import slugify2
 
 
 def protoWiki(request):
@@ -37,10 +39,9 @@ def protoWiki(request):
 
 
 # 	Sheet et list selection
-    cBase.wikiPath = getParameter('wikiPath', '~/tmp/wiki')
-
-    cBase.templateName = request.POST.get('templateName', '')
-    sheetConf = _getSheetConf( cBase, cBase.templateName  )
+    cRep = cAux()
+    cRep.sheetName = request.POST.get('sheetName', '' )
+    _getSheetConf( cBase, cRep  )
 
     try:
         # Obtiene las filas del cBase.modelo
@@ -51,25 +52,30 @@ def protoWiki(request):
         message = getReadableError(e)
         return JsonError(message)
 
+    cRep.wikiPath = getParameter('wikiPath', '~/tmp/wiki')
 
     for reg in Qs:
-        _doWikiFile(cBase, reg)
+        try:
+            _doWikiFile(cBase, cRep , reg)
+        except Exception as e:
+            traceback.print_exc()
+            message = getReadableError(e)
+            return JsonError(message)
 
 
 
-
-def _doWikiFile(cBase, longPath, pgExpr ,  reg ):
+def _doWikiFile(cBase, cRep,  reg ):
     """
-    longPath     prefix, Campo ; prefix, Campo  
-    pgExpr       prefix, Campo
+    nameSpace     prefix, Campo ; prefix, Campo  
+    pageExpr      prefix, Campo
     """
     
-    myPath  = cBase.wikiPath
+    myPath  = cRep.wikiPath
     
     # Obtiene los diferentes pedazos del path      
-    for relPath in longPath.replace('').split( ';' ):
+    for relPath in cRep.nameSpace.replace(' ', '').split( ';' ):
         if len( relPath ) == 0: continue 
-        preFix = _getPageName( relPath, reg  )
+        preFix = _getRelNameSpace( relPath, reg  )
         myPath  = joinPath( myPath, preFix  )
         
     # Verifica el path              
@@ -77,237 +83,51 @@ def _doWikiFile(cBase, longPath, pgExpr ,  reg ):
         pass
 
     #     
-    fileName = _getPageName( pgExpr , reg  )
+    fileName = _getRelNameSpace( cRep.pageExpr , reg  ) + '.txt'
 
     # Carga el template   
-    t = loader.get_template(cBase.templateName)
-    wFile = t.render(Context({ 'reg': reg, }))
+    t = loader.get_template(cRep.sheetName)
+    wFile = t.render(Context({ cRep.regName : reg, }))
 
     WriteFile(fileName, wFile, 'w')
 
 
 
-def _getPageName( relPath, reg ):
+def _getRelNameSpace( relPath, reg ):
     """ 
     Construye el relPath basado en un prefijo y el vr de un campo
     """
-    preFix, preVar =  relPath.replace('').split( ',' )
+    preFix, preVar =  relPath.replace(' ','').split( ',' )
     if len( preVar ):
-        preVar = reg.get( preVar ) 
+        preVar = slugify2( getattr( reg,  preVar ))  
     return preFix + preVar
     
-#
-#     protoMeta, Qs = getReportBase(viewCode)
-
-#     # Si no hay lista, los trae todos
-#     if type(selectedKeys).__name__ == type([]).__name__ and  selectedKeys.__len__() > 0:
-#         pFilter = { 'pk__in' : selectedKeys }
-#         Qs = addFilter(Qs, pFilter)
 
 
-#     #  template
-#     pSheet = _getSheetConf (protoMeta, templateName)
-#     templateName = pSheet.get('name' , 'Auto')
-
-#     # === Get the templates
-#     # FirstPage  ( FP + BB  )
-#     templateFp = pSheet.get('templateFp' , '<span ' + templateName + '.firstPage></span>')
-#     templateFp = templateFp + pSheet.get('templateBb' , '<span ' + templateName + '.BeforeBlock></span>')
-
-#     # LastPage  ( AB + LP )
-#     templateLp = pSheet.get('templateAb' , '<span ' + templateName + '.AfterBlock></span>')
-#     templateLp = templateLp + pSheet.get('templateLp' , '<span ' + templateName + '.lastPage></span>')
-
-#     # After Every Row
-#     templateEr = pSheet.get('templateEr' , pSheet.get('template', ''))
-
-#     #  Variables de titulo
-#     templateFp = setTemplateVar(['reportTitle'], templateFp, {'reportTitle' : pSheet.get('title', templateName)})
-
-#     # Crea la clase del reporte
-#     MyReport = SheetReportFactory()
-
-#     # Envia al reporte la hoja para manejar los detalles, el QSet, y los templates
-#     MyReport.getReport(Qs, templateFp, templateEr, templateLp, protoMeta, pSheet.get('sheetDetails' , []))
-
-#     # retorna el reporte
-#     return HttpResponse(MyReport.myReport)
-
-
-# def setTemplateVar(props, template, row):
-#     # Remmplaza las propieades en el template
-
-#     sAux = smart_str(template[0:])
-#     for prop  in props :
-#         rValue = smart_str(row.get(prop , ''))
-#         sAux = sAux.replace('{{' + smart_str(prop) + '}}' , rValue)
-
-#     return sAux
-
-
-# #------------
-
-
-# #------------
-
-# def getReportBase(viewCode):
-
-#     viewEntity = getBaseModelName(viewCode)
-
-#     # Obtiene el modelo
-#     try:
-#         model = getDjangoModel(viewEntity)
-#     except Exception as e :
-#         pass
-
-#     # Obtiene la definicion
-#     try:
-#         protoDef = ViewDefinition.objects.get (code=viewCode)
-#         protoMeta = json.loads(protoDef.metaDefinition)
-#     except Exception as e :
-#         pass
-
-#     # hace el QSet de los registros seleccionados
-#     Qs = model.objects.select_related()
-
-#     return protoMeta, Qs
-
-
-
-# class SheetReportFactory(object):
-#     """ Construye un reporte basado en templates ( sheets )
-#     """
-
-#     def __init__(self):
-
-#         self.myReport = ''  # Cuerpo del reporte
-#         self.rowCount = 0  # Conteo general de filas
-
-
-#     def getReport(self , Qs, templateBefore, templateERow, templateAfter, protoMeta, sheetDetails):
-#         """ Construye el reporte en bloques recursivos ( basado en sheetDetails )
-#         # recibe :
-#         # myReport      : Reporte en curso
-#         # Qs            : QuerySet ya preparado
-#         # Templates     : Los templates son diferentes dependiendo la definicion del modelo
-#         # protoMeta     : Se requiere para llamar Q2Dict
-#         # sheetDetails  : Detalles a iterar
-#         """
-
-#         # Inicializa el conteo de filas del Bloque
-#         blockRowCount = 0
-
-#         # Envia el QSet  obtiene una lista
-#         pList = Q2Dict(protoMeta , Qs , False)
-
-#         # prepara las variables q participan en cada template
-#         bfProps = getProperties(protoMeta['fields'], templateBefore)
-#         erProps = getProperties(protoMeta['fields'], templateERow)
-#         afProps = getProperties(protoMeta['fields'], templateAfter)
-
-#         # Al comenzar lee  template  beforeDetail
-#         if  pList.__len__() > 0:
-#             row = pList[0]
-#         else:
-#             row = {}
-#         self.myReport += setTemplateVar(bfProps, templateBefore, row)
-
-#         # Recorre los registros
-#         for row in pList:
-
-#             blockRowCount += 1
-#             self.rowCount += 1
-
-#             # Lee registro a registro y  remplaza el template html con la info correspondiente
-#             self.myReport += setTemplateVar(erProps, templateERow, row)
-
-#             # Loop Se Procesan cada uno de los detalles( M-D segun la definciion del detalle de la opcion, segun el criterio de sortIndicado. campo1, campo2-
-#             for detail in sheetDetails:
-
-#                 detailName = detail.get('name')
-#                 detailName = detail.get('detailName', detailName)
-
-#                 templateBb = detail.get('templateBb' , '<span ' + detailName + '.BeforeDet></span>')
-#                 templateAb = detail.get('templateAb' , '<span ' + detailName + '.AfterDet></span>')
-#                 templateEr = detail.get('templateEr' , '<span ' + detailName + '.EveryRow></span>')
-
-#                 # Obtiene la conf del detalle
-#                 detailConf = getDetailConf(protoMeta, detailName)
-#                 if detailConf == None :
-#                     continue
-
-#                 # Obtiene la meta y el QSet
-#                 protoMetaDet, QsDet = getReportBase(detailConf[ 'conceptDetail' ])
-
-#                 # filtra el QSet de acuardo a los criterios del detalle
-#                 masterField = detailConf[ 'masterField' ]
-#                 idMaster = row[ masterField.replace('pk', 'id') ]
-#                 pFilter = { detailConf['detailField']  : idMaster  }
-#                 QsDet = addFilter(QsDet, pFilter)
-
-#                 self.getReport(QsDet, templateBb, templateEr, templateAb, protoMetaDet, detail[ 'sheetDetails' ])
-
-#         # Al finalizar el template AfterDetail
-#         self.myReport += setTemplateVar(afProps, templateAfter, row)
-
-
-
-# def getProperties(fields, template):
-#     # Obtiene las propiedades de un template para no recorrer props inutiles
-
-#     template = smart_str(template)
-#     if not template.__contains__('{{') :
-#         return  []
-
-#     properties = [ 'id' ]
-#     for field in fields:
-#         fName = smart_str(field[ 'name'])
-#         if  template.__contains__('{{' + fName + '}}'):
-#             properties.append(fName)
-
-#     # Retorna y elimina los duplicados
-#     return set(properties)
-
-
-
-def _getSheetConf(cBase, templateName):
+def _getSheetConf(cBase, cRep):
     """ 
     Obtiene un sheetConfig dado su nombre
     recibe  la definicion ( protoMeta ) y el nombre ( str )
     retorna sheetConfig ( obj )
     """
 
-    pSheets = cBase.protoMeta.get('sheetConfig', [])
+    sheetConfs = cBase.protoMeta.get('sheetConfig', [])
 
     # Los recorre todos pero se queda con el primero en caso de no encotrarl el nombre seleccionado
-    pSheet = None
-    for item in pSheets:
-        if pSheet == None:
-            pSheet = item
-        if item.get('name', '') == templateName :
-            pSheet = item
+    cRep.sheetConf = None
+    for item in sheetConfs:
+        if cRep.sheetConf == None:
+            cRep.sheetConf = item
+        if item.get('name', '') == cRep.sheetName :
+            cRep.sheetConf = item
             break
 
-    if pSheet == None:
-        pSheet = {}
-    return pSheet
+    if cRep.sheetConf == None:
+        return "sheet definition not found %s" % cRep.sheetName  
 
-
-# def getDetailConf( cBase, detailName):
-
-#     try:
-#         pDetails = cBase.protoMeta.get('detailsConfig', [])
-#     except Exception :
-#         return None
-
-#     # Los recorre todos pero se queda con el primero
-#     # en caso de no encotrarl el nombre seleccionado
-#     for item in pDetails:
-#         itemName = item.get('detailName', '')
-#         if itemName == '':
-#             itemName = item.get('menuText ', '')
-#         if itemName == detailName :
-#             return item
-
-#     return None
+    cRep.nameSpace = cRep.sheetConf.get( 'nameSpace', '' )
+    cRep.pageExpr = cRep.sheetConf.get( 'pageExpr', '' )
+    cRep.template = cRep.sheetConf.get( 'template', '' )
+    cRep.regName = cBase.model._meta.model_name 
+    
 

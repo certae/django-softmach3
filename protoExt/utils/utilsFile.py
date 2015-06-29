@@ -40,7 +40,7 @@ def joinPath( *args ):
     Asegura q el directorio de base exista 
     """
 
-    return os.path.join( args )
+    return os.path.join( *args )
 
 
 

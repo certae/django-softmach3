@@ -78,7 +78,7 @@ def setContextFilter( cBase ):
 
 def getParameter(paramKey, default):
 
-    jAux  = {'parameterValue' : parameterValue, }
+    jAux  = {'parameterValue' : default, }
 
     from protoExt.models import Parameters 
     param  = Parameters.objects.get_or_create(parameterKey = paramKey , defaults = jAux )[0]

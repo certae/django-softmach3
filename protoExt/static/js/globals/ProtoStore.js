@@ -1032,7 +1032,7 @@ _SM.defineProtoPclTreeModel = function() {
 
 };
 
-_SM.getSheeReport = function(viewCode, templateName, selectedKeys, options) {
+_SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options) {
 
     options = options || {};
     Ext.applyIf(options, {
@@ -1046,7 +1046,7 @@ _SM.getSheeReport = function(viewCode, templateName, selectedKeys, options) {
         url : _SM._PConfig.urlGetSheetReport,
         params : {
             viewCode : viewCode,
-            templateName : templateName,
+            sheetName : sheetName,
             selectedKeys : Ext.encode(selectedKeys)
         },
 

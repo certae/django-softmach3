@@ -1,6 +1,6 @@
 {% load pydev_debug %}
 {% block content %}
-{% for project in projects %}
+
 ======= {{ project.code }} ======
 {{ project.description|default:".. description" }}
 
@@ -9,5 +9,4 @@
 [{{ project.code }}:{{ model.code }}|{{ model.code }} |{{ model.description }} ]
 {% endfor %}
 
-{% endfor %}
 {% endblock %}
