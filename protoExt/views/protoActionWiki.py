@@ -66,18 +66,22 @@ def protoWiki(request):
 
 
 
+
 def _doWikiFile(cBase, cRep,  reg ):
     """
     nameSpace     prefix, Campo ; prefix, Campo  
     pageExpr      prefix, Campo
     """
     
-    myPath  = cRep.wikiPath
+    myPath = cRep.wikiPath
+    cRep.nSpace = ''
     
     # Obtiene los diferentes pedazos del path      
-    for relPath in cRep.nameSpace.replace(' ', '').split( ';' ):
+    for relPath in cRep.nSpaceExpr.replace(' ', '').split( ';' ):
         if len( relPath ) == 0: continue 
         preFix = _getRelNameSpace( relPath, reg  )
+        
+        cRep.nSpace = _joinNSpace( cRep.nSpace, preFix  )
         myPath  = joinPath( myPath, preFix  )
         
     # Verifica el path              
@@ -86,15 +90,25 @@ def _doWikiFile(cBase, cRep,  reg ):
         return JsonError('invalid path : %s' % myPath )
 
     #     
-    fileName = _getRelNameSpace( cRep.pageExpr , reg  ) + '.txt'
-    filePath = joinPath( filePath, fileName  )
+    fileName = _getRelNameSpace( cRep.pageExpr , reg )
+    cRep.fullName = _joinNSpace( cRep.nSpace, fileName  )
+ 
+    filePath = joinPath( filePath, fileName + '.txt' )
 
     # Carga el template   
     t = loader.get_template( cRep.template )
-    wFile = t.render(Context({ cRep.regName : reg, }))
+    wFile = t.render(Context({ 
+          cRep.regName : reg, 
+          'nspace' : cRep.nSpace,  
+          'fullname' : cRep.fullName,
+          }))
 
     WriteFile(filePath, wFile, 'w')
 
+
+def _joinNSpace(nSpace, preFix):
+    if nSpace: nSpace += ':'  
+    return nSpace + preFix 
 
 
 def _getRelNameSpace( relPath, reg ):
@@ -104,8 +118,7 @@ def _getRelNameSpace( relPath, reg ):
     preFix, preVar =  relPath.replace(' ','').split( ',' )
     if len( preVar ):
         preVar = slugify2( getattr( reg,  preVar ))  
-    return preFix + preVar
-    
+    return slugify2( preFix + preVar ) 
 
 
 def _getSheetConf(cBase, cRep):
@@ -129,7 +142,7 @@ def _getSheetConf(cBase, cRep):
     if cRep.sheetConf == None:
         return "sheet definition not found %s" % cRep.sheetName  
 
-    cRep.nameSpace = cRep.sheetConf.get( 'nameSpace', '' )
+    cRep.nSpaceExpr = cRep.sheetConf.get( 'nameSpace', '' )
     cRep.pageExpr = cRep.sheetConf.get( 'pageExpr', '' )
     cRep.template = cRep.sheetConf.get( 'template', '' )
     cRep.regName = slugify2( cBase.viewCode.split('.')[1] )  

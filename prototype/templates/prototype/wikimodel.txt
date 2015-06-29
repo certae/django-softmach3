@@ -1,0 +1,11 @@
+{% load pydev_debug %} {% block content %}
+======= Model : {{ model.code|capfirst }} =======
+{{ model.description|default:".. description" }}
+
+====== Entities ======
+{% for entity in model.entity_set.all %}
+^Entity ^Description ^
+|[[{{ fullname }}:{{ entity.code }}|{{ entity.code }}]] |{{ entity.description }} |
+{% endfor %}
+
+{% endblock %}

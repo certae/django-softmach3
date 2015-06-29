@@ -13,6 +13,7 @@ encoding//protoExt/utils/utilsConvert.py=utf-8
 encoding//protoExt/utils/utilsDb.py=utf-8
 encoding//protoExt/utils/utilsWeb.py=utf-8
 encoding//protoExt/views/__init__.py=utf-8
+encoding//protoExt/views/protoActionAction.py=utf-8
 encoding//protoExt/views/protoActionEdit.py=utf-8
 encoding//protoExt/views/protoActionExport.py=utf-8
 encoding//protoExt/views/protoActionList.py=utf-8

@@ -41,20 +41,6 @@ def getDjangoModel(modelName):
     return model
 
 
-def getBaseModelName(viewCode):
-#    Verifica si es una vista del modelo y obtiene el nombre base 
-#    Concept Format :    "app.model[.view]"
-#    Return :  "app.model" 
-
-    if viewCode.count(".") >= 2:
-        app, model = viewCode.split(".")[:2]
-        viewEntity = app + '.' + model
-
-    else:
-        viewEntity = viewCode
-
-    return viewEntity
-
 
 def getNodeHierarchy(record, parentField, codeField, pathFunction):
     "Returns the full hierarchy path."

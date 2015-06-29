@@ -3,7 +3,7 @@
 import json
 
 from django.contrib.admin.sites import  site
-from protoLib.getStuff import getBaseModelName, getDjangoModel, getUserProfile 
+from protoLib.getStuff import getUserProfile 
 
 from protoExt.utils.utilsWeb import JsonError 
 from protoExt.utils.utilsWeb import doReturn
@@ -28,125 +28,20 @@ def validateRequest( request ):
     if request.method != 'POST':
         return cBase, JsonError('invalid message') 
 
-    cBase.viewCode = request.POST.get('viewCode', '') 
-    cBase.viewEntity = getBaseModelName(cBase.viewCode)
+    cBase.viewCode = request.POST.get('viewCode', '').strip() 
     cBase.userProfile = getUserProfile( request.user ) 
+
+    # Verifica si es una vista del modelo y obtiene el nombre base 
+    if cBase.viewCode.count(".") >= 2:
+        app, model = cBase.viewCode.split(".")[:2]
+        cBase.viewEntity = app + '.' + model
+    elif cBase.viewCode[-1] == '.':
+        cBase.viewEntity = cBase.viewCode[:-1]
+    else: 
+        cBase.viewEntity = cBase.viewCode
 
     return cBase, None  
 
-
-def protoExecuteAction(request):
-    """ Ejecuta una opcion
-    """
-
-    #TODO: Wf from .prototypeWfActions import doWfAction
-
-    def doAdminAction(model, selectedKeys, parameters, actionDef, modelAdmin):
-
-        try: 
-            action = site.get_action( actionName )
-            actionFound = True
-        except: 
-            action = None 
-            actionFound = False        
-
-        if not actionFound:
-            for action in modelAdmin.actions:
-                if action.__name__ == actionName:
-                    actionFound = True
-                    break
-
-        if not actionFound:
-            return doReturn ({'success':False, 'message' : 'Action notFound'})
-
-
-        Qs = model.objects.select_related()
-        Qs = Qs.filter(pk__in=selectedKeys)
-
-        try:
-            returnObj = action(modelAdmin, request, Qs , parameters)
-            return doReturn (returnObj)
-
-        except Exception as e:
-            return doReturn ({'success':False, 'message' : str(e) })
-
-
-
-#   ----------------------------------------
-    def doAdminDetailAction(model, selectedKeys, detKeys, parameters, actionDef, modelAdmin ):
-
-        for action in modelAdmin.actions:
-            if action.__name__ == actionName:
-                break
-
-        if not action:
-            return doReturn ({'success':False, 'message' : 'Action notFound'})
-
-        try:
-            returnObj = action( modelAdmin, request, selectedKeys, detKeys, parameters )
-            return doReturn (returnObj)
-
-        except Exception as e:
-            return doReturn ({'success':False, 'message' : str(e) })
-
-
-#   ----------------------------------------
-
-    if not request.user.is_authenticated():
-        return JsonError('readOnly User')
-
-    if request.method != 'POST':
-        return JsonError('PostAction required')
-
-    actionName = request.POST.get('actionName', '')
-
-    viewCode = request.POST.get('viewCode', '')
-    viewEntity = getBaseModelName(viewCode)
-
-    selectedKeys = request.POST.get('selectedKeys', '')
-    selectedKeys = json.loads(selectedKeys)
-
-    parameters = request.POST.get('parameters', [])
-    parameters = json.loads(parameters)
-
-    actionDef = request.POST.get('actionDef', {})
-    actionDef = json.loads(actionDef)
-
-    # hace el QSet de los registros seleccionados
-    if actionDef.get('selectionMode', '') == 'optional':
-        if selectedKeys.__len__() > 1:
-            return doReturn ({'success':False, 'message' : 'too many records selected'})
-    elif actionDef.get('selectionMode', '') != 'none' and selectedKeys.__len__() == 0:
-        return doReturn ({'success':False, 'message' : 'No record selected'})
-
-
-    # Obtiene el modelo
-    try:
-        model = getDjangoModel(viewEntity)
-        modelAdmin = site._registry.get(model)
-    except :
-        return doReturn ({'success':False, 'message' : 'Model notFound'})
-
-
-    # details
-    if actionDef.get('selectionMode', '') == 'details':
-        detKeys = request.POST.get('detKeys', {} )
-        detKeys = json.loads(detKeys)
-
-        return doAdminDetailAction(model, selectedKeys, detKeys, parameters, actionDef, modelAdmin )
-
-#     elif actionDef.get('actionType', '') == 'wflow':
-#         return doWfAction(model, selectedKeys, parameters, actionDef, viewEntity, request.user)
-
-    elif hasattr(modelAdmin, 'actions'):
-        return doAdminAction (model, selectedKeys, parameters, actionDef, modelAdmin)
-
-    else:
-        return doReturn ({'success':False, 'message' : 'Action notFound'})
-
-
-
-#   ----------------------------------------
 
 
 def getReturnMsg( cBase  ):

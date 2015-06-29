@@ -1,12 +1,13 @@
-{% load pydev_debug %}
-{% block content %}
-
-======= {{ project.code }} ======
+{% load pydev_debug %} {% block content %}
+======= Project : {{ project.code|capfirst }} =======
 {{ project.description|default:".. description" }}
 
+====== Models ======
 {% for model in project.model_set.all %}
-^Models ^ Description^
-[{{ project.code }}:{{ model.code }}|{{ model.code }} |{{ model.description }} ]
+^Models ^Description ^
+|[[{{ fullname }}:{{ model.code }}|{{ model.code }}]] |{{ model.description }} |
 {% endfor %}
 
+====== Diagrams ======
+... 
 {% endblock %}
