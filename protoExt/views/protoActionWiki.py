@@ -56,7 +56,9 @@ def protoWiki(request):
 
     for reg in Qs:
         try:
-            _doWikiFile(cBase, cRep , reg)
+            msgError = _doWikiFile(cBase, cRep , reg)
+            if msgError: return msgError 
+
         except Exception as e:
             traceback.print_exc()
             message = getReadableError(e)
@@ -79,17 +81,19 @@ def _doWikiFile(cBase, cRep,  reg ):
         myPath  = joinPath( myPath, preFix  )
         
     # Verifica el path              
-    if not verifyDirPath( myPath ):
-        pass
+    filePath = verifyDirPath( myPath )
+    if not filePath: 
+        return JsonError('invalid path : %s' % myPath )
 
     #     
     fileName = _getRelNameSpace( cRep.pageExpr , reg  ) + '.txt'
+    filePath = joinPath( filePath, fileName  )
 
     # Carga el template   
-    t = loader.get_template(cRep.sheetName)
+    t = loader.get_template( cRep.template )
     wFile = t.render(Context({ cRep.regName : reg, }))
 
-    WriteFile(fileName, wFile, 'w')
+    WriteFile(filePath, wFile, 'w')
 
 
 
@@ -128,6 +132,6 @@ def _getSheetConf(cBase, cRep):
     cRep.nameSpace = cRep.sheetConf.get( 'nameSpace', '' )
     cRep.pageExpr = cRep.sheetConf.get( 'pageExpr', '' )
     cRep.template = cRep.sheetConf.get( 'template', '' )
-    cRep.regName = cBase.model._meta.model_name 
+    cRep.regName = slugify2( cBase.viewCode.split('.')[1] )  
     
 

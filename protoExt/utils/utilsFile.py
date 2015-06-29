@@ -23,14 +23,18 @@ def WriteFile(inFile, contents, mode = 'w'):
 def verifyDirPath( pathName ):
     """
     Asegura q el directorio de base exista 
+    Retorna el path exapandido o falso en caso de error 
     """
 
+    pathName = os.path.expanduser(pathName)
+    
     try: 
         if os.path.exists(pathName):
-            return os.path.isdir( pathName )    
+            if not os.path.isdir( pathName ):return False
+            return pathName 
         
         os.makedirs(pathName)    
-        return True 
+        return pathName 
     except: 
         return False 
 
