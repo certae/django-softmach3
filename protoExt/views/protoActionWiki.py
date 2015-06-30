@@ -86,8 +86,7 @@ def _doWikiFile(cBase, cRep,  reg ):
         
     # Verifica el path              
     filePath = verifyDirPath( myPath )
-    if not filePath: 
-        return JsonError('invalid path : %s' % myPath )
+    if not filePath: return JsonError('invalid path : %s' % myPath )
 
     #     
     fileName = _getRelNameSpace( cRep.pageExpr , reg )

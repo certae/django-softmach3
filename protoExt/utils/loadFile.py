@@ -4,6 +4,7 @@ from protoExt.utils.utilsWeb import JsonError
 from django.views.decorators.csrf import csrf_exempt    
 import datetime 
 from protoExt.views.protoActionAction import protoExecuteAction
+from protoExt.utils.utilsFile import verifyDirPath
 
 @csrf_exempt
 def loadFiles(request):
@@ -17,13 +18,16 @@ def loadFiles(request):
     from django.conf import settings
     import os 
 
+    filePath = verifyDirPath( settings.MEDIA_ROOT ) 
+    if not filePath: return JsonError('invalid path : %s' % settings.MEDIA_ROOT )
+
     fileroot = request.user.__str__() + datetime.datetime.now().strftime("_%y%m%d_")
 
     actionFiles = {}
     try:     
         for key, fileObj in request.FILES.items():
             
-            path = os.path.join(settings.MEDIA_ROOT, fileroot + fileObj.name ) 
+            path = os.path.join(filePath, fileroot + fileObj.name ) 
             actionFiles[ key ] = path 
             
             dest = open(path, 'wb')

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.utils.http import http_date
 
 from protoExt.utils.utilsWeb import JsonError 
+from protoExt.utils.utilsFile import verifyDirPath
 
 """
 Views and functions for serving downloads files
@@ -21,8 +22,7 @@ def getFile(request, path ):
         return JsonError('readOnly User')
 
     fullpath = getFullPath( request, path )
-    if not os.path.exists(fullpath):
-        return JsonError('"%s" does not exist' % path)
+    if not fullpath: return JsonError('"%s" does not exist' % path)
 
     # Respect the If-Modified-Since header.
     statobj = os.stat(fullpath)
@@ -40,7 +40,10 @@ def getFile(request, path ):
 
 def getFullPath( request, filename ):
     from django.conf import settings
-    PPATH = settings.BASE_DIR
-    return os.path.join( PPATH , 'output', request.user.username + '.' + filename )
 
+    PPATH = os.path.join(  settings.BASE_DIR, 'output' ) 
+    filePath = verifyDirPath( PPATH )
+    if not filePath: return False
+    
+    return os.path.join( filePath, request.user.username + '.' + filename )
 

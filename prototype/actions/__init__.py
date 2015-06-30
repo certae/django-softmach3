@@ -9,6 +9,7 @@ from protoExt.utils.downloadFile import getFullPath
 from .viewDefinition import getViewDefinition, getViewCode, getEntities
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsConvert import slugify2
+from protoExt.utils.utilsFile import verifyDirPath
 
 # from protoLib.actions.setDefaults import actionSetDefaults
 # def doSetDefaults( modeladmin, request, queryset, parameters):
@@ -112,7 +113,7 @@ def doDiagram(modeladmin, request, queryset, parameters):
         dotData = gModel.generateDotModel( )
 
 #   Recorre los registros selccionados   
-    except Exception as e:
+    except:
         traceback.print_exc()
         return  {'success':False, 'message' : 'Load error' }
         pass
@@ -182,7 +183,7 @@ def doExportDjViews( modeladmin, request, queryset, parameters):
 #   Envia el QSet con la lista de modelos, 
     try:
         strModel = exportProtoJson ( request, queryset[0] )
-    except Exception as e:
+    except:
         traceback.print_exc()
         return  {'success':False, 'message' : 'Load error' }
 
@@ -219,7 +220,7 @@ def doImportSchema( modeladmin, request, queryset, parameters):
 #        p.start()
     
 #   Recorre los registros selccionados   
-    except Exception as e:
+    except:
         traceback.print_exc()
         return  {'success':False, 'message' : 'Load error' }
         pass
@@ -234,7 +235,11 @@ def doImportOMS( modeladmin, request, queryset, parameters):
     funcion para importar modelos realizados en OMS ( Open Model Spher )  
     """
 
-    MEDIA_ROOT = settings.MEDIA_ROOT
+    filePath = verifyDirPath( settings.MEDIA_ROOT ) 
+    if not filePath: return {
+         'success':False, 
+         'message' : 'invalid path : %s' % settings.MEDIA_ROOT 
+         }
 
 #   El QSet viene con la lista de Ids  
     if queryset.count() != 1:
@@ -246,7 +251,7 @@ def doImportOMS( modeladmin, request, queryset, parameters):
     try: 
 
         import os 
-        fileName = os.path.join(MEDIA_ROOT, 'OMS.exp' ) 
+        fileName = os.path.join(filePath, 'OMS.exp' ) 
     
         from . import importOMS 
         cOMS = importOMS.importOMS( userProfile )
@@ -256,7 +261,7 @@ def doImportOMS( modeladmin, request, queryset, parameters):
         cOMS.doFkMatch( )
     
 #   Recorre los registros selccionados   
-    except Exception as e:
+    except:
         traceback.print_exc()
         return  {'success':False, 'message' : 'Load error' }
         pass
