@@ -4,7 +4,7 @@
 
 ====== Models ======
 ^Models ^Description ^
-{% for model in project.model_set.all %}|[[{{ fullname }}:{{ model.code }}|{{ model.code }}]] |{{ model.description }} |
+{% for model in project.model_set.all %}|[[{{ fullname }}:{{ model.code|slugify }}|{{ model.code }}]] |{{ model.description }} |
 {% endfor %}
 
 ====== Diagrams ======

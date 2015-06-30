@@ -215,7 +215,6 @@ class Entity(ProtoModelExt):
 
 
 
-
 class Property(ProtoModelExt):
     """ 
     Propiedades por tabla, definicion a nivel de modelo de datos.

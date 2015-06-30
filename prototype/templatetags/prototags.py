@@ -61,3 +61,16 @@ class NewvarNode(Node):
         if self.asvar:
             context[self.asvar] = outvar
             return ''
+
+
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def parentpath(value, arg):
+    """Retorna el paren path q se pida"""
+    ix = int(arg)
+    lvalues = value.split(':')[0:ix]
+    return ':'.join( lvalues)
+
+

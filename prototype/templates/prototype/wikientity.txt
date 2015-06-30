@@ -1,0 +1,20 @@
+{% load prototags %}{% block content %}
+======= entity : {{ entity.code|capfirst }} =======
+{{ entity.description|default:".. description" }}
+
+====== Properties ======
+^Property ^Description ^
+{% for property in entity.property_set.all %}|[[{{ fullname }}:{{ property.code|slugify }}|{{ property.code }}]] |{{ property.description|wikisafe }} |
+{% endfor %}
+
+
+====== Hierarchy ======
+
+<diagram>
+|Projet            |Projet=[[{{ fullname|parentpath:"2" }}|{{ entity.model.project.code }}]]
+| |!|
+| |`|Model         |Model=[[{{ fullname|parentpath:"3" }}|{{ entity.model.code }}]]
+</diagram>
+
+{% endblock %}
+

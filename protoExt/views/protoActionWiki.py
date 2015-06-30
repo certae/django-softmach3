@@ -5,7 +5,7 @@
 #
 from .protoActionList  import getQSet
 from protoExt.utils.utilsBase import  getReadableError
-from protoExt.utils.utilsWeb import JsonError
+from protoExt.utils.utilsWeb import JsonError, JsonSuccess
 
 from protoExt.views.protoActionList import prepareListEnv
 import traceback
@@ -64,7 +64,7 @@ def protoWiki(request):
             message = getReadableError(e)
             return JsonError(message)
 
-
+    return JsonSuccess()
 
 
 def _doWikiFile(cBase, cRep,  reg ):

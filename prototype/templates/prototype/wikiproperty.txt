@@ -1,0 +1,28 @@
+{% load prototags %}{% block content %}
+======= Model : {{ property.code|capfirst }} =======
+{{ property.description|default:".. description" }}
+
+====== Properties ======
+^Attribute ^Description ^
+|code |{{ property.code }} |
+|baseType |{{ property.baseType }} |
+|prpLength |{{ property.prpLength }} |
+|prpScale |{{ property.prpScale }} |
+|prpDefault |{{ property.prpDefault }} |
+|isNullable |{{ property.isNullable }} |
+|isRequired |{{ property.isRequired }} |
+|isReadOnly |{{ property.isReadOnly }} |
+|isForeign |{{ property.isForeign }} |
+
+
+====== Hierarchy ======
+
+<diagram>
+|Projet            |Projet=[[{{ fullname|parentpath:"2" }}|{{ property.entity.model.project.code }}]]
+| |!|
+| |`|Model         |Model=[[{{ fullname|parentpath:"3" }}|{{ property.entity.model.code }}]]
+| | | |!|
+| | | |`|Entity    |Entity=[[{{ fullname|parentpath:"4" }}|{{ property.entity.code }}]]
+</diagram>
+
+{% endblock %}
