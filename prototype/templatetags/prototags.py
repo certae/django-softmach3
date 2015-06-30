@@ -14,7 +14,6 @@ def newvar(parser, token):
     interpreted as literal strings.
 
     {% newvar 'row1' 'row2' as rows %}
-
     """
 
     args = token.split_contents()

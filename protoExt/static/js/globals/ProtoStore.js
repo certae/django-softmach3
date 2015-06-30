@@ -1047,6 +1047,8 @@ _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options) {
         params : {
             viewCode : viewCode,
             sheetName : sheetName,
+            baseFilter : options.params.baseFilter, 
+            protoFilter : options.params.protoFilter, 
             selectedKeys : Ext.encode(selectedKeys)
         },
 

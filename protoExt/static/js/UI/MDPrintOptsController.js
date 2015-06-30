@@ -107,14 +107,20 @@ Ext.define('ProtoUL.UI.MDPrintOptsController', {
         function onClickPrintSheetRep(btn) {
             var prn = ProtoUL.ux.Printer, pGrid = __MasterDetail.protoMasterGrid;
 
-            var win = window.open('', 'printgrid');
+            // var win = window.open('', 'printgrid');
             var selectedKeys = pGrid.getSelectedIds();
 
             var options = {
                 scope: me,
+                params: pGrid.store.proxy.extraParams,
                 success: function(result, request) {
-                    prn.reportPrint(win, result.responseText);
-                }
+                    // prn.reportPrint(win, result.responseText);
+                    _SM.__StBar.showMessage( result.statusText, 'PrintSheetRep', 3000);
+                },
+                failure: function(result, request) {
+                    _SM.errorMessage(_SM.__language.Grid_ExportCSV_Err, result.status + ' ' + result.statusText);
+                },
+                timeout: 60000
             };
 
             _SM.getSheeReport(pGrid.viewCode, btn.sheetName, selectedKeys, options);
