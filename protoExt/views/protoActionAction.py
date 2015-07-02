@@ -8,6 +8,7 @@ from . import validateRequest
 
 import json
 from django.contrib.admin.sites import  site
+import traceback
 
 def protoExecuteAction(request):
     """ Ejecuta una opcion
@@ -89,8 +90,8 @@ def doAdminAction( request, cBase ):
         return doReturn (returnObj)
 
     except Exception as e:
+        traceback.print_exc()
         return JsonError( str(e) )
-
 
 
 def doAdminDetailAction( request, cBase  ):

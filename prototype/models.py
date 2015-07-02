@@ -443,7 +443,7 @@ class Prototype(ProtoModelBase):
     } 
 
     class Meta:
-        unique_together = ('code', 'smOwningTeam')
+        unique_together = ( 'entity', 'code', 'smOwningTeam')
 
 
 class ProtoTable(ProtoModelBase):

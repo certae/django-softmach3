@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-#  Export 2 Json 
-import json  
 
 def exportPrototype2Json(request, pModel):
+    """
+    Export prototypes models ( Entities, Relations ) to  Json
+    """ 
 
     jEntities = []
     jRelations = []
@@ -35,7 +36,7 @@ def exportPrototype2Json(request, pModel):
             addPrototype ( pPrototype, jPrototypeSet  )
 
 
-    return json.dumps( { 'entities' : jEntities, 'relations': jRelations }, sort_keys=True, indent=2)
+    return { 'entities' : jEntities, 'relations': jRelations }
 
 
 def getProperty( pProperty ):
@@ -97,7 +98,7 @@ def addPrototype( pPrototype, jPrototypeSet  ):
       "code" :  pPrototype.code,
       "description" : pPrototype.description,
       "notes" : pPrototype.notes, 
-      "metaDefinition" : json.loads( pPrototype.metaDefinition ) 
+      "metaDefinition" : pPrototype.metaDefinition 
     }
 
     jPrototypeSet.append( jPrototype  ) 

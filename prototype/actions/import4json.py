@@ -50,7 +50,10 @@ def importProto4Json(request, pModel):
 #       Prototype      ==============================
         for jAux in jEntity.get( 'prototype_set' ): 
             setRealEntity( jAux, pEntity.id  )
-            pProp = Prototype.objects.get_or_create( entity = pEntity, code = jAux['code'], defaults= jAux )[0]
+            pProp = Prototype.objects.get_or_create( 
+                    entity = pEntity, 
+                    code = jAux['code'], 
+                    defaults= jAux )[0]
             pEntity.prototype_set.add( pProp )
 
 

@@ -10,6 +10,7 @@ from .viewDefinition import getViewDefinition, getViewCode, getEntities
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsConvert import slugify2
 from protoExt.utils.utilsFile import verifyDirPath
+import json
 
 
 def doModelPrototype( modeladmin, request, queryset, parameters):
@@ -275,18 +276,20 @@ def doExportProtoModel( modeladmin, request, queryset, parameters):
 
             
 #   Envia el QSet con la lista de modelos, 
-    strModel = exportPrototype2Json( request, queryset[0] )
+    try:
+        jData = exportPrototype2Json( request, queryset[0] )
+    except Exception as e:
+        traceback.print_exc()
+        return  {'success':False, 'message' : getReadableError(e) }
         
 #   Genera el archvivo py      
     fileName = 'model_{0}.jex'.format( slugify2( queryset[0].code ) )
     fullPath = getFullPath( request, fileName )
 
-    fo = open( fullPath , "w")
-    fo.write( strModel.encode('utf-8'))
-    fo.close()
+    with open(fullPath, 'w') as outfile:
+        json.dump(jData, outfile, sort_keys = True, indent = 2,  ensure_ascii=False)
 
     return  {'success':True , 'message' : fileName,  'fileName' : fileName }
-
 
 
 def doImportProtoModel( modeladmin, request, queryset, parameters):
