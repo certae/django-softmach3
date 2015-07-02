@@ -10,6 +10,7 @@ from . import validateRequest
 
 from protoExt.views.prototypeActions import isPrototypePci 
 from protoExt.views.protoGrid import getModelDetails
+from protoExt.utils.utilsConvert import toInteger
 
 
 def protoGetDetailsTree(request):
@@ -30,8 +31,8 @@ def protoGetDetailsTree(request):
 
     if isPrototypePci( cBase ): 
 
-        protoEntityId = request.POST.get( 'protoEntityId' )
-        if not protoEntityId >= 0:
+        protoEntityId = request.POST.get( 'protoEntityId', 0 )
+        if not toInteger( protoEntityId )  >= 0:
             return JsonError('invalid idEntity')
 
         try:  

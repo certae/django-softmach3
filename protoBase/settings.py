@@ -107,13 +107,15 @@ DEBUG = True
 # except ImportError:
 #     pass
 
-try:
-    from .local_settings import DATABASES  # @UnusedImport
-except ImportError:
-    pass
-
-
 # SoftMach Settings ==========================================
 
 PROTO_PREFIX = "prototype.ProtoTable."
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+try:
+    from .local_settings import *  # @UnusedImport
+except ImportError:
+    pass
+
+

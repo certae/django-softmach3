@@ -12,4 +12,20 @@ DATABASES = {
 }
 
 
+
 DEBUG = True
+
+
+
+# add email settings
+HOST_DOMAIN = '127.0.0.1:8000'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'certae.sm@gmail.com'
+EMAIL_HOST_PASSWORD = 'dariogomezt'
+DEFAULT_FROM_EMAIL = 'certae.sm@gmail.com'
+
+# used for debug
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

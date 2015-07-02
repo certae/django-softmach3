@@ -9,6 +9,7 @@ import json
 from django.conf import settings 
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
 from protoExt.utils.utilsBase import getReadableError
+import traceback
 
 try:
     PROTO_PREFIX = settings.PROTO_PREFIX or "prototype.ProtoTable."
@@ -32,10 +33,10 @@ def getPrototypePci( cBase ):
 
         cBase.protoMeta = protoDef.metaDefinition
         cBase.protoMeta['viewCode'] = cBase.viewCode  
-        
-    except:
-        return JsonError('prototype not found: {0}'.format( cBase.viewCode ))
 
+    except Exception as e:
+        traceback.print_exc()
+        return JsonError('{0}: {1}'.format( cBase.viewCode, getReadableError(e)  ))
 
         
 def saveProtoPci( cBase ): 

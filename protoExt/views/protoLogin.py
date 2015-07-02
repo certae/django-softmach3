@@ -11,6 +11,8 @@ from django.template import loader
 
 from protoLib.getStuff import getUserProfile, getUserLanguage
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
+from protoExt.utils.utilsBase import getReadableError
+import traceback
 
 
 def protoGetUserRights(request):
@@ -74,9 +76,12 @@ def protoGetPasswordRecovery(request):
         try:
             u = User.objects.get(email = request.POST['email'], username = request.POST['login'])
             token = user_token(u)
-            if settings.HOST_DOMAIN:
-                baseURI = 'http://' + settings.HOST_DOMAIN + '/protoLib/'
-                
+            
+            try: 
+                baseURI = 'http://' + settings.HOST_DOMAIN
+            except: baseURI = request.get_host() 
+            baseURI += '/protoLib/'
+
             link = baseURI + 'resetpassword?a=%s&t=%s' % (u.pk, token)
             
             email_template_name = 'recovery/recovery_email.txt'
@@ -86,8 +91,9 @@ def protoGetPasswordRecovery(request):
             message += ' \n\n%s' % (_(u'Si vous ne voulez pas réinitialiser votre mot de passe, il suffit d\'ignorer ce message et il va rester inchangé'))
             u.email_user( _('Nouveau mot de passe'), message)
             return JsonSuccess()  
-        except:
-            return JsonError(_("Utilisateur non trouvé"))  
+        except Exception as e:
+            traceback.print_exc()
+            return JsonError(getReadableError(e))  
     
     return HttpResponseRedirect('/')
 
@@ -141,11 +147,13 @@ def changepassword(request):
             errMsg = 'Les mots de passe ne correspondent pas!'
     return JsonError(_(errMsg))
 
+
 def user_token(user):
     import hashlib
-    salt = settings.SECRET_KEY
-    localHash = hashlib.md5(user.email + salt).hexdigest()
+    salt = user.email + settings.SECRET_KEY
+    localHash = hashlib.md5( salt.encode('utf-8') ).hexdigest()
     return localHash
+
 
 def protoLogout(request):
     
