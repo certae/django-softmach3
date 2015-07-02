@@ -98,7 +98,14 @@ class Project(ProtoModelExt):
         ],
         "gridConfig" : {
             "listDisplay": ["__str__", "description", "smOwningTeam"]      
-        }
+        }, 
+        "sheetConfig": [{
+            "sheetType": "printerOnly",
+            "nameSpace": "proj,  ; ",
+            "name": "exportWiki",
+            "pageExpr": ", code",
+            "template": "prototype/wikiproject.txt"
+        }],
     } 
 
 
@@ -151,7 +158,14 @@ class Model(ProtoModelExt):
         ],
         "gridConfig" : {
             "listDisplay": ["__str__", "description", "smOwningTeam"]      
-        }
+        },
+        "sheetConfig": [{
+            "sheetType": "printerOnly",
+            "nameSpace": "proj,;,project__code",
+            "name": "exportWiki",
+            "pageExpr": ",code",
+            "template": "prototype/wikimodel.txt"
+        }],
     } 
     
 
@@ -209,7 +223,14 @@ class Entity(ProtoModelExt):
         ],
         "gridConfig" : {
             "listDisplay": ["__str__", "description", "smOwningTeam"]      
-        }
+        }, 
+        "sheetConfig": [{
+            "sheetType": "printerOnly",
+            "nameSpace": "proj,;,model.project.code;,model.code",
+            "name": "exportWiki",
+            "pageExpr": ",code",
+            "template": "prototype/wikientity.txt"
+        }],
     } 
 
 
@@ -290,7 +311,14 @@ class Property(ProtoModelExt):
     protoExt = { 
         "gridConfig" : {
             "listDisplay": ["__str__", "description", "smOwningTeam"]      
-        }
+        },
+        "sheetConfig": [{
+            "sheetType": "printerOnly",
+            "nameSpace": "proj,;,entity.model.project.code;, entity.model.code;, entity.code",
+            "name": "exportWiki",
+            "pageExpr": ",code",
+            "template": "prototype/wikiproperty.txt"
+        }],
     } 
 
 

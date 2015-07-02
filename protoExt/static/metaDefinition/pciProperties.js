@@ -201,6 +201,8 @@ _MetaProperties =  {
     "zoomMultiple.type": "boolean", 
     "zoomMultiple.help": "Multiple selection on add",
 
+    "zoomFilter.help": "fieldBase, fieldZoom; ..",
+
     "collapsible": false,
     "collapsible.help": "t/f",
     "collapsible.type": "boolean",

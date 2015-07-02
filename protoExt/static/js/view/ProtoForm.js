@@ -56,6 +56,9 @@ Ext.define('ProtoUL.view.ProtoForm', {
     // Defne como manejar  maneja los campos heredados de los zoom
     zoomReturnDef: null,
 
+    // Registro temporal para enviar como parametro de los zooms 
+    tmpRegister : {}, 
+    
     // Coleccion con los retornos
     zoomMultiReturn: [],
 

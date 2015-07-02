@@ -232,7 +232,7 @@ Ext.define('ProtoUL.ux.protoZoom', {
     showZoomForm : function(me) {
         if ( ! me.isLoaded  ) { return; }
         
-        // TODO: verifica el zoomFilter 
+        // verifica el zoomFilter 
         var myZoomFilter = getFilter();
         if ( myZoomFilter) { 
             this.zoomGrid.store.zoomFilterParams( myZoomFilter );
@@ -251,7 +251,7 @@ Ext.define('ProtoUL.ux.protoZoom', {
 
             // Esto trae la grilla activa, es correcto en la edicion, pero no en la creacion, debe existir un nuevo registro 
             // var myGridBase = Ext.getCmp( me.idProtoGrid ); 
-            var rowData = me.up( 'form' ).getRecord().data 
+            var rowData = me.up( 'form' ).tmpRegister
             var myFilter = { 'zoomFilter' : me.zoomFilter, 'baseRow' : rowData };
 
             return myFilter;

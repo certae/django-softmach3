@@ -11,13 +11,6 @@ from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsConvert import slugify2
 from protoExt.utils.utilsFile import verifyDirPath
 
-# from protoLib.actions.setDefaults import actionSetDefaults
-# def doSetDefaults( modeladmin, request, queryset, parameters):
-#     """ 
-#     """
-#     return actionSetDefaults( modeladmin, request, queryset, parameters )
-
-
 
 def doModelPrototype( modeladmin, request, queryset, parameters):
     """ 

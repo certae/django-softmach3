@@ -149,7 +149,7 @@ def setZoomFilter( cBase ):
     campobase : primero se necesita saber cual es el campo del registro q contiene el pais,  se toma de regData 
     campozoom : luego a que campo del filtro del zoom debe aplicarse, 
 
-    campoRegBase,  campoZoom  ; 
+    zommFilter : fieldBase, fieldZoom; .. 
     """
 
     if not cBase.zoomParams:
@@ -174,10 +174,11 @@ def _getZoomFilter( zoomFilter , cBase ):
     # zoomFilter.match(/[^[\]]+(?=])/g)
     # zoomFilter.match(/\(([^()]+)\)/g)
 
+    if zoomFilter.find(',') < 0: return  
+
     nBase, nFilter = zoomFilter.split(',')
     vFilter = cBase.zoomParams.get( 'baseRow' ).get( nBase )  
     if not (  vFilter or nFilter )  : return 
-    
 
     return  { 'property' : nFilter, 'filterStmt' : vFilter };   
 

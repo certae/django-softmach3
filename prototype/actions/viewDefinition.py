@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-#import django.utils.simplejson as json #DeprecationWarning: django.utils.simplejson is deprecated; use json instead
 import json
 
 from .pttActionTools import getViewCode
