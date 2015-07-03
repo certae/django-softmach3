@@ -2,6 +2,7 @@
 from django.conf.urls import  include, url
 from django.contrib import admin
 from protoExt.utils.generic_views import DirectTemplateView
+from django.conf import settings
 admin.autodiscover()
 
 
@@ -14,14 +15,17 @@ from django.views.generic import TemplateView
 # import xadmin
 # xadmin.autodiscover()
 
+if settings.DEBUG: 
+    IX_TEMPLATE = 'debug.html'
+else: IX_TEMPLATE = 'index.html'
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 #   url(r'^admin/', include(xadmin.site.urls)),
 
-    url(r'^main$', TemplateView.as_view(template_name='index.html')),
-    url(r'^debug$', TemplateView.as_view(template_name='debug.html')),
-    url(r'^protoExtReset$', DirectTemplateView.as_view(template_name='debug.html',extra_context={ 'isPasswordReseted': True })),
+    url(r'^main$', TemplateView.as_view(template_name=IX_TEMPLATE)),
+    url(r'^debug$', TemplateView.as_view(template_name=IX_TEMPLATE)),
+    url(r'^protoExtReset$', DirectTemplateView.as_view(template_name=IX_TEMPLATE ,extra_context={ 'isPasswordReseted': True })),
 
     url(r'^protoLib/', include('protoExt.urls')),
 
