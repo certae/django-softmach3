@@ -1,10 +1,8 @@
 from django.conf.urls import patterns, url
-from django.views.generic import TemplateView
 
-# Fix: Login Change pwd 
-# from protoExt.views.utils.generic_views import DirectTemplateView
 
 # FUTURE : Secuences  getFieldIncrement
+# url('getFieldIncrement/$', getFieldIncrement),
 
 from protoExt.views.protoMenu import protoGetMenuData
 from protoExt.views.protoGetPci import protoGetPCI 
@@ -24,8 +22,6 @@ from protoExt.views.protoActionAction import protoExecuteAction
 
 
 urlpatterns = patterns('',
-    url(r'^protoExt$', TemplateView.as_view(template_name='protoExt.html')),
-#     url(r'^protoExtReset$', DirectTemplateView.as_view(template_name='protoExt.html',extra_context={ 'isPasswordReseted': True })),
 
     url('protoList/$', protoList),
     url('protoExport/$', protoExport),
@@ -46,10 +42,13 @@ urlpatterns = patterns('',
 
     url('protoGetUserRights/$', protoGetUserRights),
     url('protoGetPasswordRecovery/$', protoGetPasswordRecovery),
+
     url('resetpassword/$', resetpassword),
     url('submitChangePassword/$', changepassword),
     url('protoLogout/$', protoLogout),
 
-#     url('getFieldIncrement/$', getFieldIncrement),
     url('loadFile/$', loadFiles),
 )
+
+
+    # url(r'^protoExt$', TemplateView.as_view(template_name='protoExt.html')),

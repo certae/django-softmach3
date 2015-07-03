@@ -14,7 +14,7 @@ Ext.define('ProtoUL.Application', {
     	'Ext.toolbar.Paging', 
     	'Ext.layout.container.Border', 
     	'Ext.util.Cookies', 
-    	'Ext.Ajax', 
+    	'Ext.Ajax',
     	'ProtoUL.view.MenuTree', 
     	'ProtoUL.view.ProtoTabContainer', 
     	'ProtoUL.view.Viewport', 

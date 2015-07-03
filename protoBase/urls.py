@@ -1,6 +1,7 @@
 
 from django.conf.urls import  include, url
 from django.contrib import admin
+from protoExt.utils.generic_views import DirectTemplateView
 admin.autodiscover()
 
 
@@ -20,6 +21,7 @@ urlpatterns = [
 
     url(r'^main$', TemplateView.as_view(template_name='index.html')),
     url(r'^debug$', TemplateView.as_view(template_name='debug.html')),
+    url(r'^protoExtReset$', DirectTemplateView.as_view(template_name='debug.html',extra_context={ 'isPasswordReseted': True })),
 
     url(r'^protoLib/', include('protoExt.urls')),
 

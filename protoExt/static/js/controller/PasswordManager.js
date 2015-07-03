@@ -29,12 +29,13 @@ Ext.define('ProtoUL.controller.PasswordManager', {
                     Ext.Msg.alert("Success", _SM.__language.Message_Success_Password_Change, function(btn) {
                         if (btn == 'ok') {
                             Ext.destroy(Ext.ComponentQuery.query('passwordForm'));
-                            Ext.Ajax.request({
-                                url: 'protoExt',
-                                success: function() {
-                                    window.location = 'protoExt';
-                                }
-                            });
+                            // Ext.Ajax.request({
+                            //     url: 'protoExt',
+                            //     success: function() {
+                            //         window.location = 'protoExt';
+                            //     }
+                            // });
+                            // var app = new ProtoUL.view.Viewport();
                         }
                     });
                 },

@@ -5,6 +5,8 @@ staticfiles
 .git/ 
 
 .settings/**
+.media/**
+.output/**
 
 # db.sqlite3
 # local_settings.py
