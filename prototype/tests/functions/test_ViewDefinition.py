@@ -4,11 +4,12 @@ import random
 
 from django.test import TestCase
 
-from prototype.actions.viewDefinition import getViewDefinition, slugify, getViewCode, property2Field, getFkId, GetProtoFieldsTree, GetDetailsConfigTree
+from prototype.actions.viewDefinition import getViewDefinition, getViewCode, property2Field, getFkId, GetProtoFieldsTree, GetDetailsConfigTree
 
-from alltests.testPrototype.Utils import random_string_generator
-from alltests.testPrototype.testmodels.TestUtilities import createTestEntity
-from alltests.testPrototype.testmodels.TestUtilities import createTestRelationship
+from prototype.tests.TestUtilities import createTestEntity
+from prototype.tests.TestUtilities import createTestRelationship
+from protoExt.utils.utilsBase import random_string_generator
+from protoExt.utils.utilsConvert import slugify2
 
 
 class GetViewDefinitionTest(TestCase):
@@ -40,7 +41,7 @@ class GetViewDefinitionTest(TestCase):
         #self.assertTrue(self.pEntity.property_set.get(isEssential=True).isEssential)
 
         infoEntity = getViewDefinition(self.pEntity, 'someViewTitle')
-        self.assertEqual(''.join(infoEntity['gridConfig']['listDisplay']), 'info__' + slugify(self.testRelationShip.code))
+        self.assertEqual(''.join(infoEntity['gridConfig']['listDisplay']), 'info__' + slugify2(self.testRelationShip.code))
     
     def test_GetViewDefinition_IsPrimaryTrue(self):
         self.testRelationShip.isPrimary = True
@@ -49,7 +50,7 @@ class GetViewDefinitionTest(TestCase):
         self.assertTrue(self.pEntity.property_set.get(isPrimary=True).isPrimary)
 
         infoEntity = getViewDefinition(self.pEntity, 'someViewTitle')
-        self.assertEqual(infoEntity['fields'][-1]['physicalName'], '@myStr("info__' + slugify(self.testRelationShip.code) + '")')
+        self.assertEqual(infoEntity['fields'][-1]['physicalName'], '@myStr("info__' + slugify2(self.testRelationShip.code) + '")')
 
     def test_GetViewCode_AnyCombination(self):
         infoEntity = getViewDefinition(self.pEntity, 'someViewTitle')
@@ -62,12 +63,12 @@ class GetViewCodeTest(TestCase):
 
     def test_GetViewCode_with_viewtitle_none(self):
         viewCode = getViewCode(self.pEntity)
-        self.assertEqual(viewCode, slugify(self.pEntity.model.code + '-' + self.pEntity.code))
+        self.assertEqual(viewCode, slugify2(self.pEntity.model.code + '-' + self.pEntity.code))
 
     def test_GetViewCode_with_viewtitle_not_none(self):
         viewTitle = random_string_generator(5)
         viewCode = getViewCode(self.pEntity, viewTitle)
-        self.assertEqual(viewCode, slugify(self.pEntity.model.code + '-' + viewTitle))
+        self.assertEqual(viewCode, slugify2(self.pEntity.model.code + '-' + viewTitle))
 
 
 class Property2FieldTest(TestCase):

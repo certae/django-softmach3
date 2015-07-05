@@ -3,14 +3,17 @@
 from django.test import TestCase
 from django.http import HttpRequest
 
-from prototype.models import *
 from prototype.actions.viewDefinition import getViewDefinition, getViewCode, createView, getUserProfile, getEntities
-from prototype.actions.__init__ import doModelPrototype
-from prototype.actions.__init__ import doEntityPrototype
+
+from prototype.actions import doModelPrototype
+from prototype.actions import doEntityPrototype
+from prototype.models import Entity, Prototype
+from django.db.models.base import Model
+from protoExt.utils.utilsConvert import slugify2
 
 
 class GetViewDefinitionTest(TestCase):
-    fixtures = ['auth.json', 'protoLib.json', 'prototype.json']
+#     fixtures = ['auth.json', 'protolib.json', 'prototype.json']
 
     def setUp(self):
         self.entity = Entity.objects.all()
@@ -21,11 +24,11 @@ class GetViewDefinitionTest(TestCase):
     def test_protoentity_value_contains_entity_name(self):
         for entries in self.entity:
             infoEntity = getViewDefinition(entries, 'metaTestView')
-            self.assertEqual(slugify(entries.model.code + '-' + entries.code), infoEntity['protoEntity'])
+            self.assertEqual(slugify2(entries.model.code + '-' + entries.code), infoEntity['protoEntity'])
 
 
 class GetViewCodeTest(TestCase):
-    fixtures = ['auth.json', 'protoLib.json', 'prototype.json']
+    fixtures = ['auth.json', 'protolib.json', 'prototype.json']
 
     def setUp(self):
         self.entity = Entity.objects.all()
@@ -36,13 +39,13 @@ class GetViewCodeTest(TestCase):
     def test_viewtitle_none(self):
         for entries in self.entity:
             returnValue = getViewCode(entries)
-            self.assertEqual(slugify(entries.model.code + '-' + entries.code), returnValue)
+            self.assertEqual(slugify2(entries.model.code + '-' + entries.code), returnValue)
 
     def test_viewtitle_specified(self):
         titleString = 'viewTitleViewTest'
         for entries in self.entity:
             returnValue = getViewCode(entries, titleString)
-            self.assertEqual(slugify(entries.model.code + '-' + titleString), returnValue)
+            self.assertEqual(slugify2(entries.model.code + '-' + titleString), returnValue)
 
 
 class CreateViewTest(TestCase):

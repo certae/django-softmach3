@@ -1,9 +1,8 @@
 from django.test import TestCase
 from prototype.models import Project
-from alltests.testPrototype.testmodels.TestUtilities import createTestProject
+from prototype.tests.TestUtilities import createTestProject
 
-
-class ProjectTest(TestCase):
+class ProjectTestCase(TestCase):
     def setUp(self):
         self.project = createTestProject()
 

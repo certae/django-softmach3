@@ -12,6 +12,12 @@ from django.utils import six
 from protoExt.utils.utilsConvert import slugify2
 
 
+def random_string_generator(size=6, chars=None):
+    import string, random
+    if not chars: chars = string.ascii_uppercase
+    return ''.join(random.choice(chars) for x in range(size))
+
+
 def verifyList(obj, defList = []):
 #   Los objetos del admin son en su mayoria del tipo tuple,
 #   Es necesario convertirlos a listas por facilidad de trabajo

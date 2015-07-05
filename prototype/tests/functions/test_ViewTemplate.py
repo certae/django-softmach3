@@ -2,11 +2,11 @@
 
 from django.test import TestCase
 
-from protoLib.utilsBase import slugify
 from prototype.actions.viewTemplate import baseDefinition
 
-from alltests.testPrototype.Utils import random_string_generator
-from alltests.testPrototype.testmodels.TestUtilities import createTestEntity
+from prototype.tests.TestUtilities import createTestEntity
+from protoExt.utils.utilsBase import random_string_generator
+from protoExt.utils.utilsConvert import slugify2
 
 
 class baseDefinitionTest(TestCase):
@@ -18,7 +18,7 @@ class baseDefinitionTest(TestCase):
         self.baseDef = baseDefinition(self.pEntity, self.entityName, self.viewTitle)
 
     def test_basedefinition_returns_correct_viewCode(self):
-        viewName = slugify(self.viewTitle)
+        viewName = slugify2(self.viewTitle)
         # La constante globale ne peut pas etre utilisee ici. Devrait etre modifie.
         self.assertEqual(self.baseDef['viewCode'], 'prototype.ProtoTable.' + viewName)
 

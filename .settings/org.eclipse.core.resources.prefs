@@ -50,4 +50,7 @@ encoding//prototype/actions/viewDefinition.py=utf-8
 encoding//prototype/actions/viewTemplate.py=utf-8
 encoding//prototype/models.py=utf-8
 encoding//prototype/protoRules.py=utf-8
+encoding//prototype/tests/functions/test_ViewCreation.py=utf-8
+encoding//prototype/tests/functions/test_ViewDefinition.py=utf-8
+encoding//prototype/tests/functions/test_ViewTemplate.py=utf-8
 encoding//protovarios/models.py=utf-8

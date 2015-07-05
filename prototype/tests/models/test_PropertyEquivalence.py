@@ -1,6 +1,6 @@
 from django.test import TestCase
 from prototype.models import PropertyEquivalence
-from alltests.testPrototype.testmodels.TestUtilities import createTestPropertyEquivalence
+from prototype.tests.TestUtilities import createTestPropertyEquivalence
 
 
 class PropertyEquivalenceTest(TestCase):
@@ -31,4 +31,4 @@ class PropertyEquivalenceTest(TestCase):
         self.assertEqual(only_entry_in_database.description, self.propertyequivalence.description)
 
     def test_verifying_string_representation(self):
-        self.assertEqual('', str(self.propertyequivalence))
+        self.assertEqual('-', str(self.propertyequivalence))

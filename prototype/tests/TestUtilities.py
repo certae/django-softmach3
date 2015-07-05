@@ -1,6 +1,16 @@
-from prototype.models import Project, Model, Entity, Property, Relationship, PropertyEquivalence, Prototype, ProtoTable, Diagram, DiagramEntity
+from prototype.models import Project, Model, Entity, Property 
+from prototype.models import Relationship, PropertyEquivalence 
+from prototype.models import Prototype, ProtoTable
+from prototype.models import Diagram, DiagramEntity
+
+
+def createAuthBase():
+    pass
+
 
 def createTestProject():
+
+    createAuthBase()
 
     projectdata = {
         'code': 'testCode',
@@ -21,7 +31,6 @@ def createTestProject():
 
 def createTestModel():
     testProject = createTestProject()
-    testProject.save()
 
     modeldata = {
         'project': testProject,
@@ -144,7 +153,7 @@ def createTestPrototype():
         'code': 'testCode',
         'description': 'testDescription',
         'notes': 'testNotes',
-        'metaDefinition': 'testMetaDefinition'
+        'metaDefinition': {}
     }
 
     testPrototype = Prototype(**prototypedata)

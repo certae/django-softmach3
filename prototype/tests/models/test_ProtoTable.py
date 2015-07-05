@@ -1,6 +1,6 @@
 from django.test import TestCase
 from prototype.models import ProtoTable
-from alltests.testPrototype.testmodels.TestUtilities import createTestProtoTable
+from prototype.tests.TestUtilities import createTestProtoTable
 
 
 class ProtoTableTest(TestCase):
@@ -21,8 +21,8 @@ class ProtoTableTest(TestCase):
         self.assertEqual(only_entry_in_database.entity, self.protoTable.entity)
 
     def test_verifying_behavior_of_mystr(self):
-        returnValue = self.protoTable.myStr(['val1', 'val2'])
-        self.assertEqual('', returnValue)
+        returnValue = self.protoTable.myStr('info_val1')
+        self.assertEqual('.', returnValue)
 
     def test_verifying_string_representation(self):
-        self.assertEqual('testEntityCode:{}', str(self.protoTable))
+        self.assertEqual('testEntityCode.1', str(self.protoTable))
