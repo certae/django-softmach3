@@ -379,7 +379,7 @@ def createProtoMeta( cBase, grid ):
     id_field = u'id'
     shortTitle = cBase.protoMeta.get('shortTitle', grid.title)
 
-    # Manejo de documentos rai          
+    # Manejo de documentos rai00base          
     if getattr(cBase.model, '_uddObject', False ):
         dBase = getattr(cBase.model, '_jDefValueDoc', False )    
         idType = ''

@@ -65,16 +65,16 @@ def checkAllFields(modelclass):
 # -----------------------------------
 
 
-from protoLib.models import TeamHierarchy, ProtoDefinition, CustomDefinition, DiscreteValue
+from protoLib.models import TeamHierarchy, ViewDefinition, CustomDefinition, DiscreteValue
 
 class TeamHierarchyStructureTest(TestCase):
     def test_field_and_value(self):
         self.assertFalse(checkAllFields(TeamHierarchy))  # Value is not in MetaObjects
 
 
-class ProtoDefinitionStructureTest(TestCase):
+class ViewDefinitionStructureTest(TestCase):
     def test_field_and_value(self):
-        self.assertTrue(checkAllFields(ProtoDefinition))
+        self.assertTrue(checkAllFields(ViewDefinition))
 
 
 class CustomDefinitionStructureTest(TestCase):

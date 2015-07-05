@@ -6,6 +6,7 @@ from decimal import Decimal
 from django.utils.encoding import smart_str
 from django.template.defaultfilters import slugify
 
+
 def slugify2 (sAux , sep = '' ):
     try: 
         sAux = slugify( sAux )

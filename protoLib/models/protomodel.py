@@ -86,7 +86,7 @@ class ProtoModelBase(models.Model):
 class ProtoModelExt(ProtoModelBase):
     """
     Tabla modelo para la creacion de entidades de usuario  ( sm  security mark )
-    Con manejo de campos json 
+    Con manejo de campos json para filtrado  
     """ 
 
     smInfo = JSONField(default={})
@@ -101,5 +101,6 @@ class ProtoModelExt(ProtoModelBase):
 
 
 
-
+def setSecurityInfo(dEntity, data, user_profile, ins):
+    pass
         

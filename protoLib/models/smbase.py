@@ -123,3 +123,72 @@ class EntityMap(models.Model):
 
 
 
+
+class Logger(models.Model):
+
+
+    LOG_TYPE = (
+        ('INF', 'INFO'),
+        ('WAR', 'WARNING'),
+        ('ERR', 'ERROR'),
+    
+        ('INS', 'INSERT'),
+        ('UPD', 'UPDATE'),
+        ('DEL', 'DELETE'),
+    )
+    
+    smCreatedBy = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=True, related_name='+', editable=False)
+    smCreatedOn = models.DateTimeField(auto_now=True , null=True, blank=True, editable=False)
+    smOwningTeam = models.ForeignKey(TeamHierarchy, null=True, blank=True, related_name='+', editable=False)
+
+    logType = models.CharField(max_length=10, default= 'INF')
+    logObject = models.CharField(max_length=250, null=True, blank=True )
+    logNotes = models.CharField(max_length=250, null=True, blank=True )
+
+    logInfo = models.TextField(blank=True, null=True)
+
+    """Long proccess runing"""
+    logKey = models.CharField(max_length=5, choices= LOG_TYPE, default= '')
+
+    def __str__(self):
+        return self.logType + '.' +  self.logObject 
+
+    protoExt = {
+        "actions": [
+            { "name": "doClearLog",
+              "selectionMode" : "none",
+              "refreshOnComplete" : True, 
+            },
+        ]
+    }
+
+
+def logEvent( logObject, logInfo, logUser, logTeam, logNotes = '', logType = 'INF', logKey = ''):
+
+
+    dLog = Logger()
+
+    setattr(dLog, 'smCreatedBy', logUser )
+    setattr(dLog, 'smOwningTeam', logTeam )
+    setattr(dLog, 'smCreatedOn', datetime.now())
+
+    setattr(dLog, 'logInfo', logInfo  )
+
+    if logType: 
+        setattr(dLog, 'logType', logType )
+
+    if logObject:
+        setattr(dLog, 'logObject', logObject )
+
+    if logNotes: 
+        setattr(dLog, 'logNotes', logNotes )
+
+    if logKey: 
+        setattr(dLog, 'logKey', logKey )
+
+    try: 
+        dLog.save()
+    except: 
+        pass  
+
+

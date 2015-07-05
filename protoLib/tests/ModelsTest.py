@@ -3,7 +3,7 @@
 from django.test import TestCase
 from django.utils.unittest import skip
 
-from protoLib.models import CustomDefinition, ProtoDefinition, TeamHierarchy, Site, User, UserProfile, UserShare, DiscreteValue, PtFunction, getDjangoModel
+from protoLib.models import CustomDefinition, ViewDefinition, TeamHierarchy, Site, User, UserProfile, UserShare, DiscreteValue, PtFunction, getDjangoModel
 from prototype.models import Project
 
 
@@ -91,30 +91,30 @@ class UserShareTest(TestCase):
         self.assertEqual(self.userShare.user.username + '-' + self.userShare.userTeam.code, str(self.userShare))
 
 
-class ProtoDefinitionTest(TestCase):
+class ViewDefinitionTest(TestCase):
     def setUp(self):
-        protodefinitiondata = {
+        ViewDefinitiondata = {
             'code': 'test_code',
-            'description': 'description protodefinition',
+            'description': 'description ViewDefinition',
             'metaDefinition': 'metadef',
             'active': True,
             'overWrite': True
         }
-        self.protoDefinition = ProtoDefinition(**protodefinitiondata)
-        self.protoDefinition.save()
+        self.ViewDefinition = ViewDefinition(**ViewDefinitiondata)
+        self.ViewDefinition.save()
 
     def tearDown(self):
-        self.protoDefinition.delete()
+        self.ViewDefinition.delete()
 
     def test_verifying_string_representation(self):
-        self.assertEqual('test_code', str(self.protoDefinition))
+        self.assertEqual('test_code', str(self.ViewDefinition))
 
 
 class CustomDefinitionTest(TestCase):
     def setUp(self):
         customdefinitiondata = {
             'code': 'test_code',
-            'description': 'description protodefinition',
+            'description': 'description ViewDefinition',
             'metaDefinition': 'metadef',
             'active': True,
             'overWrite': True

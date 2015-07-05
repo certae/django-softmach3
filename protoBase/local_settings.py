@@ -30,4 +30,4 @@ DEFAULT_FROM_EMAIL = 'certae.sm@gmail.com'
 # used for debug
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-FIXTURE_DIRS = ( os.path.join(BASE_DIR, 'fixtures'),  )
+# FIXTURE_DIRS = ( os.path.join(BASE_DIR, 'fixtures'),  )

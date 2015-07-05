@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'protoLib', 
     'protoExt', 
     'prototype', 
+    'rai00base', 
+    'rai01ref', 
 )
 
 MIDDLEWARE_CLASSES = (
@@ -114,7 +116,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 try:
-    from .local_settings import *  # @UnusedImport
+    from .local_settings import *  # @UnusedWildImport
 except ImportError:
     pass
 

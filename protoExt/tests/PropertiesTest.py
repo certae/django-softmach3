@@ -4,7 +4,7 @@ import re, os
 from django.test import TestCase
 import json
 
-from protoLib.models import TeamHierarchy, ProtoDefinition, CustomDefinition, DiscreteValue
+from protoLib.models import TeamHierarchy, ViewDefinition, CustomDefinition, DiscreteValue
 
 PossibleTypes = ['list', 'string']
 module_dir = os.path.dirname(__file__)  # get current directory
@@ -143,12 +143,12 @@ class TeamHierarchyPropertiesTest(TestCase):
                 self.assertIn(fieldtype, PossibleTypes)
 
 
-class ProtoDefinitionPropertiesTest(TestCase):
+class ViewDefinitionPropertiesTest(TestCase):
     def test_structure(self):
-        fields = getFields(ProtoDefinition)
+        fields = getFields(ViewDefinition)
         for field in fields:
-            for value in ProtoDefinition.protoExt[field]:
-                fieldtype = getFieldType(field, value, ProtoDefinition)
+            for value in ViewDefinition.protoExt[field]:
+                fieldtype = getFieldType(field, value, ViewDefinition)
                 self.assertIn(fieldtype, PossibleTypes)
 
 
