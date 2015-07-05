@@ -5,7 +5,6 @@
 
 import os, re, json 
 
-from jsonfield2.utils import JSONEncoder 
 
 from django.utils.encoding import smart_str
 from django.utils import six
