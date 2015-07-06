@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//protoDesigner/protoDiagram.py=utf-8
+encoding//protoDesigner/protoDiagramEntity.py=utf-8
 encoding//protoExt/__init__.py=utf-8
 encoding//protoExt/actions/__init__.py=utf-8
 encoding//protoExt/actions/setDefaults.py=utf-8

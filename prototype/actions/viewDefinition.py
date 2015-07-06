@@ -6,8 +6,9 @@ from .pttActionTools import getViewCode
 from .viewTemplate import baseDefinition
 from prototype.models import Entity,  Prototype
 
-from protoExt.utils.utilsBase import JSONEncoder, slugify2
 from protoLib.getStuff import getUserProfile
+from protoExt.utils.utilsConvert import slugify2
+from jsonfield2.utils import JSONEncoder
 
 
 PROTO_PREFIX = "prototype.ProtoTable."

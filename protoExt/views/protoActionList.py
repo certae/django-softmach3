@@ -4,8 +4,7 @@ from django.http import HttpResponse
 # from django.contrib.admin.utils import  get_fields_from_path
 from django.utils.encoding import smart_str
 
-from protoExt.utils.utilsBase import JSONEncoder, getReadableError
-from protoExt.utils.utilsBase import verifyList, list2dict
+from protoExt.utils.utilsBase import verifyList, list2dict, getReadableError
 
 from .protoQbe import getFieldValue, getQbeFilter 
 from protoLib.getStuff import  getModelPermission, getRowById
@@ -19,6 +18,7 @@ import json
 import traceback
 from protoExt.views.getStuff import setContextFilter
 from protoExt.views.protoGetPci import getGenericPci
+from jsonfield2.utils import JSONEncoder
 
 
 def protoList(request):

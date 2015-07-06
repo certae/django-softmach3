@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.http import HttpResponse
-from protoLib.utilsWeb import JsonError
 from prototype.models import Project, Model, Entity, Diagram
-from protoLib.utilsBase import JSONEncoder
-from dbDesigner.service.diagramJSONAssembler import JSONAssembler
-from dbDesigner.service.diagramService import addOrUpdateEntity, addOrUpdateConnector
+
 
 import json, uuid
+from jsonfield2.utils import JSONEncoder
+from protoExt.utils.utilsWeb import JsonError
+from protoDesigner.service.diagramJSONAssembler import JSONAssembler
+from protoDesigner.service.diagramService import addOrUpdateConnector,\
+    addOrUpdateEntity
 
 def getEntitiesJSONDiagram(request):
     """ return all tables from project

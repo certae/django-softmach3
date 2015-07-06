@@ -6,11 +6,11 @@ from protoExt.utils.utilsConvert import isNumeric, toInteger, toBoolean
 import re
 
 
-from protoExt.utils.utilsBase import JSONEncoder
 from protoExt.utils.utilsBase import verifyStr 
 from protoExt.utils.utilsConvert import getTypedValue
 
 import json
+from jsonfield2.utils import JSONEncoder
 
 
 

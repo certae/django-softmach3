@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.http import HttpResponse
-from protoLib.utilsWeb import JsonError
 from prototype.models import Project, Diagram
-from protoLib.utilsBase import JSONEncoder
 
 import json, ast
+from jsonfield2.utils import JSONEncoder
+from protoExt.utils.utilsWeb import JsonError
 
 def listDiagrams(request):
     projectID = request.GET['projectID']

@@ -8,11 +8,9 @@ from datetime import datetime, timedelta
 from django.conf import settings
 from django.http import HttpResponse 
 from django.utils import six
+from jsonfield2.utils import JSONEncoder
 
-from protoExt.utils.utilsBase import JSONEncoder
-
-import json
-import os
+import json, os
 
 
 def doReturn( jsonDict ):
