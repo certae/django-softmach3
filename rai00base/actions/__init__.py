@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import traceback
+from protoExt.utils.utilsBase import getReadableError
 
 
 
@@ -39,7 +40,7 @@ def doMatrixRacc( modelAdmin,request, queryset, detKeys, parameters):
         return doMatrixRaccordement(  modelAdmin, request, queryset, detKeys, parameters  )
     except Exception as e:
         traceback.print_exc()
-        return  {'success':False, 'message' : 'Generation error' }
+        return  {'success':False, 'message' : getReadableError(e) }
 
 
 
@@ -62,6 +63,6 @@ def doAddModel(modeladmin, request, queryset, parameters):
         extractModel(request, queryset, parameters)
     except Exception as e:
         traceback.print_exc()
-        return  {'success':False, 'message' : 'Extraction error' }
+        return  {'success':False, 'message' : getReadableError(e) }
 
     return {'success':True, 'message' :  'Ok ...' }

@@ -3,6 +3,7 @@ import traceback
 
 from django.utils.encoding import smart_unicode
 from protoExt.utils.downloadFile import getFullPath
+from protoExt.utils.utilsBase import getReadableError
 
 def doMatrixRaccordement(modelAdmin, request, selectedKeys, detKeys, parameters):
 
@@ -59,7 +60,7 @@ def doMatrixRaccordement(modelAdmin, request, selectedKeys, detKeys, parameters)
 
 	except Exception as e:
 		traceback.print_exc()
-		return  {'success':False, 'message' : 'Load error' }
+		return  {'success':False, 'message' : getReadableError(e) }
 
 
 	fileName = 'mraccordement.csv'

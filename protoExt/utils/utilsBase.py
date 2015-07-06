@@ -14,7 +14,7 @@ from protoExt.utils.utilsConvert import slugify2
 def random_string_generator(size=6, chars=None):
     import string, random
     if not chars: chars = string.ascii_uppercase
-    return ''.join(random.choice(chars) for x in range(size))
+    return ''.join(random.choice(chars) for x in range(size))  # @UnusedVariable
 
 
 def verifyList(obj, defList = []):
@@ -200,47 +200,6 @@ def strip_euro(inStr):
     inStr = inStr.replace(u'€', u'euro(s)')
     return inStr
 
-
-
-def DateFormatConverter(to_extjs = None, to_python = None):
-
-    """ convert date formats between ext and python """
-    f = {}
-    f['a'] = 'D'
-    f['A'] = 'l'
-    f['b'] = 'M'
-    f['B'] = 'F'
-    #f['c'] =
-    f['d'] = 'd'
-    f['H'] = 'H'
-    f['I'] = 'h'
-    f['j'] = 'z'
-    f['m'] = 'm'
-    f['M'] = 'i'
-    f['p'] = 'A'
-    f['S'] = 's'
-    f['U'] = 'W'
-    #f['w'] =
-    f['W'] = 'W'
-    #f['x'] =
-    #f['X'] =
-    f['y'] = 'y'
-    f['Y'] = 'Y'
-    f['Z'] = 'T'
-    out = ''
-    if to_extjs:
-        for char in to_extjs.replace('%',''):
-            out += f.get(char, char)
-
-    elif to_python:
-        for char in to_python:
-            if char in f.values():
-                key = [key for key, val in f.items() if f[key] == char][0]
-                out += '%%%s' % key
-            else:
-                out += char
-
-    return out
 
 
 

@@ -169,7 +169,10 @@ def getDefaultDiagram(request):
         project = Project.objects.get(id=projectID)
         diagrams = Diagram.objects.filter(project_id=projectID)
         if not diagrams:
-            diagram,created = Diagram.objects.get_or_create(project=project,code='default',smOwningTeam=project.smOwningTeam)
+            diagram  = Diagram.objects.get_or_create(
+                project=project,code='default',
+                smOwningTeam=project.smOwningTeam)[0]
+
             diagram.smOwningUser = user
             diagram.smCreatedBy = user
             diagram.save()
