@@ -18,3 +18,6 @@ python manage.py dumpscript  protoLib 		> datascripts/protolib.py
 python manage.py dumpscript  protoExt 		> datascripts/protoExt.py
 python manage.py dumpscript  prototype 		> datascripts/prototype.py
 python manage.py dumpscript  rai01ref 		> datascripts/rai01ref.py
+
+#  Db 
+tar -zcvf "db/db-$(date +"%Y%m%d_%H%M%S").tar.gz" db/db.sqlite3
