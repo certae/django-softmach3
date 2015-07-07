@@ -5,8 +5,11 @@ staticfiles
 .git/ 
 
 .settings/**
-.media/**
-.output/**
+media/**
+output/**
+
+datascripts/**
+fixtures/**
 
 # db.sqlite3
 # local_settings.py

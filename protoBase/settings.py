@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'prototype', 
     'rai00base', 
     'rai01ref', 
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (

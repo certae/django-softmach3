@@ -3,8 +3,9 @@
 import re, os
 from django.test import TestCase
 import json
+from protoExt.models import CustomDefinition, ViewDefinition
+from protoLib.models.smbase import TeamHierarchy
 
-from protoLib.models import TeamHierarchy, ViewDefinition, CustomDefinition, DiscreteValue
 
 PossibleTypes = ['list', 'string']
 module_dir = os.path.dirname(__file__)  # get current directory
@@ -161,10 +162,10 @@ class CustomDefinitionPropertiesTest(TestCase):
                 self.assertIn(fieldtype, PossibleTypes)
 
 
-class DiscreteValuePropertiesTest(TestCase):
-    def test_structure(self):
-        fields = getFields(DiscreteValue)
-        for field in fields:
-            for value in DiscreteValue.protoExt[field]:
-                fieldtype = getFieldType(field, value, DiscreteValue)
-                self.assertIn(fieldtype, PossibleTypes)
+# class DiscreteValuePropertiesTest(TestCase):
+#     def test_structure(self):
+#         fields = getFields(DiscreteValue)
+#         for field in fields:
+#             for value in DiscreteValue.protoExt[field]:
+#                 fieldtype = getFieldType(field, value, DiscreteValue)
+#                 self.assertIn(fieldtype, PossibleTypes)

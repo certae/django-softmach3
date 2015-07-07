@@ -5,6 +5,8 @@ import json
 
 
 import os
+from protoLib.models.smbase import TeamHierarchy
+from protoExt.models import CustomDefinition, ViewDefinition
 module_dir = os.path.dirname(__file__)  # get current directory
 file_path = os.path.join(module_dir, 'MetaObjects.dat')
 DataTree = json.loads(open(file_path).read())
@@ -65,7 +67,6 @@ def checkAllFields(modelclass):
 # -----------------------------------
 
 
-from protoLib.models import TeamHierarchy, ViewDefinition, CustomDefinition, DiscreteValue
 
 class TeamHierarchyStructureTest(TestCase):
     def test_field_and_value(self):
@@ -82,9 +83,9 @@ class CustomDefinitionStructureTest(TestCase):
         self.assertTrue(checkAllFields(CustomDefinition))
 
 
-class DiscreteValueStructureTest(TestCase):
-    def test_field_and_value(self):
-        self.assertTrue(checkAllFields(DiscreteValue))
+# class DiscreteValueStructureTest(TestCase):
+#     def test_field_and_value(self):
+#         self.assertTrue(checkAllFields(DiscreteValue))
 
 
 # ------------------------------
