@@ -3,6 +3,7 @@
 # Import Database class
 
 import traceback
+from protoExt.utils.utilsBase import getReadableError
 
 
 def doRaiActions( modeladmin, request, queryset, parameters, action ):
@@ -17,8 +18,9 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
             cOMS.doImport()
             cOMS.doFkMatch( )
     
-        except Exception as e:
+        except :
             traceback.print_exc()
+            raise 
 
 
 #   El QSet viene con la lista de Ids
@@ -38,13 +40,12 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
     #   load and validate xml file
         try:
 
-            import os
             fileName = actionFiles[ 'file']
             cOMS.loadFile( fileName  )
 
         except Exception as e:
             traceback.print_exc()
-            return  {'success':False, 'message' : 'Load error' }
+            return  {'success':False, 'message' : getReadableError(e) }
 
 
         # Return and continue 
