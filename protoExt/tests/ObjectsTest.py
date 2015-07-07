@@ -7,6 +7,7 @@ import json
 import os
 from protoLib.models.smbase import TeamHierarchy
 from protoExt.models import CustomDefinition, ViewDefinition
+
 module_dir = os.path.dirname(__file__)  # get current directory
 file_path = os.path.join(module_dir, 'MetaObjects.dat')
 DataTree = json.loads(open(file_path).read())

@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from datascripts.protoExt import BasicImportHelper
-importer = BasicImportHelper()
 from protoLib.models.smbase import TeamHierarchy
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from protoLib.tests.dataSetup import createAuthExt
+
+importer = BasicImportHelper()
 
 def createContext():
 
+    createAuthExt()
 
     # Processing model: UserContext
 

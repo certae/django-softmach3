@@ -12,6 +12,8 @@ from prototype.models import Model, Entity, Prototype
 from protoExt.utils.utilsConvert import slugify2
 
 
+
+
 class GetViewDefinitionTest(TestCase):
 #     fixtures = ['auth.json', 'protolib.json', 'prototype.json']
 

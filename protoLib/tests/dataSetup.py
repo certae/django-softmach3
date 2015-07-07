@@ -23,41 +23,38 @@ def createAuthBase():
 
 
     # Usr1 : admin 
-    auth_user_1 = User()
-    auth_user_1.username = 'A'
-    auth_user_1.email = 'dariogomezt@gmail.com'
-    auth_user_1.is_superuser = True
-    auth_user_1.is_staff = True
-    auth_user_1.is_active = True
-    auth_user_1.password = 'x'
-    auth_user_1.save()
+    User.objects.create_user(
+        username = 'A', 
+        password='1',
+        email = 'sm-certae@gmail.com',
+        is_superuser = True, 
+        is_staff = True, 
+        is_active = True )  
 
     # Usr2 : group base with all permissions   
-    auth_user_2 = User()
-    auth_user_2.username = 'B'
-    auth_user_2.email = ''
-    auth_user_2.is_superuser = False
-    auth_user_2.is_staff = True
-    auth_user_2.is_active = True
-    auth_user_2.password = 'x'
-    auth_user_2.save()
+    auth_user_2 = User.objects.create_user(
+        username = 'B', 
+        password='1',
+        email = 'sm-certae@gmail.com',
+        is_superuser = False, 
+        is_staff = True, 
+        is_active = True )  
 
     auth_user_2.groups.add(auth_group_1)
 
     # Usr3 : group base with not permissions   
-    auth_user_3 = User()
-    auth_user_3.username = 'C'
-    auth_user_3.is_superuser = False
-    auth_user_3.is_staff = True
-    auth_user_3.is_active = True
-    auth_user_3.password = 'x'
-    auth_user_3.save()
+    User.objects.create_user(
+        username = 'C', 
+        password='1',
+        email = 'sm-certae@gmail.com' )  
+
 
 
 def createAuthExt():
 
+    createAuthBase()
+    
     # Processing model: TeamHierarchy
-
     from protoLib.models.smbase import TeamHierarchy
 
     protoLib_teamhierarchy_1 = TeamHierarchy()
