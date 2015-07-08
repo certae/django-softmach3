@@ -1,9 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from django.contrib.sessions.backends.base import SessionBase
 from django.contrib.auth.models import User
 from protoLib.tests.dataImporter import BasicImportHelper
 
 importer = BasicImportHelper()
+
+
+class MySession(SessionBase):
+    def cycle_key(self):
+        pass
+
+    def delete(self):
+        pass
+
 
 def createAuthBase():
     """

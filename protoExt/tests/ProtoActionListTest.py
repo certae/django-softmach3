@@ -4,8 +4,8 @@ from django.test import TestCase
 from django.http import HttpRequest
 from django.contrib.auth import authenticate
 import json
+from protoExt.views.protoActionList import protoList
 
-from protoLib.protoActionList import protoList
 
 class ProtoActionListTest(TestCase):
     fixtures = ['auth.json']

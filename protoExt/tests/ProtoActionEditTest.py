@@ -4,7 +4,6 @@ from django.test import TestCase
 from django.http import HttpRequest
 from django.contrib.auth import authenticate
 
-from protoLib.protoActionEdit import protoCreate, json, protoUpdate, protoDelete
 
 def protoMetaInitialize():
     return json.dumps({

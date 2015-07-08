@@ -12,7 +12,6 @@ from django.template import loader
 from protoLib.getStuff import getUserProfile, getUserLanguage
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
 from protoExt.utils.utilsBase import getReadableError
-from protoExt.utils.utilsBase import traceError
 
 
 def protoGetUserRights(request):

@@ -1,23 +1,17 @@
 # -*- encoding: UTF-8 -*-
 
 import json
-from django.contrib.auth.models import AnonymousUser, User
-from django.test import TestCase, RequestFactory
-from protoLib.tests.dataSetup import createAuthBase
+from django.test import TestCase
 
 from django.http import HttpRequest
-from django.contrib.auth import authenticate, login
-from django.contrib.sessions.backends.base import SessionBase
+from django.contrib.auth import authenticate
 
 from protoExt.views.protoLogin import protoGetUserRights, protoGetPasswordRecovery
-from protoExt.views.protoLogin import resetpassword, changepassword, logout 
+from protoExt.views.protoLogin import resetpassword, changepassword, protoLogout 
 
-class MySession(SessionBase):
-    def cycle_key(self):
-        pass
+from protoLib.tests.dataSetup import createAuthBase, MySession
 
-
-class protoGetUserRights_Test(TestCase):
+class protoLogin_Test(TestCase):
 
     def setUp(self):
         createAuthBase()
@@ -157,16 +151,16 @@ class protoGetUserRights_Test(TestCase):
 
     def test_changepassword_ok(self):
         userdata = {'login': 'A', 'current': '1', 'newPassword1': '1', 'newPassword2': '1'}
-        self.request.GET = userdata
-        self.request.method = 'GET'
+        self.request.POST = userdata
 
         reponse = changepassword( self.request )
         returnMessage = json.loads( reponse.content.decode('utf-8'))
         self.assertTrue(returnMessage['success'])
 
 #   ====  logout 
-    def test_logout_ok(self):
+    def test_protoLogout_ok(self):
         self.request.user = self.user 
-        reponse = logout( self.request )
+        reponse = protoLogout( self.request )
         returnMessage = json.loads( reponse.content.decode('utf-8'))
         self.assertTrue(returnMessage['success'])
+

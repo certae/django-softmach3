@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from django.utils.unittest import skip
 
-from protoLib.models import CustomDefinition, ViewDefinition, TeamHierarchy, Site, User, UserProfile, UserShare, DiscreteValue, PtFunction, getDjangoModel
 from prototype.models import Project
+from protoExt.models import CustomDefinition, ViewDefinition
+from protoLib.getStuff import getDjangoModel
+from protoLib.models.smbase import TeamHierarchy, UserProfile
+from django.contrib.auth.models import User
 
 
 class TeamHierarchyTest(TestCase):
@@ -12,8 +14,6 @@ class TeamHierarchyTest(TestCase):
         teamhierarchydata = {
             'code': 'SomeValue',
             'description': 'Description of TeamHierarchy',
-            'parentNode': TeamHierarchy(),
-            'site': Site()
         }
 
         self.teamHierarchy = TeamHierarchy(**teamhierarchydata)
@@ -52,43 +52,42 @@ class UserProfileTest(TestCase):
         self.assertEqual(self.userProfile.user.username, str(self.user_test))
 
 
-class UserShareTest(TestCase):
-    def setUp(self):
-        userdata = {
-            'username': 'test_user',
-            'first_name': 'Bob',
-            'last_name': 'Tremblay',
-            'email': 'bob.tremblay@courriel.ca'
-        }
-
-        self.user_test = User(**userdata)
-        self.user_test.save()
-
-        teamhierarchydata = {
-            'code': 'SomeValue',
-            'description': 'Description of TeamHierarchy',
-            'parentNode': None,
-            'site': Site()
-        }
-
-        self.teamHierarchy = TeamHierarchy(**teamhierarchydata)
-        self.teamHierarchy.save()
-
-        usersharedata = {
-            'user': self.user_test,
-            'userTeam': self.teamHierarchy
-        }
-
-        self.userShare = UserShare(**usersharedata)
-        self.userShare.save()
-
-    def tearDown(self):
-        self.userShare.delete()
-        self.teamHierarchy.delete()
-        self.user_test.delete()
-
-    def test_verifying_string_representation(self):
-        self.assertEqual(self.userShare.user.username + '-' + self.userShare.userTeam.code, str(self.userShare))
+# class UserShareTest(TestCase):
+#     def setUp(self):
+#         userdata = {
+#             'username': 'test_user',
+#             'first_name': 'Bob',
+#             'last_name': 'Tremblay',
+#             'email': 'bob.tremblay@courriel.ca'
+#         }
+# 
+#         self.user_test = User(**userdata)
+#         self.user_test.save()
+# 
+#         teamhierarchydata = {
+#             'code': 'SomeValue',
+#             'description': 'Description of TeamHierarchy',
+#             'parentNode': None,
+#         }
+# 
+#         self.teamHierarchy = TeamHierarchy(**teamhierarchydata)
+#         self.teamHierarchy.save()
+# 
+#         usersharedata = {
+#             'user': self.user_test,
+#             'userTeam': self.teamHierarchy
+#         }
+# 
+#         self.userShare = UserShare(**usersharedata)
+#         self.userShare.save()
+# 
+#     def tearDown(self):
+#         self.userShare.delete()
+#         self.teamHierarchy.delete()
+#         self.user_test.delete()
+# 
+#     def test_verifying_string_representation(self):
+#         self.assertEqual(self.userShare.user.username + '-' + self.userShare.userTeam.code, str(self.userShare))
 
 
 class ViewDefinitionTest(TestCase):
@@ -129,60 +128,60 @@ class CustomDefinitionTest(TestCase):
         self.assertEqual('test_code', str(self.customDefinition))
 
 
-class DiscreteValueTest(TestCase):
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-    def test_verifying_string_representation_with_title_as_none(self):
-        discretevaluedata = {
-            'code': 'test_code',
-            'value': 'test_value',
-            'description': 'description of discrete value',
-            'title': None
-        }
-        self.discreteValue = DiscreteValue(**discretevaluedata)
-        self.discreteValue.save()
-
-        self.assertEqual('test_code', str(self.discreteValue))
-
-        self.discreteValue.delete()
-
-    def test_verifying_string_representation_with_title_not_none(self):
-        discretevaluedata = {
-            'code': 'test_code',
-            'value': 'test_value',
-            'description': 'description of discrete value',
-            'title': DiscreteValue()
-        }
-        self.discreteValue = DiscreteValue(**discretevaluedata)
-        self.discreteValue.save()
-
-        self.assertEqual('.test_code', str(self.discreteValue))
-
-        self.discreteValue.delete()
-
-
-class PtFunctionTest(TestCase):
-    def setUp(self):
-        ptfunctiondata = {
-            'code': 'test_code',
-            'modelName': 'name of model',
-            'arguments': 'test arguments',
-            'functionBody': 'body of function',
-            'tag': 'test tag',
-            'description': 'description of function'
-        }
-        self.ptFunction = PtFunction(**ptfunctiondata)
-        self.ptFunction.save()
-
-    def tearDown(self):
-        self.ptFunction.delete()
-
-    def test_verifying_string_representation(self):
-        self.assertEqual(self.ptFunction.code + '.' + self.ptFunction.tag, str(self.ptFunction))
+# class DiscreteValueTest(TestCase):
+#     def setUp(self):
+#         pass
+# 
+#     def tearDown(self):
+#         pass
+# 
+#     def test_verifying_string_representation_with_title_as_none(self):
+#         discretevaluedata = {
+#             'code': 'test_code',
+#             'value': 'test_value',
+#             'description': 'description of discrete value',
+#             'title': None
+#         }
+#         self.discreteValue = DiscreteValue(**discretevaluedata)
+#         self.discreteValue.save()
+# 
+#         self.assertEqual('test_code', str(self.discreteValue))
+# 
+#         self.discreteValue.delete()
+# 
+#     def test_verifying_string_representation_with_title_not_none(self):
+#         discretevaluedata = {
+#             'code': 'test_code',
+#             'value': 'test_value',
+#             'description': 'description of discrete value',
+#             'title': DiscreteValue()
+#         }
+#         self.discreteValue = DiscreteValue(**discretevaluedata)
+#         self.discreteValue.save()
+# 
+#         self.assertEqual('.test_code', str(self.discreteValue))
+# 
+#         self.discreteValue.delete()
+# 
+# 
+# class PtFunctionTest(TestCase):
+#     def setUp(self):
+#         ptfunctiondata = {
+#             'code': 'test_code',
+#             'modelName': 'name of model',
+#             'arguments': 'test arguments',
+#             'functionBody': 'body of function',
+#             'tag': 'test tag',
+#             'description': 'description of function'
+#         }
+#         self.ptFunction = PtFunction(**ptfunctiondata)
+#         self.ptFunction.save()
+# 
+#     def tearDown(self):
+#         self.ptFunction.delete()
+# 
+#     def test_verifying_string_representation(self):
+#         self.assertEqual(self.ptFunction.code + '.' + self.ptFunction.tag, str(self.ptFunction))
 
 
 class GetDjangoModelTest(TestCase):
