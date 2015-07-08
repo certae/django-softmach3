@@ -5,10 +5,21 @@
 
 import os, re, json 
 
-
 from django.utils.encoding import smart_str
 from django.utils import six
 from protoExt.utils.utilsConvert import slugify2
+
+
+def traceError():
+    from django.conf import settings
+
+    if settings.DEBUG:
+        import traceback 
+        traceback.print_exc()
+    else: 
+        import logging
+        logging.basicConfig( filename = settings.LOG_FILE, level=logging.DEBUG)        
+        logging.info("Exception has occured" ,exc_info=1)    
 
 
 def random_string_generator(size=6, chars=None):
@@ -207,6 +218,7 @@ def strip_euro(inStr):
 class VirtualField(object):
     def __init__(self, name):
         self.name = name
+
 
 
 def getReadableError( e ):

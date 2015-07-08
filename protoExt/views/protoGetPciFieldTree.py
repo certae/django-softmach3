@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import traceback, json 
+from protoExt.utils.utilsBase import traceError, json 
 
 from django.http import HttpResponse
 
@@ -44,7 +44,7 @@ def protoGetFieldTree(request):
             try: 
                 addFiedToList(fieldList, field , '')
             except Exception as  e:
-                traceback.print_exc()
+                traceError()
                 return JsonError(getReadableError(e)) 
             
         # Add __str__ 

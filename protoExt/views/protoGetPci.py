@@ -4,7 +4,7 @@
 ProtoGetPci 
 """
 
-import traceback
+from protoExt.utils.utilsBase import traceError
 
 from django.http import HttpResponse
 
@@ -33,7 +33,7 @@ def protoGetPCI(request):
         msgReturn = getGenericPci( cBase, False  )
         if msgReturn: return msgReturn  
     except :
-        traceback.print_exc()
+        traceError()
         return JsonError('model not found: {0}'.format( cBase.viewEntity )) 
 
 
@@ -55,7 +55,7 @@ def protoGetPCI(request):
 #   ============== Verificacion de la metadata 
         cBase.protoMeta = verifyMeta( cBase , 'pci')
     except Exception:
-        traceback.print_exc()    
+        traceError()    
         return JsonError('invalid definition: {0}'.format( cBase.viewEntity )) 
 
 

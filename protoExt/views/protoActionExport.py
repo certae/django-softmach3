@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import traceback, tablib  
+from protoExt.utils.utilsBase import traceError, tablib  
 
 # from django.http import HttpResponse
 from protoExt.utils.utilsConvert import slugify2
@@ -38,7 +38,7 @@ def protoExport(request):
         pList = Q2Dict(cBase , pRows  )
  
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         message = getReadableError(e)
         return JsonError( message ) 
 
@@ -48,7 +48,7 @@ def protoExport(request):
         fileName = _doExportFile( cBase, pList, request )
 
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         message = getReadableError(e)
         return JsonError( message ) 
 

@@ -2,7 +2,7 @@
 
 # Import Database class
 
-import traceback
+from protoExt.utils.utilsBase import traceError
 from protoExt.utils.utilsBase import getReadableError
 
 
@@ -19,7 +19,7 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
             cOMS.doFkMatch( )
     
         except :
-            traceback.print_exc()
+            traceError()
             raise 
 
 
@@ -44,7 +44,7 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
             cOMS.loadFile( fileName  )
 
         except Exception as e:
-            traceback.print_exc()
+            traceError()
             return  {'success':False, 'message' : getReadableError(e) }
 
 
@@ -63,7 +63,7 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
 
     #   Recorre los registros selccionados
         except Exception as e:
-            traceback.print_exc()
+            traceError()
             return  {'success':False, 'message' : 'Load error' }
 
 

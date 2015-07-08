@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import traceback
-from protoExt.utils.utilsBase import getReadableError
+from protoExt.utils.utilsBase import getReadableError, traceError
 
 
 def doSetDefaults(modeladmin, request, queryset, parameters):
@@ -21,7 +20,7 @@ def doSetDefaults(modeladmin, request, queryset, parameters):
         result = actionSetDefaults(request, queryset, parameters)
 
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         result = {'success':False, 'message' : getReadableError(e) }
 
     return result  
@@ -40,7 +39,7 @@ def doAddUser(modeladmin, request, queryset, parameters):
         result = actionAddUser(request, queryset, parameters)
 
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         result = {'success':False, 'message' : getReadableError(e) }
 
     return result  

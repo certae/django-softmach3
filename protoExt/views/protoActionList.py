@@ -15,7 +15,7 @@ from protoExt.utils.utilsWeb import JsonError
 from . import validateRequest 
 
 import json
-import traceback
+from protoExt.utils.utilsBase import traceError
 from protoExt.views.getStuff import setContextFilter
 from protoExt.views.protoGetPci import getGenericPci
 from jsonfield2.utils import JSONEncoder
@@ -29,7 +29,7 @@ def protoList(request):
         if message: return message  
 
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         message = getReadableError(e)
         return JsonError( message ) 
 
@@ -46,7 +46,7 @@ def protoList(request):
         bResult = True
  
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         message = getReadableError(e)
         return JsonError( message ) 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import traceback
+from protoExt.utils.utilsBase import traceError
 
 from django.conf import settings
 
@@ -108,7 +108,7 @@ def doDiagram(modeladmin, request, queryset, parameters):
 
 #   Recorre los registros selccionados   
     except:
-        traceback.print_exc()
+        traceError()
         return  {'success':False, 'message' : 'Load error' }
         pass
 
@@ -178,7 +178,7 @@ def doExportDjViews( modeladmin, request, queryset, parameters):
     try:
         strModel = exportProtoJson ( request, queryset[0] )
     except:
-        traceback.print_exc()
+        traceError()
         return  {'success':False, 'message' : 'Load error' }
 
         
@@ -215,7 +215,7 @@ def doImportSchema( modeladmin, request, queryset, parameters):
     
 #   Recorre los registros selccionados   
     except:
-        traceback.print_exc()
+        traceError()
         return  {'success':False, 'message' : 'Load error' }
         pass
         
@@ -256,7 +256,7 @@ def doImportOMS( modeladmin, request, queryset, parameters):
     
 #   Recorre los registros selccionados   
     except:
-        traceback.print_exc()
+        traceError()
         return  {'success':False, 'message' : 'Load error' }
         pass
         
@@ -279,7 +279,7 @@ def doExportProtoModel( modeladmin, request, queryset, parameters):
     try:
         jData = exportPrototype2Json( request, queryset[0] )
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         return  {'success':False, 'message' : getReadableError(e) }
         
 #   Genera el archvivo py      
@@ -308,7 +308,7 @@ def doImportProtoModel( modeladmin, request, queryset, parameters):
         returnTmp = importProto4Json( request, queryset[0] )
         result = {'success':True, 'message' :  returnTmp }
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         result = {'success':False, 'message' : getReadableError(e) }
 
     return result  

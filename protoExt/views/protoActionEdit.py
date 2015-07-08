@@ -18,7 +18,7 @@ from jsonfield2.utils import JSONEncoder
 from protoLib.getStuff import getModelPermission
 from protoExt.views.protoActionList import Q2Dict
 from protoExt.views.protoGetPci import getGenericPci
-import traceback
+from protoExt.utils.utilsBase import traceError
 
 # Error Constants
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'
@@ -118,7 +118,7 @@ def _protoEdit(request, myAction):
                 try:
                     setRegister(cBase , rec, key, data)
                 except Exception as e:
-                    traceback.print_exc()
+                    traceError()
                     data['_ptStatus'] = data['_ptStatus'] + getReadableError(e)
 
 

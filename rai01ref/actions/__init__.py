@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import traceback
+from protoExt.utils.utilsBase import traceError
 from protoExt.utils.downloadFile import getFullPath
 from protoExt.utils.utilsConvert import slugify2
 from protoExt.utils.utilsBase import getReadableError
@@ -26,7 +26,7 @@ def doBPD(modeladmin, request, queryset, parameters):
 
 #   Recorre los registros selccionados   
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         return  {'success':False, 'message' : getReadableError(e) }
         pass
 

@@ -45,7 +45,6 @@ encoding//protoLib/models/protomodel.py=utf-8
 encoding//protoLib/models/signals.py=utf-8
 encoding//protoLib/models/smbase.py=utf-8
 encoding//protoLib/models/usermodel.py=utf-8
-encoding//protoLib/tests/dataImporter.py=utf-8
 encoding//protoLib/tests/dataSetup.py=utf-8
 encoding//prototype/actions/__init__.py=utf-8
 encoding//prototype/actions/entityActions.py=utf-8

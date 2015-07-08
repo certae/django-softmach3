@@ -100,6 +100,7 @@ STATIC_ROOT = 'staticfiles'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+LOG_FILE = os.path.join(BASE_DIR, 'errors.log')
 
 # DATABASES = {}
 # Db HEROKU 

@@ -8,7 +8,7 @@ from protoExt.utils.utilsBase import  getReadableError
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess
 
 from protoExt.views.protoActionList import prepareListEnv
-import traceback
+from protoExt.utils.utilsBase import traceError
 from django.template import loader
 from django.template.context import Context
 from protoExt.views.getStuff import getParameter
@@ -33,7 +33,7 @@ def protoWiki(request):
         if message: return message
 
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         message = getReadableError(e)
         return JsonError(message)
 
@@ -48,7 +48,7 @@ def protoWiki(request):
         Qs = getQSet(cBase)
 
     except Exception as e:
-        traceback.print_exc()
+        traceError()
         message = getReadableError(e)
         return JsonError(message)
 
@@ -60,7 +60,7 @@ def protoWiki(request):
             if msgError: return msgError 
 
         except Exception as e:
-            traceback.print_exc()
+            traceError()
             message = getReadableError(e)
             return JsonError(message)
 

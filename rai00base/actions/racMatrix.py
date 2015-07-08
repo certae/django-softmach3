@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import traceback
+from protoExt.utils.utilsBase import traceError
 
 from django.utils.encoding import smart_unicode
 from protoExt.utils.downloadFile import getFullPath
@@ -59,7 +59,7 @@ def doMatrixRaccordement(modelAdmin, request, selectedKeys, detKeys, parameters)
 				matrixRac.append(linRac)
 
 	except Exception as e:
-		traceback.print_exc()
+		traceError()
 		return  {'success':False, 'message' : getReadableError(e) }
 
 

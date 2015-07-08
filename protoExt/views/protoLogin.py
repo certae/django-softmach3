@@ -12,7 +12,7 @@ from django.template import loader
 from protoLib.getStuff import getUserProfile, getUserLanguage
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
 from protoExt.utils.utilsBase import getReadableError
-import traceback
+from protoExt.utils.utilsBase import traceError
 
 
 def protoGetUserRights(request):
@@ -70,11 +70,14 @@ def protoGetUserRights(request):
 
 
 def protoGetPasswordRecovery(request):
-    baseURI = request.build_absolute_uri('..')
+
+    if request.method != 'POST':
+        return JsonError( 'invalid message' ) 
                 
     if request.POST.get('email') and request.POST.get('login'):
         try:
             u = User.objects.get(email = request.POST['email'], username = request.POST['login'])
+            if not u.is_active: return JsonError( 'Cet utilisateur est desactiv&eacute;' )   
             token = user_token(u)
             
             try: 
@@ -90,14 +93,21 @@ def protoGetPasswordRecovery(request):
             message += ' %s\n\n%s : %s' % (link, _(u'Utilisateur'), request.POST['login'])
             message += ' \n\n%s' % (_(u'Si vous ne voulez pas réinitialiser votre mot de passe, il suffit d\'ignorer ce message et il va rester inchangé'))
             u.email_user( _('Nouveau mot de passe'), message)
-            return JsonSuccess()  
+
         except Exception as e:
-            traceback.print_exc()
+            traceError()
             return JsonError(getReadableError(e))  
+
+    else: 
+        return JsonError( 'invalid message' ) 
     
     return HttpResponseRedirect('/')
 
+
 def resetpassword(request):
+
+    if request.method != 'GET':
+        return JsonError( 'invalid message' ) 
     
     link = '/protoExtReset'
     if request.GET.get('a') and request.GET.get('t'):
@@ -114,6 +124,7 @@ def resetpassword(request):
             response = HttpResponseRedirect(link)
             return response
     return HttpResponseRedirect(link)
+
 
 def changepassword(request):
     
