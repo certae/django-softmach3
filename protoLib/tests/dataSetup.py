@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.models import User
-from datascripts.protoExt import BasicImportHelper
+from protoLib.tests.dataImporter import BasicImportHelper
 
 importer = BasicImportHelper()
 
@@ -18,42 +18,35 @@ def createAuthBase():
     auth_group_1.name = 'base'
     auth_group_1.save()
 
-    for perm in Permission.objects.all(): 
-        auth_group_1.permissions.add( perm )
+    for perm in Permission.objects.all():
+        auth_group_1.permissions.add(perm)
 
 
-    # Usr1 : admin 
-    User.objects.create_user(
-        username = 'A', 
-        password='1',
-        email = 'sm-certae@gmail.com',
-        is_superuser = True, 
-        is_staff = True, 
-        is_active = True )  
+    # Usr1 : admin
+    auth_user_1 = User.objects.create_user(username='A', password='1', email='sm-certae@gmail.com' )
+    auth_user_1.is_superuser=True
+    auth_user_1.is_staff=True
+    auth_user_1.is_active=True
+    auth_user_1.save()
 
-    # Usr2 : group base with all permissions   
-    auth_user_2 = User.objects.create_user(
-        username = 'B', 
-        password='1',
-        email = 'sm-certae@gmail.com',
-        is_superuser = False, 
-        is_staff = True, 
-        is_active = True )  
+    # Usr2 : group base with all permissions
+    auth_user_2 = User.objects.create_user(username='B', password='1') 
+    auth_user_2.is_superuser=False
+    auth_user_2.is_staff=True
+    auth_user_2.is_active=True
+    auth_user_2.save()
 
     auth_user_2.groups.add(auth_group_1)
 
-    # Usr3 : group base with not permissions   
-    User.objects.create_user(
-        username = 'C', 
-        password='1',
-        email = 'sm-certae@gmail.com' )  
+    # Usr3 : group base with not permissions
+    User.objects.create_user(username='C', password='1' ) 
 
 
 
 def createAuthExt():
 
     createAuthBase()
-    
+
     # Processing model: TeamHierarchy
     from protoLib.models.smbase import TeamHierarchy
 
@@ -77,7 +70,7 @@ def createAuthExt():
     from protoLib.models.smbase import UserProfile
 
     protoLib_userprofile_1 = UserProfile()
-    protoLib_userprofile_1.user =  importer.locate_object(User, "id", User, "id", 1) 
+    protoLib_userprofile_1.user = importer.locate_object(User, "id", User, "id", 1)
     protoLib_userprofile_1.userTeam = protoLib_teamhierarchy_1
     protoLib_userprofile_1.language = None
 #     protoLib_userprofile_1.userTree = '1,2'
@@ -85,7 +78,7 @@ def createAuthExt():
     protoLib_userprofile_1 = importer.save_or_locate(protoLib_userprofile_1)
 
     protoLib_userprofile_2 = UserProfile()
-    protoLib_userprofile_2.user =  importer.locate_object(User, "id", User, "id", 2) 
+    protoLib_userprofile_2.user = importer.locate_object(User, "id", User, "id", 2)
     protoLib_userprofile_2.userTeam = protoLib_teamhierarchy_2
     protoLib_userprofile_2.language = ''
 #     protoLib_userprofile_2.userTree = '2'
@@ -93,11 +86,10 @@ def createAuthExt():
     protoLib_userprofile_2 = importer.save_or_locate(protoLib_userprofile_2)
 
     protoLib_userprofile_3 = UserProfile()
-    protoLib_userprofile_3.user =  importer.locate_object(User, "id", User, "id", 3) 
+    protoLib_userprofile_3.user = importer.locate_object(User, "id", User, "id", 3)
     protoLib_userprofile_3.userTeam = protoLib_teamhierarchy_3
     protoLib_userprofile_3.language = ''
 #     protoLib_userprofile_3.userTree = '3'
     protoLib_userprofile_3.userConfig = {}
     protoLib_userprofile_3 = importer.save_or_locate(protoLib_userprofile_3)
-    
-    
+

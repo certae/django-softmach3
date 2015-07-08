@@ -2,10 +2,7 @@ from prototype.models import Project, Model, Entity, Property
 from prototype.models import Relationship, PropertyEquivalence 
 from prototype.models import Prototype, ProtoTable
 from prototype.models import Diagram, DiagramEntity
-
-
-def createAuthBase():
-    pass
+from protoLib.tests.dataSetup import createAuthBase
 
 
 def createTestProject():

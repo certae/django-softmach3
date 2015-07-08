@@ -1,11 +1,11 @@
 
 # -*- coding: utf-8 -*-
 
-from datascripts.protoExt import BasicImportHelper
 from protoLib.models.smbase import TeamHierarchy
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from protoLib.tests.dataSetup import createAuthExt
+from protoLib.tests.dataImporter import BasicImportHelper
 
 importer = BasicImportHelper()
 
