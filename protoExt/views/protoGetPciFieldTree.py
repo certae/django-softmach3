@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from protoExt.utils.utilsBase import traceError, json 
+import json 
+
+from protoExt.utils.utilsBase import traceError
 
 from django.http import HttpResponse
 

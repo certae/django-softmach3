@@ -9,7 +9,6 @@ from . import validateRequest
 import json
 from django.contrib.admin.sites import  site
 from protoExt.utils.utilsBase import traceError
-from protoExt.utils.utilsBase import traceError
 
 def protoExecuteAction(request):
     """ Ejecuta una opcion

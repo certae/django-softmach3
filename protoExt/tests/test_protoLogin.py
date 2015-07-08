@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.sessions.backends.base import SessionBase
 
 from protoExt.views.protoLogin import protoGetUserRights, protoGetPasswordRecovery
+from protoExt.views.protoLogin import resetpassword, changepassword, logout 
 
 class MySession(SessionBase):
     def cycle_key(self):
@@ -32,14 +33,14 @@ class protoGetUserRights_Test(TestCase):
     def tearDown(self):
         pass
 
-    def test_returns_error_when_method_is_not_post(self):
+    def test_protoGetUserRights_returns_error_when_method_is_not_post(self):
         self.request.method = 'GET'
 
         reponse = protoGetUserRights( self.request )
         returnMessage = json.loads( reponse.content.decode('utf-8'))
         self.assertFalse(returnMessage['success'])
 
-    def test_returns_error_when_user_is_invalid(self):
+    def test_protoGetUserRights_returns_error_when_user_is_invalid(self):
         userdata = {'login': 'A', 'password': 'x'}
         self.request.POST = userdata
         
@@ -48,7 +49,7 @@ class protoGetUserRights_Test(TestCase):
         self.assertFalse(returnMessage['success'])
 
 
-    def test_returns_error_when_user_is_inactive(self):
+    def test_protoGetUserRights_returns_error_when_user_is_inactive(self):
         self.user.is_active = False 
         self.user.save()
         
@@ -57,7 +58,7 @@ class protoGetUserRights_Test(TestCase):
         self.assertFalse(returnMessage['success'])
 
 
-    def test_can_retrieve_user_rights(self):
+    def test_protoGetUserRights_ok(self):
         reponse = protoGetUserRights( self.request )        
         returnMessage = json.loads( reponse.content.decode('utf-8'))
         self.assertTrue(returnMessage['success'])
@@ -88,36 +89,84 @@ class protoGetUserRights_Test(TestCase):
         self.assertFalse(returnMessage['success'])
 
 
-    def test_can_get_protoGetPasswordRecovery(self):
+    def test_protoGetPasswordRecovery_ok(self):
         reponse = protoGetPasswordRecovery( self.request )        
         self.assertEqual(reponse.url, '/')
 
 
 #   ====  resetpassword 
     def test_resetpassword_returns_error_when_method_is_not_get(self):
-        self.request.method = 'POST'
+        reponse = resetpassword( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertFalse(returnMessage['success'])
+
+    def test_resetpassword_notoken(self):
+        userdata = {'a': '1', 't': 'x'}
+        self.request.GET = userdata
+        self.request.method = 'GET'
 
         reponse = resetpassword( self.request )
         returnMessage = json.loads( reponse.content.decode('utf-8'))
         self.assertFalse(returnMessage['success'])
 
-    # def test_returns_error_when_user_is_invalid(self):
-    #     userdata = {'login': 'A', 'email': 'x'}
-    #     self.request.POST = userdata
-        
-    #     reponse = protoGetPasswordRecovery( self.request )
-    #     returnMessage = json.loads( reponse.content.decode('utf-8'))
-    #     self.assertFalse(returnMessage['success'])
 
-    # def test_returns_error_when_user_is_inactive(self):
-    #     self.user.is_active = False 
-    #     self.user.save()
-        
-    #     reponse = protoGetPasswordRecovery( self.request )
-    #     returnMessage = json.loads( reponse.content.decode('utf-8'))
-    #     self.assertFalse(returnMessage['success'])
+    def test_resetpassword_token(self):
+        link = '/protoExtReset'
+        userdata = {'a': '1', 't': 'f5074df647fd3e7698d99004b4c18dcf'}
+        self.request.GET = userdata
+        self.request.method = 'GET'
 
-    # def test_can_get_pwd_recovery(self):
-    #     reponse = protoGetPasswordRecovery( self.request )        
-    #     self.assertEqual(reponse.url, '/')
+        reponse = resetpassword( self.request )
+        self.assertEqual(reponse.url, link)
 
+    def test_resetpassword_direct(self):
+        link = '/protoExtReset'
+        userdata = {}
+        self.request.GET = userdata
+        self.request.method = 'GET'
+
+        reponse = resetpassword( self.request )
+        self.assertEqual(reponse.url, link)
+
+#   ====  changepassword
+    def test_changepassword_returns_error_when_method_is_not_post(self):
+        self.request.method = 'GET'
+        reponse = changepassword( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertFalse(returnMessage['success'])
+
+    def test_changepassword_nocurrent(self):
+        userdata = {'login': 'A', 'current': 'x', 'newPassword1': 'a', 'newPassword2': 'x'}
+        self.request.GET = userdata
+        self.request.method = 'GET'
+
+        reponse = changepassword( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertFalse(returnMessage['success'])
+
+
+    def test_changepassword_nomatch(self):
+        userdata = {'login': 'A', 'current': '1', 'newPassword1': 'a', 'newPassword2': 'x'}
+        self.request.GET = userdata
+        self.request.method = 'GET'
+
+        reponse = changepassword( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertFalse(returnMessage['success'])
+
+
+    def test_changepassword_ok(self):
+        userdata = {'login': 'A', 'current': '1', 'newPassword1': '1', 'newPassword2': '1'}
+        self.request.GET = userdata
+        self.request.method = 'GET'
+
+        reponse = changepassword( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertTrue(returnMessage['success'])
+
+#   ====  logout 
+    def test_logout_ok(self):
+        self.request.user = self.user 
+        reponse = logout( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertTrue(returnMessage['success'])

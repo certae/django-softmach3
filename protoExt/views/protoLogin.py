@@ -95,7 +95,6 @@ def protoGetPasswordRecovery(request):
             u.email_user( _('Nouveau mot de passe'), message)
 
         except Exception as e:
-            traceError()
             return JsonError(getReadableError(e))  
 
     else: 
@@ -121,8 +120,10 @@ def resetpassword(request):
             message += ' \n\n%s : %s' % (_(u'Utilisateur'), user)
             user.email_user( _('Nouveau mot de passe'), message)
             
-            response = HttpResponseRedirect(link)
-            return response
+            return HttpResponseRedirect(link)
+        else: 
+            return JsonError( token ) 
+
     return HttpResponseRedirect(link)
 
 
@@ -139,24 +140,25 @@ def changepassword(request):
     try:
         pUser = authenticate(username = userName, password = userPwd )
     except:
-        pUser = None
+        errMsg =  "Mauvais utilisateur ou mot de passe"
+        return JsonError(_(errMsg))
+    
     
     errMsg =  "Mauvais utilisateur ou mot de passe"
-    if pUser is not None:
-        if newpass1==newpass2:
-            user = User.objects.get(username = userName)
-            user.set_password(newpass1)
-            user.save()
-            if user.email:
-                try:
-                    message = _(u'Votre mot de passe a été réinitialisé ') +' : %s' % (newpass1) 
-                    message += ' \n\n%s : %s' % (_(u'Utilisateur'), user)
-                    user.email_user(_( 'Nouveau mot de passe'), message)
-                except:
-                    pass
-            return JsonSuccess()
-        else:
-            errMsg = 'Les mots de passe ne correspondent pas!'
+
+    if newpass1==newpass2:
+        pUser.set_password(newpass1)
+        pUser.save()
+        if pUser.email:
+            try:
+                message = _(u'Votre mot de passe a été réinitialisé ') +' : %s' % (newpass1) 
+                message += ' \n\n%s : %s' % (_(u'Utilisateur'), pUser)
+                pUser.email_user(_( 'Nouveau mot de passe'), message)
+            except:
+                pass
+        return JsonSuccess()
+    else:
+        errMsg = 'Les mots de passe ne correspondent pas!'
     return JsonError(_(errMsg))
 
 

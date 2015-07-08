@@ -9,12 +9,12 @@ def doSetDefaults(modeladmin, request, queryset, parameters):
     parameters   campo,  findText, replaceText 
     """
 
-#   El QSet viene con la lista de Ids  
+#   El QSet viene con la lista de Ids
     if queryset.count() > 1:
         return  {'success':False, 'message' : 'Single or null selection required'}
 
 
-    from protoExt.actions.setDefaults import actionSetDefaults  
+    from protoExt.actions.setDefaults import actionSetDefaults
 
     try:
         result = actionSetDefaults(request, queryset, parameters)
@@ -23,7 +23,7 @@ def doSetDefaults(modeladmin, request, queryset, parameters):
         traceError()
         result = {'success':False, 'message' : getReadableError(e) }
 
-    return result  
+    return result
 
 
 def doAddUser(modeladmin, request, queryset, parameters):
@@ -32,8 +32,8 @@ def doAddUser(modeladmin, request, queryset, parameters):
     parameters : sUser,sPwd,sMail,sTeam,[sGroups]
     """
 
-#   El QSet viene con la lista de Ids  
-    from protoExt.actions.addUser import actionAddUser   
+#   El QSet viene con la lista de Ids
+    from protoExt.actions.addUser import actionAddUser
 
     try:
         result = actionAddUser(request, queryset, parameters)
@@ -42,9 +42,9 @@ def doAddUser(modeladmin, request, queryset, parameters):
         traceError()
         result = {'success':False, 'message' : getReadableError(e) }
 
-    return result  
+    return result
 
-    return 
+    return
 
 
 def doFindReplace(modeladmin, request, queryset, parameters):
@@ -53,13 +53,13 @@ def doFindReplace(modeladmin, request, queryset, parameters):
     parameters   campo,  findText, replaceText 
     """
 
-#   El QSet viene con la lista de Ids  
+#   El QSet viene con la lista de Ids
     if queryset.count() < 1:
         return  {'success':False, 'message' : 'Multiple selection required'}
 
-    if len(parameters) != 3: 
+    if len(parameters) != 3:
         return  {'success':False, 'message' : 'required: fieldName, findText, replaceText' }
 
-    from protoLib.actions.findReplace import actionFindReplace  
+    from protoLib.actions.findReplace import actionFindReplace
     return actionFindReplace(request, queryset, parameters)
 
