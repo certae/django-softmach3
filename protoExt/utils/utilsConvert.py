@@ -6,6 +6,15 @@ from decimal import Decimal
 from django.utils.encoding import smart_str
 from django.template.defaultfilters import slugify
 
+def setString( sval ):
+    """
+    Force string and set None to asignations 
+    """
+    sval = smart_str( sval )
+    if not sval: sval = 'None'  
+    return sval 
+
+
 
 def slugify2 (sAux , sep = '' ):
     try: 

@@ -9,7 +9,8 @@ from protoLib.getStuff import getDjangoModel
 from protoLib.models.protomodel import smControlFields 
 from . import validateRequest 
 
-from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, toFloat, toDecimal, toBoolean
+from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, toFloat, toDecimal, toBoolean,\
+    setString
 from protoExt.utils.utilsBase import  getReadableError, list2dict
 from protoExt.utils.utilsWeb import doReturn
 from jsonfield2.utils import JSONEncoder 
@@ -181,6 +182,7 @@ def _protoEdit(request, myAction):
 # ---------------------
 
 
+
 def setRegister(cBase , rec, key, data):
 
     try:
@@ -210,7 +212,8 @@ def setRegister(cBase , rec, key, data):
             if not key.endswith('_id'): 
                 keyId = key + '_id'
             else: keyId = key
-            exec('rec.' + keyId + ' =  ' + smart_str( data[keyId] ))
+            
+            exec('rec.' + keyId + ' =  ' + setString( data[keyId] ))
             return
 
         elif cName == 'DateField':
