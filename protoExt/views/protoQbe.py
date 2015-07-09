@@ -290,14 +290,11 @@ def getFieldValue(fName, fType, rowData, cBase ):
 
     # Es una funcion
     if (fName == '__str__'):
-        if cBase.isProtoModel:  
-            val = rowData.__getattribute__('smNaturalCode')
-        else: 
-            try:
-                val = eval('rowData.__str__()')
-                val = verifyStr(val , '')
-            except:
-                val = 'Id#' + verifyStr(rowData.pk, '?')
+        try:
+            val = eval('rowData.__str__()')
+            val = verifyStr(val , '')
+        except:
+            val = 'Id#' + verifyStr(rowData.pk, '?')
 
     elif fName.startswith('@'):
         val = evaluateFunction(fName, rowData)

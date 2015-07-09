@@ -304,7 +304,7 @@ class Property(ProtoModelExt):
         unique_together = ('entity', 'code', 'smOwningTeam')
 
     def __str__(self):
-        return slugify2(self.entity.code + '.' + self.code)      
+        return slugify2(self.entity.code + '-' + self.code)      
 
     unicode_sort = ('entity', 'code',)
 
@@ -345,7 +345,7 @@ class Relationship(Property):
     typeRelation = models.CharField(blank=True, null=True, max_length=50)
 
     def __str__(self):
-        return slugify2(self.entity.code + '.' + self.code)     
+        return slugify2(self.entity.code + '-' + self.code)     
 
     def save(self, *args, **kwargs):
         self.isForeign = True 
@@ -458,7 +458,7 @@ class ProtoTable(ProtoModelBase):
     _setNaturalCode =False 
 
     def __str__(self):
-        return self.entity.code + '.' + str( self.pk )   
+        return self.entity.code + '-' + str( self.pk )   
 
     def myStr(self, *args, **kwargs):
         # Evalua el string de prototipos con la lista de campos seleccionados 

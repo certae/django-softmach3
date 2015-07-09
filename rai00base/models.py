@@ -13,7 +13,7 @@ class DomaineAffaires(ProtoModelBase):
     id_domaine_affaires = models.CharField(blank= False, null= False, max_length= 200)
     description = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(self.id_domaine_affaires)
 
     class Meta:
@@ -60,8 +60,8 @@ class Modele(ProtoModelBase):
     autres_acteurs = models.CharField(blank= True, null= True, max_length= 200)
     intrants_declencheurs = models.CharField(blank= True, null= True, max_length= 200)
 
-    def __unicode__(self):
-        return slugify2(str( self.domaff_modele) +  '.' + self.nom_modele)
+    def __str__(self):
+        return slugify2(str( self.domaff_modele) +  '-' + self.nom_modele)
 
     protoExt = {
         "actions": [
@@ -94,8 +94,8 @@ class Entite(ProtoModelBase):
     historique = models.BooleanField(default=False)
     physical_name = models.CharField(blank= True, null= True, max_length= 200)
 
-    def __unicode__(self):
-        return slugify2(self.nom_entite +  '.' + str( self.entite_mod))
+    def __str__(self):
+        return slugify2(self.nom_entite +  '-' + str( self.entite_mod))
 
     protoExt = {
         "actions": [
@@ -168,7 +168,7 @@ class ElementDonnee(ProtoModelBase):
     elements_de_source = models.TextField(blank = True, null = True)
     volumetrie = models.CharField(blank= True, null= True, max_length= 200)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2( self.nom_element_donnee  )
 
 #     class Meta:
@@ -194,8 +194,8 @@ class Relation(ProtoModelBase):
     refMin = models.CharField(blank=True, null=True, max_length=50)
     refMax = models.CharField(blank=True, null=True, max_length=50)
 
-    def __unicode__(self):
-        return slugify2(str( self.entite_rela1) +  '.' + str( self.entite_rela2) +  '.' + self.nom_relation)
+    def __str__(self):
+        return slugify2(str( self.entite_rela1) +  '-' + str( self.entite_rela2) +  '-' + self.nom_relation)
 
     # class Meta:
     #     unique_together = ('entite_rela1','entite_rela2','nom_relation',)
@@ -213,7 +213,7 @@ class ModeleRaccordement(ProtoModelBase):
 
     notes_modele_raccordement = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(self.nom_modele_raccordement)
 
 #     class Meta:
@@ -248,7 +248,7 @@ class Raccordement(ProtoModelBase):
 
 
     _autoIncrementField = 'no_raccordement'
-    def __unicode__(self):
+    def __str__(self):
         return slugify2( self.no_raccordement )
 
 #     class Meta:
@@ -266,7 +266,7 @@ class Specifications(ProtoModelBase):
     domaine_valeurs_spec = models.TextField(blank = True, null = True)
     norme_spec = models.ForeignKey('Norme', blank= True, null= True, related_name='specifications_norme_spec')
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(self.nom_specification)
 
     class Meta:
@@ -277,7 +277,7 @@ class IndexDesDonnees(ProtoModelBase):
     definition_donnee = models.TextField(blank = True, null = True)
     spec_index = models.ForeignKey('Specifications', blank= True, null= True, related_name='index_des_donnees_spec_index')
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(self.nom_donnee)
 
     class Meta:
@@ -289,8 +289,8 @@ class Projet(ProtoModelBase):
     nom_projet = models.CharField(blank= False, null= False, max_length= 200)
     description_projet = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(str( self.domaff_projet) +  '.' + self.nom_projet)
+    def __str__(self):
+        return slugify2(str( self.domaff_projet) +  '-' + self.nom_projet)
 
     class Meta:
         unique_together = ('domaff_projet','nom_projet',)
@@ -299,8 +299,8 @@ class RegroupementDesModeles(ProtoModelBase):
     mod_regrou = models.ForeignKey('Modele', blank= False, null= False, related_name='regroupement_des_modeles_mod_regrou')
     projet_regro = models.ForeignKey('Projet', blank= False, null= False, related_name='regroupement_des_modeles_projet_regro')
 
-    def __unicode__(self):
-        return slugify2(str( self.mod_regrou) +  '.' + str( self.projet_regro))
+    def __str__(self):
+        return slugify2(str( self.mod_regrou) +  '-' + str( self.projet_regro))
 
     class Meta:
         unique_together = ('mod_regrou','projet_regro',)
@@ -312,8 +312,8 @@ class ReglesGestion(ProtoModelBase):
     typere_regges = models.ForeignKey('TypeRegle', blank= True, null= True, related_name='regles_gestion_typere_regges')
     notes = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(str( self.eledon_regles) +  '.' + self.id_regles_gestion)
+    def __str__(self):
+        return slugify2(str( self.eledon_regles) +  '-' + self.id_regles_gestion)
 
     class Meta:
         unique_together = ('eledon_regles','id_regles_gestion',)
@@ -322,7 +322,7 @@ class PorteeRegleGestion(ProtoModelBase):
     eledon_portee = models.ForeignKey('ElementDonnee', blank= False, null= False, related_name='portee_regle_gestion_eledon_portee')
     portee_regles = models.ForeignKey('ReglesGestion', blank= True, null= True, related_name='portee_regle_gestion_portee_regles')
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(str( self.eledon_portee))
 
     class Meta:
@@ -334,7 +334,7 @@ class Norme(ProtoModelBase):
     notes_norme = models.CharField(blank= True, null= True, max_length= 200)
     version_norme = models.CharField(blank= True, null= True, max_length= 200)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(self.code_norme)
 
     class Meta:
@@ -344,7 +344,7 @@ class TypeRegle(ProtoModelBase):
     code_type_regle = models.CharField(blank= False, null= False, max_length= 200)
     description_type = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(self.code_type_regle)
 
     class Meta:
@@ -355,5 +355,5 @@ class CodageNormalise(ProtoModelBase):
     codnor_inddon = models.ForeignKey('IndexDesDonnees', blank= True, null= True, related_name='codage_normalise_codnor_inddon')
     codnor_spec = models.ForeignKey('Specifications', blank= True, null= True, related_name='codage_normalise_codnor_spec')
 
-    def __unicode__(self):
+    def __str__(self):
         return 'NoKey'

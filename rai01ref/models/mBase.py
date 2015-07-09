@@ -36,8 +36,8 @@ class DocType(ProtoModelBase):
     notes  = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(self.document + '.' + self.dtype)
+    def __str__(self):
+        return slugify2(self.document + '-' + self.dtype)
 
     class Meta:
         app_label = 'rai01ref'
@@ -114,8 +114,8 @@ class DocAttribute(ProtoModelBase):
         app_label = 'rai01ref'
         unique_together = ('docType', 'code' )
 
-    def __unicode__(self):
-        return slugify2( str( self.docType ) + '.' + self.code)      
+    def __str__(self):
+        return slugify2( str( self.docType ) + '-' + self.code)      
 
     unicode_sort = ('docType', 'code',)
 
@@ -134,7 +134,7 @@ class Domain(ProtoModelBase):
         app_label = 'rai01ref'
         unique_together = ( 'code', )
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2( self.code)      
 
     unicode_sort = ('code',)
@@ -167,8 +167,8 @@ class DocModel(ProtoModelBase):
     _jField = 'info'
 
 
-    def __unicode__(self):
-        return slugify2( self.docType.dtype + '.' + self.code )  
+    def __str__(self):
+        return slugify2( self.docType.dtype + '-' + self.code )  
 
 
     class Meta:

@@ -55,7 +55,7 @@ class Source(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
+    def __str__(self):
         return slugify2(self.code)
 
     class Meta:
@@ -70,7 +70,7 @@ class ArtefactSource(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'NoKey'
 
     class Meta:
@@ -93,7 +93,7 @@ class ArtefactComposition(ProtoModelBase):
     class Meta:
         app_label = 'rai01ref'
 
-    def __unicode__(self):
+    def __str__(self):
         try: 
             endNode = self.outputArt.code 
         except: endNode = "/*"
@@ -107,8 +107,8 @@ class ArtefactRequirement(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(str( self.artefact) +  '.' + str( self.requirement))
+    def __str__(self):
+        return slugify2(str( self.artefact) +  '-' + str( self.requirement))
 
     class Meta:
         unique_together = ('artefact','requirement',)
@@ -122,8 +122,8 @@ class ArtefactCapacity(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(str( self.artefact) +  '.' + str( self.capacity))
+    def __str__(self):
+        return slugify2(str( self.artefact) +  '-' + str( self.capacity))
 
     class Meta:
         unique_together = ('artefact','capacity',)
@@ -139,8 +139,8 @@ class Projet(ProtoModelBase):
     description  = models.TextField(blank = True, null = True)
 
 
-    def __unicode__(self):
-        return slugify2(str(self.domain) +  '.' + self.code)
+    def __str__(self):
+        return slugify2(str(self.domain) +  '-' + self.code)
 
     class Meta:
         unique_together = ('domain','code',)
@@ -155,8 +155,8 @@ class ProjectArtefact(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(str(self.artefact) +  '.' + str( self.projet))
+    def __str__(self):
+        return slugify2(str(self.artefact) +  '-' + str( self.projet))
 
     class Meta:
         unique_together = ('artefact','projet',)
@@ -171,8 +171,8 @@ class ProjectCapacity(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(str( self.projet) +  '.' + str( self.capacity))
+    def __str__(self):
+        return slugify2(str( self.projet) +  '-' + str( self.capacity))
 
     class Meta:
         unique_together = ('projet','capacity',)
@@ -186,8 +186,8 @@ class ProjectRequirement(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
-    def __unicode__(self):
-        return slugify2(str( self.projet) +  '.' + str( self.requirement))
+    def __str__(self):
+        return slugify2(str( self.projet) +  '-' + str( self.requirement))
 
     class Meta:
         unique_together = ('projet','requirement',)
