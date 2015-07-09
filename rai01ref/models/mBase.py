@@ -84,7 +84,7 @@ class DocAttribute(ProtoModelBase):
     DGT: 1504 Si manejara relaciones, podria encadenar diferentes tipos de artefacto 
          - isReference,  referenceDocument 
     """
-    docType = models.ForeignKey('DocType', blank=False, null=False)
+    docType = models.ForeignKey('DocType', blank=True, null=True)
     code = models.CharField(blank=False, null=False, max_length=200)
 
     """baseType, prpLength:  Caracteristicas generales q definen el campo """
@@ -150,7 +150,7 @@ a la definicion del tipo
 class DocModel(ProtoModelBase):
 
     """El docType_id determina el grupo ( filtro y valor por defecto )"""
-    docType = models.ForeignKey('DocType', blank=False, null=False, related_name = '+')
+    docType = models.ForeignKey('DocType', blank=True, null=True, related_name = '+')
 
     code = models.CharField( max_length=200, null=False, blank=False)
     domain  = models.ForeignKey('Domain', blank= True, null= True, related_name = '+') 

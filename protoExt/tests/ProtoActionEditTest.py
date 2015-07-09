@@ -3,6 +3,8 @@
 from django.test import TestCase
 from django.http import HttpRequest
 from django.contrib.auth import authenticate
+import json
+from protoExt.views.protoActionEdit import protoCreate, protoDelete, protoUpdate
 
 
 def protoMetaInitialize():
