@@ -21,3 +21,4 @@ python manage.py dumpscript  rai01ref 		> datascripts/rai01ref.py
 
 #  Db 
 tar -zcvf "db/db-$(date +"%Y%m%d_%H%M%S").tar.gz" db/db.sqlite3
+

@@ -408,7 +408,14 @@ def createProtoMeta( cBase, grid ):
 
             pDescription = '{0}: {1}'.format( dBase, shortTitle ).lower()
             grid.fields = []
-            for lField in grid.fieldsDict.itervalues():
+
+            # Python 2 et 3      
+            try:
+                values = grid.fieldsDict.itervalues()
+            except AttributeError:
+                values = grid.fieldsDict.values()
+            
+            for lField in values:
                 grid.fields.append( lField )
 
 

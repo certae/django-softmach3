@@ -2,15 +2,11 @@
 
 #  Tener en cuenta q al crear una app nueva los contettypes pueden varias y asi todos los permisos 
 
-#  Borrar datos 
-tar -zcvf "db/db-$(date +"%Y%m%d_%H%M%S").tar.gz" db/db.sqlite3
-
-
 # Actualiza la db 
 ./dosyncdb.sh 
 ./dodumpdata.sh 
 
-# Borra 
+# Borra los datos 
 rm db/db.sqlite3
 find . -name __pycache__  -type d -exec rm -r {} +
 find . -name migrations  -type d -exec rm -r {} +

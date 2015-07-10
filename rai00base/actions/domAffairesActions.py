@@ -28,7 +28,7 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
         return  {'success':False, 'message' : 'No record selected' }
 
     from protoLib.getStuff import getUserProfile
-    userProfile = getUserProfile( request.user, 'prototype', '' )
+    userProfile = getUserProfile( request.user )
 
     from rai00base.actions.domAffimportOMS import importOMS_RAI
     cOMS = importOMS_RAI( userProfile, queryset[0]  )

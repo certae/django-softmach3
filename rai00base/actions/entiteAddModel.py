@@ -76,7 +76,7 @@ def extractModel(request, queryset, parameters):
     ]
 
     from protoLib.getStuff import getUserProfile
-    userProfile = getUserProfile( request.user, 'prototype', '' )
+    userProfile = getUserProfile( request.user )
 
     # get destination model and project
     from rai00base.models import Modele,  Entite, ElementDonnee, Relation  

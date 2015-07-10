@@ -62,7 +62,7 @@ class CreateViewTest(TestCase):
 
     def test_ViewCreation(self):
         for entries in self.entity:
-            createView(entries, getViewCode(entries), getUserProfile(26, 'prototype', ''))
+            createView(entries, getViewCode(entries), getUserProfile(26))
         self.assertTrue(len(Prototype.objects.all()) > 0)
 
 

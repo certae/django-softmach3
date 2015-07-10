@@ -14,7 +14,7 @@ def doBuildRaiMenu( request, queryset ):
     """
 
     currentUser = request.user
-    userProfile = getUserProfile(currentUser, 'getMenu', '') 
+    userProfile = getUserProfile(currentUser) 
     viewIcon = 'icon-1'
 
 #-- Generacion de menu 
@@ -63,7 +63,7 @@ def doBuildRaiMenu( request, queryset ):
     if not protoDef.active :  
         return  {'success':False, 'message' : 'Menu not found' }
 
-    menuData = json.loads( protoDef.metaDefinition  ) 
+    menuData = protoDef.metaDefinition 
 
 
 #-- Update de la Db ------------------------------------------------------------- 
@@ -83,7 +83,13 @@ def doBuildRaiMenu( request, queryset ):
             'children': [],
         }
 
-    for raiDoc in lMenu.itervalues():
+    # Python 2 et 3      
+    try:
+        values = lMenu.itervalues()
+    except AttributeError:
+        values = lMenu.values()
+
+    for raiDoc in values:
         raiMenu['children'].append( raiDoc )
 
     menuData.insert( 0, raiMenu)

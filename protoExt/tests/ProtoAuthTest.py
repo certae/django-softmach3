@@ -14,7 +14,7 @@ class GetUserProfileTest(TestCase):
         pass
 
     def test_method_with_user_none(self):
-        self.assertIsNone(getUserProfile(None, '', ''))
+        self.assertIsNone(getUserProfile(None))
 
 
 class ActivityLogTest(TestCase):
