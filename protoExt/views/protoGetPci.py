@@ -46,13 +46,12 @@ def protoGetPCI(request):
         pass
 
     
+#   ==============  Lee el contexto 
     try:
 
-#   ==============  Lee el contexto 
         setContextDefaults( cBase )
         #FUTURE:  addWfParameters( cBase  )
 
-#   ============== Verificacion de la metadata 
         cBase.protoMeta = verifyMeta( cBase , 'pci')
     except Exception:
         traceError()    
@@ -133,28 +132,4 @@ def getBasePci(cBase, readOnly = False  ):
     return 
 
 
-def verifyMeta( cBase , pciType ): 
-    """
-    FUTURE: verifyMeta
-    """
-
-
-    # Add setDefault Action 
-    if pciType == 'pci': 
-
-        ACTION_NAME =  "doSetDefaults"
-        if cBase.protoMeta.get( 'defaultTo', []): 
-
-            actionFound = False 
-            lActions = cBase.protoMeta.get( 'actions', [])
-            for lAction in lActions:
-                if lAction.get( 'name') == ACTION_NAME: 
-                    actionFound = True
-                    break
-
-            if not actionFound: 
-                lActions.append( { "name": ACTION_NAME, "selectionMode" : "optional"} )
-
-
-    return cBase.protoMeta
 

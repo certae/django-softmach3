@@ -22,7 +22,9 @@ class BasicImportHelper(object):
         the_obj = current_object.__class__.objects.get(**search_data)
         return the_obj
 
-    def locate_object(self, original_class, original_pk_name, the_class, pk_name, pk_value, obj_content):
+    def locate_object(self, original_class, original_pk_name, the_class, pk_name, pk_value, obj_content = {}):
+#       locate_object(      User,           "id",             User,      "id",    1)
+
         # You may change this function to do specific lookup for specific objects
         #
         # original_class class of the django orm's object that needs to be located

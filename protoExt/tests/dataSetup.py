@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 
 from protoLib.models.smbase import TeamHierarchy

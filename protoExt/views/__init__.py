@@ -22,11 +22,17 @@ class cAux:
 def validateRequest( request ): 
 
     cBase = cAux()
-    if not request.user.is_authenticated(): 
-        return cBase, JsonError('readOnly User')
-    
     if request.method != 'POST':
         return cBase, JsonError('invalid message') 
+
+    if not request.user: 
+        return cBase, JsonError('readOnly User')
+
+    if not request.user.is_authenticated(): 
+        return cBase, JsonError('readOnly User')
+
+    if not request.user.is_active: 
+        return cBase, JsonError('readOnly User')
 
     cBase.viewCode = request.POST.get('viewCode', '').strip() 
     cBase.userProfile = getUserProfile( request.user ) 
