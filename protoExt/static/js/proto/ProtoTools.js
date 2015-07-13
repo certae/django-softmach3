@@ -1,4 +1,4 @@
-/*global Ext, _SM, _MetaObjects  */
+/*global Ext, _SM  */
 /*global Meta2Tree, Tree2Meta */
 
 function Meta2Tree(oData, pName, ptType) {
@@ -16,7 +16,7 @@ function Meta2Tree(oData, pName, ptType) {
 
     //    Initial validation  --------------------------------------------
 
-    var nodeDef = _MetaObjects[ptType];
+    var nodeDef = _SM._MetaObjects[ptType];
     if (!nodeDef) {
         return;
     }
@@ -104,7 +104,7 @@ function Meta2Tree(oData, pName, ptType) {
         // @tNode   referencia al nodo base
         // @ptType  tipo de nodo hijo
         // @oList    objeto lista de la meta
-        var nodeDef = _MetaObjects[ptType];
+        var nodeDef = _SM._MetaObjects[ptType];
 
         for (var sKey in oList ) {
             var oData = oList[sKey];
@@ -131,7 +131,7 @@ function Meta2Tree(oData, pName, ptType) {
                         delete nodeDef.lists[ix];
                         continue;
                     }
-                    var childConf = _MetaObjects[sKey];
+                    var childConf = _SM._MetaObjects[sKey];
                     if (childConf.__ptStyle == 'colList' || childConf.__ptStyle == 'jsonText') {
                         continue;
                     }
@@ -180,7 +180,7 @@ function Meta2Tree(oData, pName, ptType) {
     // Recorre las listas
     for (var ix in nodeDef.lists  ) {
         var sKey = nodeDef.lists[ix];
-        var childConf = _MetaObjects[sKey], tChild;
+        var childConf = _SM._MetaObjects[sKey], tChild;
 
         tChild = getNodeBase(sKey, sKey, {
             '__ptType' : sKey
@@ -220,7 +220,7 @@ function Tree2Meta(tNode) {
     }
 
     // Obtiene la informacion base del nodo
-    var nodeConf = _MetaObjects[myObj.__ptType];
+    var nodeConf = _SM._MetaObjects[myObj.__ptType];
     if (nodeConf.listOf) {
         mData = [];
         getChilds(myObj.tChilds, mData, 'array');

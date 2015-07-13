@@ -19,6 +19,7 @@ from protoExt.views.protoActionEdit  import protoCreate, protoUpdate, protoDelet
 from protoExt.utils.loadFile import loadFiles
 from protoExt.views.protoActionWiki import protoWiki
 from protoExt.views.protoActionAction import protoExecuteAction
+from protoExt.views.protoGetMetaDefinition import protoGetMetaDefinition
 
 
 urlpatterns = patterns('',
@@ -33,6 +34,7 @@ urlpatterns = patterns('',
     url('protoUpd/$', protoUpdate),
     url('protoDel/$', protoDelete),
 
+    url('protoGetMetaDefinition/$', protoGetMetaDefinition),
     url('protoGetMenuData/$', protoGetMenuData),
     url('protoGetPCI/$', protoGetPCI),
 

@@ -290,8 +290,8 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
             __ptConfig = record.data.__ptConfig || {};
 
             // Obtiene la definicion del nodo hijo
-            nodeDef = _MetaObjects[ptType];
-            childDef = _MetaObjects[nodeDef.listOf] || {};
+            nodeDef = _SM._MetaObjects[ptType];
+            childDef = _SM._MetaObjects[nodeDef.listOf] || {};
 
             // Pregunta el nombre del nuevo nodo
             pName = _SM.ptPrompt(nodeDef.listOf, childDef.addPrompt);
@@ -344,7 +344,7 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
         // ----------------------------------------------------------------------------------------------
 
         function getAttrMsg(attrName) {
-            var msg = _MetaObjects[attrName] || {};
+            var msg = _SM._MetaObjects[attrName] || {};
             return msg.description || '';
         }
 
@@ -383,7 +383,7 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
             ptType = oData.__ptType;
             __ptConfig = oData.__ptConfig || {};
 
-            template = _MetaObjects[ptType] || {};
+            template = _SM._MetaObjects[ptType] || {};
 
             // Status Bar
             sMsg = getAttrMsg(record.data.text);
@@ -414,7 +414,7 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
             }
 
             // Prepara el menu
-            var nodeDef = _MetaObjects[ptType] || {};
+            var nodeDef = _SM._MetaObjects[ptType] || {};
             if (nodeDef.allowAdd) {
 
                 tBar.setButton('add', true, true, _SM.__language.ProtoPcl_Add_Instance + ptType, record);

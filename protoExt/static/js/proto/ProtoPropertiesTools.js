@@ -63,7 +63,7 @@ function getTemplate( ptType, forForm,  metaField  )  {
     var prpName, prpValue, prpHelp, prpChoices, prpDict, prpType;
 
     // Lee la plantilla de la variable publica
-    var objConfig = _MetaObjects[ ptType ] || {};
+    var objConfig = _SM._MetaObjects[ ptType ] || {};
 
     // Recorre el vector de propieades
     // puede ser solo el nombre o la tupla name, value
@@ -77,13 +77,13 @@ function getTemplate( ptType, forForm,  metaField  )  {
             prpValue = prp.value;
         } else {
             prpName = prp;
-            prpValue =  _MetaProperties[ prpName ] || null;
+            prpValue =  _SM._MetaProperties[ prpName ] || null;
         }
 
 
-        prpHelp =  _MetaProperties[ prpName + '.help'];
-        prpChoices =  _MetaProperties[ prpName + '.choices'];
-        prpType =  _MetaProperties[ prpName + '.type'];
+        prpHelp =  _SM._MetaProperties[ prpName + '.help'];
+        prpChoices =  _SM._MetaProperties[ prpName + '.choices'];
+        prpType =  _SM._MetaProperties[ prpName + '.type'];
 
         // Para presentacion en la forma o en las propiedades
         if (forForm) {

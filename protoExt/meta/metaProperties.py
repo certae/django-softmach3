@@ -1,4 +1,79 @@
+# -*- coding: utf-8 -*-
+
+"""
+ Objetos utilizados por la pci,
+
+ Sirve para generar y validar la estructura de un json a partir de la definicion q se haga aqui
+ tambien debe servir para la creacion del arbol de la plc y las validaciones necesarias
+
+ El marcador ( atrr ) del objeto corresponde al "__ptType" y es el nombre del objeto aqui definido
+
+ La definicion tiene las siguientes propiedades
+
+      description
+      lists
+      objects
+      properties              # Son valores simples: string, number, bool
+      roProperties            # readOnly en la pcl, deben preexistir en properties
+
+ Los objetos de tipo list contienen ademas, esto permite agregar instancias en la pcl
+
+       listOf
+
+ Tambien se puede aplicar un valor por defecto, por
+ ejemplo en listDisplay  = ['__str__']
+
+      prpDefault : ['__str__']
+
+ Si se desea cambiar el tipo de definicion:
+
+       __ptType  lleva a la definicion correcta
+
+ Para la edicion en la pcl contienen
+
+       __ptStyle  [ jsonText, colList ]
+
+ --- Una plantilla de la form
+
 {
+    "description": "Lista de acciones backend",
+    "listOf" : "actionDef"
+    "properties": [],
+    "roProperties" : [],
+    "objects": [],
+    "lists": [],
+    "roProperties": []
+},
+
+-- Determina el nombre del nodo en las listas
+
+"nodeName" : "filterName",
+
+-- Permite agregar un template en caso de nodos json
+
+"__ptStyle" : "jsonText"
+
+"addTemplate" : "{\"listDisplay\":{},\"name\": \"@name\"}",
+
+--  Creacion de nodos
+
+"allowAdd" : true            //  requiere un listOf
+"listOf" : "filtersSetDef",
+
+
+--  FieldSet
+ El layout column permite un manejo flexible
+ fluid:  Si no se especifica el "columnWidth"  es flexible
+ xCol :Dependiendo el numero de columnas el "columnWidth"  puede ser 1, 0.5, 0.33
+ fix  : Se especifica el "width"  ( si se especifica el width prima sobre la definicion )
+
+
+"""
+
+
+META_PROPERTIES = {
+    
+    "versionMeta" : '14.0201', 
     "metaVersion.help": "Version interna de la meta",
     "userVersion.help": "Version de usuario ( editable )",
 
@@ -81,19 +156,19 @@
     "direction.choices": ["ASC", "DESC" ],
 
     "physicalName.help": "Nombre fisico o funcion por ejemplo @str( f1,f2 )",
-    "required": false,
+    "required": False,
     "required.help": "Requiere valores la forma",
     "allowDecimals.help": "NO USAR : si permite o no decimales, si decimalPReciosion = 0 implica falso",
-    "autoscroll": true,
+    "autoscroll": True,
     "autoscroll.help": "t/f",
 
     "choices.help": "lista de valores separados por coma para el combobox",
 
-    "collapsed": false,
+    "collapsed": False,
     "collapsed.help": "t/f aparece contraido",
     "collapsed.type": "boolean",
 
-    "collapsible": false,
+    "collapsible": False,
     "collapsible.help": "t/f",
     "collapsible.type": "boolean",
 
@@ -160,7 +235,7 @@
     "flex.type": "number",
     "flex.help": "Recalcula el ancho en funcion de la forma y el peso ( flex) asignado",
 
-    "readOnly": false,
+    "readOnly": False,
     "readOnly.help": "campo de solo lectura",
     "title.help": "Titulo del componente",
     "tooltip.help": "microayuda del componente ",

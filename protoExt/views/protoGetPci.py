@@ -16,6 +16,7 @@ from protoExt.views.protoGrid import ProtoGridFactory , createProtoMeta
 from protoExt.views.getStuff import setContextDefaults
 
 from protoExt.views.prototypeActions import isPrototypePci, getPrototypePci 
+from protoExt.meta import verifyMeta, addDefaultActions
 
 
 
@@ -49,10 +50,14 @@ def protoGetPCI(request):
 #   ==============  Lee el contexto 
     try:
 
-        setContextDefaults( cBase )
-        #FUTURE:  addWfParameters( cBase  )
 
-        cBase.protoMeta = verifyMeta( cBase , 'pci')
+        cBase.protoMeta = verifyMeta( cBase.protoMeta , 'pci')
+
+        setContextDefaults( cBase )
+        addDefaultActions( cBase )
+
+        #FUTURE:  addWfParameters( cBase  )
+        
     except Exception:
         traceError()    
         return JsonError('invalid definition: {0}'.format( cBase.viewEntity )) 

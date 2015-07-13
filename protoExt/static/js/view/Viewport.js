@@ -64,10 +64,35 @@ Ext.define('ProtoUL.view.Viewport', {
 
     },
 
+    _loadMetaDefinition: function() {
+
+        var me = this;
+
+        Ext.Ajax.request({
+            method: 'POST',
+            url: _SM._PConfig.urlGetMetaDefinition,
+            success: function(result, request) {
+                var myResult = Ext.decode(result.responseText);
+                _SM._MetaObjects = myResult.metaObjects;
+                _SM._MetaProperties = myResult.metaProperties;
+            },
+            failure: function(result, request) {
+                _SM._MetaObjects = {};
+                _SM._MetaProperties = {};
+                _SM.errorMessage('Error loading MetaDefinition', 'MetaDefinition not found');
+            },
+            scope: this
+        });
+
+    },
+
     afterRender: function() {
         this.callParent(arguments);
 
         _SM.__StBar.showBusy('loading ... ', 'vPort', 3000);
+
+        // Load MetaDefinition 
+        this._loadMetaDefinition(); 
 
         // Load PCI
         // TODO: This could be configured by user

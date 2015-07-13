@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from protoExt.utils.utilsBase import verifyList, random_string_generator
 from .metaObjects import META_OBJECTS
+from .metaProperties import META_PROPERTIES 
 
 
-def verifyMeta( oMeta, ptType, tNode ): 
+def verifyMeta( oMeta, ptType, tNode = None ): 
     """
     oMeta : Objeto a verificar 
     ptType : definicion del tipo de objeto 
@@ -93,26 +94,21 @@ def clearPhantonProps( ptConfig, ptType) :
     return ptConfig
 
 
-def addDefaultActions( cBase , pciType ): 
+def addDefaultActions( cBase  ): 
 
     # Add setDefault Action 
-    if pciType == 'pci': 
+    ACTION_NAME =  "doSetDefaults"
+    if cBase.protoMeta.get( 'defaultTo', []): 
 
-        ACTION_NAME =  "doSetDefaults"
-        if cBase.protoMeta.get( 'defaultTo', []): 
+        actionFound = False 
+        lActions = cBase.protoMeta.get( 'actions', [])
+        for lAction in lActions:
+            if lAction.get( 'name') == ACTION_NAME: 
+                actionFound = True
+                break
 
-            actionFound = False 
-            lActions = cBase.protoMeta.get( 'actions', [])
-            for lAction in lActions:
-                if lAction.get( 'name') == ACTION_NAME: 
-                    actionFound = True
-                    break
-
-            if not actionFound: 
-                lActions.append( { "name": ACTION_NAME, "selectionMode" : "optional"} )
-
-
-    return cBase.protoMeta
+        if not actionFound: 
+            lActions.append( { "name": ACTION_NAME, "selectionMode" : "optional"} )
 
 
 def getNodeBase(pName, ptType, __ptConfig):
