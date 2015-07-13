@@ -51,7 +51,7 @@ def protoGetPCI(request):
     try:
 
 
-        cBase.protoMeta = verifyMeta( cBase.protoMeta , 'pci')
+        cBase.protoMeta = verifyMeta( cBase.protoMeta , 'pcl')
 
         setContextDefaults( cBase )
         addDefaultActions( cBase )

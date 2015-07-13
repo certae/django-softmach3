@@ -307,3 +307,19 @@ function getNodeBase(pName, ptType, __ptConfig) {
     };
 
 }
+
+function clearPhantonProps(__ptConfig, __ptType) {
+    /* Borra las propieades q no hacen parte de la config de base
+     */
+    var objConfig = _SM._MetaObjects[__ptType] || {};
+
+    if ( objConfig.properties) { 
+        for (var ix in __ptConfig ) {
+            if (!( ix in _SM.objConv(objConfig.properties.concat(['name', '__ptValue', '__ptList', '__ptType'])))) {
+                // console.log( ix )
+                delete __ptConfig[ix];
+            }
+        }
+    }
+    return __ptConfig;
+}

@@ -23,7 +23,9 @@ _SM._PConfig = {
     urlGetFieldTree: 'protoLib/protoGetFieldTree/',
     urlGetDetailsTree: 'protoLib/protoGetDetailsTree/',
     urlGetUserRights: 'protoLib/protoGetUserRights/',
-    urlGetMetaDefinition: 'protoLib/protoGetMetaDefinition/',
+
+    urlVerifyMeta: 'protoLib/protoVerifyMeta/',
+    urlGetMetaStructure: 'protoLib/protoGetMetaStructure/',
 
     urlGetPasswordRecovery: 'protoLib/protoGetPasswordRecovery/',
     urlSubmitChangePassword: 'protoLib/submitChangePassword/',

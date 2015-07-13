@@ -53,9 +53,6 @@ def setContextDefaults( cBase ):
             vFld['prpDefault'] = lField.get( 'propDescription' ) 
             
 
-    return vFld 
-
-
 
 def setContextFilter( cBase ):
     """

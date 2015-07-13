@@ -19,7 +19,7 @@
 /*global Ext */
 /*global _SM */
 /*global ProtoUL */
-/*global verifyMeta */
+
 
 _SM.getStoreDefinition = function(stDef) {
 
@@ -364,9 +364,6 @@ _SM.DefineProtoModel = function(myMeta) {
     // type: 'hasMany',
     // autoLoad: true
     // convert :  Campo Virtual calculado,  Apunta a una funcion q  genera el valor
-
-    // Verifica la conf del objeto de base
-    myMeta = verifyMeta(myMeta, 'pcl');
 
     var myModelFields = [];
     // model Fields

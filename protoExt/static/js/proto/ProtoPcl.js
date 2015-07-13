@@ -281,7 +281,7 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
         function addTreeNode(record) {
 
             // verifica el tipo de datos
-            var ptType = record.data.__ptType, __ptConfig, nodeDef, nodeName, tNode, childDef, pName, template, newObj;
+            var ptType = record.data.__ptType, __ptConfig, nodeDef, nodeName, tNode, childDef, pName, template;
             if (!ptType) {
                 return;
             }
@@ -315,14 +315,18 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
                 template = childDef.addTemplate.replace('@name', pName);
                 tNode.__ptConfig.__ptValue = template;
 
+                record.appendChild(tNode);
+
             } else if (childDef.__ptStyle == 'colList') {
+
+                record.appendChild(tNode);
+
             } else {
 
                 // Tipo objeto, debe recrear el objeto pues existen listas y otras
-                newObj = verifyMeta({}, nodeDef.listOf, tNode);
+                tNode = callVerifyMeta({}, nodeDef.listOf, tNode, record );
             }
 
-            record.appendChild(tNode);
 
         }
 
@@ -500,7 +504,6 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
         }
 
         me.up('window').setTitle(winTitle);
-        me.myMeta.metaVersion = _versionMeta;
 
         if (me.metaConfig) {// La meta modificada
             _SM.savePci(me.myMeta);
@@ -509,7 +512,6 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
             // Solo el custom, empaqueta el objeto para poder agregarle info de control
             myCustom = {
                 viewCode: '_custom.' + me.myMeta.viewCode,
-                metaVersion: _versionMeta,
                 custom: myCustom
             };
             _SM.savePci(myCustom);
@@ -560,3 +562,27 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
     }
 
 });
+
+
+function callVerifyMeta(oMeta, ptType, tNode, record ) {
+
+    Ext.Ajax.request({
+        method: 'POST',
+        url: _SM._PConfig.urlVerifyMeta,
+        params : { 
+            oMeta : oMeta, 
+            ptType : ptType, 
+            tNode : tNode
+        }, 
+        success: function(result, request) {
+            var myResult = Ext.decode(result.responseText);
+            record.appendChild( myResult.tNode );
+
+        },
+        failure: function(result, request) {
+            _SM.errorMessage('Error loading MetaDefinition', ptType + ' :MetaDefinition not found');
+        },
+        scope: this
+    });
+
+}

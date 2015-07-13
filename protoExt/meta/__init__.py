@@ -53,7 +53,7 @@ def verifyMeta( oMeta, ptType, tNode = None ):
                 tNode.children.append(nBranch)
 
     # Verifica los Objetos ( no aplica los default, pues la config puede eliminarlos )
-    elif  ptConfig.get( 'objects' ) :
+    if  ptConfig.get( 'objects' ) :
         for sKey in ptConfig['objects'] :
 
             if type(sKey).__name__ != 'str' :

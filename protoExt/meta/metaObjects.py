@@ -13,9 +13,9 @@ META_OBJECTS = {
             "jsonField", "returnField", "updateTime", 
             "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciType"
             ],
+        "roProperties" : ["viewEntity", "idProperty", "updateTime", "metaVersion", "protoEntity", "protoEntityId"],
         "objects" : ["gridConfig", "gridSets", "formConfig", "custom", "businessRules"],
         "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig", "defaultTo" ],
-        "roProperties" : ["viewEntity", "idProperty", "updateTime", "metaVersion", "protoEntity", "protoEntityId"]
     },
 
     "fields" : {

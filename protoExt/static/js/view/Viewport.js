@@ -64,13 +64,13 @@ Ext.define('ProtoUL.view.Viewport', {
 
     },
 
-    _loadMetaDefinition: function() {
+    _loadMetaStructure: function() {
 
         var me = this;
 
         Ext.Ajax.request({
             method: 'POST',
-            url: _SM._PConfig.urlGetMetaDefinition,
+            url: _SM._PConfig.urlGetMetaStructure,
             success: function(result, request) {
                 var myResult = Ext.decode(result.responseText);
                 _SM._MetaObjects = myResult.metaObjects;
@@ -92,7 +92,7 @@ Ext.define('ProtoUL.view.Viewport', {
         _SM.__StBar.showBusy('loading ... ', 'vPort', 3000);
 
         // Load MetaDefinition 
-        this._loadMetaDefinition(); 
+        this._loadMetaStructure(); 
 
         // Load PCI
         // TODO: This could be configured by user
