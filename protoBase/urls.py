@@ -3,6 +3,7 @@ from django.conf.urls import  include, url
 from django.contrib import admin
 from protoExt.utils.generic_views import DirectTemplateView
 from django.conf import settings
+from protoBase.test import protoQuickTest
 admin.autodiscover()
 
 
@@ -21,6 +22,7 @@ else: IX_TEMPLATE = 'index.html'
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^tests/', protoQuickTest ),
 #   url(r'^admin/', include(xadmin.site.urls)),
 
     url(r'^main$', TemplateView.as_view(template_name=IX_TEMPLATE)),
