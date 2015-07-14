@@ -51,7 +51,8 @@ def protoGetPCI(request):
     try:
 
 
-        cBase.protoMeta = verifyMeta( cBase.protoMeta , 'pcl')
+        # retorna meta y tNode, toma solo la meta 
+        cBase.protoMeta = verifyMeta( cBase.protoMeta , 'pcl')[0]
 
         setContextDefaults( cBase )
         addDefaultActions( cBase )

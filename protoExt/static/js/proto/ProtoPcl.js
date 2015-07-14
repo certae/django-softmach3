@@ -570,9 +570,9 @@ function callVerifyMeta(oMeta, ptType, tNode, record ) {
         method: 'POST',
         url: _SM._PConfig.urlVerifyMeta,
         params : { 
-            oMeta : oMeta, 
-            ptType : ptType, 
-            tNode : tNode
+            oMeta : Ext.encode( oMeta ), 
+            tNode : Ext.encode( tNode ),
+            ptType : ptType
         }, 
         success: function(result, request) {
             var myResult = Ext.decode(result.responseText);

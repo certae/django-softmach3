@@ -978,29 +978,27 @@ _SM.saveProtoObj = function(viewCode, sMeta, options) {
 
 };
 
-_SM.loadJsonConfig = function(fileName, options) {
+// _SM.loadJsonConfig = function(fileName, options) {
+//     options = options || {};
+//     Ext.applyIf(options, {
+//         scope : this,
+//         success : Ext.emptyFn,
+//         failure : Ext.emptyFn
+//     });
+//     Ext.Ajax.request({
+//         method : 'POST',
+//         url : '/resources/' + fileName,
+//         scope : options.scope,
+//         success : function(result, request) {
+//             options.success.call(options.scope, result, request);
+//         },
+//         failure : function(result, request) {
+//             _SM.errorMessage('LoadJsonConfig', result.status + ' ' + result.statusText);
+//             options.failure.call(options.scope, result, request);
+//         }
+//     });
 
-    options = options || {};
-    Ext.applyIf(options, {
-        scope : this,
-        success : Ext.emptyFn,
-        failure : Ext.emptyFn
-    });
-
-    Ext.Ajax.request({
-        method : 'POST',
-        url : '/resources/' + fileName,
-        scope : options.scope,
-        success : function(result, request) {
-            options.success.call(options.scope, result, request);
-        },
-        failure : function(result, request) {
-            _SM.errorMessage('LoadJsonConfig', result.status + ' ' + result.statusText);
-            options.failure.call(options.scope, result, request);
-        }
-    });
-
-};
+// };
 
 _SM.defineProtoPclTreeModel = function() {
 

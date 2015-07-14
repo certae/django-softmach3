@@ -50,7 +50,7 @@ def verifyMeta( oMeta, ptType, tNode = None ):
                     'children' : []
                 }
 
-                tNode.children.append(nBranch)
+                tNode.get('children', []).append(nBranch)
 
     # Verifica los Objetos ( no aplica los default, pues la config puede eliminarlos )
     if  ptConfig.get( 'objects' ) :
@@ -65,7 +65,7 @@ def verifyMeta( oMeta, ptType, tNode = None ):
             # agrega un nuevo objeto al arbol
             if tNode :
                 nBranch = getNodeBase(sKey, sKey, {'__ptType' : sKey})
-                tNode.children.append(nBranch)
+                tNode.get('children', []).append(nBranch)
 
                 # Agrega los hijos tambein al arbol
                 oMeta[sKey] = verifyMeta(myObj, sKey, nBranch)
@@ -74,8 +74,7 @@ def verifyMeta( oMeta, ptType, tNode = None ):
                 oMeta[sKey] = verifyMeta(myObj, sKey)
 
 
-    # No es necesario verificar las propiedades pues se hace al momento de guardar la pcl
-    return oMeta
+    return oMeta, tNode 
 
 
 
