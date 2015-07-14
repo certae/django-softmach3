@@ -67,11 +67,11 @@ def verifyMeta( oMeta, ptType, tNode = None ):
                 nBranch = getNodeBase(sKey, sKey, {'__ptType' : sKey})
                 tNode.get('children', []).append(nBranch)
 
-                # Agrega los hijos tambein al arbol
-                oMeta[sKey] = verifyMeta(myObj, sKey, nBranch)
+                # Agrega los hijos tambein al arbol; la creacion del arbol no es recursiva 
+                oMeta[sKey] = verifyMeta(myObj, sKey, nBranch)[0]
 
             else:
-                oMeta[sKey] = verifyMeta(myObj, sKey)
+                oMeta[sKey] = verifyMeta(myObj, sKey)[0]
 
 
     return oMeta, tNode 

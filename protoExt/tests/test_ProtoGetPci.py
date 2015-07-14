@@ -9,7 +9,6 @@ from protoLib.tests.dataSetup import createAuthExt , MySession
 from django.test.client import RequestFactory
 from django.contrib.auth.models import AnonymousUser
 from protoExt.views import validateRequest 
-from protoLib.models.signals import login_teamtree_update
 from protoExt.models import ViewDefinition
 
 

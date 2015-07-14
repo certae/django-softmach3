@@ -575,8 +575,8 @@ function callVerifyMeta(oMeta, ptType, tNode, record ) {
             ptType : ptType
         }, 
         success: function(result, request) {
-            var myResult = Ext.decode(result.responseText);
-            record.appendChild( myResult.tNode );
+            var tNode = Ext.decode(result.responseText);
+            record.appendChild( tNode );
 
         },
         failure: function(result, request) {

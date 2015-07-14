@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//protoBase/test.py=utf-8
 encoding//protoDesigner/protoDiagram.py=utf-8
 encoding//protoDesigner/protoDiagramEntity.py=utf-8
 encoding//protoExt/__init__.py=utf-8
@@ -19,6 +20,7 @@ encoding//protoExt/tests/ProtoActionRepTest.py=utf-8
 encoding//protoExt/tests/ProtoAuthTest.py=utf-8
 encoding//protoExt/tests/dataSetup.py=utf-8
 encoding//protoExt/tests/test_ProtoGetPci.py=utf-8
+encoding//protoExt/tests/test_metastructure.py=utf-8
 encoding//protoExt/utils/downloadFile.py=utf-8
 encoding//protoExt/utils/generic_views.py=utf-8
 encoding//protoExt/utils/loadFile.py=utf-8
