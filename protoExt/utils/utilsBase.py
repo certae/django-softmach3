@@ -10,6 +10,66 @@ from django.utils import six
 from protoExt.utils.utilsConvert import slugify2
 
 
+
+def compare_dictionaries(dict1, dict2):
+    """
+    Object (dict) comparaison 
+    """
+#     return 0 if x==y else (-1 if x<y else 1)    
+    if dict1 == None or dict2 == None:
+        return False
+
+    if type(dict1) is not dict or type(dict2) is not dict:
+        return False
+
+    shared_keys = set(dict2.keys()) & set(dict2.keys())
+
+    if not ( len(shared_keys) == len(dict1.keys()) and len(shared_keys) == len(dict2.keys())):
+        return False
+
+
+    dicts_are_equal = True
+    for key in dict1.keys():
+        
+        if type(dict1[key]) != type(dict2[key]): 
+            return False 
+
+        elif type(dict1[key]) is dict and type(dict2[key]) is dict:
+            dicts_are_equal = dicts_are_equal and compare_dictionaries(dict1[key],dict2[key])
+ 
+        elif type(dict1[key]) is list and type(dict2[key]) is list:
+            dicts_are_equal = dicts_are_equal and compare_lists( dict1[key], dict2[key] )
+
+        else:
+            dicts_are_equal = dicts_are_equal and (dict1[key] == dict2[key])
+
+        if not dicts_are_equal: 
+            return False 
+        
+    return dicts_are_equal
+ 
+def compare_lists(list1, list2):
+    """
+    Minimal list comparaison, 
+    No compara diccionarios ni sublistas  
+    """
+
+    if len( list1 ) != len( list2 ):
+        return False 
+
+    if len( list1 ) == 0:
+        return True 
+
+    list_are_equal = True
+    for val in list1:
+        if type(val) is dict or type(val) is list:
+            break 
+        if val not in list2:
+            return False 
+
+    return list_are_equal
+ 
+
 def traceError():
     from django.conf import settings
 

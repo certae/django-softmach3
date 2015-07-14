@@ -2,7 +2,9 @@
 
 from django.test import TestCase
 from django.contrib.auth import authenticate, login
+
 import json
+ 
 
 from protoExt.views.protoGetPci import protoGetPCI
 from protoLib.tests.dataSetup import createAuthExt , MySession
@@ -10,6 +12,7 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import AnonymousUser
 from protoExt.views import validateRequest 
 from protoExt.models import ViewDefinition
+from protoExt.utils.utilsBase import compare_dictionaries
 
 
 class ProtoGetPciTest(TestCase):
@@ -28,8 +31,8 @@ class ProtoGetPciTest(TestCase):
         self.request.user = self.user
         self.request.method = 'POST'
 
-        userdata = { 'viewCode' : 'protoLib.UserProfile' }
-        self.request.POST = userdata
+        self.userdata = { 'viewCode' : 'protoLib.UserProfile' }
+        self.request.POST = self.userdata
 
 
     def tearDown(self):
@@ -181,11 +184,28 @@ class ProtoGetPciTest(TestCase):
 
     def test_protoGetPCI_newpci(self):
 
-        # se asegura de q no exista          
-        ViewDefinition.objects.all().delete()
+        viewCode = self.userdata['viewCode']
+        ViewDefinition.objects.filter( code = viewCode ).delete()
 
         reponse = protoGetPCI( self.request )        
-        self.assertEqual(reponse.url, '/')
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+
+        self.assertTrue(returnMessage['success'])
+
+        metaData = returnMessage['metaData']
+        self.assertEqual( metaData['idProperty'], 'id' )
+
+        protoMeta = returnMessage['protoMeta']
+        self.assertEqual( protoMeta['viewCode'], viewCode )
+        self.assertEqual( protoMeta['viewEntity'], viewCode )
+        self.assertTrue( len( returnMessage['protoMeta']['fields'])  > 0 ) 
+
+        permissions = returnMessage['permissions']
+        self.assertTrue( permissions['list'] )
+
+        from .data_pci_protolib_userprofile import DATA_PCI_protoLib_UserProfile         
+        cmpResult = compare_dictionaries( returnMessage, DATA_PCI_protoLib_UserProfile )
+        self.assertTrue( cmpResult, 'return dict is not conform' )
   
 #  
 #     def test_protogetpci_success(self):
