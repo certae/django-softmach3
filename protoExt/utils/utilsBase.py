@@ -22,6 +22,9 @@ def compare_dictionaries(dict1, dict2):
     if type(dict1) is not dict or type(dict2) is not dict:
         return False
 
+    if dict1.__eq__( dict2 ):
+        return True
+
     shared_keys = set(dict2.keys()) & set(dict2.keys())
 
     if not ( len(shared_keys) == len(dict1.keys()) and len(shared_keys) == len(dict2.keys())):
@@ -32,16 +35,16 @@ def compare_dictionaries(dict1, dict2):
     for key in dict1.keys():
         
         if type(dict1[key]) != type(dict2[key]): 
-            return False 
+            dicts_are_equal = False 
 
-        elif type(dict1[key]) is dict and type(dict2[key]) is dict:
-            dicts_are_equal = dicts_are_equal and compare_dictionaries(dict1[key],dict2[key])
+        elif type(dict1[key]) is dict:
+            dicts_are_equal =  compare_dictionaries(dict1[key],dict2[key])
  
-        elif type(dict1[key]) is list and type(dict2[key]) is list:
-            dicts_are_equal = dicts_are_equal and compare_lists( dict1[key], dict2[key] )
+        elif type(dict1[key]) is list:
+            dicts_are_equal = compare_lists( dict1[key], dict2[key] )
 
         else:
-            dicts_are_equal = dicts_are_equal and (dict1[key] == dict2[key])
+            dicts_are_equal =  (dict1[key] == dict2[key])
 
         if not dicts_are_equal: 
             return False 
@@ -51,7 +54,7 @@ def compare_dictionaries(dict1, dict2):
 def compare_lists(list1, list2):
     """
     Minimal list comparaison, 
-    No compara diccionarios ni sublistas  
+    Las listas deben venir en el mismo orden 
     """
 
     if len( list1 ) != len( list2 ):
@@ -60,14 +63,31 @@ def compare_lists(list1, list2):
     if len( list1 ) == 0:
         return True 
 
-    list_are_equal = True
-    for val in list1:
-        if type(val) is dict or type(val) is list:
-            break 
-        if val not in list2:
+    if list1.__eq__( list2 ):
+        return True
+
+    lists_are_equal = True
+    for ix in range(len(list1)):
+
+        if list1[ix] in list2 :
+            continue 
+
+        if type( list1[ix] ) != type( list2[ix] ):
+            lists_are_equal = False
+
+        elif type(list1[ix]) is dict:
+            lists_are_equal =  compare_dictionaries(list1[ix],list2[ix])
+ 
+        elif type(list1[ix]) is list:
+            lists_are_equal = compare_lists( list1[ix], list2[ix] )
+
+        else:
+            lists_are_equal =  (list1[ix] == list2[ix])
+
+        if not lists_are_equal: 
             return False 
 
-    return list_are_equal
+    return lists_are_equal
  
 
 def traceError():
