@@ -48,10 +48,6 @@ class TestMetaStructure(TestCase):
         tNode =  verifyMeta( {}, ptType, tNode )[1]
         tNode1 = tNode.get('children')[0] 
 
-#         'children': [{
-#             'text': 'actionParams',
-#             'children': [],
-#         }],
-
+        # 'children': [{'text': 'actionParams', 'children': [], }],
         self.assertEqual(tNode1.get('text'), 'actionParams')
             
