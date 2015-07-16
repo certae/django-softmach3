@@ -1,40 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from protoLib.models.smbase import logEvent
+from datetime import datetime
 
-class protoLog():
-
-    def __init__(self, logUser, logTeam, logKey ):
-        self.logUser = logUser
-        self.logTeam = logTeam
-        self.logKey  = logKey 
-
-
-    def info( self,  logNotes = '', logObject = '', logInfo = '' ):
-        self.logType = 'INF'
-        logEvent( logObject, logInfo, self.logUser, self.logTeam, logNotes, self.logType, self.logKey)
-
-
-    def error( self, logNotes = '', logObject = '', logInfo = '' ):
-        self.logType = 'ERR'
-        logEvent( logObject, logInfo, self.logUser, self.logTeam, logNotes, self.logType, self.logKey)
-
-
-
-def activityLog(action, user, option, info):
-    # TODO:
-    # info es un json con el detalle de la opcion { rows, meta, etc .... }
-    # Verificar en profile si tiene o no tiene log
-    # verificar la definicion de la pcl si hace o no log
-    # verificar el tipo de accion ( ej: logear solo los borrados .... )
-
-    userProfile = getUserProfile( user )
-    dLog = protoLog( user, userProfile.userTeam , option )
-    dLog.info( info ) 
+from protoLib.getStuff import getUserProfile
+from protoLib.models.smbase import Logger
 
 
 def logEvent( logObject, logInfo, logUser, logTeam, logNotes = '', logType = 'INF', logKey = ''):
-
+    """
+    Direct to Model 
+    """
 
     dLog = Logger()
 
@@ -63,3 +38,38 @@ def logEvent( logObject, logInfo, logUser, logTeam, logNotes = '', logType = 'IN
 
 
 
+class protoLog():
+    """
+    use logEvent  
+    """
+
+    def __init__(self, logUser, logTeam, logKey ):
+        self.logUser = logUser
+        self.logTeam = logTeam
+        self.logKey  = logKey 
+
+
+    def info( self,  logNotes = '', logObject = '', logInfo = '' ):
+        self.logType = 'INF'
+        logEvent( logObject, logInfo, self.logUser, self.logTeam, logNotes, self.logType, self.logKey)
+
+
+    def error( self, logNotes = '', logObject = '', logInfo = '' ):
+        self.logType = 'ERR'
+        logEvent( logObject, logInfo, self.logUser, self.logTeam, logNotes, self.logType, self.logKey)
+
+
+
+def activityLog(action, user, option, info):
+    """
+    use protoLog   
+    """
+    # TODO:
+    # info es un json con el detalle de la opcion { rows, meta, etc .... }
+    # Verificar en profile si tiene o no tiene log
+    # verificar la definicion de la pcl si hace o no log
+    # verificar el tipo de accion ( ej: logear solo los borrados .... )
+
+    userProfile = getUserProfile( user )
+    dLog = protoLog( user, userProfile.userTeam , option )
+    dLog.info( info ) 
