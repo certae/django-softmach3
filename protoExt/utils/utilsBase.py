@@ -102,6 +102,7 @@ def traceError():
         logging.info("Exception has occured" ,exc_info=1)    
 
 
+
 def random_string_generator(size=6, chars=None):
     import string, random
     if not chars: chars = string.ascii_uppercase

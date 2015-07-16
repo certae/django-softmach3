@@ -8,11 +8,15 @@ except ImportError:
     from django.db.models.loading import get_model, get_models  
 
 
+from protoLib.models.smbase import UserProfile
+
 def getUserProfile( cuser):
-    from protoLib.models.smbase import UserProfile
+    if cuser is None: return None 
     return UserProfile.objects.get_or_create( user = cuser)[0]
 
+
 def getUserTeam( cuser): 
+    if cuser is None: return None 
     return getUserProfile( cuser ).userTeam 
 
 

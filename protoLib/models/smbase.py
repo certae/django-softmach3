@@ -163,33 +163,3 @@ class Logger(models.Model):
         ]
     }
 
-
-def logEvent( logObject, logInfo, logUser, logTeam, logNotes = '', logType = 'INF', logKey = ''):
-
-
-    dLog = Logger()
-
-    setattr(dLog, 'smCreatedBy', logUser )
-    setattr(dLog, 'smOwningTeam', logTeam )
-    setattr(dLog, 'smCreatedOn', datetime.now())
-
-    setattr(dLog, 'logInfo', logInfo  )
-
-    if logType: 
-        setattr(dLog, 'logType', logType )
-
-    if logObject:
-        setattr(dLog, 'logObject', logObject )
-
-    if logNotes: 
-        setattr(dLog, 'logNotes', logNotes )
-
-    if logKey: 
-        setattr(dLog, 'logKey', logKey )
-
-    try: 
-        dLog.save()
-    except: 
-        pass  
-
-

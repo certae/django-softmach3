@@ -1,15 +1,38 @@
 # -*- coding: utf-8 -*-
 
+from django.contrib.auth.models import User
 from django.test import TestCase
 
-from prototype.models import Project
 from protoExt.models import CustomDefinition, ViewDefinition
-from protoLib.getStuff import getDjangoModel
+from protoLib.getStuff import getDjangoModel, getUserProfile
 from protoLib.models.smbase import TeamHierarchy, UserProfile
-from django.contrib.auth.models import User
+
+
+class GetDjangoModelTest(TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_method_with_no_dot_in_name(self):
+        returnMessage = getDjangoModel('UserProfile')
+        self.assertTrue(returnMessage is not None)
+
+    def test_method_with_single_dot_in_name(self):
+        returnMessage = getDjangoModel('protoLib.UserProfile')
+        self.assertTrue(returnMessage is not None)
+
+    def test_method_with_two_dots_in_name(self):
+        returnMessage = getDjangoModel('protoLib.UserProfile.ExtraStuffInName')
+        self.assertTrue(returnMessage is not None)
+
+    def test_method_with_user_none(self):
+        self.assertRaises(Exception, getDjangoModel, 'SomeInvalidName')
 
 
 class TeamHierarchyTest(TestCase):
+
     def setUp(self):
         teamhierarchydata = {
             'code': 'SomeValue',
@@ -36,11 +59,16 @@ class UserProfileTest(TestCase):
             'email': 'bob.tremblay@courriel.ca',
         }
 
+
         self.user_test = User(**userdata)
         self.user_test.save()
 
+#       Crea el profile manualmente 
+        self.userProfile = getUserProfile( self.user_test )
+
         entry = User.objects.get(id = self.user_test.id)
         self.userProfile = UserProfile.objects.get(id = entry.id)
+
 
     def tearDown(self):
         self.user_test.delete()
@@ -96,7 +124,7 @@ class ViewDefinitionTest(TestCase):
         ViewDefinitiondata = {
             'code': 'test_code',
             'description': 'description ViewDefinition',
-            'metaDefinition': 'metadef',
+            'metaDefinition': {}, 
             'active': True,
             'overWrite': True
         }
@@ -115,7 +143,7 @@ class CustomDefinitionTest(TestCase):
         customdefinitiondata = {
             'code': 'test_code',
             'description': 'description ViewDefinition',
-            'metaDefinition': 'metadef',
+            'metaDefinition': {},
             'active': True,
             'overWrite': True
         }
@@ -185,35 +213,3 @@ class CustomDefinitionTest(TestCase):
 #         self.assertEqual(self.ptFunction.code + '.' + self.ptFunction.tag, str(self.ptFunction))
 
 
-class GetDjangoModelTest(TestCase):
-    def setUp(self):
-        modeldata = {
-            'code': 'test Code',
-            'description': 'test Description',
-            'dbEngine': 'test dbEngine',
-            'dbName': 'test dbName',
-            'dbUser': 'test dbUser',
-            'dbPassword': 'test dbPassword',
-            'dbHost': 'test dbHost',
-            'dbPort': 'test dbPort'
-        }
-        self.testProject = Project(**modeldata)
-        self.testProject.save()
-
-    def tearDown(self):
-        pass
-
-    def test_method_with_no_dot_in_name(self):
-        returnMessage = getDjangoModel('Project')
-        self.assertTrue(returnMessage is not None)
-
-    def test_method_with_single_dot_in_name(self):
-        returnMessage = getDjangoModel('prototype.Project')
-        self.assertTrue(returnMessage is not None)
-
-    def test_method_with_two_dots_in_name(self):
-        returnMessage = getDjangoModel('prototype.Project.ExtraStuffInName')
-        self.assertTrue(returnMessage is not None)
-
-    def test_method_with_user_none(self):
-        self.assertRaises(Exception, getDjangoModel, 'SomeInvalidName')

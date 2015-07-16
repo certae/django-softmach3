@@ -63,8 +63,8 @@ def test_savePCI( request ):
 def  test_metaStructure( request ):
     from protoExt.tests.test_metastructure import TestMetaStructure
     t1 = TestMetaStructure()
-    t1.test_vereifyMeta_createpci()
-    t1.test_vereifyMeta_create_tnode()
+    t1.test_verifyMeta_createpci()
+    t1.test_verifyMeta_create_tnode()
 
 
 def  test_getPCI( request ):

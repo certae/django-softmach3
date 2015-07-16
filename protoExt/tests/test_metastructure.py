@@ -16,7 +16,7 @@ class TestMetaStructure(TestCase):
         pass
 
     
-    def test_vereifyMeta_createpci(self):
+    def test_verifyMeta_createpci(self):
 
         ptType = 'pcl'
 
@@ -31,7 +31,7 @@ class TestMetaStructure(TestCase):
                 self.assertTrue( False, '%s not in meta' % ( x, ) )
 
         
-    def test_vereifyMeta_create_tnode(self):
+    def test_verifyMeta_create_tnode(self):
 
         ptType = 'actionDef'
         tNode = {

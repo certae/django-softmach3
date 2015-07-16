@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from django.test import TestCase
 import json
-
-
 import os
-from protoLib.models.smbase import TeamHierarchy
+
+from django.test import TestCase
+
 from protoExt.models import CustomDefinition, ViewDefinition
+from protoLib.models.smbase import TeamHierarchy
+from prototype.models import Project, Model, Entity, Property, Relationship, PropertyEquivalence, ProtoTable, Prototype
+
 
 module_dir = os.path.dirname(__file__)  # get current directory
 file_path = os.path.join(module_dir, 'MetaObjects.dat')
@@ -91,7 +93,6 @@ class CustomDefinitionStructureTest(TestCase):
 
 # ------------------------------
 
-from prototype.models import Project, Model, Entity, Property, Relationship, PropertyEquivalence, ProtoTable, Prototype
 
 class ProjectStructureTest(TestCase):
     def test_field_and_value(self):

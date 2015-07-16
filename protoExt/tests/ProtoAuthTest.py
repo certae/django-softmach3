@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
+from protoLib.getStuff import getUserProfile
 
-from protoLib.protoAuth import getUserProfile
-from protoLib.protoAuth import activityLog
 
 
 class GetUserProfileTest(TestCase):
