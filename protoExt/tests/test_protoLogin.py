@@ -1,16 +1,14 @@
 # -*- encoding: UTF-8 -*-
 
 import json
-from django.test import TestCase
 
 from django.contrib.auth import authenticate
-
-from protoExt.views.protoLogin import protoGetUserRights, protoGetPasswordRecovery
-from protoExt.views.protoLogin import resetpassword, changepassword, protoLogout 
-
-from protoLib.tests.dataSetup import createAuthBase, MySession
+from django.test import TestCase
 from django.test.client import RequestFactory
 
+from protoExt.views.protoLogin import protoGetUserRights, protoGetPasswordRecovery
+from protoExt.views.protoLogin import resetpassword, changepassword, protoLogout
+from protoLib.tests.dataSetup import createAuthBase, MySession
 
 
 class protoLogin_Test(TestCase):

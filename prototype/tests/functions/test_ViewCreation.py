@@ -65,6 +65,39 @@ class CreateViewTest(TestCase):
             createView(entries, getViewCode(entries), getUserProfile(26))
         self.assertTrue(len(Prototype.objects.all()) > 0)
 
+ 
+    def test_protosaveprotoobj_prototype_viewcode(self):
+        """
+        Verifica App prototype
+        Elimina datos de prototype.Prototypes 
+        Guarda la definicion           
+        Lee prototype.Prototypes y verifica  
+        """
+        
+        from django.conf import settings  
+        if not 'prototype' in settings.INSTALLED_APPS: 
+            return 
+
+        # prototype = True        
+        self.request.POST['viewCode'] = 'prototype.ProtoTable.testmodel'  
+
+        self.userdata = { 
+            'viewCode' : '_custom_test', 
+            'protoMeta' : '[0]'  
+        }
+        self.request.POST = self.userdata
+
+        reponse = protoSaveProtoObj( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertTrue(returnMessage['success'])
+ 
+        cData = CustomDefinition.objects.get( 
+             code = self.userdata['viewCode'], 
+             smOwningUser = self.request.user 
+        )
+        self.assertEqual( cData.metaDefinition[0], 0)
+
+
 
 class GetEntitiesTest(TestCase):
     fixtures = ['auth.json', 'protoLib.json', 'prototype.json']

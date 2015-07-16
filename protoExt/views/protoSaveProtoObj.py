@@ -23,8 +23,8 @@ def protoSaveProtoObj(request):
         _menu 
     
     Para manejar el modelo en las generacion de protoPci's  se usa :
-    
-        prototype.protoTable.[protoModel-cBase.viewCode]  --> al leer la pcl se leera prototype.protoTable.[protoModel-cBase.viewCode]
+    * prototype.protoTable.[protoModel-cBase.viewCode]  
+    --> al leer la pcl se leera prototype.protoTable.[protoModel-cBase.viewCode]
     """
 
     cBase, msgReturn = validateRequest( request )

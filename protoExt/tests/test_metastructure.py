@@ -2,8 +2,8 @@
 
 from django.test import TestCase
 
-from protoLib.tests.dataSetup import createAuthExt
 from protoExt.meta import verifyMeta
+from protoLib.tests.dataSetup import createAuthExt
 
 
 class TestMetaStructure(TestCase):

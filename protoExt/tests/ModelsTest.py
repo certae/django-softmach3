@@ -26,6 +26,7 @@ class TeamHierarchyTest(TestCase):
         self.assertEqual(self.teamHierarchy.code, str(self.teamHierarchy))
 
 
+
 class UserProfileTest(TestCase):
     def setUp(self):
         userdata = {
