@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from protoLib.getStuff import getUserProfile
 
+from protoExt.utils.logger import activityLog
+from protoLib.models.smbase import getUserProfile
+from protoLib.tests.dataSetup import createAuthExt, createPostRequest
 
 
 class GetUserProfileTest(TestCase):
@@ -17,11 +19,14 @@ class GetUserProfileTest(TestCase):
 
 
 class ActivityLogTest(TestCase):
+
     def setUp(self):
-        pass
+        createAuthExt()
+        createPostRequest( self )
 
     def tearDown(self):
         pass
 
     def test_method_with_user_none(self):
-        self.assertIsNone(activityLog('', '', '', ''))
+       
+        activityLog( action = '', user = self.user, option = '', info = '')
