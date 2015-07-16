@@ -3,9 +3,13 @@
 """
 Quick test debuger  
 """
-from protoExt.utils.utilsBase import traceError
 from django.contrib.auth import authenticate
+
+from protoExt.tests.test_ProtoGetDetails import ProtoGetDetailsTreeTest
+from protoExt.tests.test_ProtoMenu import ProtoMenuTest
+from protoExt.utils.utilsBase import traceError
 from protoLib.tests.dataSetup import MySession
+
 from prototype.tests.models.test_ModelProtoDef_prototype import ProjectPropertiesTest
 
 
@@ -17,7 +21,11 @@ def protoQuickTest(request):
 
     try: 
         pass 
-        test_protoGetFieldTree_pci( request )
+
+        test_protoGetDetailsTree( request )
+#         test_protoMenu( request )
+        
+#         test_protoGetFieldTree_pci( request )
         # test_structure( request )        
         # test_savePCI( request )
 
@@ -27,6 +35,28 @@ def protoQuickTest(request):
     except: 
         traceError()
 
+
+def test_protoGetDetailsTree( request ):
+
+    t1 =  ProtoGetDetailsTreeTest()
+    t1.request = request 
+    t1.userdata = { 'viewCode' : 'protoLib.TeamHierarchy' }
+    t1.request.method = 'POST'
+    t1.request.POST = t1.userdata
+
+    t1.test_protogetdetailstree()
+    
+
+def test_protoMenu( request ):
+
+    t1 = ProtoMenuTest()
+    t1.request = request 
+    t1.userdata = { 'viewCode' : 'protoLib.UserProfile' }
+    t1.request.method = 'POST'
+    t1.request.POST = t1.userdata
+
+    t1.test_protogetmenudata()
+    
 
 def test_protoGetFieldTree_pci( request ):
     from protoExt.tests.test_ProtoGetFieldTree import ProtoGetFieldTreeTest
@@ -57,7 +87,7 @@ def test_savePCI( request ):
     t1.request.method = 'POST'
     t1.request.POST = t1.userdata
      
-#     t1.test_protosaveprotoobj_save_pci()
+    t1.test_protosaveprotoobj_save_pci()
     t1.test_protosaveprotoobj_custom_test()
 
 def  test_metaStructure( request ):

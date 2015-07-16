@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from protoLib.models.smbase import getUserProfile
+
 
 try:
     from django.apps import apps
@@ -7,12 +9,6 @@ try:
 except ImportError:
     from django.db.models.loading import get_model, get_models  
 
-
-from protoLib.models.smbase import UserProfile
-
-def getUserProfile( cuser):
-    if cuser is None: return None 
-    return UserProfile.objects.get_or_create( user = cuser)[0]
 
 
 def getUserTeam( cuser): 
@@ -43,17 +39,6 @@ def getDjangoModel(modelName):
         raise Exception('model not found:' + modelName)
 
     return model
-
-
-
-def getNodeHierarchy(record, parentField, codeField, pathFunction):
-    "Returns the full hierarchy path."
-
-    pRec = record.__getattribute__(parentField)
-    if pRec   :
-        return pRec.__getattribute__(pathFunction) + ',' +  str(record.__getattribute__(codeField))
-    else:
-        return str(record.__getattribute__(codeField))
 
 
 

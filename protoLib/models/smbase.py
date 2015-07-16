@@ -4,7 +4,6 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
 from protoLib.models.usermodel import AUTH_USER_MODEL
-from protoLib.getStuff import getNodeHierarchy 
 
 from jsonfield2 import JSONField, JSONAwareManager
 
@@ -162,4 +161,21 @@ class Logger(models.Model):
             },
         ]
     }
+
+
+def getUserProfile( cuser):
+    if cuser is None: return None 
+    return UserProfile.objects.get_or_create( user = cuser)[0]
+
+
+def getNodeHierarchy(record, parentField, codeField, pathFunction):
+    "Returns the full hierarchy path."
+
+    pRec = record.__getattribute__(parentField)
+    if pRec   :
+        return pRec.__getattribute__(pathFunction) + ',' +  str(record.__getattribute__(codeField))
+    else:
+        return str(record.__getattribute__(codeField))
+
+
 
