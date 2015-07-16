@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+PCI base autogenerada para la entidad protoLib.UserProfile
+"""
+
 DATA_PCI_protoLib_UserProfile =   {
     'message': '',
     'metaData': {

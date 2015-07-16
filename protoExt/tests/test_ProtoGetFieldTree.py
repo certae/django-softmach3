@@ -1,33 +1,32 @@
 # -*- coding: utf-8 -*-
 
-from django.test import TestCase
-from django.contrib.auth import authenticate
-
 import json
-from protoExt.views.protoGetPciFieldTree import protoGetFieldTree
-from django.http.request import HttpRequest
 
-xx 
+from django.test import TestCase
+
+from protoExt.views.protoGetPciFieldTree import protoGetFieldTree
+from protoLib.tests.dataSetup import createAuthExt, createPostRequest
+from protoExt.tests.data_protolib_userprofile_fieldtree import DATA_protoLib_UserProfile_FieldTree
+from protoExt.utils.utilsBase import compare_lists
+
 
 class ProtoGetFieldTreeTest(TestCase):
-    fixtures = ['auth.json']
 
     def setUp(self):
-        self.request = HttpRequest()
-        self.request.method = 'POST'
-        self.request.POST['login'] = 'adube'
-        self.request.POST['password'] = '123'
-        self.request.user = authenticate(username=self.request.POST['login'], password=self.request.POST['password'])
-        self.request.POST['id'] = 'root'
-        self.request.POST['node'] = 'root'
-        self.request.POST['sort'] = json.dumps({"property": "text", "direction": "ASC"})
-        self.request.POST['viewCode'] = 'prototype.Project'
+        
+        createAuthExt()
+        createPostRequest( self )
+
+        self.userdata = { 'viewCode' : 'protoLib.UserProfile' }
+        self.request.POST = self.userdata
 
     def tearDown(self):
         pass
 
-    def test_protogetfieldtree(self):
-        response = json.loads(protoGetFieldTree(self.request).content)
-        # pprint(response)
-        for element in response:
-            self.assertFalse(element['checked'])
+    def test_protogetfieldtree_pci(self):
+
+        reponse = protoGetFieldTree( self.request )        
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+
+        cmpResult = compare_lists( returnMessage, DATA_protoLib_UserProfile_FieldTree  )
+        self.assertTrue( cmpResult, 'return list is not conform' )

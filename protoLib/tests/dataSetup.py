@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.sessions.backends.base import SessionBase
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.contrib.sessions.backends.base import SessionBase
+from django.test.client import RequestFactory
+
 from protoLib.tests.dataImporter import BasicImportHelper
 
 importer = BasicImportHelper()
@@ -13,6 +16,24 @@ class MySession(SessionBase):
 
     def delete(self):
         pass
+
+
+def createPostRequest( self ):
+    """
+    Genera los datos basicos del post 
+    self : la clase de test 
+    """
+    userdata = {'login': 'A', 'password': '1' }
+    self.user = authenticate(username=userdata['login'], password=userdata['password'])
+
+    # Every test needs access to the request factory.
+    self.factory = RequestFactory()
+    self.request = self.factory.post('/protoGetPCI')
+    self.request.session = MySession()
+    self.request.user = self.user
+    self.request.method = 'POST'
+    
+    return self 
 
 
 def createAuthBase():

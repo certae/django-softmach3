@@ -1,23 +1,26 @@
 # -*- coding: utf-8 -*-
 
-import re, os
+"""
+Test protoExt definition in models 
+"""
+import re
+
 from django.test import TestCase
-import json
+
+from protoExt.meta import META_OBJECTS, META_PROPERTIES
+
 from protoExt.models import CustomDefinition, ViewDefinition
 from protoLib.models.smbase import TeamHierarchy
+from prototype.models import Project, Model, Entity, Property, Relationship, PropertyEquivalence, ProtoTable, Prototype
 
 
 PossibleTypes = ['list', 'string']
-module_dir = os.path.dirname(__file__)  # get current directory
-file_path = os.path.join(module_dir, 'MetaObjects.dat')
-MetaObjects = json.loads(open(file_path).read())
-file_path = os.path.join(module_dir, 'MetaProperties.dat')
-MetaProperties = json.loads(open(file_path).read())
-
 DataTypes = dict()
-for fields in MetaProperties:
+
+# {'required': 'boolean', 'sortable': 'boolean', 'hideRowNumbers': 'boolean', 'exportCsv': 'boolean', 'pageSize': 'number', 'primary': 'boolean', 'collapsed': 'boolean', 'height': 'number', 'collapsible': 'boolean', 'maxWidth': 'number', 'readOnly': 'boolean', 'minHeight': 'number', 'cellLink': 'boolean', 'cellToolTip': 'boolean', 'wordWrap': 'boolean', 'maxHeight': 'number', 'denyAutoPrint': 'boolean', 'refreshOnComplete': 'boolean', 'minWidth': 'number', 'flex': 'number', 'width': 'number', 'hideCheckSelect': 'boolean', 'qbeHelp': 'boolean', 'hidden': 'boolean'}
+for fields in META_PROPERTIES:
     if '.type' in fields:
-        outcomeType = MetaProperties[fields]
+        outcomeType = META_PROPERTIES[fields]
         field = re.sub(r'\.type$', '', fields)
         DataTypes[field] = outcomeType
 
@@ -32,9 +35,9 @@ def getFields(modelclass):
 
 def getObjectType(field, value):
     outcomeType = None
-    if 'lists' in MetaObjects[field] and value in MetaObjects[field]['lists']:
+    if 'lists' in META_OBJECTS[field] and value in META_OBJECTS[field]['lists']:
         outcomeType = 'list'
-    elif 'properties' in MetaObjects[field] and value in MetaObjects[field]['properties']:
+    elif 'properties' in META_OBJECTS[field] and value in META_OBJECTS[field]['properties']:
         outcomeType = DataTypes[value]
 
     return outcomeType
@@ -42,20 +45,17 @@ def getObjectType(field, value):
 
 def getFieldType(field, value, modelclass):
     outcomeType = None
-    if field in MetaObjects['pcl']['lists']:
+    if field in META_OBJECTS['pcl']['lists']:
         outcomeType = 'list'
-    elif field in MetaObjects['pcl']['properties']:
+    elif field in META_OBJECTS['pcl']['properties']:
         outcomeType = DataTypes[value]
-    elif field in MetaObjects['pcl']['objects']:
+    elif field in META_OBJECTS['pcl']['objects']:
         outcomeType = getObjectType(field, value)
 
     if outcomeType is None:
         outcomeType = 'string'
     return outcomeType
 
-# ------------------
-
-from prototype.models import Project, Model, Entity, Property, Relationship, PropertyEquivalence, ProtoTable, Prototype
 
 
 class ProjectPropertiesTest(TestCase):
@@ -134,38 +134,3 @@ class ProtoTablePropertiesTest(TestCase):
 
 
 
-
-class TeamHierarchyPropertiesTest(TestCase):
-    def test_structure(self):
-        fields = getFields(TeamHierarchy)
-        for field in fields:
-            for value in TeamHierarchy.protoExt[field]:
-                fieldtype = getFieldType(field, value, TeamHierarchy)
-                self.assertIn(fieldtype, PossibleTypes)
-
-
-class ViewDefinitionPropertiesTest(TestCase):
-    def test_structure(self):
-        fields = getFields(ViewDefinition)
-        for field in fields:
-            for value in ViewDefinition.protoExt[field]:
-                fieldtype = getFieldType(field, value, ViewDefinition)
-                self.assertIn(fieldtype, PossibleTypes)
-
-
-class CustomDefinitionPropertiesTest(TestCase):
-    def test_structure(self):
-        fields = getFields(CustomDefinition)
-        for field in fields:
-            for value in CustomDefinition.protoExt[field]:
-                fieldtype = getFieldType(field, value, CustomDefinition)
-                self.assertIn(fieldtype, PossibleTypes)
-
-
-# class DiscreteValuePropertiesTest(TestCase):
-#     def test_structure(self):
-#         fields = getFields(DiscreteValue)
-#         for field in fields:
-#             for value in DiscreteValue.protoExt[field]:
-#                 fieldtype = getFieldType(field, value, DiscreteValue)
-#                 self.assertIn(fieldtype, PossibleTypes)

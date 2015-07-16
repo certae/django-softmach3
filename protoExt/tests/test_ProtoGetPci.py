@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from django.test import TestCase
-from django.contrib.auth import authenticate, login
-
 import json
- 
 
-from protoExt.views.protoGetPci import protoGetPCI
-from protoLib.tests.dataSetup import createAuthExt , MySession
-from django.test.client import RequestFactory
+from django.contrib.auth import  login
 from django.contrib.auth.models import AnonymousUser
-from protoExt.views import validateRequest 
+from django.test import TestCase
+
 from protoExt.models import ViewDefinition
+from protoExt.tests.data_protolib_userprofile_pci import DATA_PCI_protoLib_UserProfile
 from protoExt.utils.utilsBase import compare_dictionaries
+from protoExt.views import validateRequest
+from protoExt.views.protoGetPci import protoGetPCI
+from protoLib.tests.dataSetup import createAuthExt , createPostRequest
 
 
 class ProtoGetPciTest(TestCase):
@@ -20,16 +19,7 @@ class ProtoGetPciTest(TestCase):
     def setUp(self):
         
         createAuthExt()
-
-        userdata = {'login': 'A', 'password': '1' }
-        self.user = authenticate(username=userdata['login'], password=userdata['password'])
-
-        # Every test needs access to the request factory.
-        self.factory = RequestFactory()
-        self.request = self.factory.post('/protoGetPCI')
-        self.request.session = MySession()
-        self.request.user = self.user
-        self.request.method = 'POST'
+        createPostRequest( self )
 
         self.userdata = { 'viewCode' : 'protoLib.UserProfile' }
         self.request.POST = self.userdata
@@ -203,7 +193,6 @@ class ProtoGetPciTest(TestCase):
         permissions = returnMessage['permissions']
         self.assertTrue( permissions['list'] )
 
-        from .data_pci_protolib_userprofile import DATA_PCI_protoLib_UserProfile         
         cmpResult = compare_dictionaries( returnMessage, DATA_PCI_protoLib_UserProfile )
         self.assertTrue( cmpResult, 'return dict is not conform' )
   

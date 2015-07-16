@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from django.test import TestCase
-from django.contrib.auth import authenticate, login
-
 import json
- 
+
+from django.contrib.auth import authenticate
+from django.test import TestCase
+from django.test.client import RequestFactory
+
+from protoExt.views.protoSaveProtoObj import protoSaveProtoObj
+from protoLib.tests.dataSetup import createAuthExt, MySession
+from protoExt.views.protoGetPci import protoGetPCI
+from protoExt.models import CustomDefinition
+
 
 class ProtoSaveProtoObjTest(TestCase):
 
@@ -17,7 +23,7 @@ class ProtoSaveProtoObjTest(TestCase):
 
         # Every test needs access to the request factory.
         self.factory = RequestFactory()
-        self.request = self.factory.post('/protoGetPCI')
+        self.request = self.factory.post('/protoSaveProtoObj')
         self.request.session = MySession()
         self.request.user = self.user
         self.request.method = 'POST'
@@ -29,22 +35,63 @@ class ProtoSaveProtoObjTest(TestCase):
         pass
 
 
-    def test_protosaveprotoobj_custom_menu(self):
+    def test_protosaveprotoobj_save_pci(self):
+        """
+        Agrega un campo a la definicion de la pcl,
+        Guarda la definicion           
+        Lee y verifica el campo 
+        """
+        from protoExt.tests.data_protolib_userprofile_pci import DATA_PCI_protoLib_UserProfile
+        
+        oMeta = DATA_PCI_protoLib_UserProfile['protoMeta']
+        oMeta['gridConfig']['listDisplay'].append('userTeam') 
+        
+        sMeta = json.dumps( oMeta )
+        self.userdata = { 
+            'viewCode' : 'protoLib.UserProfile', 
+            'protoMeta' : sMeta  
+        }
+        self.request.POST = self.userdata
 
-        self.request.POST['viewCode'] = '__menu'# custom = True
-        self.request.POST['protoMeta'] = json.dumps()
+        reponse = protoSaveProtoObj( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertTrue(returnMessage['success'])
+        
+        self.userdata = { 
+            'viewCode' : 'protoLib.UserProfile', 
+            'protoMeta' : sMeta  
+        }
+        self.request.POST = self.userdata
 
-    def test_protosaveprotoobj_with_method_not_post(self):
-        self.request.method = 'GET'
-        response = json.loads(protoSaveProtoObj(self.request).content)
-        self.assertFalse(response['success'])
+        reponse = protoGetPCI( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertTrue(returnMessage['success'])
 
-    def test_protosaveprotoobj_custom_viewcode(self):
-        response = json.loads(protoSaveProtoObj(self.request).content)
-        self.assertTrue(response['success'])
+        oMeta = returnMessage['protoMeta']
+        self.assertEqual( len(oMeta['gridConfig']['listDisplay'] ), 2, 'listdisplau !=2')
+        
 
-    def test_protosaveprotoobj_prototype_viewcode(self):
-        self.request.POST['viewCode'] = 'prototype.ProtoTable.t-model-t-other-entity'  # prototype = True
-        response = json.loads(protoSaveProtoObj(self.request).content)
-        self.assertFalse(response['success'])
+    def test_protosaveprotoobj_custom_test(self):
+        """
+        Elimina datos de CustomDefinition 
+        Guarda la definicion           
+        Lee CustomDefinition y verifica el campo 
+        """
 
+        self.userdata = { 
+            'viewCode' : '_custom_test', 
+            'protoMeta' : '[0]'  
+        }
+        self.request.POST = self.userdata
+        CustomDefinition.objects.filter(code = self.userdata['viewCode'] ).delete()
+
+        reponse = protoSaveProtoObj( self.request )
+        returnMessage = json.loads( reponse.content.decode('utf-8'))
+        self.assertTrue(returnMessage['success'])
+ 
+        cData = CustomDefinition.objects.get( 
+             code = self.userdata['viewCode'], 
+             smOwningUser = self.request.user 
+        )
+        self.assertEqual( cData.metaDefinition[0], 0)
+ 
