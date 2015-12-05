@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+### This is a diagrame support for models  
+
 from django.http import HttpResponse
 from prototype.models import Project, Diagram
 
