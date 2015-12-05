@@ -1,0 +1,108 @@
+/home/dario/myvenv/lib/python3.4/importlib/_bootstrap.py:321: RemovedInDjango19Warning: django.utils.importlib will be removed in Django 1.9.
+  return f(*args, **kwds)
+
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: import_export, rai00base, jsonfield2, staticfiles, django_extensions, messages
+  Apply all migrations: auth, sessions, admin, protoExt, taggit, contenttypes, protoLib, prototype, rai01ref, reversion
+Synchronizing apps without migrations:
+  Creating tables...
+    Creating table rai00base_domaineaffaires
+    Creating table rai00base_modele
+    Creating table rai00base_entite
+    Creating table rai00base_elementdonnee
+    Creating table rai00base_relation
+    Creating table rai00base_modeleraccordement
+    Creating table rai00base_raccordement
+    Creating table rai00base_specifications
+    Creating table rai00base_indexdesdonnees
+    Creating table rai00base_projet
+    Creating table rai00base_regroupementdesmodeles
+    Creating table rai00base_reglesgestion
+    Creating table rai00base_porteereglegestion
+    Creating table rai00base_norme
+    Creating table rai00base_typeregle
+    Creating table rai00base_codagenormalise
+    Running deferred SQL...
+  Installing custom SQL...
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying protoLib.0001_initial... OK
+  Applying protoExt.0001_initial... OK
+  Applying taggit.0001_initial... OK
+  Applying prototype.0001_initial... OK
+  Applying rai01ref.0001_initial... OK
+  Applying reversion.0001_initial... OK
+  Applying reversion.0002_auto_20141216_1509... OK
+  Applying sessions.0001_initial...test_structure (protoExt.tests.test_ModelsProtoDef_base.CustomDefinitionPropertiesTest) ... ok
+test_structure (protoExt.tests.test_ModelsProtoDef_base.TeamHierarchyPropertiesTest) ... ok
+test_structure (protoExt.tests.test_ModelsProtoDef_base.ViewDefinitionPropertiesTest) ... ok
+test_verifying_string_representation (protoExt.tests.test_Models_base.CustomDefinitionTest) ... ok
+test_method_with_no_dot_in_name (protoExt.tests.test_Models_base.GetDjangoModelTest) ... ok
+test_method_with_single_dot_in_name (protoExt.tests.test_Models_base.GetDjangoModelTest) ... ok
+test_method_with_two_dots_in_name (protoExt.tests.test_Models_base.GetDjangoModelTest) ... ok
+test_method_with_user_none (protoExt.tests.test_Models_base.GetDjangoModelTest) ... ok
+test_verifying_string_representation (protoExt.tests.test_Models_base.TeamHierarchyTest) ... ok
+test_user_post_save (protoExt.tests.test_Models_base.UserProfileTest) ... ok
+test_verifying_string_representation (protoExt.tests.test_Models_base.UserProfileTest) ... ok
+test_verifying_string_representation (protoExt.tests.test_Models_base.ViewDefinitionTest) ... ok
+test_method_with_user_none (protoExt.tests.test_ProtoAuth.ActivityLogTest) ... ok
+test_method_with_user_none (protoExt.tests.test_ProtoAuth.GetUserProfileTest) ... ok
+test_protogetdetailstree (protoExt.tests.test_ProtoGetDetails.ProtoGetDetailsTreeTest) ... ok
+test_protogetfieldtree_pci (protoExt.tests.test_ProtoGetFieldTree.ProtoGetFieldTreeTest) ... ok
+test_protoGetPCI_invalidmodel (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_protoGetPCI_model_noApp (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_protoGetPCI_newpci (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_protoGetPCI_returns_error_when_method_is_not_post (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_protoGetPCI_returns_error_when_user_is_inactive (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_protoGetPCI_returns_error_when_user_is_invalid (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_protoGetPCI_returns_error_when_user_is_none (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_cBase_malformed (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_cBase_teamhierarcy_none (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_cBase_userTree (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_cBase_userprofile (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_cBase_viewname (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_cBase_wellformed (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_error_when_method_is_not_post (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_error_when_user_is_inactive (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_error_when_user_is_invalid (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_error_when_user_is_none (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_validateRequest_returns_no_error (protoExt.tests.test_ProtoGetPci.ProtoGetPciTest) ... ok
+test_protogetmenudata (protoExt.tests.test_ProtoMenu.ProtoMenuTest) ... ok
+test_protosaveprotoobj_custom_test (protoExt.tests.test_ProtoSaveProtoObj.ProtoSaveProtoObjTest) ... ok
+test_protosaveprotoobj_save_pci (protoExt.tests.test_ProtoSaveProtoObj.ProtoSaveProtoObjTest) ... ok
+test_verifyMeta_create_tnode (protoExt.tests.test_metastructure.TestMetaStructure) ... ok
+test_verifyMeta_createpci (protoExt.tests.test_metastructure.TestMetaStructure) ... ok
+test_changepassword_nocurrent (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_changepassword_nomatch (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_changepassword_ok (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_changepassword_returns_error_when_method_is_not_post (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetPasswordRecovery_ok (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetPasswordRecovery_returns_error_when_method_is_not_post (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetPasswordRecovery_returns_error_when_user_is_inactive (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetPasswordRecovery_returns_error_when_user_is_invalid (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetUserRights_ok (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetUserRights_returns_error_when_method_is_not_post (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetUserRights_returns_error_when_user_is_inactive (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoGetUserRights_returns_error_when_user_is_invalid (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_protoLogout_ok (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_resetpassword_direct (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_resetpassword_notoken (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_resetpassword_returns_error_when_method_is_not_get (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+test_resetpassword_token (protoExt.tests.test_protoLogin.protoLogin_Test) ... ok
+
+----------------------------------------------------------------------
+Ran 56 tests in 42.165s
+
+OK
+ OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

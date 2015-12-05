@@ -52,7 +52,7 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
         treeData = getTreeData(me);
         treeGridStore = Ext.create('Ext.data.TreeStore', {
             model: 'Proto.PclTreeNode',
-            root: treeData
+            rootProperty: treeData
         });
 
         this.treeGridStore = treeGridStore;

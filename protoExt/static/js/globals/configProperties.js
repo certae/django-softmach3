@@ -2,6 +2,9 @@
  * @author Giovanni Victorette
  */
 // DOC ajouter dans le guide d'installation
+
+_SM = _SM || {};
+
 _SM._requiredField = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
 
 _SM._versionProto = 'Version 1.0.2';

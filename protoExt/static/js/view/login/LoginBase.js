@@ -2,6 +2,8 @@
 /*global Ext */
 /*global _SM */
 
+
+
 Ext.define('ProtoUL.ux.Login', {
     extend: 'Ext.form.Panel',
     alias: 'widget.protoLogin',
@@ -45,7 +47,7 @@ Ext.define('ProtoUL.ux.Login', {
         Ext.apply(this, {
             items: [{
                 fieldLabel: _SM.__language.Textfield_User_Login,
-                itemId: 'loginField',
+                itemId: 'username',
                 name: "login",
                 value: this.username,
                 listeners: {

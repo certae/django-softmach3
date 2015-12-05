@@ -1,54 +1,71 @@
 /**
- * @author Giovanni Victorette / Dario Gomez -
+ * The main application class. An instance of this class is created by app.js when it
+ * calls Ext.application(). This is the ideal place to handle application launch and
+ * initialization details.
+ * Licence GPLv3, 
+ * CeRTAE, Dario Gomez 
  */
-Ext.define('ProtoUL.Application', {
-    name: 'ProtoUL',
-	
-    extend: 'Ext.app.Application',
-	paths: {
-        'ProtoUL': 'static/js'
-    },
-    
-    requires: [
-    	'Ext.window.MessageBox', 
-    	'Ext.toolbar.Paging', 
-    	'Ext.layout.container.Border', 
-    	'Ext.util.Cookies', 
-    	'Ext.Ajax',
-    	'ProtoUL.view.MenuTree', 
-    	'ProtoUL.view.ProtoTabContainer', 
-    	'ProtoUL.view.Viewport', 
-    	'ProtoUL.view.password.PasswordReset', 
-    	'ProtoUL.ux.Printer', 
-    	'ProtoUL.ux.GridHeaderToolTip', 
-    	'ProtoUL.ux.CheckColumn'
-    ],
-	models: [
-        'EntityAttributesModel'
-    ],
-    stores: [
-        'EntityAttributeStore',
-        'DBTypesStore',
-        'DiagramModelStore'
-    ],
-	views: [
-        'diagram.DiagramMainView',
-        'diagram.DiagramMenu',
-        'diagram.DiagramCanvas',
-        'diagram.DiagramToolbar',
-        'diagram.EntityEditor',
-        'diagram.EntityAttributes',
-        'diagram.TableContextMenu',
-        'diagram.DatabaseMenu',
-        'searchmodel.LiveSearchGridPanel',
-        'searchmodel.SearchBottomBar',
-        'ComboBoxPrompt'
-    ],
-	controllers: [
-		'PasswordManager',
-		'DiagramController',
-		'DiagramMenuController',
-		'DiagramContextMenuController'
-	],
-	
+
+Ext.Loader.setConfig({
+    enabled: true,
+    paths : {  
+        'Softmachine' : 'static/js', 
+        'Softmachine.view' : 'static/js/view'
+    }
 });
+
+Ext.define('Softmachine.Application', {
+    extend: 'Ext.app.Application',
+    name: 'Softmachine',
+
+    stores: [
+        // TODO: add global / shared stores here
+    ],
+
+    views: [
+        'Softmachine.view.login.Login',
+        'Softmachine.view.main.Main'
+    ],
+    
+    launch: function () {
+
+        // It's important to note that this type of application could use
+        // any type of storage, i.e., Cookies, LocalStorage, etc.
+        var loggedIn;
+
+        // Check to see the current value of the localStorage key
+        loggedIn = localStorage.getItem("TutorialLoggedIn");
+
+        // This ternary operator determines the value of the TutorialLoggedIn key.
+        // If TutorialLoggedIn isn't true, we display the login window,
+        // otherwise, we display the main view
+        
+        Ext.create({
+            xtype: loggedIn ? 'app-main' : 'login'
+        });
+
+    },
+
+    onAppUpdate: function () {
+        Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
+            function (choice) {
+                if (choice === 'yes') {
+                    window.location.reload();
+                }
+            }
+        );
+    }
+});
+
+// Add csrf token to every ajax request
+Ext.Ajax.on('beforerequest', function(conn, options) {
+    if ( typeof (options.headers) == "undefined") {
+        options.headers = {
+            'X-CSRFToken': Ext.util.Cookies.get('csrftoken')
+        };
+    } else {
+        options.headers.extend({
+            'X-CSRFToken': Ext.util.Cookies.get('csrftoken')
+        });
+    }
+}, this);

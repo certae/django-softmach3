@@ -166,7 +166,7 @@ Ext.define('ProtoUL.proto.ProtoDetailTree', {
         this.treeStore = Ext.create('Ext.data.TreeStore', {
             autoLoad: true,
             model: 'Proto.DetailsTreeModel',
-            root: {
+            rootProperty: {
                 text: _SM.__language.Grid_Detail_Title,
                 expanded: true
             },
@@ -224,7 +224,7 @@ Ext.define('ProtoUL.proto.ProtoDetailTree', {
                     'detailField' : record.get('detailField' )
                     }
 
-                // Evita iterar en el root
+                // Evita iterar en el rootProperty
                 if ( lRec.conceptDetail )  {
 
                     // Marca los campos activos en la grilla

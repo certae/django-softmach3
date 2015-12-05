@@ -20,6 +20,7 @@
 /*global _SM */
 /*global ProtoUL */
 
+_SM = _SM || {};
 
 _SM.getStoreDefinition = function(stDef) {
 
@@ -190,7 +191,7 @@ _SM.getProxyDefinition = function(stDef) {
         },
         reader : {
             type : 'json',
-            root : 'rows',
+            rootProperty : 'rows',
             successProperty : 'success',
             totalProperty : 'totalCount',
             messageProperty : 'message'
@@ -198,7 +199,7 @@ _SM.getProxyDefinition = function(stDef) {
 
         writer : {
             type : 'json',
-            root : 'rows',
+            rootProperty : 'rows',
             allowSingle : false,
             writeAllFields : true,
             // Incluye los parametros en el post ( por defecto en el get )
@@ -260,7 +261,7 @@ _SM.getTreeStoreDefinition = function(stDef) {
         remoteSort : true,
         autoSync : true,
 
-        root : {
+        rootProperty : {
             // text:'details',
             expanded : true
         }

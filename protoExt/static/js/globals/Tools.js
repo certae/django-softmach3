@@ -4,6 +4,8 @@
 /*global _SM */
 /*global ProtoUL */
 
+_SM = _SM || {};
+
 _SM.typeOf=function (value) {
     var s = typeof value;
     if (s === 'object') {

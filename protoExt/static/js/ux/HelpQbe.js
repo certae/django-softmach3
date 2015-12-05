@@ -1,5 +1,5 @@
 ﻿﻿Ext.define('Ext.ux.HelpQbe', {
-    extend: 'Ext.form.field.Trigger',
+    extend: 'Ext.form.field.Text',
     alias: 'widget.HelpQbe',
 
     triggerCls: Ext.baseCSSPrefix + 'form-search-trigger',
@@ -37,7 +37,7 @@
                 url: _SM._PConfig.urlHelpQbe,
                 reader: {
                     type: 'json',
-                    root: 'data',
+                    rootProperty: 'data',
                     totalProperty: 'totalCount'
                 },
                 actionMethods: {

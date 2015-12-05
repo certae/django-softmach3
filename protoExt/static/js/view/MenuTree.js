@@ -49,7 +49,7 @@ Ext.define('ProtoUL.view.MenuTree', {
         this.store = Ext.create('Ext.data.TreeStore', {
             autoLoad: true,
             model: 'Proto.MenuModel',
-            root: {
+            rootProperty: {
                 text: 'menu',
                 expanded: true
             },
@@ -222,7 +222,7 @@ Ext.define('ProtoUL.view.MenuTree', {
         function Tree2Menu(tNode) {
             // Para poder leer de la treeData o del TreeStore ( requiere data )
             var tData = tNode.data, tChilds = tNode.childNodes, mData = {};
-            if (tData.root) {
+            if (tData.rootProperty) {
                 mData = getMenuChilds(tChilds);
             } else {
                 mData = {

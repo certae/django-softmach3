@@ -27,6 +27,6 @@ class ActivityLogTest(TestCase):
     def tearDown(self):
         pass
 
-    def test_method_with_user_none(self):
+    def test_logger(self):
        
         activityLog( action = '', user = self.user, option = '', info = '')

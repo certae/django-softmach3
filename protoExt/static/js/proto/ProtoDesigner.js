@@ -216,7 +216,7 @@ Ext.define('ProtoUL.proto.ProtoDesigner', {
 
         treeStore = Ext.create('Ext.data.TreeStore', {
             model : 'Proto.PclTreeNode',
-            root : {
+            rootProperty : {
                 expanded : true,
                 children : treeData
             }
@@ -243,7 +243,7 @@ Ext.define('ProtoUL.proto.ProtoDesigner', {
 
         treeStore = Ext.create('Ext.data.TreeStore', {
             model : 'Proto.PclTreeNode',
-            root : {
+            rootProperty : {
                 expanded : true,
                 text : _SM.__language.Title_Main_Panel,
                 children : []

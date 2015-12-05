@@ -11,27 +11,31 @@
 		<meta name="author" content="CeRTAE U.Laval/ Dario Gomez">
 		{% endblock %}
 		{% csrf_token %}
-		
+
 		<!-- icon -->
 		<link rel="shortcut icon" href="laval.ico">
 		<!-- Ext JS Files -->
 		{% block extjs %}
-		<link rel="stylesheet" type="text/css" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/css/ext-all-gray.css">
-		<script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-crisp/resources/theme-crisp-all.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/ext-all-debug.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-crisp/theme-crisp-debug.js"></script>
+
+
 		{% endblock %}
-		
+
 		{% block defaultstylesheets %}
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css">
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/designer.css">
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/statusbar.css">
 		{% endblock %}
 		{% block extrastylesheets %}{% endblock %}
-		
+
 		<script type="text/javascript" src="{{ STATIC_URL }}js/globals/variables.js"></script>
 		{% block configproperties %}
 		<script type="text/javascript" src="{{ STATIC_URL }}js/globals/configProperties.js"></script>
 		{% endblock %}
-		
+
 		<!-- load i18n files on the fly -->
 		<script type="text/javascript" id="extlocale"></script>
 		<script type="text/javascript" id="protolocale"></script>
@@ -43,7 +47,7 @@
             if (/en-[US|us]/.test(userLang)) {
                 userLang = 'en';
             }
-            
+
             // available locale files
             var locales = ['fr', 'es', 'en'];
             // default locale
@@ -56,18 +60,9 @@
                 }
             };
 
-            // Insert src attribute to extlocale and protolocale
-            if (locale) {
-                Ext.fly('extlocale').set({
-                    src: 'http://cdn.sencha.com/ext/gpl/4.2.1/locale/ext-lang-' + locale + '.js'
-                });
-                Ext.fly('protolocale').set({
-                    src: '{{ STATIC_URL }}js/globals/locale/SM__lang-' + locale + '.js'
-                });
-            }
 		</script>
 		<!-- ==== end i18n ==== -->
-		
+
 		{% block extjsloader %}{% endblock %}
 		<script type="text/javascript" src="{{ STATIC_URL }}js/app-all.js"></script>
 		{% block javascript %}{% endblock %}

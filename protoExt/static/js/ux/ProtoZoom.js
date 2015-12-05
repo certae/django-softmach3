@@ -1,6 +1,6 @@
 /**
  * @class ProtoUL.ux.ProtoZoom
- * @extends Ext.form.field.Trigger
+ * @extends Ext.form.field.Text
  * <p>Field with search fk model</p>
  * @author Dario Gomez 
  */
@@ -27,7 +27,7 @@
 /*global _SM */
  
 Ext.define('ProtoUL.ux.protoZoom', {
-    extend : 'Ext.form.field.Trigger',
+    extend : 'Ext.form.field.Text',
     alias : 'widget.protoZoom',
     
     // * Zoom initialization

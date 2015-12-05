@@ -1,6 +1,6 @@
 /*
  *
- */
+*/
 
 /*jslint nomen: true, sloppy : true, white : true, sub : true */
 /*global Ext */
@@ -91,8 +91,8 @@ Ext.define('ProtoUL.view.Viewport', {
 
         _SM.__StBar.showBusy('loading ... ', 'vPort', 3000);
 
-        // Load MetaDefinition 
-        this._loadMetaStructure(); 
+        // Load MetaDefinition
+        this._loadMetaStructure();
 
         // Load PCI
         // TODO: This could be configured by user
@@ -147,23 +147,23 @@ Ext.define('ProtoUL.view.Viewport', {
 
             xtype: 'menuTree'
 
-            // ---------------------  Do not delete 
+            // ---------------------  Do not delete
             // layout: 'accordion',
             // items: [{
-                // // title: 'Menu',
-                // layout: 'fit',
-                // xtype: 'menuTree'
-                // // xtype: 'treepanel',
+            // // title: 'Menu',
+            // layout: 'fit',
+            // xtype: 'menuTree'
+            // // xtype: 'treepanel',
             // }, {
-                // title: 'Favorits',
-                // hidden: true,
+            // title: 'Favorits',
+            // hidden: true,
             // }]
         };
         // );
 
         // listeners: {
-            // scope: this,
-            // feedselect: this.onFeedSelect
+        // scope: this,
+        // feedselect: this.onFeedSelect
         // };
 
         return this.menuPanel;
@@ -184,6 +184,7 @@ Ext.define('ProtoUL.view.Viewport', {
             failure: function(obj, result, request) {
                 return;
             }
+
         };
 
         if (_SM.loadPci(viewCode, true, options)) {
@@ -215,4 +216,5 @@ Ext.define('ProtoUL.view.Viewport', {
         });
         return this.protoTabContainer;
     }
+
 });
