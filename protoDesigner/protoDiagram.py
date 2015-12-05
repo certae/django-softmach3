@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+### Diagram view  for ExtJS Diagram view 
+ 
 from django.http import HttpResponse
 from prototype.models import Project, Model, Entity, Diagram
 

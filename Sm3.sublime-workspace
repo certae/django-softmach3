@@ -1,0 +1,883 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"re",
+				"requireOk	requireOk"
+			],
+			[
+				"W",
+				"window"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "protoExt/static/js/view/login/Login.js",
+			"settings":
+			{
+				"buffer_size": 1752,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "protoExt/static/js/view/main/Main.js",
+			"settings":
+			{
+				"buffer_size": 2394,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "protoExt/static/js/view/main/MainController.js",
+			"settings":
+			{
+				"buffer_size": 881,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "protoExt/static/js/view/login/LoginController.js",
+			"settings":
+			{
+				"buffer_size": 1785,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 90 files for \"Ajax\" (case sensitive, whole word)\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/Application.js:\n   59  \n   60  // Add csrf token to every ajax request\n   61: Ext.Ajax.on('beforerequest', function(conn, options) {\n   62      if ( typeof (options.headers) == \"undefined\") {\n   63          options.headers = {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridController.js:\n  295          // {\n  296          // loadText = 'Loading...';\n  297:         // //Use the mask function on the Ext.getBody() element to mask the body element during Ajax calls\n  298          //	Ext.getBody().mask(loadText, 'loading');\n  299:         //	Ext.Ajax.on('requestcomplete',Ext.getBody().unmask ,Ext.getBody());\n  300:         //	Ext.Ajax.on('requestexception', Ext.getBody().unmask , Ext.getBody());\n  301          // }\n  302      }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDPrintOptsController.js:\n  132              var pGrid = __MasterDetail.protoMasterGrid;\n  133  \n  134:             Ext.Ajax.request({\n  135                  method: 'POST',\n  136                  url: _SM._PConfig.urlGetProtoExport,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramController.js:\n  119  \n  120      createAjaxRequest: function(url, method, params, jsonData, successFunction, failureFunction) {\n  121:         Ext.Ajax.request({\n  122              url: url,\n  123              method: method,\n  ...\n  288  \n  289      runAjaxOpenDiagram: function(controller, url, projectID, diagramID) {\n  290:         Ext.Ajax.request({\n  291              url: url,\n  292              method: \"GET\",\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramMenuController.js:\n  103          var controller = this;\n  104          var projectID = controller.getDiagramMainView().getProjectID();\n  105:         Ext.Ajax.request({\n  106              url: _SM._PConfig.urlGetEntitiesJSONDiagram,\n  107              params: {\n  ...\n  156  		function doUpdate(btn) {\n  157              if (btn === 'yes') {\n  158:                 Ext.Ajax.request({\n  159  					url: _SM._PConfig.synchDiagramFromDB,\n  160  					params: {\n  ...\n  238              jsonRequest.push(tables[i].data);\n  239          }\n  240:         Ext.Ajax.request({\n  241              url: _SM._PConfig.getElementsDiagramFromSelectedTables,\n  242              jsonData: jsonRequest,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/controller/PasswordManager.js:\n   30                          if (btn == 'ok') {\n   31                              Ext.destroy(Ext.ComponentQuery.query('passwordForm'));\n   32:                             // Ext.Ajax.request({\n   33                              //     url: 'protoExt',\n   34                              //     success: function() {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js:\n  891          });\n  892  \n  893:         Ext.Ajax.request({\n  894              method : 'POST',\n  895              url : _SM._PConfig.urlGetPCI,\n  ...\n  953      });\n  954  \n  955:     Ext.Ajax.request({\n  956          method : 'POST',\n  957          url : _SM._PConfig.urlSaveProtoObj,\n  ...\n  987  //         failure : Ext.emptyFn\n  988  //     });\n  989: //     Ext.Ajax.request({\n  990  //         method : 'POST',\n  991  //         url : '/resources/' + fileName,\n  ...\n 1038      });\n 1039  \n 1040:     Ext.Ajax.request({\n 1041          method : 'POST',\n 1042          url : _SM._PConfig.urlGetSheetReport,\n ....\n 1072      });\n 1073  \n 1074:     Ext.Ajax.request({\n 1075          method : 'POST',\n 1076          url : _SM._PConfig.urlDoAction,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoPcl.js:\n  567  function callVerifyMeta(oMeta, ptType, tNode, record ) {\n  568  \n  569:     Ext.Ajax.request({\n  570          method: 'POST',\n  571          url: _SM._PConfig.urlVerifyMeta,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/ux/StatusBar.js:\n  107  \n  108      closeSession: function() {\n  109:         Ext.Ajax.request({\n  110              url: _SM._PConfig.urlLogOut,\n  111              success: function(response) {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js:\n   40  \n   41         // Login using server-side authentication service\n   42:         Ext.Ajax.request({\n   43              method: 'POST',\n   44              scope: me,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Viewport.js:\n   69          var me = this;\n   70  \n   71:         Ext.Ajax.request({\n   72              method: 'POST',\n   73              url: _SM._PConfig.urlGetMetaStructure,\n\n20 matches across 11 files\n\n\nSearching 90 files for \"mainlist\" (case sensitive, whole word)\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js:\n   85          // The following grid shares a store with the classic version's grid as well!\n   86          items: [{\n   87:             xtype: 'mainlist'\n   88          }]\n   89      }, {\n\n1 match in 1 file\n",
+			"settings":
+			{
+				"buffer_size": 4946,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "protoExt/static/js/globals/ProtoStore.js",
+			"settings":
+			{
+				"buffer_size": 33819,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 174.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/dario/PyDev3/softmach3/protoExt",
+		"/home/dario/PyDev3/softmach3/protoExt/static",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/locale",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main",
+		"/home/dario/PyDev3/softmach3/protoExt/templates"
+	],
+	"file_history":
+	[
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/Application.js",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoLogin.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginBase.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/FieldHtmlEditor.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoPcl.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Viewport.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/DetailButton.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/FormController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDActionsController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/app.js",
+		"/home/dario/PyDev3/softmach3/protoExt/templates/protoDebug.html",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/Login.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/variables.js",
+		"/home/dario/DevExtJs6/ZVarios/sencha_extjs6_codigo/app01/app.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/Tools.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/configProperties.js",
+		"/home/dario/DevExtJs6/appsm/bootstrap.js",
+		"/home/dario/DevExtJs6/ZVarios/SM-Integra/Core/Apps/1/ROLADM/app.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/ConfigController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridSheetController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDDetailsController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDLinkController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDPrintOptsController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetFiltersController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetSortersController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetTabsController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDTbSortByController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/TbMasterDetail.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/WinGridController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramContextMenuController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramMenuController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/PasswordManager.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/model/Diagram.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/model/EntityAttributesModel.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoDesigner.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoDetailSelector.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoFieldSelector.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoToolBar.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/DBTypesStore.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/DiagramModelStore.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/Diagrams.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/EntityAttributeStore.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/PortPositions.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/GridCheckColumn.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/GridHeaderToolTip.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/HtmlSet.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ParameterWin.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/Printer.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoList.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoProperty.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoSearchBG.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoZoom.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/StatusBar.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainModel.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ComboBoxPrompt.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/MenuTree.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ProtoForm.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ProtoGrid.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ProtoMasterDetail.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ProtoTabContainer.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/Viewport.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/DatabaseMenu.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/DiagramCanvas.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/DiagramMainView.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/DiagramMenu.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/DiagramToolbar.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/EntityAttributes.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/EntityEditor.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/TableContextMenu.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/base/Form.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/diagram/base/Grid.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LostPwd.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/PwdReset.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/searchmodel/LiveSearchGridPanel.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/searchmodel/SearchBottomBar.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/Login.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/HelpQbe.js",
+		"/home/dario/DevExtJs6/ZVarios/Ext JS 6 By Example/CH3-Calculator/app.js",
+		"/home/dario/DevExtJs6/itsmtools-extjs/application/static/application/module/frontend/frontend.js",
+		"/home/dario/DevExtJs6/02Login/app/model/LoginFormViewModel.js",
+		"/home/dario/DevExtJs6/02Login/app/controller/RegisterFormViewController.js",
+		"/home/dario/DevExtJs6/01app/app/view/login/Login.js",
+		"/home/dario/DevExtJs6/01app/app/view/login/LoginController.js",
+		"/home/dario/DevExtJs6/newapp.sh",
+		"/home/dario/DevExtJs6/01app/sass/example/bootstrap.js",
+		"/home/dario/DevExtJs6/01app/app.js",
+		"/home/dario/DevExtJs6/02Login/app.js",
+		"/home/dario/DevExtJs6/02Login/app.json",
+		"/home/dario/DevExtJs6/02Login/app/Application.js",
+		"/home/dario/DevExtJs6/02Login/app/controller/LoginFormViewController.js",
+		"/home/dario/DevExtJs6/02Login/app/controller/MainViewViewController.js",
+		"/home/dario/DevExtJs6/02Login/app/model/MainViewViewModel.js",
+		"/home/dario/DevExtJs6/02Login/app/model/RegisterFormViewModel.js",
+		"/home/dario/DevExtJs6/02Login/app/view/LoginForm.js",
+		"/home/dario/DevExtJs6/02Login/app/view/MainView.js",
+		"/home/dario/DevExtJs6/02Login/app/view/RegisterForm.js",
+		"/home/dario/DevExtJs6/02Login/index.html",
+		"/home/dario/DevExtJs6/02Login41/README.md",
+		"/home/dario/DevExtJs6/02Login41/Readme.md",
+		"/home/dario/DevExtJs6/02Login41/app.js",
+		"/home/dario/DevExtJs6/02Login41/app.json",
+		"/home/dario/DevExtJs6/02Login41/app/Application.js",
+		"/home/dario/DevExtJs6/02Login41/app/controller/LoginFormViewController.js",
+		"/home/dario/DevExtJs6/02Login41/app/controller/MainViewViewController.js",
+		"/home/dario/DevExtJs6/02Login41/app/controller/RegisterFormViewController.js",
+		"/home/dario/DevExtJs6/02Login41/app/model/LoginFormViewModel.js",
+		"/home/dario/DevExtJs6/02Login41/app/model/MainViewViewModel.js",
+		"/home/dario/DevExtJs6/02Login41/app/model/RegisterFormViewModel.js",
+		"/home/dario/DevExtJs6/02Login41/app/view/LoginForm.js",
+		"/home/dario/DevExtJs6/02Login41/app/view/MainView.js",
+		"/home/dario/DevExtJs6/02Login41/app/view/RegisterForm.js",
+		"/home/dario/DevExtJs6/02Login41/bootstrap.css",
+		"/home/dario/DevExtJs6/02Login41/build.xml",
+		"/home/dario/DevExtJs6/02Login41/classic.json",
+		"/home/dario/DevExtJs6/02Login41/classic/sass/src/Readme.md",
+		"/home/dario/DevExtJs6/02Login41/classic/sass/var/Readme.md",
+		"/home/dario/DevExtJs6/02Login41/index.html",
+		"/home/dario/DevExtJs6/02Login41/modern.json",
+		"/home/dario/DevExtJs6/02Login41/modern/sass/src/Readme.md",
+		"/home/dario/DevExtJs6/02Login41/modern/sass/var/Readme.md",
+		"/home/dario/DevExtJs6/02Login41/out.txt",
+		"/home/dario/DevExtJs6/01app/workspace.json"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 106.0,
+		"where_history":
+		[
+			"*.js",
+			"*.py",
+			"*.js",
+			"/home/dario/DevExtJs6/01app/app",
+			"/home/dario/DevExtJs6/02Login,/home/dario/DevExtJs6/02Login41",
+			"/home/dario/DevExtJs6/02appLogin",
+			"/home/dario/DevExtJs6/01app",
+			"/home/dario/DevExtJs6/02appLogin",
+			"*.js,/home/dario/DevExtJs6/02appLogin/app",
+			"*.txt",
+			"*.py",
+			"*.txt",
+			"/home/dario/Dropbox/wikiDoc/wikiEscritos/TesisVarias/Academia-MNG,*.txt",
+			"/home/dario/Dropbox/wikiDoc/wikiEscritos/TesisVarias/Academia-BI,*.txt",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"bind",
+			"mainlist",
+			"list",
+			"Ajax",
+			"login",
+			"getForm",
+			"loadPci",
+			"success",
+			"Ajax",
+			"success",
+			"options",
+			"loginField",
+			"ux",
+			"TestApp",
+			"appsm",
+			"ProtoUL",
+			"appsm",
+			"login",
+			"root",
+			"rootProperty",
+			"root",
+			"login",
+			"app-main",
+			"TestApp",
+			"app04",
+			"app0",
+			"app04",
+			"look",
+			"look-think-act",
+			"kvale",
+			"\nConclusion",
+			"\nDémo",
+			"\nStructuration Agile",
+			"(C) Mark International, CartoAgile, Nov 2015",
+			"(C) Mark International, CartoAgile, Nov 2015 19",
+			"(C) Mark International, CartoAgile, Nov 2015 20",
+			"Génerateur des données Primaire",
+			"<font",
+			"\\<font\\>.+\\<\\/font\\>",
+			"DATABASES",
+			"Databas",
+			"cls: 'btn",
+			"%%",
+			"\n\n  * ",
+			"Gouvernance (suite)",
+			"top50",
+			"500",
+			"zone",
+			":zoneprivee:",
+			":zoneprivee:histo-loli",
+			":zoneprivee:",
+			".:SIO-1100-lavenir",
+			".:1511-S12-Idividuelle",
+			"{ {",
+			"~ ~",
+			"Why is knowledge management useful?",
+			"frost",
+			"\n\n*",
+			"\n  *",
+			"\n\n\n",
+			"\n\n",
+			"\n\n* ",
+			"  |",
+			"|  ",
+			"\n\n* ",
+			"\n* \n",
+			"\n  * ",
+			"\n \n\n\n",
+			"\n\n \n\n",
+			"\n \n\n\n",
+			"\n\n\n\n",
+			"\n\n* ",
+			"\n\n\n",
+			"\n**",
+			"\n\n\n",
+			"\n\n\n\n",
+			"\n**",
+			"\n\n\n\n",
+			"== Administración",
+			"\n**",
+			"\n\n\n",
+			"\n\n*",
+			"\\\\ ",
+			"	",
+			"\n\n\n",
+			"\n\n\n\n",
+			"\\\\ ",
+			"¿",
+			"\\\\ * ",
+			"\n\n\n",
+			"\n\n\n\n",
+			"\\\\ ",
+			"\\{\\{wiki\\:Image..\\}\\}",
+			"\\\\",
+			"\\\\\\\\  [1-9].[1-9][1-9].[1-9].[1-9] ",
+			"|",
+			"\\\\ *",
+			"**|**",
+			"**\\\\",
+			"\\|\\* ",
+			"\\| \\*",
+			"\\|  \\*",
+			"|  *",
+			"\\{\\{wiki\\:Image.\\}\\}",
+			".\\{\\{wiki\\:Image.\\}\\}",
+			"\\{\\{wiki\\:Image.\\}\\}",
+			"{{wiki:Image.}}",
+			"\\\\",
+			"[[++",
+			"[[",
+			"\n#",
+			"/media/dario/Dario1T/VirtualMachines/VPC/Discos Virtuales",
+			"/media/dario/Dario1T/VirtualMachines/Discos Virtuales",
+			"/media/dario/VERBATIM HD/INTEGRA/INTEGRA (WILLIAM)/EMPRESAS",
+			"/media/dario/VERBATIM HD/INTEGRA/MARIA/DISCO D/VIDEO TUTORIALES",
+			"/media/dario/VERBATIM HD/INTEGRA/GRABACIONES MODULOS DESARROLLADOS",
+			"/media/dario/VERBATIM HD/INTEGRA/FRANCISCO/TutorialSm",
+			"/media/dario/VERBATIM HD/INTEGRA/MARIA/DISCO D/VIDEO TUTORIALES/GRABACIONES/ACONDESA/",
+			"/media/dario/VERBATIM HD/INTEGRA/MARIA/DISCO D/VIDEO TUTORIALES/ENTREGA FRANCISCO/",
+			"/media/dario/VERBATIM HD/INTEGRA/MARIA/DISCO D/UTILIDADES SM/VIDEO TUTORIALES/ENTREGA FRANCISCO",
+			"/media/dario/VERBATIM HD/INTEGRA/DISCO D (Srvman)/FRANCISCO/",
+			"/media/dario/VERBATIM HD/INTEGRA/DISCO D (Srvman)/EMPRESAS/ATUNEC",
+			":plugins",
+			"\n\n\n",
+			"\n\n",
+			"=([A-Z])",
+			"=C",
+			"\n([A-F])\\. "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"username",
+			"Softmachine",
+			"rootProperty",
+			"app01",
+			"",
+			"\nFONTX",
+			"// cls: 'btn",
+			"",
+			"\n  * ",
+			"***",
+			":conferences:dp:",
+			":conferences:dp",
+			":conferences:histo-loli",
+			":conferences:",
+			":conferences:ll-lavenir",
+			":conferences:ll-gouvernance",
+			"{{",
+			"~~",
+			"\n*",
+			"\n",
+			"\n* ",
+			" |",
+			"| ",
+			"\n* ",
+			"\n* \n",
+			"\n\n",
+			"\n* ",
+			"\n\n",
+			"\n== ",
+			"\n\n",
+			"\n* **",
+			"\n\n",
+			"* Administración",
+			"\n== ",
+			"\n\n",
+			"\n*",
+			"\n",
+			"|",
+			"\n",
+			" ",
+			"\n* ",
+			"\n\n",
+			"\n",
+			"\n* ",
+			"",
+			"\n* ",
+			" : ",
+			"** : ",
+			"|",
+			"",
+			"\n",
+			"[[+",
+			"\n\n#",
+			"---  VPC",
+			"---  EMPRESAS",
+			"---  INTEGRA-TUTORIALES",
+			"---  INTEGRA-CLIENTES-ATUNEC",
+			"INTEGRA-CLIENTES-ATUNEC",
+			"---- ",
+			":wiki:plugins",
+			"\n\n",
+			"= \\1",
+			"\n* \\1. ",
+			"\\1. ",
+			"\\1.",
+			"* \\1.",
+			"",
+			"3%",
+			"== Q",
+			"== Question ",
+			"\n== Question",
+			"* \\1- ",
+			"",
+			"\n",
+			"\\1 ",
+			" ",
+			"* \\1-",
+			"\n== QUESTION:",
+			"",
+			"\n* ",
+			"\" 		~/tmp",
+			"cp \"",
+			"\n== Q",
+			"\\1- ",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "protoExt/static/js/view/login/Login.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								694,
+								694
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 378.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "protoExt/static/js/view/main/Main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2394,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1043,
+								1043
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "protoExt/static/js/view/main/MainController.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								881,
+								881
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "protoExt/static/js/view/login/LoginController.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1785,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1233,
+								1233
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4946,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										190,
+										194
+									],
+									[
+										572,
+										576
+									],
+									[
+										664,
+										668
+									],
+									[
+										750,
+										754
+									],
+									[
+										1022,
+										1026
+									],
+									[
+										1351,
+										1355
+									],
+									[
+										1544,
+										1548
+									],
+									[
+										1844,
+										1848
+									],
+									[
+										2059,
+										2063
+									],
+									[
+										2241,
+										2245
+									],
+									[
+										2635,
+										2639
+									],
+									[
+										2891,
+										2895
+									],
+									[
+										3035,
+										3039
+									],
+									[
+										3215,
+										3219
+									],
+									[
+										3359,
+										3363
+									],
+									[
+										3503,
+										3507
+									],
+									[
+										3752,
+										3756
+									],
+									[
+										3977,
+										3981
+									],
+									[
+										4260,
+										4264
+									],
+									[
+										4469,
+										4473
+									],
+									[
+										4883,
+										4891
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								4889,
+								4889
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2484.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "protoExt/static/js/globals/ProtoStore.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 33819,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								27532,
+								27532
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 15828.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.484463276836,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Sm3.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 264.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
