@@ -1,4 +1,4 @@
-Ext.define('ProtoUL.view.MenuTree', {
+Ext.define('Softmachine.view.main.MenuTree', {
     extend: 'Ext.tree.Panel',
     alias: 'widget.menuTree',
 
@@ -62,7 +62,7 @@ Ext.define('ProtoUL.view.MenuTree', {
 
         });
 
-        if (_SM._UserInfo.isStaff) {
+        if (  _SM._UserInfo.isStaff || true ) {
 
             Ext.apply(this, {
                 dockedItems: [{
@@ -117,8 +117,8 @@ Ext.define('ProtoUL.view.MenuTree', {
             });
         }
 
-        this.callParent(arguments);
-        this.addEvents('menuSelect');
+        this.callParent();
+        // TODO: this.addEvents('menuSelect');
 
         if (_SM._UserInfo.isSuperUser)
             Ext.getCmp('newOption').show();

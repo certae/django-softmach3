@@ -17,7 +17,8 @@ Ext.define('Softmachine.view.main.Main', {
         'Ext.window.MessageBox',
         'Ext.ux.statusbar.StatusBar',
 
-        'Softmachine.view.main.MainController' ],
+        'Softmachine.view.main.MainController', 
+        'Softmachine.view.main.MenuTree' ],
 
     controller : 'main',
     // viewModel: 'main',
@@ -33,17 +34,10 @@ Ext.define('Softmachine.view.main.Main', {
             defaults : {
                 split : true
             },
-            items : [ {
-                // xtype: 'panel' implied by default
-                title : 'Center Region',
-                region : 'center', // center region is required, no width/height specified
-                xtype : 'panel',
-                layout : 'fit',
-                margin : '5 5 0 0'
-            },
-
-            this.createFooterPanel(), this.createHeaderPanel(), this.createMenuPanel(),
-            // this.createProtoTabContainer()
+            items : [ 
+                this.createHeaderPanel(), 
+                this.createMenuPanel(),
+                this.createProtoTabContainer()
             ]
 
         });
@@ -77,19 +71,36 @@ Ext.define('Softmachine.view.main.Main', {
         return myPanel;
     },
 
-    createFooterPanel : function(){
+    createMenuPanel : function(){
 
         var myPanel = {
-            id : 'vp-footer',
-            title : 'StatusBar',
-            region : 'south', // position for region
+            xtype : 'menuTree',
+            title : _SM.__language.Title_Main_Menu || 'Menu',
+            region : 'west',
+            margin : '5 0 0 5',
+            width : 260,
+            collapsible : true, // make collapsible
+            collapsed : _SM._MENU_COLLAPSED || false,
+
+            id : 'vp-menu',
+            layout : 'fit'
+        };
+
+        return myPanel;
+
+    },
+
+    createProtoTabContainer : function(){
+
+        var myPanel = {
+            // xtype: 'panel' implied by default
+            title : 'Center Region',
+            region : 'center', // center region is required, no width/height specified
             xtype : 'panel',
-
-            split : false, // enable resizing
+            layout : 'fit',
+            minWidth : 300, 
             header : false, // To hide title bar, having title for ARIA
-            border : true,
 
-            collapsible : false,
             bbar : Ext.create('Ext.ux.StatusBar', {
                 defaultText : '',
                 id : 'vp-statusbar',
@@ -130,40 +141,10 @@ Ext.define('Softmachine.view.main.Main', {
                     })
                 } ]
             })
-
         };
 
         return myPanel;
-
     },
 
-    createMenuPanel : function(){
-
-        var myPanel = {
-            // DGT:  xtype : 'menuTree',
-
-            title : _SM.__language.Title_Main_Menu || 'Menu',
-            region : 'west',
-            margin : '5 0 0 5',
-            width : 260,
-            collapsible : true, // make collapsible
-            collapsed : _SM._MENU_COLLAPSED || false,
-
-            id : 'vp-menu',
-            layout : 'fit'
-        };
-
-        return myPanel;
-
-    },
-
-    createProtoTabContainer : function(){
-        this.protoTabContainer = Ext.create('widget.protoTabContainer', {
-            region : 'center',
-            border : false,
-            minWidth : 300
-        });
-        return this.protoTabContainer;
-    }
 
 });

@@ -5,6 +5,8 @@
 
 _SM = {};
 
+_SM._UserInfo = {}; 
+
 // Grid row state
 _SM._ROW_ST = {
     REFONLY: 'REF_ONLY',
