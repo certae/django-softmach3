@@ -60,45 +60,7 @@ Ext.define('ProtoUL.view.Viewport', {
 
     },
 
-    _loadMetaStructure: function() {
 
-        var me = this;
-
-        Ext.Ajax.request({
-            method: 'POST',
-            url: _SM._PConfig.urlGetMetaStructure,
-            success: function(result, request) {
-                var myResult = Ext.decode(result.responseText);
-                _SM._MetaObjects = myResult.metaObjects;
-                _SM._MetaProperties = myResult.metaProperties;
-            },
-            failure: function(result, request) {
-                _SM._MetaObjects = {};
-                _SM._MetaProperties = {};
-                _SM.errorMessage('Error loading MetaDefinition', 'MetaDefinition not found');
-            },
-            scope: this
-        });
-
-    },
-
-    afterRender: function() {
-        this.callParent(arguments);
-
-        _SM.__StBar.showBusy('loading ... ', 'vPort', 3000);
-
-        // Load MetaDefinition
-        this._loadMetaStructure();
-
-        // Load PCI
-        // TODO: This could be configured by user
-        for (var autoPci in _SM._AUTOLOAD_PCI) {
-            this.loadPciFromMenu(_SM._AUTOLOAD_PCI[autoPci]);
-        }
-
-        _SM._mainWin = this;
-
-    },
 
     createHeaderPanel: function() {
         var content = Ext.create('Ext.panel.Panel', {
@@ -211,6 +173,46 @@ Ext.define('ProtoUL.view.Viewport', {
             minWidth: 300
         });
         return this.protoTabContainer;
-    }
+    },
+
+    _loadMetaStructure: function() {
+
+        var me = this;
+
+        Ext.Ajax.request({
+            method: 'POST',
+            url: _SM._PConfig.urlGetMetaStructure,
+            success: function(result, request) {
+                var myResult = Ext.decode(result.responseText);
+                _SM._MetaObjects = myResult.metaObjects;
+                _SM._MetaProperties = myResult.metaProperties;
+            },
+            failure: function(result, request) {
+                _SM._MetaObjects = {};
+                _SM._MetaProperties = {};
+                _SM.errorMessage('Error loading MetaDefinition', 'MetaDefinition not found');
+            },
+            scope: this
+        });
+
+    },
+
+    afterRender: function() {
+        this.callParent(arguments);
+
+        _SM.__StBar.showBusy('loading ... ', 'vPort', 3000);
+
+        // Load MetaDefinition
+        this._loadMetaStructure();
+
+        // Load PCI
+        // TODO: This could be configured by user
+        for (var autoPci in _SM._AUTOLOAD_PCI) {
+            this.loadPciFromMenu(_SM._AUTOLOAD_PCI[autoPci]);
+        }
+
+        _SM._mainWin = this;
+
+    },
 
 });

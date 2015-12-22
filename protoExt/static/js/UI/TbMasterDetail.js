@@ -214,7 +214,7 @@ Ext.define('ProtoUL.UI.TbMasterDetail', {
                 // this.configCtrl.showMetaConfig()
 
             } else if (but.itemId === 'tbHelp') {
-                window.open(_SM._HELPpath, 'protoHelp', 'left=50,top=20,width=1000,height=600,resizable=0,scrollbars=yes');
+                window.open(_SM._HelpPath, 'protoHelp', 'left=50,top=20,width=1000,height=600,resizable=0,scrollbars=yes');
             }
 
         }

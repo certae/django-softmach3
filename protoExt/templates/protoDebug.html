@@ -1,66 +1,65 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		{% block sitetitle %}
-		<title>Proto Certae</title>
-		{% endblock %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	{% block sitetitle %}
+	<title>Proto Certae</title>
+	{% endblock %}
 
-		{% block meta %}
-		<meta name="description" content="">
-		<meta name="author" content="CeRTAE U.Laval/ Dario Gomez">
-		{% endblock %}
-		{% csrf_token %}
+	{% block meta %}
+	<meta name="description" content="">
+	<meta name="author" content="CeRTAE U.Laval/ Dario Gomez">
+	{% endblock %}
+	{% csrf_token %}
 
-		<!-- icon -->
-		<link rel="shortcut icon" href="laval.ico">
+	<!-- icon -->
+	<link rel="shortcut icon" href="laval.ico">
 
-		<!-- Ext JS Files -->
-		{% block extjs %}
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-crisp/resources/theme-crisp-all.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/ext-all-debug.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-crisp/theme-crisp-debug.js"></script>
+	<!-- Ext JS Files -->
+	{% block extjs %}
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-crisp/resources/theme-crisp-all.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/ext-all-debug.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-crisp/theme-crisp-debug.js"></script>
+	{% endblock %}
 
-		{% endblock %}
+	{% block defaultstylesheets %}
+	<link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/designer.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/statusbar.css" %}">
+	{% endblock %}
 
-		{% block defaultstylesheets %}
-		<link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}">
-		<link rel="stylesheet" type="text/css" href="{% static "css/designer.css" %}">
-		<link rel="stylesheet" type="text/css" href="{% static "css/statusbar.css" %}">
-		{% endblock %}
+	{% block extrastylesheets %}
+	{% endblock %}
 
-		{% block extrastylesheets %}
-		{% endblock %}
+	<script type="text/javascript" src="{% static "js/globals/variables.js" %}"></script>
 
-		<script type="text/javascript" src="{% static "js/globals/variables.js" %}"></script>
-
-		{% block configproperties %}
-		{% endblock %}
-		
-		<script type="text/javascript" src="{% static "js/globals/configProperties.js" %}"></script>
-		<script type="text/javascript" src="{% static "js/globals/Tools.js" %}"></script>
-		<script type="text/javascript" src="{% static "js/globals/ProtoStore.js" %}"></script>
-		<script type="text/javascript" src="{% static "js/globals/locale/SM__lang-fr.js" %}"></script>
-
-
-		<!-- load i18n files on the fly -->
-		<script type="text/javascript" id="extlocale"></script>
-		<script type="text/javascript" id="protolocale"></script>
-
-		<script type="text/javascript">
-			getParams = '{{ isPasswordReseted }}';
-			window.isPasswordReseted = getParams;
-		</script>
-		<!-- ==== i18n ==== -->
+	{% block configproperties %}
+	<script type="text/javascript" src="{% static "js/globals/configProperties.js" %}"></script>
+	{% endblock %}
+	
+	<script type="text/javascript" src="{% static "js/globals/Tools.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/globals/ProtoStore.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/globals/locale/SM__lang-fr.js" %}"></script>
 
 
-		{% block extjsloader %}{% endblock %}
-		<script type="text/javascript" src="{% static "js/Application.js" %}"></script>
-		<script type="text/javascript" src="{% static "js/app.js" %}"></script>
-		{% block javascript %}{% endblock %}
+	<!-- load i18n files on the fly -->
+	<script type="text/javascript" id="extlocale"></script>
+	<script type="text/javascript" id="protolocale"></script>
 
-	</head>
-	<body></body>
+	<script type="text/javascript">
+		getParams = '{{ isPasswordReseted }}';
+		window.isPasswordReseted = getParams;
+	</script>
+	<!-- ==== i18n ==== -->
+
+
+	{% block extjsloader %}{% endblock %}
+	<script type="text/javascript" src="{% static "js/Application.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/app.js" %}"></script>
+	{% block javascript %}{% endblock %}
+
+</head>
+<body></body>
 </html>

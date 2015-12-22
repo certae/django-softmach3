@@ -20,7 +20,7 @@ Ext.define('Softmachine.view.login.LoginController', {
             _SM._UserInfo.perms = {};
 
 			// Set the localStorage value  ( Security isue )
-	        // localStorage.setItem("UserLoggedIn", user.login );
+	        localStorage.setItem("SmLoggedIn", user.login );
 
 	        // Destroy Login Window and Add the main view to the viewport
             view.destroy();

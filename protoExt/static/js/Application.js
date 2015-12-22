@@ -34,10 +34,10 @@ Ext.define('Softmachine.Application', {
         var loggedIn;
 
         // Check to see the current value of the localStorage key
-        loggedIn = localStorage.getItem("TutorialLoggedIn");
+        loggedIn = localStorage.getItem("SmLoggedIn");
 
-        // This ternary operator determines the value of the TutorialLoggedIn key.
-        // If TutorialLoggedIn isn't true, we display the login window,
+        // This ternary operator determines the value of the SmLoggedIn key.
+        // If SmLoggedIn isn't true, we display the login window,
         // otherwise, we display the main view
         
         Ext.create({

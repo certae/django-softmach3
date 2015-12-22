@@ -13,5 +13,7 @@ datascripts/**
 fixtures/**
 
 errors.log
+
+db/**
 # db.sqlite3
 # local_settings.py
