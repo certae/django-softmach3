@@ -1,45 +1,48 @@
 # -*- coding: utf-8 -*-
 
-### Diagram view  for ExtJS Diagram view 
- 
+# Diagram view  for ExtJS Diagram view
+
 from django.http import HttpResponse
 from prototype.models import Project, Model, Entity, Diagram
 
 
-import json, uuid
+import json
+import uuid
 from jsonfield2.utils import JSONEncoder
 from protoExt.utils.utilsWeb import JsonError
 from protoDesigner.service.diagramJSONAssembler import JSONAssembler
-from protoDesigner.service.diagramService import addOrUpdateConnector,\
+from protoDesigner.service.diagramService import addOrUpdateConnector, \
     addOrUpdateEntity
+
 
 def getEntitiesJSONDiagram(request):
     """ return all tables from project
     """
     projectID = request.POST['projectID']
     selectedTables = []
-    
+
     try:
         entities = Entity.objects.filter(model__project_id=projectID)
         table = {}
         for entity in entities:
             table = {
-                'id':str(uuid.UUID(entity.smUUID)), 
-                'tableName':entity.code}
-        
+                'id': str(uuid.UUID(entity.smUUID)),
+                'tableName': entity.code}
+
             selectedTables.append(table)
-                
+
     except Exception as e:
         print(e)
-        return JsonError("Entity non trouvé")  
-    
+        return JsonError("Entity non trouvé")
+
     jsondict = {
-        'success':True,
+        'success': True,
         'message': '',
         'tables': selectedTables,
     }
     context = json.dumps(jsondict)
     return HttpResponse(context, content_type="application/json")
+
 
 def getElementsDiagramFromSelectedTables(request):
     """ Creates diagram objects from selected tables in LiveSearchGrid
@@ -47,20 +50,20 @@ def getElementsDiagramFromSelectedTables(request):
     selectedTables = []
     connectors = []
     jsondict = {}
-    
+
     objects = json.loads(request.body)
     UUIDAttributeList = []
     for element in objects:
         elementUUID = uuid.UUID(element['id']).hex
         UUIDAttributeList.append(elementUUID)
-        
+
     try:
         entities = Entity.objects.filter(smUUID__in=UUIDAttributeList)
         assembler = JSONAssembler()
         assembler.getJSONElements(entities, selectedTables, connectors)
-                
+
         jsondict = {
-            'success':True,
+            'success': True,
             'message': '',
             'tables': selectedTables,
             'connectors': connectors,
@@ -68,41 +71,41 @@ def getElementsDiagramFromSelectedTables(request):
     except Exception as e:
         print(e)
         jsondict = {
-            'success':False,
+            'success': False,
             'message': 'Error on creating JSON file',
         }
         context = json.dumps(jsondict)
         return HttpResponse(context, content_type="application/json", status=500)
-    
+
     context = json.dumps(jsondict)
     return HttpResponse(context, content_type="application/json")
 
-    
+
 def synchDiagramFromDB(request):
     """ Updates diagram objects from database
     """
     projectID = request.POST['projectID']
     selectedTables = []
     connectors = []
-    
+
     try:
         entities = Entity.objects.filter(model__project_id=projectID)
         assembler = JSONAssembler()
         assembler.getJSONElements(entities, selectedTables, connectors)
-                
+
     except Exception as e:
         print(e)
         return JsonError("Entity non trouvé")
-    
+
     jsondict = {
-        'success':True,
+        'success': True,
         'message': '',
         'tables': selectedTables,
         'connectors': connectors,
     }
     context = json.dumps(jsondict)
     return HttpResponse(context, content_type="application/json")
-    
+
 
 def synchDBFromDiagram(request):
     """ Create and synchronize elements in database
@@ -114,14 +117,15 @@ def synchDBFromDiagram(request):
 
         model = Model.objects.filter(project=project)
         if not model:
-            model = Model.objects.create(project=project,code='default',smOwningTeam=project.smOwningTeam,smCreatedBy=user,smOwningUser=user)
+            model = Model.objects.create(
+                project=project, code='default', smOwningTeam=project.smOwningTeam, smCreatedBy=user, smOwningUser=user)
         else:
             model = model[0]
 
         owningTeam = model.smOwningTeam
     except Exception as e:
         return JsonError(e)
-    
+
     objects = json.loads(request.body)
     deletedConnectors = []
     UUIDList = []
@@ -129,7 +133,8 @@ def synchDBFromDiagram(request):
         elementUUID = uuid.UUID(element['id']).hex
         if element['type'] == 'dbModel.shape.DBTable':
             UUIDList.append(elementUUID)
-            addOrUpdateEntity(model, user, owningTeam, deletedConnectors, element, elementUUID)
+            addOrUpdateEntity(
+                model, user, owningTeam, deletedConnectors, element, elementUUID)
         else:
             if elementUUID not in deletedConnectors:
                 sourceUUID = uuid.UUID(element['source']['node']).hex
@@ -139,9 +144,10 @@ def synchDBFromDiagram(request):
                     connEntity = Entity.objects.get(smUUID=targetUUID)
                 except Exception as e:
                     return JsonError(e)
-                
-                addOrUpdateConnector(element, elementUUID, refEntity, connEntity)
-    
+
+                addOrUpdateConnector(
+                    element, elementUUID, refEntity, connEntity)
+
     # Return the updated JSON model
     selectedTables = []
     connectors = []
@@ -149,13 +155,13 @@ def synchDBFromDiagram(request):
         entities = Entity.objects.filter(smUUID__in=UUIDList)
         assembler = JSONAssembler()
         assembler.getJSONElements(entities, selectedTables, connectors)
-                
+
     except Exception as e:
         print(e)
         return JsonError("Entity non trouvé")
-    
+
     jsondict = {
-        'success':True,
+        'success': True,
         'message': '',
         'tables': selectedTables,
         'connectors': connectors,
@@ -171,8 +177,8 @@ def getDefaultDiagram(request):
         project = Project.objects.get(id=projectID)
         diagrams = Diagram.objects.filter(project_id=projectID)
         if not diagrams:
-            diagram  = Diagram.objects.get_or_create(
-                project=project,code='default',
+            diagram = Diagram.objects.get_or_create(
+                project=project, code='default',
                 smOwningTeam=project.smOwningTeam)[0]
 
             diagram.smOwningUser = user
@@ -182,13 +188,13 @@ def getDefaultDiagram(request):
             diagram = diagrams[0]
     except Exception as e:
         return JsonError(e)
-    
+
     jsonDiagram = diagram.info
     if isinstance(jsonDiagram, dict):
-            jsonDiagram = json.dumps(jsonDiagram , cls=JSONEncoder)
-            
+        jsonDiagram = json.dumps(jsonDiagram, cls=JSONEncoder)
+
     jsondict = {
-        'success':True,
+        'success': True,
         'message': '',
         'diagramID': diagram.id,
         'diagramCode': diagram.code,
@@ -196,4 +202,3 @@ def getDefaultDiagram(request):
     }
     context = json.dumps(jsondict)
     return HttpResponse(context, content_type="application/json")
-

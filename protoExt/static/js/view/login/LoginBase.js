@@ -3,7 +3,6 @@
 /*global _SM */
 
 
-
 Ext.define('ProtoUL.ux.Login', {
     extend: 'Ext.form.Panel',
     alias: 'widget.protoLogin',

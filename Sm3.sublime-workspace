@@ -16,53 +16,12 @@
 	"buffers":
 	[
 		{
-			"file": "protoExt/static/js/view/login/Login.js",
+			"contents": "Regarder - Look \n\nCollecte de données : Acquisition de l'information \n* Quel est le problème réel ici? (Sens dans leurs propres termes)\n* Pour qui est-il problématique? (Expériences)\n* Comment les parties prenantes perçoivent le problème? (Perspectives)\n* Sont, de problèmes et de questions dans ou derrière le problème initil?\n* Quelles sont les ressources nécessaires?\n* Comment les parties prenantes peuvent acquirir ces ressources?\n* Que peuvent-ils faire?\n* Comment peuvent-ils le faire?\n\nPenser  - think \n* Identifier les concepts clés et clarifier sa signification\n* Interprétation et analyse des concepts et des idées\n* Utiliser les processus d'interprétation pour distiller les informations recueillies, \n* Identifier les caractéristiques et les éléments clés de l'expérience des gens, et \n* permettre aux participants de mieux comprendre la façon dont le problème affecte leur vie activités\n* Enrichir l'analyse en utilisant des cadres d'interprétations\n\nPenser  - think  ( Interpretation )\n* Questions d'interprétation: pourquoi, quoi, comment, qui, où, quand\n* Examen de l'organisation: vision,  mission,  structure,  fonctionnement,  problèmes\n* Cartographie conceptuel : question, concept / influences, des liens\n* Analyse des problèmes: problèmes, antécédents, conséquences\n\n Agir  - Act \n\nPlanification et mis en œuvre des solutions pratiques aux problèmes qui ont fait l'objet de la recherche (résolution de problèmes) \n\n* Identifier les priorités d'actions\n* Élaborer des plans d'action qui intègrent:\n	* Buts : les actions nécessaires pour résoudre les problèmes (à long terme)\n	* Objectifs: Activités spécifiques nécessaires pour atteindre le(s) but(s)\n	* Tâches: La séquence des tâches nécessaires à la réalisation de chaque activité\n	* Personnes: Ceux qui effectuera les tâches\n	* Durée: le délai dans pour les tâches\n	* Ressources: matériaux, équipements et fondes nécessaires pour compléter la tâche\n\n* Mettre en œuvre les tâches décrites dans le plan d'action\n* Soutenir les personnes systématiquement par:\n	* communication: informer les gens de leurs activités respectives\n	* encourager: apprécier les efforts des participants\n	* reflétant: aider les participants à réfléchir sur les problèmes et les progrès\n	* aider: aider activement les personnes lorsque des difficultés entravent le progress \n",
 			"settings":
 			{
-				"buffer_size": 1752,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "protoExt/static/js/view/main/Main.js",
-			"settings":
-			{
-				"buffer_size": 2394,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "protoExt/static/js/view/main/MainController.js",
-			"settings":
-			{
-				"buffer_size": 881,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "protoExt/static/js/view/login/LoginController.js",
-			"settings":
-			{
-				"buffer_size": 1785,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 90 files for \"Ajax\" (case sensitive, whole word)\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/Application.js:\n   59  \n   60  // Add csrf token to every ajax request\n   61: Ext.Ajax.on('beforerequest', function(conn, options) {\n   62      if ( typeof (options.headers) == \"undefined\") {\n   63          options.headers = {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridController.js:\n  295          // {\n  296          // loadText = 'Loading...';\n  297:         // //Use the mask function on the Ext.getBody() element to mask the body element during Ajax calls\n  298          //	Ext.getBody().mask(loadText, 'loading');\n  299:         //	Ext.Ajax.on('requestcomplete',Ext.getBody().unmask ,Ext.getBody());\n  300:         //	Ext.Ajax.on('requestexception', Ext.getBody().unmask , Ext.getBody());\n  301          // }\n  302      }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDPrintOptsController.js:\n  132              var pGrid = __MasterDetail.protoMasterGrid;\n  133  \n  134:             Ext.Ajax.request({\n  135                  method: 'POST',\n  136                  url: _SM._PConfig.urlGetProtoExport,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramController.js:\n  119  \n  120      createAjaxRequest: function(url, method, params, jsonData, successFunction, failureFunction) {\n  121:         Ext.Ajax.request({\n  122              url: url,\n  123              method: method,\n  ...\n  288  \n  289      runAjaxOpenDiagram: function(controller, url, projectID, diagramID) {\n  290:         Ext.Ajax.request({\n  291              url: url,\n  292              method: \"GET\",\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramMenuController.js:\n  103          var controller = this;\n  104          var projectID = controller.getDiagramMainView().getProjectID();\n  105:         Ext.Ajax.request({\n  106              url: _SM._PConfig.urlGetEntitiesJSONDiagram,\n  107              params: {\n  ...\n  156  		function doUpdate(btn) {\n  157              if (btn === 'yes') {\n  158:                 Ext.Ajax.request({\n  159  					url: _SM._PConfig.synchDiagramFromDB,\n  160  					params: {\n  ...\n  238              jsonRequest.push(tables[i].data);\n  239          }\n  240:         Ext.Ajax.request({\n  241              url: _SM._PConfig.getElementsDiagramFromSelectedTables,\n  242              jsonData: jsonRequest,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/controller/PasswordManager.js:\n   30                          if (btn == 'ok') {\n   31                              Ext.destroy(Ext.ComponentQuery.query('passwordForm'));\n   32:                             // Ext.Ajax.request({\n   33                              //     url: 'protoExt',\n   34                              //     success: function() {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js:\n  891          });\n  892  \n  893:         Ext.Ajax.request({\n  894              method : 'POST',\n  895              url : _SM._PConfig.urlGetPCI,\n  ...\n  953      });\n  954  \n  955:     Ext.Ajax.request({\n  956          method : 'POST',\n  957          url : _SM._PConfig.urlSaveProtoObj,\n  ...\n  987  //         failure : Ext.emptyFn\n  988  //     });\n  989: //     Ext.Ajax.request({\n  990  //         method : 'POST',\n  991  //         url : '/resources/' + fileName,\n  ...\n 1038      });\n 1039  \n 1040:     Ext.Ajax.request({\n 1041          method : 'POST',\n 1042          url : _SM._PConfig.urlGetSheetReport,\n ....\n 1072      });\n 1073  \n 1074:     Ext.Ajax.request({\n 1075          method : 'POST',\n 1076          url : _SM._PConfig.urlDoAction,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoPcl.js:\n  567  function callVerifyMeta(oMeta, ptType, tNode, record ) {\n  568  \n  569:     Ext.Ajax.request({\n  570          method: 'POST',\n  571          url: _SM._PConfig.urlVerifyMeta,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/ux/StatusBar.js:\n  107  \n  108      closeSession: function() {\n  109:         Ext.Ajax.request({\n  110              url: _SM._PConfig.urlLogOut,\n  111              success: function(response) {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js:\n   40  \n   41         // Login using server-side authentication service\n   42:         Ext.Ajax.request({\n   43              method: 'POST',\n   44              scope: me,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Viewport.js:\n   69          var me = this;\n   70  \n   71:         Ext.Ajax.request({\n   72              method: 'POST',\n   73              url: _SM._PConfig.urlGetMetaStructure,\n\n20 matches across 11 files\n\n\nSearching 90 files for \"mainlist\" (case sensitive, whole word)\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js:\n   85          // The following grid shares a store with the classic version's grid as well!\n   86          items: [{\n   87:             xtype: 'mainlist'\n   88          }]\n   89      }, {\n\n1 match in 1 file\n",
-			"settings":
-			{
-				"buffer_size": 4946,
+				"buffer_size": 2323,
 				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "protoExt/static/js/globals/ProtoStore.js",
-			"settings":
-			{
-				"buffer_size": 33819,
-				"line_ending": "Unix"
+				"name": "Regarder - Look"
 			}
 		}
 	],
@@ -109,35 +68,49 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/locale",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/viewport",
 		"/home/dario/PyDev3/softmach3/protoExt/templates"
 	],
 	"file_history":
 	[
+		"/tmp/RICARDO GOMEZ, Vuelo a BARRANQUILLA, COLOMBIA - YXAOPR.ics",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/AuthenticationController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/AuthenticationModel.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Dialog.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/DashViewPController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/DashViewPMovel.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Authentication.js",
+		"/home/dario/PyDev3/softmach3/tmp/d2.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/PasswordReset.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Login.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/DashViewP.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Dialog",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Viewport.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/Login.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/Application.js",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoLogin.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginBase.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/FieldHtmlEditor.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoPcl.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Viewport.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/DetailButton.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/FormController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDActionsController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/app.js",
 		"/home/dario/PyDev3/softmach3/protoExt/templates/protoDebug.html",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/Login.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/variables.js",
 		"/home/dario/DevExtJs6/ZVarios/sencha_extjs6_codigo/app01/app.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/Tools.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/configProperties.js",
 		"/home/dario/DevExtJs6/appsm/bootstrap.js",
 		"/home/dario/DevExtJs6/ZVarios/SM-Integra/Core/Apps/1/ROLADM/app.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/ConfigController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridSheetController.js",
@@ -230,19 +203,7 @@
 		"/home/dario/DevExtJs6/02Login41/app/model/MainViewViewModel.js",
 		"/home/dario/DevExtJs6/02Login41/app/model/RegisterFormViewModel.js",
 		"/home/dario/DevExtJs6/02Login41/app/view/LoginForm.js",
-		"/home/dario/DevExtJs6/02Login41/app/view/MainView.js",
-		"/home/dario/DevExtJs6/02Login41/app/view/RegisterForm.js",
-		"/home/dario/DevExtJs6/02Login41/bootstrap.css",
-		"/home/dario/DevExtJs6/02Login41/build.xml",
-		"/home/dario/DevExtJs6/02Login41/classic.json",
-		"/home/dario/DevExtJs6/02Login41/classic/sass/src/Readme.md",
-		"/home/dario/DevExtJs6/02Login41/classic/sass/var/Readme.md",
-		"/home/dario/DevExtJs6/02Login41/index.html",
-		"/home/dario/DevExtJs6/02Login41/modern.json",
-		"/home/dario/DevExtJs6/02Login41/modern/sass/src/Readme.md",
-		"/home/dario/DevExtJs6/02Login41/modern/sass/var/Readme.md",
-		"/home/dario/DevExtJs6/02Login41/out.txt",
-		"/home/dario/DevExtJs6/01app/workspace.json"
+		"/home/dario/DevExtJs6/02Login41/app/view/MainView.js"
 	],
 	"find":
 	{
@@ -272,9 +233,11 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"(Ext.cmd.derive",
+			"xtype",
 			"bind",
 			"mainlist",
 			"list",
@@ -400,9 +363,7 @@
 			":plugins",
 			"\n\n\n",
 			"\n\n",
-			"=([A-Z])",
-			"=C",
-			"\n([A-F])\\. "
+			"=([A-Z])"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -410,6 +371,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\n// -----------\nExt.create",
+			"\n\n(Ext.cmd.derive",
 			"username",
 			"Softmachine",
 			"rootProperty",
@@ -499,133 +462,14 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "protoExt/static/js/view/login/Login.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1752,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								694,
-								694
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 378.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "protoExt/static/js/view/main/Main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2394,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1043,
-								1043
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "protoExt/static/js/view/main/MainController.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 881,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								881,
-								881
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "protoExt/static/js/view/login/LoginController.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1785,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1233,
-								1233
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 108.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				}
 			]
 		},
 		{
@@ -633,159 +477,32 @@
 			"sheets":
 			[
 				{
-					"buffer": 4,
+					"buffer": 0,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4946,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										190,
-										194
-									],
-									[
-										572,
-										576
-									],
-									[
-										664,
-										668
-									],
-									[
-										750,
-										754
-									],
-									[
-										1022,
-										1026
-									],
-									[
-										1351,
-										1355
-									],
-									[
-										1544,
-										1548
-									],
-									[
-										1844,
-										1848
-									],
-									[
-										2059,
-										2063
-									],
-									[
-										2241,
-										2245
-									],
-									[
-										2635,
-										2639
-									],
-									[
-										2891,
-										2895
-									],
-									[
-										3035,
-										3039
-									],
-									[
-										3215,
-										3219
-									],
-									[
-										3359,
-										3363
-									],
-									[
-										3503,
-										3507
-									],
-									[
-										3752,
-										3756
-									],
-									[
-										3977,
-										3981
-									],
-									[
-										4260,
-										4264
-									],
-									[
-										4469,
-										4473
-									],
-									[
-										4883,
-										4891
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								4889,
-								4889
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 2,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2484.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "protoExt/static/js/globals/ProtoStore.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 33819,
+						"buffer_size": 2323,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								27532,
-								27532
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"auto_name": "Regarder - Look",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 15828.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -819,7 +536,7 @@
 		"cols":
 		[
 			0.0,
-			0.484463276836,
+			0.281779661017,
 			1.0
 		],
 		"rows":
@@ -829,6 +546,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 124.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -837,7 +558,7 @@
 	"project": "Sm3.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 140.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -867,7 +588,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
