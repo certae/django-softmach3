@@ -15,6 +15,8 @@ Ext.define('Softmachine.view.main.Main', {
         'Ext.plugin.Viewport',
         'Ext.button.Button',
         'Ext.window.MessageBox',
+        'Ext.ux.statusbar.StatusBar',
+
         'Softmachine.view.main.MainController' ],
 
     controller : 'main',
@@ -32,47 +34,15 @@ Ext.define('Softmachine.view.main.Main', {
                 split : true
             },
             items : [ {
-                title : 'Menu',
-                region : 'west',
-                xtype : 'panel',
-                margin : '5 0 0 5',
-                width : 200,
-                collapsible : true, // make collapsible
-                id : 'west-region-container',
-                layout : 'fit'
-            }, {
                 // xtype: 'panel' implied by default
                 title : 'Center Region',
                 region : 'center', // center region is required, no width/height specified
                 xtype : 'panel',
                 layout : 'fit',
                 margin : '5 5 0 0'
-            }, {
-                title : 'Status',
-                region : 'south', // position for region
-                xtype : 'panel',
-                height : 100,
-                split : true, // enable resizing
-                margin : '0 5 5 5'
+            },
 
-            }, {
-                title : 'Header',
-                region : 'north', // position for region
-                xtype : 'panel',
-                height : 100,
-                split : true, // enable resizing
-                margin : '0 5 5 5', 
-                collapsible: true,
-                collapseMode: 'mini',
-                collapsed: _SM._siteTitleCollapsed, 
-
-                // To hide title bar, having title 
-                header: false
-
-            }
-            // this.createHeaderPanel(),
-            // this.createFooterPanel(),
-            // this.createMenuPanel(),
+            this.createFooterPanel(), this.createHeaderPanel(), this.createMenuPanel(),
             // this.createProtoTabContainer()
             ]
 
@@ -82,89 +52,109 @@ Ext.define('Softmachine.view.main.Main', {
 
     },
 
-    createFooterPanel : function(){
+    createHeaderPanel : function(){
 
-        // StatusBar Global
-        _SM.__StBar = Ext.create('Ext.ux.StatusBar', {
-            region : 'south',
-            split : false,
-            collapsible : false
-        });
-        if (_SM.showFooterExtraContent) {
-            var panelContent = Ext.create('Ext.panel.Panel', {
-                html : _SM.footerExtraContent,
-                margins : '0 0 0 0',
-                border : false,
-                align : 'middle',
-                collapsible : true,
-                split : true
-            });
-            var vbox = Ext.create('Ext.panel.Panel', {
-                region : 'south',
-                header : false,
-                layout : {
-                    type : 'vbox',
-                    align : 'stretch'
-                },
-                defaults : {
-                    bodyStyle : 'padding:15px',
-                    split : true
-                },
-                items : [ _SM.__StBar, panelContent ]
-            });
-            return vbox;
-        } else {
-            return _SM.__StBar;
-        }
+        var myPanel = {
+            id : 'vp-header',
+            title : 'Header',
+            header : false, // To hide title bar, having title for ARIA
+            region : 'north', // position for region
+            xtype : 'panel',
+            id : 'vp-header',
 
+            align : 'middle',
+            border : false,
+            collapsed : _SM._siteTitleCollapsed,
+            collapseMode : 'mini',
+            collapsible : true,
+            height : 100,
+            split : true, // enable resizing
+
+            html : _SM._siteTitle
+
+        };
+
+        return myPanel;
     },
 
-    createHeaderPanel : function(){
-        var content = Ext.create('Ext.panel.Panel', {
-            html : _SM._siteTitle,
-            margins : '0 0 0 0',
-            border : false,
-            align : 'middle',
-            split : true
-        });
-        var headerPanel = Ext.create('Ext.panel.Panel', {
-            region : 'north',
-            header : false,
-            collapsible : true,
-            collapseMode : 'mini',
-            collapsed : _SM._siteTitleCollapsed,
-            height : 90,
-            layout : {
-                type : 'vbox',
-                align : 'stretch'
-            },
-            defaults : {
-                bodyStyle : 'padding:5px',
-                split : true
-            },
-            items : [ content ]
-        });
-        return headerPanel;
+    createFooterPanel : function(){
+
+        var myPanel = {
+            id : 'vp-footer',
+            title : 'StatusBar',
+            region : 'south', // position for region
+            xtype : 'panel',
+
+            split : false, // enable resizing
+            header : false, // To hide title bar, having title for ARIA
+            border : true,
+
+            collapsible : false,
+            bbar : Ext.create('Ext.ux.StatusBar', {
+                defaultText : '',
+                id : 'vp-statusbar',
+                items : [ {
+                    itemId : 'btClearCache',
+                    xtype : 'button',
+                    text : _SM.__language.StatusBar_Text_Clean_Button || 'Clear' + ' cache',
+                    tooltip : _SM.__language.StatusBar_Tooltip_Clean_Button,
+                    iconCls : 'comment_delete',
+                    handler : function(){
+                        this.tooltip = '';
+                        this.ownerCt.clearStatus({
+                            useDefaults : true
+                        });
+                        _SM.__TabContainer.closeAllTabs();
+                        _SM._cllPCI = {};
+                    }
+                }, {
+                    itemId : 'openTaskForm',
+                    xtype : 'button',
+                    text : _SM.__language.StatusBar_Text_Task_Button,
+                    hidden : true,
+                    scope : this,
+                    iconCls : 'taskManager',
+                    handler : this.openTaskForm
+
+                }, '-', {
+
+                    xtype : 'splitbutton',
+                    text : localStorage.getItem("SmLoggedIn"),
+                    iconCls : 'icon-user',
+                    menu : new Ext.menu.Menu({
+                        items : [ {
+                            text : _SM.__language.StatusBar_Text_Close_Session,
+                            handler : this.closeSession,
+                            iconCls : 'icon-logout'
+                        } ]
+                    })
+                } ]
+            })
+
+        };
+
+        return myPanel;
+
     },
 
     createMenuPanel : function(){
 
-        if (_SM._MENU_COLLAPSED == undefined) {
-            _SM._MENU_COLLAPSED = false;
-        }
+        var myPanel = {
+            // DGT:  xtype : 'menuTree',
 
-        this.menuPanel = {
+            title : _SM.__language.Title_Main_Menu || 'Menu',
             region : 'west',
-            width : 300,
-            title : _SM.__language.Title_Main_Menu,
-            collapsible : true,
-            collapsed : _SM._MENU_COLLAPSED,
+            margin : '5 0 0 5',
+            width : 260,
+            collapsible : true, // make collapsible
+            collapsed : _SM._MENU_COLLAPSED || false,
 
-            xtype : 'menuTree'
-
+            id : 'vp-menu',
+            layout : 'fit'
         };
 
-        return this.menuPanel;
+        return myPanel;
+
     },
 
     createProtoTabContainer : function(){
