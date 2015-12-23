@@ -15,6 +15,7 @@ Ext.define('Softmachine.view.main.Main', {
         'Ext.plugin.Viewport',
         'Ext.button.Button',
         'Ext.window.MessageBox',
+        
         'Ext.ux.statusbar.StatusBar',
 
         'Softmachine.view.main.MainController', 
