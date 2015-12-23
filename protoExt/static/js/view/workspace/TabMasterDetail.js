@@ -12,7 +12,6 @@ Ext.define('Softmachine.view.workspace.TabMasterDetail', {
     extend : 'Ext.Panel',
     alias : 'widget.tabMasterDetail',
     requires : [
-        'Softmachine.view.smgrid.ProtoGrid',
         'Softmachine.view.workspace.DetailToolBar'
     ],
 
@@ -84,9 +83,6 @@ Ext.define('Softmachine.view.workspace.TabMasterDetail', {
             items : [
                 this.protoMasterGrid,
                 {
-
-                    // Extjs 4.1.1 Genera error al mezclar layout "region" & "card",
-                    // }, this.protoTabs ]
 
                     id : this.IDdetailPanel,
                     collapseMode : 'mini',
