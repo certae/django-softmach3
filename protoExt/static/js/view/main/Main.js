@@ -1,9 +1,10 @@
 /**
  * This class is the main view for the application. It is specified in app.js as the "mainView"
- * property. That setting automatically applies the "viewport" plugin causing this view to become
- * the body element (i.e., the viewport).
+ * property.
  * 
- * TODO - Replace this content of this view to suite the needs of your application.
+ * That setting automatically applies the "viewport" plugin causing this view to become the body
+ * element (i.e., the viewport).
+ * 
  */
 Ext.define('Softmachine.view.main.Main', {
     extend : 'Ext.container.Viewport',
@@ -15,12 +16,13 @@ Ext.define('Softmachine.view.main.Main', {
         'Ext.plugin.Viewport',
         'Ext.button.Button',
         'Ext.window.MessageBox',
-        
+
         'Ext.ux.statusbar.StatusBar',
 
-        'Softmachine.view.workspace.MainTabContainer', 
-        'Softmachine.view.main.MainController', 
-        'Softmachine.view.main.MenuTree' ],
+        'Softmachine.view.main.MainTabContainer',
+        'Softmachine.view.main.MainController',
+        'Softmachine.view.main.MenuTree'
+    ],
 
     controller : 'main',
     // viewModel: 'main',
@@ -36,10 +38,8 @@ Ext.define('Softmachine.view.main.Main', {
             defaults : {
                 split : true
             },
-            items : [ 
-                this.createHeaderPanel(), 
-                this.createMenuPanel(),
-                this.createMainTabContainer()
+            items : [
+                this.createHeaderPanel(), this.createMenuPanel(), this.createMainTabContainer()
             ]
 
         });
@@ -95,57 +95,60 @@ Ext.define('Softmachine.view.main.Main', {
     createMainTabContainer : function(){
 
         var myPanel = {
-            xtype: 'mainTabContainer', 
+            xtype : 'mainTabContainer',
             title : 'WorkSpace',
-            region : 'center', 
+            region : 'center',
             layout : 'fit',
-            minWidth : 300, 
+            minWidth : 300,
             header : false, // To hide title bar, having title for ARIA
 
             bbar : Ext.create('Ext.ux.StatusBar', {
                 defaultText : '',
                 id : 'vp-statusbar',
-                items : [ {
-                    itemId : 'btClearCache',
-                    xtype : 'button',
-                    text : _SM.__language.StatusBar_Text_Clean_Button || 'Clear' + ' cache',
-                    tooltip : _SM.__language.StatusBar_Tooltip_Clean_Button,
-                    iconCls : 'comment_delete',
-                    handler : function(){
-                        this.tooltip = '';
-                        this.ownerCt.clearStatus({
-                            useDefaults : true
-                        });
-                        _SM.__TabContainer.closeAllTabs();
-                        _SM._cllPCI = {};
+                items : [
+                    {
+                        itemId : 'btClearCache',
+                        xtype : 'button',
+                        text : _SM.__language.StatusBar_Text_Clean_Button || 'Clear' + ' cache',
+                        tooltip : _SM.__language.StatusBar_Tooltip_Clean_Button,
+                        iconCls : 'comment_delete',
+                        handler : function(){
+                            this.tooltip = '';
+                            this.ownerCt.clearStatus({
+                                useDefaults : true
+                            });
+                            _SM.__TabContainer.closeAllTabs();
+                            _SM._cllPCI = {};
+                        }
+                    }, {
+                        itemId : 'openTaskForm',
+                        xtype : 'button',
+                        text : _SM.__language.StatusBar_Text_Task_Button,
+                        hidden : true,
+                        scope : this,
+                        iconCls : 'taskManager',
+                        handler : this.openTaskForm
+
+                    }, '-', {
+
+                        xtype : 'splitbutton',
+                        text : localStorage.getItem("SmLoggedIn"),
+                        iconCls : 'icon-user',
+                        menu : new Ext.menu.Menu({
+                            items : [
+                                {
+                                    text : _SM.__language.StatusBar_Text_Close_Session,
+                                    handler : this.closeSession,
+                                    iconCls : 'icon-logout'
+                                }
+                            ]
+                        })
                     }
-                }, {
-                    itemId : 'openTaskForm',
-                    xtype : 'button',
-                    text : _SM.__language.StatusBar_Text_Task_Button,
-                    hidden : true,
-                    scope : this,
-                    iconCls : 'taskManager',
-                    handler : this.openTaskForm
-
-                }, '-', {
-
-                    xtype : 'splitbutton',
-                    text : localStorage.getItem("SmLoggedIn"),
-                    iconCls : 'icon-user',
-                    menu : new Ext.menu.Menu({
-                        items : [ {
-                            text : _SM.__language.StatusBar_Text_Close_Session,
-                            handler : this.closeSession,
-                            iconCls : 'icon-logout'
-                        } ]
-                    })
-                } ]
+                ]
             })
         };
 
         return myPanel;
     },
-
 
 });
