@@ -1,8 +1,8 @@
 // Contiene  los tabs para crear las pcls
 
-Ext.define('ProtoUL.view.ProtoTabContainer', {
+Ext.define('Softmachine.view.main.MainTabContainer', {
     extend: 'Ext.tab.Panel',
-    alias: 'widget.protoTabContainer',
+    alias: 'widget.mainTabContainer',
     // requires: ['ProtoUL.view.ProtoMasterDetail' ],
     // listeners: {
         // //DGT: Para arreglar un error reportado en ExtJs 4.0.7

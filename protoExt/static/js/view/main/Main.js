@@ -38,7 +38,7 @@ Ext.define('Softmachine.view.main.Main', {
             items : [ 
                 this.createHeaderPanel(), 
                 this.createMenuPanel(),
-                this.createProtoTabContainer()
+                this.createMainTabContainer()
             ]
 
         });
@@ -91,7 +91,7 @@ Ext.define('Softmachine.view.main.Main', {
 
     },
 
-    createProtoTabContainer : function(){
+    createMainTabContainer : function(){
 
         var myPanel = {
             // xtype: 'panel' implied by default

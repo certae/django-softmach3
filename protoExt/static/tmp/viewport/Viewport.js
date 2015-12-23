@@ -15,7 +15,7 @@ Ext.define('ProtoUL.view.Viewport', {
             defaults: {
                 split: true
             },
-            items: [this.createHeaderPanel(), this.createMenuPanel(), this.createProtoTabContainer(), this.createFooterPanel()]
+            items: [this.createHeaderPanel(), this.createMenuPanel(), this.createMainTabContainer(), this.createFooterPanel()]
 
         });
 
@@ -95,18 +95,18 @@ Ext.define('ProtoUL.view.Viewport', {
             var formController = Ext.create('ProtoUL.UI.FormController', {});
             formController.openProtoForm.call(formController, viewCode, -1, true);
         } else {
-            me.protoTabContainer.addTabPanel(viewCode);
+            me.mainTabContainer.addTabPanel(viewCode);
         }
 
     },
 
-    createProtoTabContainer: function() {
-        this.protoTabContainer = Ext.create('widget.protoTabContainer', {
+    createMainTabContainer: function() {
+        this.mainTabContainer = Ext.create('widget.mainTabContainer', {
             region: 'center',
             border: false,
             minWidth: 300
         });
-        return this.protoTabContainer;
+        return this.mainTabContainer;
     },
 
     _loadMetaStructure: function() {
