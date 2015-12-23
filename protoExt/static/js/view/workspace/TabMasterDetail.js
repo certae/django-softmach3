@@ -8,9 +8,9 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.view.ProtoMasterDetail', {
+Ext.define('ProtoUL.view.TabMasterDetail', {
     extend: 'Ext.Panel',
-    alias: 'widget.protoMasterDetail',
+    alias: 'widget.tabMasterDetail',
     requires: ['ProtoUL.view.ProtoGrid', 'ProtoUL.UI.TbMasterDetail'],
 
     // Estados iniciales
