@@ -69,7 +69,7 @@ Ext.define('ProtoUL.ux.ProtoSearchBG', {
         });
 
 
-        me.addEvents('qbeLoadData');
+        // me.addEvents('qbeLoadData');
         me.callParent();
         
         // Inicializa Combos 

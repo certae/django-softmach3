@@ -181,7 +181,7 @@ Ext.define('ProtoUL.proto.ProtoFieldTree', {
     initComponent: function() {
 
         me = this;
-        me.addEvents('checkModif', 'loadComplete');
+        // me.addEvents('checkModif', 'loadComplete');
 
         definieProtoFieldSelctionModel( me.viewCode, me.myMeta.protoEntityId )
 

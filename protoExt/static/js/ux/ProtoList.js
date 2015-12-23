@@ -32,7 +32,7 @@ Ext.define('ProtoUL.ux.ProtoList' ,{
     initComponent: function() {
 
         var me = this ;
-        me.addEvents('checked', 'reorder');
+        // me.addEvents('checked', 'reorder');
 
         var myColumns = [ '__Checked' ];
         for (var ix in this.columnList ) {

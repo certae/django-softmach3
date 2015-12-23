@@ -297,7 +297,7 @@ Ext.define('ProtoUL.view.ProtoGrid', {
             items: myItems
         });
 
-        this.addEvents('selectionChange', 'rowDblClick', 'promoteDetail', 'startEdition');
+        // this.addEvents('selectionChange', 'rowDblClick', 'promoteDetail', 'startEdition');
 
         this.callParent(arguments);
         this.gridController.addNavigationPanel();

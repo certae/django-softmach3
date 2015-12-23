@@ -12,7 +12,7 @@ Ext.define('ProtoUL.proto.ProtoToolBar', {
     initComponent: function() {
 
         var me = this
-        me.addEvents('save', 'preview', 'add', 'del', 'help', 'show1');
+        // me.addEvents('save', 'preview', 'add', 'del', 'help', 'show1');
 
         Ext.apply(this, {
             items: [{

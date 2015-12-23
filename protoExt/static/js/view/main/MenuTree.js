@@ -118,7 +118,7 @@ Ext.define('Softmachine.view.main.MenuTree', {
         }
 
         this.callParent();
-        // TODO: this.addEvents('menuSelect');
+        // this.addEvents('menuSelect');
 
         if (_SM._UserInfo.isSuperUser)
             Ext.getCmp('newOption').show();

@@ -63,7 +63,7 @@ Ext.define('ProtoUL.view.ProtoForm', {
     zoomMultiReturn: [],
 
     initComponent: function() {
-        this.addEvents('create', 'close', 'hide');
+        // this.addEvents('create', 'close', 'hide');
 
         var me = this, myMeta = this.myMeta, _pForm = this;
 

@@ -35,9 +35,7 @@ Ext.define('ProtoUL.view.diagram.DiagramMainView', {
                 collapsible: true
             }]
         });
-    	me.addEvents(
-            'opendiagram'
-        );
+    	// me.addEvents('opendiagram');
     	me.on('beforeshow', function(){
     		this.fireEvent('opendiagram');
 		});

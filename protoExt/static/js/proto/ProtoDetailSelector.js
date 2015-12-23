@@ -159,7 +159,7 @@ Ext.define('ProtoUL.proto.ProtoDetailTree', {
     initComponent: function() {
 
         var me = this;
-        me.addEvents('checkModif', 'loadComplete');
+        // me.addEvents('checkModif', 'loadComplete');
 
         definieDetailsConfigTreeModel( me.viewCode, me.myMeta.protoEntityId  );
 
