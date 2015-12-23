@@ -39,7 +39,9 @@ Ext.define('Softmachine.view.main.Main', {
                 split : true
             },
             items : [
-                this.createHeaderPanel(), this.createMenuPanel(), this.createMainTabContainer()
+                this.createHeaderPanel(),
+                this.createMenuPanel(),
+                this.createMainTabContainer()
             ]
 
         });
@@ -120,7 +122,8 @@ Ext.define('Softmachine.view.main.Main', {
                             _SM.__TabContainer.closeAllTabs();
                             _SM._cllPCI = {};
                         }
-                    }, {
+                    },
+                    {
                         itemId : 'openTaskForm',
                         xtype : 'button',
                         text : _SM.__language.StatusBar_Text_Task_Button,
@@ -129,7 +132,9 @@ Ext.define('Softmachine.view.main.Main', {
                         iconCls : 'taskManager',
                         handler : this.openTaskForm
 
-                    }, '-', {
+                    },
+                    '-',
+                    {
 
                         xtype : 'splitbutton',
                         text : localStorage.getItem("SmLoggedIn"),

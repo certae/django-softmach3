@@ -154,7 +154,7 @@ Ext.define('ProtoUL.ux.protoZoom', {
          }) ; 
              
              
-        var searchBG = Ext.create('ProtoUL.ux.ProtoSearchBG', { myMeta: me.myMeta });
+        var searchBG = Ext.create('ProtoUL.ux.SearchToolBar', { myMeta: me.myMeta });
 
         this.zoomGrid.on({
             selectionChange: {fn: function ( selModel, record, rowIndex,  eOpts ) {

@@ -8,23 +8,26 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.view.TabMasterDetail', {
-    extend: 'Ext.Panel',
-    alias: 'widget.tabMasterDetail',
-    requires: ['ProtoUL.view.ProtoGrid', 'ProtoUL.UI.DetailToolBar'],
+Ext.define('Softmachine.view.workspace.TabMasterDetail', {
+    extend : 'Ext.Panel',
+    alias : 'widget.tabMasterDetail',
+    requires : [
+        'Softmachine.view.smgrid.ProtoGrid',
+        'Softmachine.view.workspace.DetailToolBar'
+    ],
 
     // Estados iniciales
-    editable: false,
-    autoSync: true,
-    autoEdit: true,
+    editable : false,
+    autoSync : true,
+    autoEdit : true,
 
-    // @es definido solamente cuando es una grilla dependiente  ( detalle o promoted )
-    isPromoted: false,
-    mdFilter: [],
+    // @es definido solamente cuando es una grilla dependiente ( detalle o promoted )
+    isPromoted : false,
+    mdFilter : [],
 
-    initComponent: function() {
+    initComponent : function(){
 
-        // Recupera la meta   ------------------------------------------------------------
+        // Recupera la meta ------------------------------------------------------------
         this.myMeta = _SM._cllPCI[this.viewCode];
         var me = this, tb;
 
@@ -35,19 +38,19 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
 
         _SM.__StBar.showBusy('loading ' + this.viewCode + '...', 'prMD.init', 2000);
 
-        // Master Grid    ==========================================================
+        // Master Grid ==========================================================
         // y la Guarda el store para efectos de eventos y referencias
         this.protoMasterGrid = Ext.create('ProtoUL.view.ProtoGrid', {
-            border: false,
-            viewCode: this.viewCode,
-            mdFilter: this.mdFilter,
-            detailTitle: this.detailTitle,
-            isPromoted: this.isPromoted,
+            border : false,
+            viewCode : this.viewCode,
+            mdFilter : this.mdFilter,
+            detailTitle : this.detailTitle,
+            isPromoted : this.isPromoted,
 
-            region: 'center',
-            flex: 1,
-            layout: 'fit',
-            collapsible: false
+            region : 'center',
+            flex : 1,
+            layout : 'fit',
+            collapsible : false
         });
 
         //
@@ -58,49 +61,53 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
 
         // Barra MD
         tb = Ext.create('ProtoUL.UI.DetailToolBar', {
-            protoMeta: this.myMeta,
-            __MasterDetail: me
+            protoMeta : this.myMeta,
+            __MasterDetail : me
         });
 
         // Asigna el tab de control a la grilla y el panel de detalles
         this.protoMasterGrid._toolBar = tb;
         this.protoTabs = Ext.create('Ext.panel.Panel', {
-            layout: 'card'
+            layout : 'card'
         });
 
         this.IDdetailPanel = Ext.id();
         Ext.apply(this, {
-            layout: 'border',
-            border: false,
-            defaults: {
-                collapsible: true,
-                border: false,
-                split: true
+            layout : 'border',
+            border : false,
+            defaults : {
+                collapsible : true,
+                border : false,
+                split : true
             },
-            tbar: tb,
-            items: [this.protoMasterGrid, {
+            tbar : tb,
+            items : [
+                this.protoMasterGrid,
+                {
 
-                // Extjs 4.1.1 Genera error al mezclar layout "region"  &  "card",
-                // }, this.protoTabs ]
+                    // Extjs 4.1.1 Genera error al mezclar layout "region" & "card",
+                    // }, this.protoTabs ]
 
-                id: this.IDdetailPanel,
-                collapseMode: 'mini',
-                hideCollapseTool: true,
-                region: 'south',
-                header: false,
-                border: false,
-                flex: 1,
-                collapsed: true,
-                layout: 'fit',
-                minSize: 75,
-                defaults: {
-                    border: false
-                },
-                items: this.protoTabs
-            }]
+                    id : this.IDdetailPanel,
+                    collapseMode : 'mini',
+                    hideCollapseTool : true,
+                    region : 'south',
+                    header : false,
+                    border : false,
+                    flex : 1,
+                    collapsed : true,
+                    layout : 'fit',
+                    minSize : 75,
+                    defaults : {
+                        border : false
+                    },
+                    items : this.protoTabs
+                }
+            ]
         });
 
-        // coleccion con los store de los detalles  y su indice  =============================================
+        // coleccion con los store de los detalles y su indice
+        // =============================================
         this.ixActiveDetail = -1;
         this.idMasterGrid = -1;
         this.cllStoreDet = [];
@@ -109,37 +116,37 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
 
         // Controllers
         Ext.create('ProtoUL.UI.MDDetailsController', {
-            __MasterDetail: me
+            __MasterDetail : me
         });
         Ext.create('ProtoUL.UI.MDTbSortByController', {
-            myMeta: this.myMeta,
-            __MasterDetail: me
+            myMeta : this.myMeta,
+            __MasterDetail : me
         });
         Ext.create('ProtoUL.UI.MDPrintOptsController', {
-            myMeta: this.myMeta,
-            __MasterDetail: me
+            myMeta : this.myMeta,
+            __MasterDetail : me
         });
         Ext.create('ProtoUL.UI.MDActionsController', {
-            myMeta: this.myMeta,
-            __MasterDetail: me
+            myMeta : this.myMeta,
+            __MasterDetail : me
         });
 
         Ext.create('ProtoUL.UI.MDSetFiltersController', {
-            myMeta: this.myMeta,
-            __MasterDetail: me
+            myMeta : this.myMeta,
+            __MasterDetail : me
         });
         Ext.create('ProtoUL.UI.MDSetSortersController', {
-            myMeta: this.myMeta,
-            __MasterDetail: me
+            myMeta : this.myMeta,
+            __MasterDetail : me
         });
         Ext.create('ProtoUL.UI.MDSetTabsController', {
-            myMeta: this.myMeta,
-            __MasterDetail: me
+            myMeta : this.myMeta,
+            __MasterDetail : me
         });
 
         Ext.create('ProtoUL.UI.ConfigController', {
-            myMeta: this.myMeta,
-            __MasterDetail: me
+            myMeta : this.myMeta,
+            __MasterDetail : me
         });
 
         //
@@ -148,23 +155,23 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
         // Agrega los botones de actions
         tb.addActions();
 
-        //  ****************************************************************
-        //  Eventos de los objetos internos para el manejo Master-Detail
-        //  TODO:  Deberia cambiar el toolbar para mostrar los permisos de acuerdo al registro 
+        // ****************************************************************
+        // Eventos de los objetos internos para el manejo Master-Detail
+        // TODO: Deberia cambiar el toolbar para mostrar los permisos de acuerdo al registro
 
         this.protoMasterGrid.on({
-            selectionChange: {
-                fn: function(rowModel, rowData, rowIndex, eOpts) {
+            selectionChange : {
+                fn : function(rowModel, rowData, rowIndex, eOpts){
                     this.idMasterGrid = this.protoMasterGrid.currentId;
                     this.linkDetail();
                 },
-                scope: me
+                scope : me
             }
         });
 
     },
 
-    linkDetail: function() {
+    linkDetail : function(){
         // Refresca las grillas de detalle
         var me = this, detailLink, myDetStore, pDetail, myDetGrid;
 
@@ -194,23 +201,23 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
         myDetGrid = me.protoTabs.items.items[me.ixActiveDetail];
         myDetGrid.detailTitle = detailLink.detTitle;
         myDetGrid.setGridTitle(myDetGrid);
-        myDetGrid.mdFilter = detailLink.detFilter; 
+        myDetGrid.mdFilter = detailLink.detFilter;
 
         // Asigna los vr por defecto
         me.linkController.setDetailDefaults(pDetail, myDetGrid.myFieldDict);
 
     },
 
-    mdGridReload: function() {
+    mdGridReload : function(){
         this.protoMasterGrid.reload();
     },
 
-    mdGridLoadData: function(sFilter, sorter) {
+    mdGridLoadData : function(sFilter, sorter){
         // Refresh
         this.protoMasterGrid.gridLoadData(this.protoMasterGrid, sFilter, sorter);
     },
 
-    showDetailPanel: function(bHide) {
+    showDetailPanel : function(bHide){
         var detailPanel = Ext.getCmp(this.IDdetailPanel);
         if (bHide) {
             this.ixInactiveDetail = this.ixActiveDetail;
@@ -226,21 +233,21 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
         }
     },
 
-    hideDetailPanel: function(btn) {
+    hideDetailPanel : function(btn){
         this.showDetailPanel(true);
     },
 
-    isDetailCollapsed: function() {
+    isDetailCollapsed : function(){
 
         var detailPanel = Ext.getCmp(this.IDdetailPanel);
         if (!detailPanel) {
             return true;
         }
-        return (detailPanel.collapsed  );
+        return (detailPanel.collapsed);
 
     },
 
-    setEditMode: function(bEdit) {
+    setEditMode : function(bEdit){
 
         var me = this, detGrids = null, myDetGrid, ix;
 
@@ -248,37 +255,36 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
         // setDisabled( me.tbTabs )
 
         if (!me.autoEdit) {
-        setDisabled(me.tbFilters);
-        setDisabled(me.tbPrinterOpts);
-        setDisabled(me.tbConfigOpts);
-        setDisabled(me.tbSorters);
-        setDisabled(me.tbSortersSet);
-        setDisabled(me.tbProtoActions);
+            setDisabled(me.tbFilters);
+            setDisabled(me.tbPrinterOpts);
+            setDisabled(me.tbConfigOpts);
+            setDisabled(me.tbSorters);
+            setDisabled(me.tbSortersSet);
+            setDisabled(me.tbProtoActions);
         } else {
             bEdit = me.autoEdit;
         }
 
-
         // Cambia el control de las grillas correspondientes
         // Con el autosync se permite la edicion en todos los controles
-        // if ( ! this.isDetailCollapsed()  ) {
+        // if ( ! this.isDetailCollapsed() ) {
         // Solo es la grilla lo q tengo q desabilitar
         // me.protoMasterGrid._extGrid.setDisabled( bEdit )
         // } else {
 
         // Si los detalles estan activos puedo cambiar de detalle sin cambiar el maestro
-        // setDisabled( me.tbDetails, false  )
+        // setDisabled( me.tbDetails, false )
         me.protoMasterGrid.setEditMode(bEdit);
         // setDisabled( me.tbDetails )
 
-        //Recorrer las grillas, cambiar el modo, TODO: heredados ( Default,  RO )
+        // Recorrer las grillas, cambiar el modo, TODO: heredados ( Default, RO )
         try {
             detGrids = me.protoTabs.items.items;
-        } catch(e) {
+        } catch (e) {
         }
 
         if (detGrids) {
-            for (ix in detGrids ) {
+            for (ix in detGrids) {
                 myDetGrid = detGrids[ix];
                 if (!myDetGrid.detailDefinition) {
                     continue;
@@ -289,7 +295,7 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
 
         // }
 
-        function setDisabled(tbar, bDisable) {
+        function setDisabled(tbar, bDisable){
             // Por defecto es el edit mode
             if (bDisable === undefined) {
                 bDisable = bEdit;
@@ -301,35 +307,35 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
 
     },
 
-    setAutoSync: function(bMode) {
+    setAutoSync : function(bMode){
         this.autoSync = bMode;
     },
 
-    saveChanges: function(autoSync) {
+    saveChanges : function(autoSync){
         var me = this, ix, detGrids, myDetGrid;
 
         if (this.isDetailCollapsed()) {
             me.protoMasterGrid.saveChanges(autoSync);
         } else {
             detGrids = me.protoTabs.items.items;
-            for (ix in detGrids ) {
+            for (ix in detGrids) {
                 myDetGrid = detGrids[ix];
                 myDetGrid.saveChanges(autoSync);
             }
         }
     },
 
-    cancelChanges: function() {
+    cancelChanges : function(){
         var me = this, detGrids, ix, myDetGrid;
         if (this.isDetailCollapsed()) {
             me.protoMasterGrid.cancelChanges();
         } else {
             detGrids = me.protoTabs.items.items;
-            for (ix in detGrids ) {
+            for (ix in detGrids) {
                 myDetGrid = detGrids[ix];
                 myDetGrid.cancelChanges();
             }
         }
     }
 
-}); 
+});

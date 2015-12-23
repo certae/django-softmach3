@@ -1,18 +1,18 @@
 /**
  * @class ProtoUL.ux.DetailButton
- * @author  Dario Gomez
-
+ * @author Dario Gomez
+ * 
  * Helper class for intancing ProtoForm
-
+ * 
  */
 
-/*jslint nomen: true, sloppy : true, white : true, sub : true */
-/*global Ext */
-/*global _SM */
-/*global ProtoUL */
-/*global getSimpleProperties */
+/* jslint nomen: true, sloppy : true, white : true, sub : true */
+/* global Ext */
+/* global _SM */
+/* global ProtoUL */
+/* global getSimpleProperties */
 
-Ext.define('ProtoUL.UI.DetailButton', {
+Ext.define('Softmachine.view.workspace.DetailButton', {
     extend : 'Ext.button.Split',
     alias : 'widget.detailButton',
 
@@ -23,7 +23,7 @@ Ext.define('ProtoUL.UI.DetailButton', {
 
     myWinGrid : null,
 
-    initComponent : function() {
+    initComponent : function(){
         var me = this, myMenu;
 
         me.disabled = true;
@@ -31,12 +31,14 @@ Ext.define('ProtoUL.UI.DetailButton', {
         if (me.addDetailForm) {
 
             myMenu = Ext.create('Ext.menu.Menu', {
-                items : [{
-                    text : _SM.__language.Text_New_Button + ' [ ' + me.text + ' ]',
-                    iconCls : "icon-formAdd",
-                    scope : me,
-                    handler : addFormClick
-                }]
+                items : [
+                    {
+                        text : _SM.__language.Text_New_Button + ' [ ' + me.text + ' ]',
+                        iconCls : "icon-formAdd",
+                        scope : me,
+                        handler : addFormClick
+                    }
+                ]
             });
 
             Ext.apply(this, {
@@ -47,7 +49,7 @@ Ext.define('ProtoUL.UI.DetailButton', {
         me.callParent();
         me.on('click', me.loadWinGridMeta, me);
 
-        function addFormClick() {
+        function addFormClick(){
             var formController = Ext.create('ProtoUL.UI.FormController', {
                 linkController : me.linkController,
                 detailDefinition : me.detailDefinition
@@ -57,17 +59,17 @@ Ext.define('ProtoUL.UI.DetailButton', {
 
     },
 
-    loadWinGridMeta : function(me) {
+    loadWinGridMeta : function(me){
         // TODO: Refactor, move loadMeta to grid or form
         // carga la meta y lo envia a la carga de la forma
         me.loadMeta(me.loadWinGrid);
     },
 
-    setButtonsReadOnly : function(readOnly) {
+    setButtonsReadOnly : function(readOnly){
         this.setDisabled(readOnly);
     },
 
-    loadWinGrid : function(me) {
+    loadWinGrid : function(me){
 
         me.myWinGrid = Ext.create('ProtoUL.UI.WinGridController', {
             viewCode : me.viewCode,
@@ -78,14 +80,14 @@ Ext.define('ProtoUL.UI.DetailButton', {
         me.myWinGrid.createGridWindow(me.myWinGrid);
     },
 
-    loadMeta : function(fnBase, opts) {
+    loadMeta : function(fnBase, opts){
         // Async Call for getting meta
         var me = this, options = {
             scope : me,
-            success : function(obj, result, request) {
+            success : function(obj, result, request){
                 fnBase.call(me, me, opts);
             },
-            failure : function(obj, result, request) {
+            failure : function(obj, result, request){
                 return;
             }
         };
@@ -95,4 +97,3 @@ Ext.define('ProtoUL.UI.DetailButton', {
         }
     }
 });
-
