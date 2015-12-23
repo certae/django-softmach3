@@ -18,6 +18,7 @@ Ext.define('Softmachine.view.main.Main', {
         
         'Ext.ux.statusbar.StatusBar',
 
+        'Softmachine.view.workspace.MainTabContainer', 
         'Softmachine.view.main.MainController', 
         'Softmachine.view.main.MenuTree' ],
 
@@ -94,10 +95,9 @@ Ext.define('Softmachine.view.main.Main', {
     createMainTabContainer : function(){
 
         var myPanel = {
-            // xtype: 'panel' implied by default
-            title : 'Center Region',
-            region : 'center', // center region is required, no width/height specified
-            xtype : 'panel',
+            xtype: 'mainTabContainer', 
+            title : 'WorkSpace',
+            region : 'center', 
             layout : 'fit',
             minWidth : 300, 
             header : false, // To hide title bar, having title for ARIA

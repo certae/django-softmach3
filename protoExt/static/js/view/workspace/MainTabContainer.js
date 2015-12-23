@@ -1,6 +1,6 @@
 // Contiene  los tabs para crear las pcls
 
-Ext.define('Softmachine.view.main.MainTabContainer', {
+Ext.define('Softmachine.view.workspace.MainTabContainer', {
     extend: 'Ext.tab.Panel',
     alias: 'widget.mainTabContainer',
     // requires: ['ProtoUL.view.ProtoMasterDetail' ],
