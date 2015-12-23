@@ -11,7 +11,7 @@
 Ext.define('ProtoUL.view.TabMasterDetail', {
     extend: 'Ext.Panel',
     alias: 'widget.tabMasterDetail',
-    requires: ['ProtoUL.view.ProtoGrid', 'ProtoUL.UI.TbMasterDetail'],
+    requires: ['ProtoUL.view.ProtoGrid', 'ProtoUL.UI.DetailToolBar'],
 
     // Estados iniciales
     editable: false,
@@ -57,7 +57,7 @@ Ext.define('ProtoUL.view.TabMasterDetail', {
         this.pciStyle = this.protoMasterGrid.myMeta.pciStyle || 'grid';
 
         // Barra MD
-        tb = Ext.create('ProtoUL.UI.TbMasterDetail', {
+        tb = Ext.create('ProtoUL.UI.DetailToolBar', {
             protoMeta: this.myMeta,
             __MasterDetail: me
         });

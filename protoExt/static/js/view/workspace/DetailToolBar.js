@@ -2,9 +2,9 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.UI.TbMasterDetail', {
+Ext.define('ProtoUL.UI.DetailToolBar', {
     extend: 'Ext.Toolbar',
-    alias: 'widget.tbMasterDetail',
+    alias: 'widget.detailToolBar',
 
     // isToolbar: true,
     // baseCls  : Ext.baseCSSPrefix + 'toolbar',
