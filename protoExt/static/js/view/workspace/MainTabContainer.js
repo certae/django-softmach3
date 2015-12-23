@@ -3,12 +3,7 @@
 Ext.define('Softmachine.view.workspace.MainTabContainer', {
     extend: 'Ext.tab.Panel',
     alias: 'widget.mainTabContainer',
-    // requires: ['ProtoUL.view.ProtoMasterDetail' ],
-    // listeners: {
-        // //DGT: Para arreglar un error reportado en ExtJs 4.0.7
-        // 'tabchange': function(tabs, tab) { tab.down('gridpanel').view.refresh(); },
-        // scope: this
-    // },
+    requires: ['ProtoUL.view.TabMasterDetail' ],
     border : false,
 
     initComponent: function() {
@@ -41,7 +36,7 @@ Ext.define('Softmachine.view.workspace.MainTabContainer', {
             iconCls: myMeta.viewIcon ,
             closable: true,
             layout: 'fit',
-            items: [ this.createProtoMasterDetail( viewCode, mdFilter , detailTitle ) ]
+            items: [ this.createTabMasterDetail( viewCode, mdFilter , detailTitle ) ]
         });
 
         this.setActiveTab( tab );
@@ -50,9 +45,9 @@ Ext.define('Softmachine.view.workspace.MainTabContainer', {
 
     },
 
-    createProtoMasterDetail: function( viewCode, mdFilter, detailTitle ){
+    createTabMasterDetail: function( viewCode, mdFilter, detailTitle ){
 
-        var MDPanel = Ext.create('widget.protoMasterDetail', {
+        var MDPanel = Ext.create('widget.tabMasterDetail', {
             viewCode : viewCode,
             mdFilter    : mdFilter,
             detailTitle : detailTitle
@@ -81,7 +76,7 @@ Ext.define('Softmachine.view.workspace.MainTabContainer', {
         Ext.destroy(  Ext.ComponentQuery.query('protoZoom') );
         Ext.destroy(  Ext.ComponentQuery.query('protoForm') );
         Ext.destroy(  Ext.ComponentQuery.query('protoGrid') );
-        Ext.destroy(  Ext.ComponentQuery.query('protoMasterDetail') );
+        Ext.destroy(  Ext.ComponentQuery.query('tabMasterDetail') );
 
         Ext.destroy( Ext.ComponentQuery.query('protoLogin') );
         Ext.destroy( Ext.ComponentQuery.query('protoSearch') );
