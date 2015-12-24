@@ -2,7 +2,8 @@
  * @author Giovanni Victorette
  */
 // basic i18n for login screen, only used where it's impossible to get string values from Django server
-_SM.__language = {
+_SM.__language = _SM.__language || {};
+_SM.__language.fr = {
     'Text_Validate_Login_Button' : 'se connecter',
     'Text_change_Password_Button' : 'changer le mot de passe',
     'Text_Forgotten_Password' : 'mot de passe perdu',

@@ -3,7 +3,8 @@
  */
 // basic i18n for login screen, only used where it's impossible to get string values from Django server
 // TODO translate to espagnol
-_SM.__language = {
+_SM.__language = _SM.__language || {};
+_SM.__language.es = {
     'Text_Validate_Login_Button' : 'chek',
     'Text_change_Password_Button' : 'change password',
     'Text_Forgotten_Password' : 'lost password',

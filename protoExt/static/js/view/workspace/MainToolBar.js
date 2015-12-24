@@ -2,9 +2,9 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('Softmachine.view.workspace.DetailToolBar', {
+Ext.define('Softmachine.view.workspace.MainToolBar', {
     extend : 'Ext.Toolbar',
-    alias : 'widget.detailToolBar',
+    alias : 'widget.mainToolBar',
 
     // isToolbar: true,
     // baseCls : Ext.baseCSSPrefix + 'toolbar',
@@ -17,13 +17,15 @@ Ext.define('Softmachine.view.workspace.DetailToolBar', {
 
     initComponent : function(){
 
-        var me = this, myMeta = this.protoMeta, __MasterDetail = this.__MasterDetail;
+        var me = this, 
+        myMeta = this.protoMeta, 
+        __MasterDetail = this.__MasterDetail;
 
         // --------------------------------------------------------
 
-        this.searchBG = Ext.create('Softmachine.view.workspace.SearchToolBar', {
-            myMeta : myMeta
-        });
+        // this.searchBG = Ext.create('Softmachine.view.workspace.SearchToolBar', {
+        //     myMeta : myMeta
+        // });
 
         // La edicion se hara sobre el master si los detalles estan apagados,
         // si los detalles estan abiertos, se bloqua el master y se editan detalles
@@ -34,13 +36,17 @@ Ext.define('Softmachine.view.workspace.DetailToolBar', {
                 scope : me
             },
             items : [
-                this.searchBG,
+                // this.searchBG,
+                {
+                    xtype : 'searchToolBar',
+                    itemId : 'searchToolBar-id'
+                },
                 {
                     iconCls : 'icon-edit',
                     itemId : 'edit',
                     tooltip : _SM.__language.Grid_Edit_Ttip,
                     text : _SM.__language.Grid_Edit_Title,
-                    hidden : true,
+                    hidden : false,
                     handler : editOpts
                 },
                 {
@@ -48,91 +54,91 @@ Ext.define('Softmachine.view.workspace.DetailToolBar', {
                     tooltip : _SM.__language.Tooltip_Clasify_Button,
                     iconCls : 'icon-order',
                     itemId : 'sorters',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     text : _SM.__language.Text_Actions_Button,
                     tooltip : _SM.__language.Tooltip_Actions_Button,
                     iconCls : 'icon-action',
                     itemId : 'protoActions',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2,
-                    menu : Ext.create('Ext.menu.Menu', {})
+                    // menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     text : _SM.__language.Grid_Detail_Title,
                     tooltip : _SM.__language.Tooltip_Details_Button,
                     iconCls : 'icon-details',
                     itemId : 'details',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2,
-                    menu : Ext.create('Ext.menu.Menu', {})
+                    // menu : Ext.create('Ext.menu.Menu', {})
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     text : _SM.__language.Text_Filters_Button,
                     tooltip : _SM.__language.Tooltip_Filters_Button,
                     iconCls : 'icon-filters',
                     itemId : 'filterSet',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2,
-                    menu : Ext.create('Ext.menu.Menu', {})
+                    // menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     text : _SM.__language.Text_Tabs_Button,
                     tooltip : _SM.__language.Tooltip_Tabs_Button,
                     iconCls : 'icon-tabs',
                     itemId : 'tabSet',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2,
-                    menu : Ext.create('Ext.menu.Menu', {})
+                    // menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     text : _SM.__language.Text_Sorters_Button,
                     tooltip : _SM.__language.Tooltip_Sorters_Button,
                     iconCls : 'icon-sorters',
                     itemId : 'sorterSet',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2,
-                    menu : Ext.create('Ext.menu.Menu', {})
+                    // menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     text : _SM.__language.Text_Print,
                     tooltip : _SM.__language.Tooltip_Printing_Options,
                     iconCls : 'icon-print',
                     itemId : 'printerOpts',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2,
-                    menu : Ext.create('Ext.menu.Menu', {})
+                    // menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     text : _SM.__language.Text_Config,
                     tooltip : _SM.__language.Tooltip_Config_Button,
                     iconCls : 'icon-config',
                     itemId : 'configOpts',
-                    hidden : true,
+                    hidden : false,
                     enableToggle : true,
                     handler : toogleTb2,
-                    menu : Ext.create('Ext.menu.Menu', {})
+                    // menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 '->',
@@ -141,12 +147,12 @@ Ext.define('Softmachine.view.workspace.DetailToolBar', {
                     itemId : 'editOff',
                     text : _SM.__language.Text_Exit_Edit_Mode_Button,
                     tooltip : _SM.__language.Tooltip_Exit_Edit_Mode_Button,
-                    hidden : true,
+                    hidden : false,
                     handler : editOpts
 
                 },
                 {
-                    xtype : 'splitbutton',
+                    // xtype : 'splitbutton',
                     iconCls : 'icon-help',
                     handler : toogleTb2,
                     itemId : 'tbHelp'
@@ -156,6 +162,9 @@ Ext.define('Softmachine.view.workspace.DetailToolBar', {
         });
 
         this.callParent();
+
+        // DGT : Eliminar este return 
+        return; 
 
         // Guarda los permisos
         me.perms = _SM._UserInfo.perms[this.protoMeta.viewCode];

@@ -102,7 +102,7 @@ Ext.define('Softmachine.view.main.Main', {
             region : 'center',
             layout : 'fit',
             minWidth : 300,
-            header : false, // To hide title bar, having title for ARIA
+            header : false,  // To hide title bar, having title for ARIA
 
             bbar : Ext.create('Ext.ux.StatusBar', {
                 defaultText : '',

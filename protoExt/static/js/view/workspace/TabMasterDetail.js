@@ -12,7 +12,7 @@ Ext.define('Softmachine.view.workspace.TabMasterDetail', {
     extend : 'Ext.Panel',
     alias : 'widget.tabMasterDetail',
     requires : [
-        'Softmachine.view.workspace.DetailToolBar'
+        'Softmachine.view.workspace.MainToolBar'
     ],
 
     // Estados iniciales
@@ -59,7 +59,7 @@ Ext.define('Softmachine.view.workspace.TabMasterDetail', {
         this.pciStyle = this.protoMasterGrid.myMeta.pciStyle || 'grid';
 
         // Barra MD
-        tb = Ext.create('ProtoUL.UI.DetailToolBar', {
+        tb = Ext.create('ProtoUL.UI.MainToolBar', {
             protoMeta : this.myMeta,
             __MasterDetail : me
         });

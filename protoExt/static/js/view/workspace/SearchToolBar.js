@@ -1,16 +1,17 @@
 /*
- * Barra de busqueda 
+ * Text Search + QBE toolbar 
+ * 
  */
 
 Ext.define('Softmachine.view.workspace.SearchToolBar', {
     extend : 'Ext.toolbar.Toolbar',
-    alias : 'widget.searchTB',
+    alias : 'widget.searchToolBar',
 
     /**
      * @private MetaData initialization
      */
     myMeta : null,
-
+    protoEnable : true, 
     /**
      * @private Component initialization override: ToolBar setup
      */
@@ -52,7 +53,7 @@ Ext.define('Softmachine.view.workspace.SearchToolBar', {
             }
         });
 
-        me.protoEnable = (me.myMeta.gridConfig.searchFields.length > 0);
+
 
         Ext.apply(me, {
             border : false,
@@ -115,6 +116,16 @@ Ext.define('Softmachine.view.workspace.SearchToolBar', {
             searchCr.setValue('');
         }
 
+    }, 
+
+    setActiveTab : function(){
+
+        // Load ToolbarConfig for meta
+        this.protoEnable = (this.myMeta.gridConfig.searchFields.length > 0);
+
+
     }
+
+
 
 });
