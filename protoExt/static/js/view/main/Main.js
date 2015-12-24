@@ -46,6 +46,7 @@ Ext.define('Softmachine.view.main.Main', {
 
         });
 
+        _SM.ViewPort = this;
         this.callParent();
 
 

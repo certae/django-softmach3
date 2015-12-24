@@ -22,156 +22,173 @@
 
 _SM = _SM || {};
 
-_SM.getStoreDefinition = function(stDef) {
+_SM.getStoreDefinition = function(stDef){
 
-    var myStore = Ext.create('Ext.data.Store', {
-        viewCode : stDef.viewCode,
+    var myStore = Ext
+            .create(
+                    'Ext.data.Store',
+                    {
+                        viewCode : stDef.viewCode,
 
-        model : _SM.getModelName(stDef.viewCode),
-        autoLoad : stDef.autoLoad,
-        pageSize : stDef.pageSize,
+                        model : _SM.getModelName(stDef.viewCode),
+                        autoLoad : stDef.autoLoad,
+                        pageSize : stDef.pageSize,
 
-        remoteSort : !(stDef.localSort || false),
-        sorters : stDef.sorters,
-        defaultSortDirection : 'ASC',
-        groupField : stDef.groupCol || '',
+                        remoteSort : !(stDef.localSort || false),
+                        sorters : stDef.sorters,
+                        defaultSortDirection : 'ASC',
+                        groupField : stDef.groupCol || '',
 
-        sortOnLoad : true,
-        autoSync : true,
+                        sortOnLoad : true,
+                        autoSync : true,
 
-        proxy : _SM.getProxyDefinition(stDef),
-        storeDefinition : stDef,
+                        proxy : _SM.getProxyDefinition(stDef),
+                        storeDefinition : stDef,
 
-        // Redefinicion de metodos
-        // sort: function ( sorters ) {
-        // Redefine el metodo, siempre pasa por aqui
-        // },
+                        // Redefinicion de metodos
+                        // sort: function ( sorters ) {
+                        // Redefine el metodo, siempre pasa por aqui
+                        // },
 
-        myLoadData : function(myFilter, mySorter, myMasterId) {
-            // Centraliza  los llamados para refrescar la grilla
+                        myLoadData : function(myFilter, mySorter, myMasterId){
+                            // Centraliza los llamados para refrescar la grilla
 
-            // Para la navegacion md
-            if (myMasterId) {
-                this.protoMasterId = myMasterId;
-            }
-
-            if (myFilter) {
-                this.clearFilter();
-                this.getProxy().extraParams.protoFilter = _SM.obj2tx(myFilter);
-                this.load();
-
-            } else if (mySorter) {
-                this.sort(mySorter);
-            }
-
-        },
-
-        zoomFilterParams : function( zoomParams ) {
-            // Desde el zoom, para agregar el zoomFilter que debe ser parte de la base
-            // pues no debe modeficarse con el filtro de usuario
-            // recibe el filtro y lo mezcla con el baseFilter ( por ejemplo un estado )
-
-            this.clearFilter();
-            this.getProxy().extraParams.protoFilter = _SM.obj2tx([]);
-            this.getProxy().extraParams.baseFilter = _SM.obj2tx( this.storeDefinition.baseFilter );
-            this.getProxy().extraParams.zoomParams = _SM.obj2tx( zoomParams );
-            this.load();
-
-        },
-
-        listeners : {
-
-            // Fires before a request is made for a new data object. ...
-            beforeload : function(store, operation, eOpts) {
-                _SM.__StBar.showBusy(_SM.__language.StatusBar_Message_Loading + store.viewCode, 'beforeLoad');
-            },
-
-            // Fired before a call to sync is executed. Return false from any listener to cancel the sync
-            beforesync : function(options, eOpts) {
-                _SM.__StBar.showBusy(_SM.__language.StatusBar_Message_Sync + this.viewCode, 'beforeSync');
-            },
-
-            // Fires whenever the records in the Store have changed in some way - this could include adding or removing records, or ...
-            datachanged : function(store, eOpts) {
-                _SM.__StBar.clear(store.viewCode, 'dataChanged');
-
-                // Guarda la info de sort
-                try {
-                    var mySort = _SM.clone(store.getSorters(), 0, [], ['property', 'direction']);
-                    store.proxy.extraParams.sort = Ext.encode(mySort);
-                } catch (e) {
-                }
-
-            },
-
-            // Fired when a Model instance has been added to this Store ...
-            // add: function ( store, records,  index,  eOpts ) {
-
-            //  Fires before a prefetch occurs. Return false to cancel.
-            // beforeprefetch: function ( store, operation, eOpts ) {
-
-            // Fires whenever records have been prefetched
-            // prefetch: function ( store, records, successful, operation,  eOpts ) {
-
-            // Fired after the removeAll method is called. ...
-            // clear: function ( store,  eOpts ) {
-
-            // Fires whenever the store reads data from a remote data source. ...
-            // load: function ( store, records,  successful,  eOpts ) {
-
-            // Fired when a Model instance has been removed from this Store ...
-            // remove: function (  store,  record,  index,  eOpts ) {
-
-            // Fires when a Model instance has been updated ...\
-            // update: function ( store,  record,  sOperation,  eOpts ) {
-
-            // Fires whenever a successful write has been made via the configured Proxy
-            write : function(store, operation, eOpts) {
-
-                var ix;
-                for (ix in operation.records) {
-                    var recResult = operation.resultSet.records[ix], recOrigin = operation.records[ix];
-
-                    // Si existe un resultSet
-                    if (recResult) {
-
-                        if (operation.action == 'create') {
-                            //Cuando son varios inserts, Extjs no es capaz hacer la actualizacion de los registros en la grilla.
-
-                            // Copia la data resultado sobre la data de base
-                            // Tengo un campo para mandar el Id, para efectos de control, podria ser elimiando en la prox version
-                            recOrigin.data = recResult.data;
-
-                        }// End create
-                        else if (operation.action == 'destroy') {
-                            //Dgt:  Restaura los registros q no pudieron ser borrados, ie Integridad referencial
-                            if (recResult.data._ptStatus !== '') {
-                                store.insert(0, recResult);
+                            // Para la navegacion md
+                            if (myMasterId) {
+                                this.protoMasterId = myMasterId;
                             }
 
-                        }
-                        // En Delete
+                            if (myFilter) {
+                                this.clearFilter();
+                                this.getProxy().extraParams.protoFilter = _SM.obj2tx(myFilter);
+                                this.load();
 
-                    }
+                            } else if (mySorter) {
+                                this.sort(mySorter);
+                            }
 
-                    // Marca los registros segun el estado
-                    var stRec = recOrigin.get('_ptStatus');
-                    if (stRec) {
-                        recOrigin.dirty = true;
-                        if (!recOrigin.getId()) {
-                            recOrigin.phantom = true;
+                        },
+
+                        zoomFilterParams : function(zoomParams){
+                            // Desde el zoom, para agregar el zoomFilter que debe ser parte de la
+                            // base
+                            // pues no debe modeficarse con el filtro de usuario
+                            // recibe el filtro y lo mezcla con el baseFilter ( por ejemplo un
+                            // estado )
+
+                            this.clearFilter();
+                            this.getProxy().extraParams.protoFilter = _SM.obj2tx([]);
+                            this.getProxy().extraParams.baseFilter = _SM
+                                    .obj2tx(this.storeDefinition.baseFilter);
+                            this.getProxy().extraParams.zoomParams = _SM.obj2tx(zoomParams);
+                            this.load();
+
+                        },
+
+                        listeners : {
+
+                            // Fires before a request is made for a new data object. ...
+                            beforeload : function(store, operation, eOpts){
+                                _SM.__StBar.showBusy(_SM.__language.StatusBar_Message_Loading
+                                        + store.viewCode, 'beforeLoad');
+                            },
+
+                            // Fired before a call to sync is executed. Return false from any
+                            // listener to cancel the sync
+                            beforesync : function(options, eOpts){
+                                _SM.__StBar.showBusy(_SM.__language.StatusBar_Message_Sync
+                                        + this.viewCode, 'beforeSync');
+                            },
+
+                            // Fires whenever the records in the Store have changed in some way -
+                            // this could include adding or removing records, or ...
+                            datachanged : function(store, eOpts){
+                                _SM.__StBar.clear(store.viewCode, 'dataChanged');
+
+                                // Guarda la info de sort
+                                try {
+                                    var mySort = _SM.clone(store.getSorters(), 0, [], [
+                                        'property',
+                                        'direction'
+                                    ]);
+                                    store.proxy.extraParams.sort = Ext.encode(mySort);
+                                } catch (e) {
+                                }
+
+                            },
+
+                            // Fired when a Model instance has been added to this Store ...
+                            // add: function ( store, records, index, eOpts ) {
+
+                            // Fires before a prefetch occurs. Return false to cancel.
+                            // beforeprefetch: function ( store, operation, eOpts ) {
+
+                            // Fires whenever records have been prefetched
+                            // prefetch: function ( store, records, successful, operation, eOpts ) {
+
+                            // Fired after the removeAll method is called. ...
+                            // clear: function ( store, eOpts ) {
+
+                            // Fires whenever the store reads data from a remote data source. ...
+                            // load: function ( store, records, successful, eOpts ) {
+
+                            // Fired when a Model instance has been removed from this Store ...
+                            // remove: function ( store, record, index, eOpts ) {
+
+                            // Fires when a Model instance has been updated ...\
+                            // update: function ( store, record, sOperation, eOpts ) {
+
+                            // Fires whenever a successful write has been made via the configured
+                            // Proxy
+                            write : function(store, operation, eOpts){
+
+                                var ix;
+                                for (ix in operation.records) {
+                                    var recResult = operation.resultSet.records[ix], recOrigin = operation.records[ix];
+
+                                    // Si existe un resultSet
+                                    if (recResult) {
+
+                                        if (operation.action == 'create') {
+                                            // Cuando son varios inserts, Extjs no es capaz hacer la
+                                            // actualizacion de los registros en la grilla.
+
+                                            // Copia la data resultado sobre la data de base
+                                            // Tengo un campo para mandar el Id, para efectos de
+                                            // control, podria ser elimiando en la prox version
+                                            recOrigin.data = recResult.data;
+
+                                        }// End create
+                                        else if (operation.action == 'destroy') {
+                                            // Dgt: Restaura los registros q no pudieron ser
+                                            // borrados, ie Integridad referencial
+                                            if (recResult.data._ptStatus !== '') {
+                                                store.insert(0, recResult);
+                                            }
+
+                                        }
+                                        // En Delete
+
+                                    }
+
+                                    // Marca los registros segun el estado
+                                    var stRec = recOrigin.get('_ptStatus');
+                                    if (stRec) {
+                                        recOrigin.dirty = true;
+                                        if (!recOrigin.getId()) {
+                                            recOrigin.phantom = true;
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
-                }
-            }
-        }
-    });
+                    });
 
     return myStore;
 
 };
 
-_SM.getProxyDefinition = function(stDef) {
+_SM.getProxyDefinition = function(stDef){
 
     return {
         type : 'ajax',
@@ -212,16 +229,16 @@ _SM.getProxyDefinition = function(stDef) {
             viewCode : stDef.viewCode,
             protoFilter : _SM.obj2tx(stDef.protoFilter),
             baseFilter : _SM.obj2tx(stDef.baseFilter)
-            // protoMeta : _SM.obj2tx(stDef.sProtoMeta)
+        // protoMeta : _SM.obj2tx(stDef.sProtoMeta)
         },
 
         listeners : {
 
-            // 'load' :  function(store,records,options) { this.loaded = true }
-            'exception' : function(proxy, response, operation) {
+            // 'load' : function(store,records,options) { this.loaded = true }
+            'exception' : function(proxy, response, operation){
                 // var msg = operation.request.scope.reader.jsonData["message"] ;
                 var msg, myErr = operation.getError();
-                if ( typeof (myErr ) == 'string') {
+                if (typeof (myErr) == 'string') {
                     msg = myErr;
                 } else {
                     msg = 'REMOTE EXCEPTION: (' + myErr.status + ') ' + myErr.statusText;
@@ -230,25 +247,25 @@ _SM.getProxyDefinition = function(stDef) {
             }
         }
 
-        // afterRequest: function( request, success ){
-        // var title = 'afterRequest :' + request.method + '.' + request.action, msg = ''
-        // try {
-        // if ( request.operation.response.status != 200 ) {
-        // if ( 'jsonData' in request.scope.reader ) {
-        // var jsData = request.scope.reader.jsonData;
-        // msg = request.scope.reader.getMessage()
-        // }
-        // }
-        // } catch(e) {
-        // msg = e.message
-        // }
-        // }
+    // afterRequest: function( request, success ){
+    // var title = 'afterRequest :' + request.method + '.' + request.action, msg = ''
+    // try {
+    // if ( request.operation.response.status != 200 ) {
+    // if ( 'jsonData' in request.scope.reader ) {
+    // var jsData = request.scope.reader.jsonData;
+    // msg = request.scope.reader.getMessage()
+    // }
+    // }
+    // } catch(e) {
+    // msg = e.message
+    // }
+    // }
 
     };
 
 };
 
-_SM.getTreeStoreDefinition = function(stDef) {
+_SM.getTreeStoreDefinition = function(stDef){
 
     var myStore = Ext.create('Ext.data.TreeStore', {
         viewCode : stDef.viewCode,
@@ -266,20 +283,21 @@ _SM.getTreeStoreDefinition = function(stDef) {
             expanded : true
         }
 
-        // listeners: {
-        // // Fires before a request is made for a new data object. ...
-        // beforeload: function(  store,  operation,  eOpts ) {
-        // _SM.__StBar.showBusy( 'loading ..' + store.viewCode, 'beforeLoad' );
-        // },
-        // // Fired before a call to sync is executed. Return false from any listener to cancel the sync
-        // beforesync: function ( options, eOpts ) {
-        // _SM.__StBar.showBusy( 'sync ..' + this.viewCode, 'beforeSync'  );
-        // },
-        // // Fires whenever the records in the Store have changed in some way - this could include adding or removing records, or ...
-        // datachanged: function( store,  eOpts ) {
-        // _SM.__StBar.clear( store.viewCode , 'dataChanged' );
-        // }
-        // }
+    // listeners: {
+    // // Fires before a request is made for a new data object. ...
+    // beforeload: function( store, operation, eOpts ) {
+    // _SM.__StBar.showBusy( 'loading ..' + store.viewCode, 'beforeLoad' );
+    // },
+    // // Fired before a call to sync is executed. Return false from any listener to cancel the sync
+    // beforesync: function ( options, eOpts ) {
+    // _SM.__StBar.showBusy( 'sync ..' + this.viewCode, 'beforeSync' );
+    // },
+    // // Fires whenever the records in the Store have changed in some way - this could include
+    // adding or removing records, or ...
+    // datachanged: function( store, eOpts ) {
+    // _SM.__StBar.clear( store.viewCode , 'dataChanged' );
+    // }
+    // }
 
     });
 
@@ -287,13 +305,13 @@ _SM.getTreeStoreDefinition = function(stDef) {
 
 };
 
-_SM.getNewRecord = function(myMeta, myStore) {
+_SM.getNewRecord = function(myMeta, myStore){
 
-    function setDefaults() {
+    function setDefaults(){
 
         var vDefault = {}, ix, vFld;
 
-        for (ix in myMeta.fields ) {
+        for (ix in myMeta.fields) {
             vFld = myMeta.fields[ix];
             if (!vFld.prpDefault) {
                 continue;
@@ -311,7 +329,7 @@ _SM.getNewRecord = function(myMeta, myStore) {
 
 };
 
-_SM.getRecordByDataIx = function(myStore, fieldName, value) {
+_SM.getRecordByDataIx = function(myStore, fieldName, value){
     var ix = myStore.findExact(fieldName, value);
     if (ix === -1) {
         return;
@@ -319,16 +337,26 @@ _SM.getRecordByDataIx = function(myStore, fieldName, value) {
     return myStore.getAt(ix);
 };
 
+_SM.smFields = _SM.objConv([
+    'smOwningUser',
+    'smOwningTeam',
+    'smOwningUser_id',
+    'smOwningTeam_id',
+    'smCreatedBy',
+    'smModifiedBy',
+    'smCreatedBy_id',
+    'smModifiedBy_id',
+    'smCreatedOn',
+    'smModifiedOn',
+    'smWflowStatus',
+    'smRegStatus',
+    'smNaturalCode',
+    'smUUID',
+    'id',
+    'smInfo'
+])
 
-_SM.smFields = _SM.objConv( [
-        'smOwningUser', 'smOwningTeam', 'smOwningUser_id', 'smOwningTeam_id', 
-        'smCreatedBy',  'smModifiedBy', 'smCreatedBy_id',  'smModifiedBy_id', 
-        'smCreatedOn', 'smModifiedOn', 
-        'smWflowStatus', 'smRegStatus', 
-        'smNaturalCode', 'smUUID', 'id', 'smInfo'] )
-
-_SM.IsAdmField = function(vFld, myMeta) {
-
+_SM.IsAdmField = function(vFld, myMeta){
 
     // Oculta las llaves de zooms
     if (/_id$/.test(vFld.name)) {
@@ -341,30 +369,30 @@ _SM.IsAdmField = function(vFld, myMeta) {
     }
 
     // 'smOwningUser','smOwningTeam', 'smModifiedOn',
-    if (vFld.name in _SM.smFields ) {
+    if (vFld.name in _SM.smFields) {
         return true;
     }
 
     // prototipos
-    if (myMeta.protoEntityId && vFld.name == 'entity' ) {
-            return true;
+    if (myMeta.protoEntityId && vFld.name == 'entity') {
+        return true;
     }
 
     return false;
 };
 
-_SM.DefineProtoModel = function(myMeta) {
+_SM.DefineProtoModel = function(myMeta){
 
     // dateFormat: 'Y-m-d'
     // type: 'date', 'float', 'int', 'number'
 
-    // useNull : vFld.allowNull,  ( solo para numeros, si no puede hacer la conversion )
+    // useNull : vFld.allowNull, ( solo para numeros, si no puede hacer la conversion )
     // prpDefault: vFld.prpDefault,
-    // persist: vFld.editPolicy,        ( falso = NoUpdate )
+    // persist: vFld.editPolicy, ( falso = NoUpdate )
 
     // type: 'hasMany',
     // autoLoad: true
-    // convert :  Campo Virtual calculado,  Apunta a una funcion q  genera el valor
+    // convert : Campo Virtual calculado, Apunta a una funcion q genera el valor
 
     var myModelFields = [];
     // model Fields
@@ -372,7 +400,7 @@ _SM.DefineProtoModel = function(myMeta) {
     // Separacion de campos para facilidad del administrador
     var fieldsBase = [], fieldsAdm = [], mField = {};
 
-    for (var ix in myMeta.fields ) {
+    for ( var ix in myMeta.fields) {
         var vFld = myMeta.fields[ix];
 
         if (_SM.IsAdmField(vFld, myMeta)) {
@@ -389,15 +417,45 @@ _SM.DefineProtoModel = function(myMeta) {
         mField = {
             name : vFld.name,
             type : vFld.type
-            //TODO:  useNull : true / false    ( NullAllowed, IsNull,  NotNull )
+        // TODO: useNull : true / false ( NullAllowed, IsNull, NotNull )
         };
 
         // Tipos validos
-        if (!vFld.type in _SM.objConv(['string', 'text', 'html', 'bool', 'int', 'decimal', 'combo', 'date', 'datetime', 'time', 'protoN2N', 'autofield', 'foreignid', 'foreigntext'])) {
+        if (!vFld.type in _SM.objConv([
+            'string',
+            'text',
+            'html',
+            'bool',
+            'int',
+            'decimal',
+            'combo',
+            'date',
+            'datetime',
+            'time',
+            'protoN2N',
+            'autofield',
+            'foreignid',
+            'foreigntext'
+            
+        ]))
+        {
 
             vFld.type = 'string';
             mField.type = 'string';
             mField.readOnly = true;
+        }
+
+        if (vFld.type in _SM.objConv([
+            'combo',
+            'text',
+            'html',
+            'protoN2N',
+            'autofield',
+            'foreignid',
+            'foreigntext'
+        ]))
+        {
+            mField.type = 'string';
         }
 
         //
@@ -416,33 +474,33 @@ _SM.DefineProtoModel = function(myMeta) {
         }
 
         // Determina el xType y otros parametros
-        switch( vFld.type ) {
-            case 'decimal':
-                mField.type = 'number';
-                break;
+        switch (vFld.type) {
+        case 'decimal':
+            mField.type = 'number';
+            break;
 
-            case 'jsonfield':
-                mField.readOnly = true;
-                mField.type = 'json';
-                break;
+        case 'jsonfield':
+            mField.readOnly = true;
+            mField.type = 'json';
+            break;
 
-            case 'date':
-                mField.type = 'date';
-                mField.dateFormat = 'Y-m-d';
-                break;
+        case 'date':
+            mField.type = 'date';
+            mField.dateFormat = 'Y-m-d';
+            break;
 
-            case 'datetime':
-                mField.type = 'string';
-                // DGT: ISO Format  ( utilsBase.py  JsonEncoder datetime)
-                // mField.type = 'date';
-                // mField.dateFormat = 'Y-m-d\\TH:i:sP';
-                break;
-            case 'time':
-                mField.type = 'string';
-                // DGT 
-                // mField.type = 'date';
-                // mField.dateFormat = 'H:i:s';
-                break;
+        case 'datetime':
+            mField.type = 'string';
+            // DGT: ISO Format ( utilsBase.py JsonEncoder datetime)
+            // mField.type = 'date';
+            // mField.dateFormat = 'Y-m-d\\TH:i:sP';
+            break;
+        case 'time':
+            mField.type = 'string';
+            // DGT
+            // mField.type = 'date';
+            // mField.dateFormat = 'H:i:s';
+            break;
 
         }
 
@@ -469,8 +527,8 @@ _SM.DefineProtoModel = function(myMeta) {
         extend : 'Ext.data.Model',
         fields : myModelFields
 
-        //TODO: Validation, Validaciones
-        //    validations: [{ type: 'length', field: 'name', min: 1 }]
+    // TODO: Validation, Validaciones
+    // validations: [{ type: 'length', field: 'name', min: 1 }]
 
     });
 
@@ -480,10 +538,10 @@ _SM.DefineProtoModel = function(myMeta) {
 
 };
 
-_SM.getFieldDict = function(myMeta) {
+_SM.getFieldDict = function(myMeta){
     // For indexing fields
     var ptDict = {};
-    for (var ix in myMeta.fields ) {
+    for ( var ix in myMeta.fields) {
         var vFld = myMeta.fields[ix];
 
         // Lo marca con la grilla de donde viene
@@ -494,11 +552,13 @@ _SM.getFieldDict = function(myMeta) {
     return ptDict;
 };
 
-_SM.getColDefinition = function(vFld) {
+_SM.getColDefinition = function(vFld){
 
     if (!vFld.header) {
         vFld.header = vFld.name;
-        if (  vFld.header.indexOf( 'smInfo__') ==  0  ) { vFld.header = vFld.header.substring(8) }
+        if (vFld.header.indexOf('smInfo__') == 0) {
+            vFld.header = vFld.header.substring(8)
+        }
     }
 
     var colDefinition, lstProps, editor;
@@ -509,40 +569,67 @@ _SM.getColDefinition = function(vFld) {
     };
 
     // Propiedades q seran copiadas a las columnas de la grilla
-    lstProps = ['flex', 'width', 'minWidth', 'sortable', 'hidden', 'xtype', 'readOnly', 'render', 'align', 'format', 'tooltip', 'idProtoGrid'];
+    lstProps = [
+        'flex',
+        'width',
+        'minWidth',
+        'sortable',
+        'hidden',
+        'xtype',
+        'readOnly',
+        'render',
+        'align',
+        'format',
+        'tooltip',
+        'idProtoGrid'
+    ];
 
     colDefinition = _SM.copyProps(colDefinition, vFld, true, lstProps);
 
     // Copia las propiedades de base al editor
-    lstProps = ['prpDefault',
+    lstProps = [
+        'prpDefault',
 
-    // string
-    'required', 'readOnly', 'minLength', 'minLengthText', 'maxLength', 'maxLengthText',
+        // string
+        'required',
+        'readOnly',
+        'minLength',
+        'minLengthText',
+        'maxLength',
+        'maxLengthText',
 
-    // int, decimal
-    'step',
+        // int, decimal
+        'step',
 
-    // int, decimal, date, datime, time
-    'minValue', 'minText', 'maxValue', 'maxText',
+        // int, decimal, date, datime, time
+        'minValue',
+        'minText',
+        'maxValue',
+        'maxText',
 
-    // date, datime
-    'disabledDays', 'disabledDaysText', // [0, 6]
+        // date, datime
+        'disabledDays',
+        'disabledDaysText', // [0, 6]
 
-    /*@zoomModel : Contiene el modelo del FK, se carga automaticamente,
-     * puede ser modificado para cargar una vista particular,
-     * una buena practica es dejar los modelos de base para los zooms y generar vistas
-     * para las opciones de trabajo
-     */
-    'zoomModel', 'zoomMultiple',
+        /*
+         * @zoomModel : Contiene el modelo del FK, se carga automaticamente, puede ser modificado
+         * para cargar una vista particular, una buena practica es dejar los modelos de base para
+         * los zooms y generar vistas para las opciones de trabajo
+         */
+        'zoomModel',
+        'zoomMultiple',
 
-    //@fkId : Llave correspondiente al zoom
-    'fkId',
+        // @fkId : Llave correspondiente al zoom
+        'fkId',
 
-    //@zoomFilter : Filtro de base fijo para el zoom ( puede venir definido en zoomView )
-    'zoomFilter',
+        // @zoomFilter : Filtro de base fijo para el zoom ( puede venir definido en zoomView )
+        'zoomFilter',
 
-    //@fromField :  Campos q sera heredados a la entidad base
-    'cpFromField', 'cpFromZoom', 'idProtoGrid'];
+        // @fromField : Campos q sera heredados a la entidad base
+        'cpFromField',
+        'cpFromZoom',
+        'idProtoGrid'
+    ];
     editor = _SM.copyProps({}, vFld, true, lstProps);
 
     // Requerido
@@ -555,7 +642,7 @@ _SM.getColDefinition = function(vFld) {
 
     }
 
-    //TODO: vType ( eMail, IpAdress, etc ... )
+    // TODO: vType ( eMail, IpAdress, etc ... )
     // editor.vtype = 'email'
 
     // Determina el xType y otros parametros
@@ -566,120 +653,120 @@ _SM.getColDefinition = function(vFld) {
         vFld.type = 'combo';
     }
 
-    switch( vFld.type ) {
-        case 'string':
-            if (!colDefinition.flex) {
-                colDefinition.flex = 1;
-            }
-            break;
+    switch (vFld.type) {
+    case 'string':
+        if (!colDefinition.flex) {
+            colDefinition.flex = 1;
+        }
+        break;
 
-        case 'text':
-            if (!colDefinition.flex) {
-                colDefinition.flex = 2;
-            }
-            colDefinition.renderer = columnWrap;
-            break;
+    case 'text':
+        if (!colDefinition.flex) {
+            colDefinition.flex = 2;
+        }
+        colDefinition.renderer = columnWrap;
+        break;
 
-        case 'int':
-        case 'secuence':
-            colDefinition['xtype'] = 'numbercolumn';
-            colDefinition['align'] = 'right';
-            colDefinition['format'] = '0,000';
+    case 'int':
+    case 'secuence':
+        colDefinition['xtype'] = 'numbercolumn';
+        colDefinition['align'] = 'right';
+        colDefinition['format'] = '0,000';
 
-            editor.xtype = 'numberfield';
-            editor.format = colDefinition['format'];
-            editor.align = 'right';
-            editor.allowDecimals = false;
-            break;
+        editor.xtype = 'numberfield';
+        editor.format = colDefinition['format'];
+        editor.align = 'right';
+        editor.allowDecimals = false;
+        break;
 
-        case 'decimal':
-        case 'money':
-            colDefinition['xtype'] = 'numbercolumn';
-            colDefinition['align'] = 'right';
-            colDefinition['format'] = '0,000.00';
-            // vFld['renderer'] = 'usMoney'
+    case 'decimal':
+    case 'money':
+        colDefinition['xtype'] = 'numbercolumn';
+        colDefinition['align'] = 'right';
+        colDefinition['format'] = '0,000.00';
+        // vFld['renderer'] = 'usMoney'
 
-            editor.xtype = 'numberfield';
-            editor.format = colDefinition['format'];
-            editor.align = 'right';
-            editor.allowDecimals = true;
-            editor.decimalPrecision = 2;
-            break;
+        editor.xtype = 'numberfield';
+        editor.format = colDefinition['format'];
+        editor.align = 'right';
+        editor.allowDecimals = true;
+        editor.decimalPrecision = 2;
+        break;
 
-        case 'date':
-            colDefinition['xtype'] = 'datecolumn';
-            colDefinition['format'] = 'Y/m/d';
+    case 'date':
+        colDefinition['xtype'] = 'datecolumn';
+        colDefinition['format'] = 'Y/m/d';
 
-            editor.xtype = 'datefield';
-            editor.format = colDefinition['format'];
-            break;
+        editor.xtype = 'datefield';
+        editor.format = colDefinition['format'];
+        break;
 
-        case 'datetime':
-            // colDefinition['xtype'] = 'datecolumn'
-            // colDefinition['format'] = 'Y/m/d H:i:s'
-            // editor.xtype = 'datefield'
-            // editor.format = 'Y/m/d'
-            // editor.timeFormat = 'H:i'
-            break;
+    case 'datetime':
+        // colDefinition['xtype'] = 'datecolumn'
+        // colDefinition['format'] = 'Y/m/d H:i:s'
+        // editor.xtype = 'datefield'
+        // editor.format = 'Y/m/d'
+        // editor.timeFormat = 'H:i'
+        break;
 
-        case 'time':
-            //TODO:  En la edicion de grilla, al regresar cambia el formato
-            colDefinition['xtype'] = 'datecolumn';
-            colDefinition['format'] = 'H:i';
-            //  'H:i:s'
+    case 'time':
+        // TODO: En la edicion de grilla, al regresar cambia el formato
+        colDefinition['xtype'] = 'datecolumn';
+        colDefinition['format'] = 'H:i';
+        // 'H:i:s'
 
-            editor.xtype = 'timefield';
-            editor.format = colDefinition['format'];
-            break;
+        editor.xtype = 'timefield';
+        editor.format = colDefinition['format'];
+        break;
 
-        case 'bool':
-            colDefinition['xtype'] = 'mycheckcolumn';
-            colDefinition['editable'] = false;
-            colDefinition['inGrid'] = true;
+    case 'bool':
+        colDefinition['xtype'] = 'mycheckcolumn';
+        colDefinition['editable'] = false;
+        colDefinition['inGrid'] = true;
 
-            editor.xtype = 'checkbox';
-            // editor.cls = 'x-grid-checkheader-editor'
-            break;
+        editor.xtype = 'checkbox';
+        // editor.cls = 'x-grid-checkheader-editor'
+        break;
 
-        case 'combo':
-            editor.xtype = 'combobox';
-            editor.typeAhead = true;
-            editor.triggerAction = 'all';
-            editor.selectOnTab = true;
+    case 'combo':
+        editor.xtype = 'combobox';
+        editor.typeAhead = true;
+        editor.triggerAction = 'all';
+        editor.selectOnTab = true;
 
-            // Lo normal es q venga como una lista de opciones ( string )
-            var cbChoices = vFld.choices;
-            if (_SM.typeOf(cbChoices) == 'string') {
-                cbChoices = cbChoices.split(",");
-            } else {
-                cbChoices = [];
-            }
+        // Lo normal es q venga como una lista de opciones ( string )
+        var cbChoices = vFld.choices;
+        if (_SM.typeOf(cbChoices) == 'string') {
+            cbChoices = cbChoices.split(",");
+        } else {
+            cbChoices = [];
+        }
 
-            editor.store = cbChoices;
-            editor.lazyRender = true;
-            editor.listClass = 'x-combo-list-small';
-            break;
+        editor.store = cbChoices;
+        editor.lazyRender = true;
+        editor.listClass = 'x-combo-list-small';
+        break;
 
-        case 'foreigntext':
-            // El zoom se divide en 2 cols el texto ( _unicode ) y el ID ( foreignid )
-            if (!colDefinition.flex) {
-                colDefinition.flex = 1;
-            }
+    case 'foreigntext':
+        // El zoom se divide en 2 cols el texto ( _unicode ) y el ID ( foreignid )
+        if (!colDefinition.flex) {
+            colDefinition.flex = 1;
+        }
 
-            vFld.cellLink = true;
-            editor.xtype = 'protoZoom';
-            editor.editable = false;
-            break;
+        vFld.cellLink = true;
+        editor.xtype = 'protoZoom';
+        editor.editable = false;
+        break;
 
-        case 'foreignid':
-            // El zoom id debe estar oculto
-            // colDefinition['hidden']= true
-            editor.xtype = 'numberfield';
-            editor.hidden = true;
-            break;
+    case 'foreignid':
+        // El zoom id debe estar oculto
+        // colDefinition['hidden']= true
+        editor.xtype = 'numberfield';
+        editor.hidden = true;
+        break;
 
-        case 'autofield':
-            break;
+    case 'autofield':
+        break;
 
     }
 
@@ -689,27 +776,28 @@ _SM.getColDefinition = function(vFld) {
     }
 
     // verificacion de xtype
-    switch( colDefinition.xtype  ) {
-        case 'mycheckcolumn':
-        case 'datecolumn':
-        case 'numbercolumn' :
-            break;
-        case 'checkbox':
-            colDefinition.xtype = 'mycheckcolumn';
-            break;
-        case 'datefield':
-            colDefinition.xtype = 'datecolumn';
-            break;
-        case 'numberfield':
-            colDefinition.xtype = 'numbercolumn';
-            break;
-        default:
-            delete colDefinition.xtype;
-    };
+    switch (colDefinition.xtype) {
+    case 'mycheckcolumn':
+    case 'datecolumn':
+    case 'numbercolumn':
+        break;
+    case 'checkbox':
+        colDefinition.xtype = 'mycheckcolumn';
+        break;
+    case 'datefield':
+        colDefinition.xtype = 'datecolumn';
+        break;
+    case 'numberfield':
+        colDefinition.xtype = 'numbercolumn';
+        break;
+    default:
+        delete colDefinition.xtype;
+    }
+    ;
 
     // Asigna las coleccoiones de presentacion
     // El foreignid puede ser editable directamente,
-    if (((vFld.type == 'autofield' ) || vFld.readOnly  ) && (vFld.type != 'bool'  )) {
+    if (((vFld.type == 'autofield') || vFld.readOnly) && (vFld.type != 'bool')) {
         colDefinition.renderer = cellReadOnly;
     } else {
         colDefinition['editor'] = editor;
@@ -732,7 +820,8 @@ _SM.getColDefinition = function(vFld) {
 
     // Maneja los subtipos
     if (vFld.vType) {
-        // vType stopLigth  Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites Red-Yellow; Yellow-Green
+        // vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites
+        // Red-Yellow; Yellow-Green
         if (vFld.vType == 'stopLight') {
             colDefinition.renderer = cellStopLight;
         }
@@ -746,33 +835,35 @@ _SM.getColDefinition = function(vFld) {
     return colDefinition;
 
     //
-    function columnWrap(value) {
-        return '<div style="white-space:normal; text-align:justify !important";>' + value + "</div>";
+    function columnWrap(value){
+        return '<div style="white-space:normal; text-align:justify !important";>' + value
+                + "</div>";
     }
 
-    function cellToolTip(value, metaData, record, rowIndex, colIndex, store, view) {
+    function cellToolTip(value, metaData, record, rowIndex, colIndex, store, view){
         metaData.tdAttr = 'data-qtip="' + value + '"';
         return value;
     }
 
-    function cellReadOnly(value, metaData, record, rowIndex, colIndex, store, view) {
+    function cellReadOnly(value, metaData, record, rowIndex, colIndex, store, view){
         return '<span style="color:grey;">' + value + '</span>';
-    };
+    }
+    ;
 
-    function cellLink(value) {
+    function cellLink(value){
         return '<a href="#">' + value + '</a>';
-    };
+    }
+    ;
 
-    function cellStopLight(value, metaData, record, rowIndex, colIndex, store, view) {
+    function cellStopLight(value, metaData, record, rowIndex, colIndex, store, view){
         /*
-         TODO: Leer las propiedades stopLightRY y  stopLightYG  para comparar,
-
-         vType stopLigth  Maneja el codigo de colores para un semaforo con 3 indicadores,
-         stopLightRY : valor limite  de Rojo a Amarillo
-         stopLightYG : valor limite  de Amarillo a Verde
-         si el valor RY > YG se asume una secuencia inversa.
-         los valores son comparados estrictamente mayor  X > RY -->  Y
-
+         * TODO: Leer las propiedades stopLightRY y stopLightYG para comparar,
+         * 
+         * vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores,
+         * stopLightRY : valor limite de Rojo a Amarillo stopLightYG : valor limite de Amarillo a
+         * Verde si el valor RY > YG se asume una secuencia inversa. los valores son comparados
+         * estrictamente mayor X > RY --> Y
+         * 
          */
 
         var cssPrefix = Ext.baseCSSPrefix, cls = [];
@@ -785,7 +876,7 @@ _SM.getColDefinition = function(vFld) {
             cls.push(cssPrefix + 'grid-stopligth-red');
         }
 
-        //TODO: Probar <span>  en vez de <div>
+        // TODO: Probar <span> en vez de <div>
         // return '<span style="color:green;">' + val + '</span>';
 
         return '<div class="' + cls.join(' ') + '">&#160;' + value + '</div>';
@@ -793,7 +884,7 @@ _SM.getColDefinition = function(vFld) {
 
 };
 
-_SM.getFormFieldDefinition = function(vFld) {
+_SM.getFormFieldDefinition = function(vFld){
 
     var colDefinition = _SM.getColDefinition(vFld), formEditor = {
         readOnly : true
@@ -819,36 +910,35 @@ _SM.getFormFieldDefinition = function(vFld) {
     }
     formEditor.fieldLabel = Ext.util.Format.capitalize(formEditor.fieldLabel);
 
-    
     // Casos especiales
-    switch( vFld.type ) {
-        case 'text':
-            formEditor.xtype = 'textarea';
-            formEditor.height = 100;
-            formEditor.labelAlign = 'top';
-            // grow, growMax, growMin
-            break;
+    switch (vFld.type) {
+    case 'text':
+        formEditor.xtype = 'textarea';
+        formEditor.height = 100;
+        formEditor.labelAlign = 'top';
+        // grow, growMax, growMin
+        break;
 
-        case 'html':
-            formEditor.xtype = 'textarea';
-            formEditor.height = 100;
-            formEditor.labelAlign = 'top';
-            break;
-		
-		case 'filefield':
-			formEditor.xtype = 'filefield';
-            formEditor.buttonText = 'Select file...';
-			break;
-        // case 'protoN2N':
-        // formEditor.xtype = 'protoList'
-        // formEditor.checkStyle = false
-        // formEditor.columnList = [
-        // { dataIndex : 'id' , hidden : false },
-        // { dataIndex : 'data', text : formEditor.fieldLabel , flex : 1 }
-        // ]
-        // formEditor.height = 100
-        // // formEditor.labelAlign = 'top'
-        // break;
+    case 'html':
+        formEditor.xtype = 'textarea';
+        formEditor.height = 100;
+        formEditor.labelAlign = 'top';
+        break;
+
+    case 'filefield':
+        formEditor.xtype = 'filefield';
+        formEditor.buttonText = 'Select file...';
+        break;
+    // case 'protoN2N':
+    // formEditor.xtype = 'protoList'
+    // formEditor.checkStyle = false
+    // formEditor.columnList = [
+    // { dataIndex : 'id' , hidden : false },
+    // { dataIndex : 'data', text : formEditor.fieldLabel , flex : 1 }
+    // ]
+    // formEditor.height = 100
+    // // formEditor.labelAlign = 'top'
+    // break;
     }
 
     // Inicializa los tipos
@@ -862,8 +952,8 @@ _SM.getFormFieldDefinition = function(vFld) {
 
 // *********************************************************
 
-_SM.loadPci = function(viewCode, loadIfNot, options) {
-    // TODO: refactor,  ne pas besoin de retourner true/false; retourner toujour option.xx.call( )
+_SM.loadPci = function(viewCode, loadIfNot, options){
+    // TODO: refactor, ne pas besoin de retourner true/false; retourner toujour option.xx.call( )
 
     options = options || {};
 
@@ -897,7 +987,7 @@ _SM.loadPci = function(viewCode, loadIfNot, options) {
                 viewCode : viewCode
             },
             scope : this,
-            success : function(result, request) {
+            success : function(result, request){
 
                 var myResult = Ext.decode(result.responseText);
                 if (myResult.success) {
@@ -909,7 +999,7 @@ _SM.loadPci = function(viewCode, loadIfNot, options) {
                     options.failure.call(options.scope, result, request);
                 }
             },
-            failure : function(result, request) {
+            failure : function(result, request){
                 _SM.errorMessage('loadPC', '');
                 options.failure.call(options.scope, result, request);
             }
@@ -921,7 +1011,7 @@ _SM.loadPci = function(viewCode, loadIfNot, options) {
 
 };
 
-_SM.savePci = function(protoMeta, options) {
+_SM.savePci = function(protoMeta, options){
 
     if (!protoMeta) {
         return;
@@ -943,7 +1033,7 @@ _SM.savePci = function(protoMeta, options) {
 
 };
 
-_SM.saveProtoObj = function(viewCode, sMeta, options) {
+_SM.saveProtoObj = function(viewCode, sMeta, options){
 
     options = options || {};
     Ext.applyIf(options, {
@@ -960,7 +1050,7 @@ _SM.saveProtoObj = function(viewCode, sMeta, options) {
             protoMeta : sMeta
         },
 
-        success : function(result, request) {
+        success : function(result, request){
             var myResult = Ext.decode(result.responseText);
             if (myResult.success) {
                 options.success.call(options.scope, result, request);
@@ -969,8 +1059,9 @@ _SM.saveProtoObj = function(viewCode, sMeta, options) {
                 _SM.errorMessage(_SM.__language.Message_Error_SaveProtoObj, myResult.message);
             }
         },
-        failure : function(result, request) {
-            _SM.errorMessage(_SM.__language.Message_Error_SaveProtoObj, result.status + ' ' + result.statusText);
+        failure : function(result, request){
+            _SM.errorMessage(_SM.__language.Message_Error_SaveProtoObj, result.status + ' '
+                    + result.statusText);
             options.failure.call(options.scope, result, request);
         },
         scope : this,
@@ -980,55 +1071,59 @@ _SM.saveProtoObj = function(viewCode, sMeta, options) {
 };
 
 // _SM.loadJsonConfig = function(fileName, options) {
-//     options = options || {};
-//     Ext.applyIf(options, {
-//         scope : this,
-//         success : Ext.emptyFn,
-//         failure : Ext.emptyFn
-//     });
-//     Ext.Ajax.request({
-//         method : 'POST',
-//         url : '/resources/' + fileName,
-//         scope : options.scope,
-//         success : function(result, request) {
-//             options.success.call(options.scope, result, request);
-//         },
-//         failure : function(result, request) {
-//             _SM.errorMessage('LoadJsonConfig', result.status + ' ' + result.statusText);
-//             options.failure.call(options.scope, result, request);
-//         }
-//     });
+// options = options || {};
+// Ext.applyIf(options, {
+// scope : this,
+// success : Ext.emptyFn,
+// failure : Ext.emptyFn
+// });
+// Ext.Ajax.request({
+// method : 'POST',
+// url : '/resources/' + fileName,
+// scope : options.scope,
+// success : function(result, request) {
+// options.success.call(options.scope, result, request);
+// },
+// failure : function(result, request) {
+// _SM.errorMessage('LoadJsonConfig', result.status + ' ' + result.statusText);
+// options.failure.call(options.scope, result, request);
+// }
+// });
 
 // };
 
-_SM.defineProtoPclTreeModel = function() {
+_SM.defineProtoPclTreeModel = function(){
 
     // Definicion del modelo para los arboles de la PCL
 
     Ext.define('Proto.PclTreeNode', {
         extend : 'Ext.data.Model',
-        fields : [{
-            name : '__ptType',
-            type : 'string'
-        }, {
-            name : 'text',
-            type : 'string'
-        }, {
-            name : 'id',
-            type : 'string'
-        },
-        // {name: 'iconCls', type: 'string', prpDefault: null, persist: false },
-        // {name: 'ptValue', type: 'string'},
+        fields : [
+            {
+                name : '__ptType',
+                type : 'string'
+            },
+            {
+                name : 'text',
+                type : 'string'
+            },
+            {
+                name : 'id',
+                type : 'string'
+            },
+            // {name: 'iconCls', type: 'string', prpDefault: null, persist: false },
+            // {name: 'ptValue', type: 'string'},
 
-        // Referencia al modelo de base
-        {
-            name : '__ptConfig'
-        }]
+            // Referencia al modelo de base
+            {
+                name : '__ptConfig'
+            }
+        ]
     });
 
 };
 
-_SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options) {
+_SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options){
 
     options = options || {};
     Ext.applyIf(options, {
@@ -1043,16 +1138,17 @@ _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options) {
         params : {
             viewCode : viewCode,
             sheetName : sheetName,
-            baseFilter : options.params.baseFilter, 
-            protoFilter : options.params.protoFilter, 
+            baseFilter : options.params.baseFilter,
+            protoFilter : options.params.protoFilter,
             selectedKeys : Ext.encode(selectedKeys)
         },
 
-        success : function(result, request) {
+        success : function(result, request){
             options.success.call(options.scope, result, request);
         },
-        failure : function(result, request) {
-            _SM.errorMessage(_SM.__language.Message_Error_Reporting, result.status + ' ' + result.statusText);
+        failure : function(result, request){
+            _SM.errorMessage(_SM.__language.Message_Error_Reporting, result.status + ' '
+                    + result.statusText);
             options.failure.call(options.scope, result, request);
         },
         scope : this,
@@ -1060,7 +1156,9 @@ _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options) {
     });
 };
 
-_SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, parameters, actionDef, options) {
+_SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, parameters, actionDef,
+        options)
+{
 
     parameters = parameters || [];
     options = options || {};
@@ -1079,14 +1177,14 @@ _SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, param
             actionName : actionName,
             parameters : Ext.encode(parameters),
             actionDef : Ext.encode(actionDef),
-            selectedKeys : Ext.encode(selectedKeys), 
+            selectedKeys : Ext.encode(selectedKeys),
             detKeys : Ext.encode(detKeys)
         },
 
-        success : function(result, request) {
+        success : function(result, request){
             options.success.call(options.scope, result, request);
         },
-        failure : function(result, request) {
+        failure : function(result, request){
             _SM.errorMessage('ActionReport Failed', result.status + ' ' + result.statusText);
             options.failure.call(options.scope, result, request);
         },
@@ -1096,9 +1194,9 @@ _SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, param
 
 };
 
-_SM.sortObjByName = function(a, b) {
+_SM.sortObjByName = function(a, b){
     var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-    //sort string ascending
+    // sort string ascending
     if (nameA < nameB) {
         return -1;
     }
@@ -1106,19 +1204,19 @@ _SM.sortObjByName = function(a, b) {
         return 1;
     }
     return 0;
-    //default return value (no sorting)
+    // default return value (no sorting)
 };
 
-_SM.getDetailDefinition = function(myMeta, viewCode) {
+_SM.getDetailDefinition = function(myMeta, viewCode){
     var ixD, lDet;
 
-    for (ixD in myMeta.detailsConfig ) {
+    for (ixD in myMeta.detailsConfig) {
         lDet = myMeta.detailsConfig[ixD];
         if (lDet.conceptDetail === viewCode) {
             return lDet;
         }
     }
 
-    return {}; 
+    return {};
 
 };

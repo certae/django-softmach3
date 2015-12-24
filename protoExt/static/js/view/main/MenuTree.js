@@ -157,7 +157,7 @@ Ext.define('Softmachine.view.main.MenuTree', {
             if (rec.get('leaf')) {
                 var viewCode = rec.data.viewCode || rec.data.id;
                 this.fireEvent('menuSelect', this, viewCode);
-                this.ownerCt.loadPciFromMenu(viewCode);
+                _SM.ViewPort.controller.loadPciFromMenu(viewCode);
             }
         }
 
