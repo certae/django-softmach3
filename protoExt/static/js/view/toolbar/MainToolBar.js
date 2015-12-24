@@ -2,15 +2,13 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('Softmachine.view.workspace.MainToolBar', {
+Ext.define('Softmachine.view.toolbar.MainToolBar', {
     extend : 'Ext.Toolbar',
     alias : 'widget.mainToolBar',
 
-    // isToolbar: true,
-    // baseCls : Ext.baseCSSPrefix + 'toolbar',
 
     requires : [
-        'Softmachine.view.workspace.SearchToolBar'
+        'Softmachine.view.toolbar.SearchToolBar'
     ],
 
     autoEdit : true,
@@ -22,21 +20,16 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
         __MasterDetail = this.__MasterDetail;
 
         // --------------------------------------------------------
-
-        // this.searchBG = Ext.create('Softmachine.view.workspace.SearchToolBar', {
-        //     myMeta : myMeta
-        // });
-
         // La edicion se hara sobre el master si los detalles estan apagados,
         // si los detalles estan abiertos, se bloqua el master y se editan detalles
 
+  
         Ext.apply(this, {
             dock : 'top',
             defaults : {
                 scope : me
             },
             items : [
-                // this.searchBG,
                 {
                     xtype : 'searchToolBar',
                     itemId : 'searchToolBar-id'
@@ -55,19 +48,16 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
                     iconCls : 'icon-order',
                     itemId : 'sorters',
                     hidden : false,
-                    enableToggle : true,
                     handler : toogleTb2
                 },
                 {
-                    // xtype : 'splitbutton',
+                    xtype : 'splitbutton',
                     text : _SM.__language.Text_Actions_Button,
                     tooltip : _SM.__language.Tooltip_Actions_Button,
                     iconCls : 'icon-action',
                     itemId : 'protoActions',
                     hidden : false,
-                    enableToggle : true,
-                    handler : toogleTb2,
-                    // menu : Ext.create('Ext.menu.Menu', {})
+                    menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
@@ -77,9 +67,7 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
                     iconCls : 'icon-details',
                     itemId : 'details',
                     hidden : false,
-                    enableToggle : true,
-                    handler : toogleTb2,
-                    // menu : Ext.create('Ext.menu.Menu', {})
+                    menu : Ext.create('Ext.menu.Menu', {})
                 },
                 {
                     // xtype : 'splitbutton',
@@ -88,9 +76,7 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
                     iconCls : 'icon-filters',
                     itemId : 'filterSet',
                     hidden : false,
-                    enableToggle : true,
-                    handler : toogleTb2,
-                    // menu : Ext.create('Ext.menu.Menu', {})
+                    menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
@@ -100,9 +86,7 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
                     iconCls : 'icon-tabs',
                     itemId : 'tabSet',
                     hidden : false,
-                    enableToggle : true,
-                    handler : toogleTb2,
-                    // menu : Ext.create('Ext.menu.Menu', {})
+                    menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
@@ -112,9 +96,7 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
                     iconCls : 'icon-sorters',
                     itemId : 'sorterSet',
                     hidden : false,
-                    enableToggle : true,
-                    handler : toogleTb2,
-                    // menu : Ext.create('Ext.menu.Menu', {})
+                    menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
@@ -124,9 +106,7 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
                     iconCls : 'icon-print',
                     itemId : 'printerOpts',
                     hidden : false,
-                    enableToggle : true,
-                    handler : toogleTb2,
-                    // menu : Ext.create('Ext.menu.Menu', {})
+                    menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 {
@@ -136,9 +116,7 @@ Ext.define('Softmachine.view.workspace.MainToolBar', {
                     iconCls : 'icon-config',
                     itemId : 'configOpts',
                     hidden : false,
-                    enableToggle : true,
-                    handler : toogleTb2,
-                    // menu : Ext.create('Ext.menu.Menu', {})
+                    menu : Ext.create('Ext.menu.Menu', {})
 
                 },
                 '->',

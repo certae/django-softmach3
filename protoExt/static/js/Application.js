@@ -39,10 +39,17 @@ Ext.define('Softmachine.Application', {
         // This ternary operator determines the value of the SmLoggedIn key.
         // If SmLoggedIn isn't true, we display the login window,
         // otherwise, we display the main view
-        
+
+        getLanguage()
+
         Ext.create({
             xtype: loggedIn ? 'app-main' : 'login'
         });
+
+        function getLanguage(){
+            _SM.__language = _SM.__language.fr
+        }
+        
 
     },
 

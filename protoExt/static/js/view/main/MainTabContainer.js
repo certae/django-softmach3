@@ -5,7 +5,7 @@ Ext.define('Softmachine.view.main.MainTabContainer', {
 
     requires : [
         'Softmachine.view.main.MainTabController', 
-        'Softmachine.view.workspace.MainToolBar'
+        'Softmachine.view.toolbar.MainToolBar'
     ],
     controller : 'maintab',
     border : false,

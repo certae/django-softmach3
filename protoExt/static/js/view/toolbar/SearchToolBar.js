@@ -3,7 +3,7 @@
  * 
  */
 
-Ext.define('Softmachine.view.workspace.SearchToolBar', {
+Ext.define('Softmachine.view.toolbar.SearchToolBar', {
     extend : 'Ext.toolbar.Toolbar',
     alias : 'widget.searchToolBar',
 

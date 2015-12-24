@@ -32,6 +32,7 @@ Ext.define('Softmachine.view.main.Main', {
 
     initComponent : function(){
 
+
         Ext.apply(this, {
             autoRender : true,
             padding : 5,
@@ -47,6 +48,7 @@ Ext.define('Softmachine.view.main.Main', {
         });
 
         this.callParent();
+
 
     },
 
