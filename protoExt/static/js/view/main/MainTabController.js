@@ -8,7 +8,7 @@ Ext.define('Softmachine.view.main.MainTabController', {
 
     alias: 'controller.maintab',
     requires : [
-        'Softmachine.view.workspace.TabMasterDetail'
+        'Softmachine.view.smmasterdetail.TabMasterDetail'
     ],
 
     addTabPanel : function(viewCode, mdFilter, detailTitle){

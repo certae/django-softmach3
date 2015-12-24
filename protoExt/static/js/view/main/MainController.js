@@ -7,15 +7,6 @@ Ext.define('Softmachine.view.main.MainController', {
     extend : 'Ext.app.ViewController',
     alias : 'controller.main',
 
-    onItemSelected : function(sender, record){
-        // Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-    },
-
-    onConfirm : function(choice){
-        if (choice === 'yes') {
-            //
-        }
-    },
 
     onClickLogOut : function(){
         // Remove the localStorage key/value
@@ -28,6 +19,45 @@ Ext.define('Softmachine.view.main.MainController', {
         Ext.create({
             xtype : 'login'
         });
-    }
+    }, 
 
+
+    loadPciFromMenu: function(menuOpt) {
+
+        var viewCode = menuOpt;
+        var me = this;
+
+        var options = {
+            scope: this,
+            success: function(obj, result, request) {
+
+                me.openProtoOption(viewCode);
+
+            },
+            failure: function(obj, result, request) {
+                return;
+            }
+
+        };
+
+        if (_SM.loadPci(viewCode, true, options)) {
+            me.openProtoOption(viewCode);
+
+        }
+
+    },    
+
+    openProtoOption: function(viewCode) {
+
+        var me = this;
+        var myMeta = _SM._cllPCI[viewCode];
+
+        if (myMeta.pciStyle == 'form') {
+            var formController = Ext.create('ProtoUL.UI.FormController', {});
+            formController.openProtoForm.call(formController, viewCode, -1, true);
+        } else {
+            me.mainTabContainer.addTabPanel(viewCode);
+        }
+
+    },
 });
