@@ -23,7 +23,7 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.view.ProtoForm', {
+Ext.define('Softmachine.view.smform.ProtoForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.protoform',
 

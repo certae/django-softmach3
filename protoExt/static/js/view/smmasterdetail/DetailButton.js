@@ -50,7 +50,7 @@ Ext.define('Softmachine.view.smmasterdetail.DetailButton', {
         me.on('click', me.loadWinGridMeta, me);
 
         function addFormClick(){
-            var formController = Ext.create('ProtoUL.UI.FormController', {
+            var formController = Ext.create('Softmachine.view.smform.FormController', {
                 linkController : me.linkController,
                 detailDefinition : me.detailDefinition
             });
@@ -71,7 +71,7 @@ Ext.define('Softmachine.view.smmasterdetail.DetailButton', {
 
     loadWinGrid : function(me){
 
-        me.myWinGrid = Ext.create('ProtoUL.UI.WinGridController', {
+        me.myWinGrid = Ext.create('Softmachine.view.smform.WinGridController', {
             viewCode : me.viewCode,
             linkController : me.linkController,
             detailDefinition : me.detailDefinition

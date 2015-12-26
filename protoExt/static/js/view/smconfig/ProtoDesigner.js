@@ -14,7 +14,7 @@
 /*global Meta2Tree, Tree2Meta */
 
 
-Ext.define('ProtoUL.proto.ProtoDesigner', {
+Ext.define('Softmachine.view.smmconfig.ProtoDesigner', {
     // extend: 'Ext.panel.Panel',
     extend : 'Ext.container.Container',
     alias : 'widget.protoDesigner',
@@ -81,7 +81,7 @@ Ext.define('ProtoUL.proto.ProtoDesigner', {
         this.formTree = me.down('#formTree');
         this.formPreview = me.down('#formPreview');
 
-        this.formController = Ext.create('ProtoUL.UI.FormController', {
+        this.formController = Ext.create('Softmachine.view.smform.FormController', {
             myMeta : me.myMeta
         });
 

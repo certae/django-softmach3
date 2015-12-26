@@ -12,7 +12,8 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
     extend : 'Ext.Panel',
     alias : 'widget.tabMasterDetail',
     requires : [
-        'Softmachine.view.toolbar.MainToolBar'
+        'Softmachine.view.toolbar.MainToolBar', 
+        'Softmachine.view.smgrid.SMGrid'
     ],
 
     // Estados iniciales
@@ -140,7 +141,7 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
             __MasterDetail : me
         });
 
-        Ext.create('ProtoUL.UI.ConfigController', {
+        Ext.create('Softmachine.view.smmconfig.ConfigController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });

@@ -2,7 +2,7 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.UI.ConfigController', {
+Ext.define('Softmachine.view.smmconfig.ConfigController', {
     extend: 'Ext.Base',
     myMeta: null,
     constructor: function(config) {

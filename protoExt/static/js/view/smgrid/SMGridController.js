@@ -239,7 +239,7 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
         }
 
         if (!this.formController) {
-            this.formController = Ext.create('ProtoUL.UI.FormController', {
+            this.formController = Ext.create('Softmachine.view.smform.FormController', {
                 myMeta : this.myMeta
             });
         }

@@ -12,7 +12,7 @@
 /*global ProtoUL */
 /*global getSimpleProperties */
 
-Ext.define('ProtoUL.UI.WinGridController', {
+Ext.define('Softmachine.view.smform.WinGridController', {
     extend: 'Ext.Base',
 
     // Parametros de entrada

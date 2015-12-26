@@ -12,10 +12,10 @@
 /*global ProtoUL */
 /*global getSimpleProperties */
 
-Ext.define('ProtoUL.UI.FormController', {
+Ext.define('Softmachine.view.smform.FormController', {
     extend : 'Ext.Base',
 
-    // requires: [ 'ProtoUL.view.ProtoForm' ],
+    // requires: [ 'Softmachine.view.smform.ProtoForm' ],
     // Required if linked,  retrived if zoom
     myMeta : null,
 

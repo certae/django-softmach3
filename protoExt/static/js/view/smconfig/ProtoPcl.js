@@ -11,7 +11,7 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.proto.ProtoPcl', {
+Ext.define('Softmachine.view.smmconfig.ProtoPcl', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.protoPcl',
     /*

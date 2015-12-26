@@ -8,7 +8,7 @@
  *
  */
 
-Ext.define('ProtoUL.proto.ProtoFieldSelector', {
+Ext.define('Softmachine.view.smmconfig.ProtoFieldSelector', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.protoFieldSelector',
 

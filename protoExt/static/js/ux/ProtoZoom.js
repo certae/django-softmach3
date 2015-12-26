@@ -104,7 +104,7 @@ Ext.define('ProtoUL.ux.protoZoom', {
 
     doClickLink: function ( me ) {
         
-        var formController = Ext.create('ProtoUL.UI.FormController', {});
+        var formController = Ext.create('Softmachine.view.smform.FormController', {});
         formController.openProtoForm.call( formController, me.zoomModel, me.fkIdValue , false   ); 
         
     }, 
@@ -118,7 +118,7 @@ Ext.define('ProtoUL.ux.protoZoom', {
         }
 
         // function doNew() {
-            // var formController = Ext.create('ProtoUL.UI.FormController', { myMeta : me.myMeta });
+            // var formController = Ext.create('Softmachine.view.smform.FormController', { myMeta : me.myMeta });
             // formController.openNewForm ( this.zoomGrid.store  );
         // }
         // function doEdit() {
@@ -126,7 +126,7 @@ Ext.define('ProtoUL.ux.protoZoom', {
                 // _SM.errorMessage(_SM.__language.Title_Form_Panel, _SM.__language.GridAction_NoRecord);
                 // return; 
             // }
-            // var formController = Ext.create('ProtoUL.UI.FormController', { 
+            // var formController = Ext.create('Softmachine.view.smform.FormController', { 
                 // myMeta : me.myMeta
              // });
             // formController.openLinkedForm ( this.zoomGrid.selected    );

@@ -6,6 +6,8 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
     extend: 'Ext.Base',
     myMeta: null,
 
+
+
     constructor: function(config) {
 
         Ext.apply(this, config || {});

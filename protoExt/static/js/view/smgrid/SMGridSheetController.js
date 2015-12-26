@@ -2,7 +2,7 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.UI.GridSheetController', {
+Ext.define('Softmachine.view.smgrid.GridSheetController', {
     extend: 'Ext.Base',
 
     // Parametros de entrada

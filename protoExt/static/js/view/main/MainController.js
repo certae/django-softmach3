@@ -53,7 +53,7 @@ Ext.define('Softmachine.view.main.MainController', {
         var myMeta = _SM._cllPCI[viewCode];
 
         if (myMeta.pciStyle == 'form') {
-            var formController = Ext.create('ProtoUL.UI.FormController', {});
+            var formController = Ext.create('Softmachine.view.smform.FormController', {});
             formController.openProtoForm.call(formController, viewCode, -1, true);
         } else {
             _SM.vp_TabContainer.controller.addTabPanel(viewCode);

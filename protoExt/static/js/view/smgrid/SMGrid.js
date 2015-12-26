@@ -216,7 +216,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                                     if ((myZField.zoomModel == me.myMeta.viewEntity ) && (myZField.fkId = me.myMeta.idProperty )) {
                                         // Si es el mismo registro lo llama como un upd
                                         // xxx.call Redefine el scope
-                                        var formController = Ext.create('ProtoUL.UI.FormController', {
+                                        var formController = Ext.create('Softmachine.view.smform.FormController', {
                                             myMeta: me.myMeta
                                         });
 
@@ -226,7 +226,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
                                     } else {
                                         // es un vinculo a otro objeto
-                                        var formController = Ext.create('ProtoUL.UI.FormController', {});
+                                        var formController = Ext.create('Softmachine.view.smform.FormController', {});
                                         formController.openProtoForm.call(formController, myZField.zoomModel, record.get(myZField.fkId), false);
                                     }
 
