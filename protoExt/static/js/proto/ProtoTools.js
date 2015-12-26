@@ -49,9 +49,9 @@ function Meta2Tree(oData, pName, ptType) {
                 t2Data['children'] = formContainer2Tree(oData.items);
                 tItems.push(t2Data);
 
-            } else if ( ptType in _SM.objConv(['formField', 'protoGrid', 'detailButton'])) {
+            } else if ( ptType in _SM.objConv(['formField', 'smGrid', 'detailButton'])) {
 
-                if (ptType == 'protoGrid' ) {
+                if (ptType == 'smGrid' ) {
                     t2Data = getNodeBase(__ptConfig.menuText, ptType, __ptConfig);
 
                 } else if ( ptType == 'detailButton') {

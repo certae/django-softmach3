@@ -74,7 +74,7 @@ Ext.define('Softmachine.view.main.MainTabController', {
 
         Ext.destroy(Ext.ComponentQuery.query('protoZoom'));
         Ext.destroy(Ext.ComponentQuery.query('protoForm'));
-        Ext.destroy(Ext.ComponentQuery.query('protoGrid'));
+        Ext.destroy(Ext.ComponentQuery.query('smGrid'));
         Ext.destroy(Ext.ComponentQuery.query('tabMasterDetail'));
 
         Ext.destroy(Ext.ComponentQuery.query('protoLogin'));
@@ -91,7 +91,7 @@ _SM.closeTabListener = function(){
     var x = 'TODO:  liberar la memoria';
     // _SM.vp_TabContainer.on
     // Ext.destroy( Ext.ComponentQuery.query('protoZoom') )
-    // Ext.destroy( Ext.ComponentQuery.query('protoGrid') )
+    // Ext.destroy( Ext.ComponentQuery.query('smGrid') )
 
 };
 
@@ -100,6 +100,6 @@ _SM.closeTabListener = function(){
     var x = 'TODO:  liberar la memoria';
     // _SM.vp_TabContainer.on
     // Ext.destroy( Ext.ComponentQuery.query('protoZoom') )
-    // Ext.destroy( Ext.ComponentQuery.query('protoGrid') )
+    // Ext.destroy( Ext.ComponentQuery.query('smGrid') )
 
 };

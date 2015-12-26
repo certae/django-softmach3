@@ -180,13 +180,13 @@ Ext.define('ProtoUL.proto.ProtoDesigner', {
             treeNodAuxData = {
                 "text" : vFld.menuText,
                 "qtip" : vFld.toolTip,
-                "__ptType" : "protoGrid",
+                "__ptType" : "smGrid",
                 "leaf" : true,
                 "__ptConfig" : {
                     "menuText" : vFld.menuText,
                     "viewCode" : vFld.conceptDetail,
-                    "xtype" : "protoGrid",
-                    "__ptType" : "protoGrid"
+                    "xtype" : "smGrid",
+                    "__ptType" : "smGrid"
                 }
             };
             treeNodAux.children.push(treeNodAuxData);

@@ -145,7 +145,7 @@ Ext.define('ProtoUL.view.ProtoForm', {
             var cllDetGrids = [], lGrid, ixV;
             for (ixV in prItems ) {
                 lGrid = prItems[ixV];
-                if (lGrid.__ptType == "protoGrid") {
+                if (lGrid.__ptType == "smGrid") {
                     if (lGrid.myMeta) {
                         cllDetGrids.push(lGrid);
                     };

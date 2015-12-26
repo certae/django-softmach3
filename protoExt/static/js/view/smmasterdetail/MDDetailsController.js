@@ -110,7 +110,7 @@ Ext.define('ProtoUL.UI.MDDetailsController', {
             var pDetail = item.detailDefinition, detailGrid, myMeta;
 
             // Definicion grilla Detail
-            detailGrid = Ext.create('ProtoUL.view.ProtoGrid', {
+            detailGrid = Ext.create('Softmachine.view.smgrid.SMGrid', {
                 border: false,
                 viewCode: pDetail.conceptDetail,
                 protoIsDetailGrid: true,

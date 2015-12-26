@@ -2,9 +2,9 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.view.ProtoGrid', {
+Ext.define('Softmachine.view.smgrid.SMGrid', {
     extend: 'Ext.Panel',
-    alias: 'widget.protoGrid',
+    alias: 'widget.smGrid',
     requires: ['Ext.grid.*', 'Ext.data.*', 'Ext.util.*', 'Ext.state.*', 'Ext.form.*', 'Ext.selection.CheckboxModel', 'Ext.toolbar.TextItem'],
     // iconCls: 'icon-grid',
 
@@ -51,7 +51,7 @@ Ext.define('ProtoUL.view.ProtoGrid', {
         var myMeta = _SM.clone(_SM._cllPCI[this.viewCode]);
 
         this.myMeta = myMeta;
-        this.myMeta.idProtoGrid = this.id;
+        this.myMeta.idSMGrid = this.id;
         this.myFieldDict = _SM.getFieldDict(myMeta);
 
         // VErifica si el store viene como parametro ( Detail )

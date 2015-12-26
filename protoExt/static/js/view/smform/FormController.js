@@ -426,7 +426,7 @@ Ext.define('ProtoUL.UI.FormController', {
                         };
                     };
 
-                } else if (__ptType == 'protoGrid') {
+                } else if (__ptType == 'smGrid') {
 
                     if (_SM.loadPci(protoObj.viewCode, false)) {
 

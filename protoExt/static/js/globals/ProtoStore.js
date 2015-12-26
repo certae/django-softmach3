@@ -545,7 +545,7 @@ _SM.getFieldDict = function(myMeta){
         var vFld = myMeta.fields[ix];
 
         // Lo marca con la grilla de donde viene
-        vFld.idProtoGrid = myMeta.idProtoGrid;
+        vFld.idSMGrid = myMeta.idSMGrid;
 
         ptDict[vFld.name] = vFld;
     }
@@ -581,7 +581,7 @@ _SM.getColDefinition = function(vFld){
         'align',
         'format',
         'tooltip',
-        'idProtoGrid'
+        'idSMGrid'
     ];
 
     colDefinition = _SM.copyProps(colDefinition, vFld, true, lstProps);
@@ -628,7 +628,7 @@ _SM.getColDefinition = function(vFld){
         // @fromField : Campos q sera heredados a la entidad base
         'cpFromField',
         'cpFromZoom',
-        'idProtoGrid'
+        'idSMGrid'
     ];
     editor = _SM.copyProps({}, vFld, true, lstProps);
 

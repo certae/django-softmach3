@@ -39,7 +39,7 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
 
         // Master Grid ==========================================================
         // y la Guarda el store para efectos de eventos y referencias
-        this.protoMasterGrid = Ext.create('ProtoUL.view.ProtoGrid', {
+        this.protoMasterGrid = Ext.create('Softmachine.view.smgrid.SMGrid', {
             border : false,
             viewCode : this.viewCode,
             mdFilter : this.mdFilter,

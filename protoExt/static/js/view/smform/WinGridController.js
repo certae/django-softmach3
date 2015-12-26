@@ -40,7 +40,7 @@ Ext.define('ProtoUL.UI.WinGridController', {
         }
 
         // Crea la grilla
-        me.myGrid = Ext.create('ProtoUL.view.ProtoGrid', {
+        me.myGrid = Ext.create('Softmachine.view.smgrid.SMGrid', {
             isPromoted: true,
             viewCode: me.viewCode,
             detailDefinition: me.detailDefinition,

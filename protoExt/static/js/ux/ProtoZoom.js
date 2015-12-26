@@ -143,7 +143,7 @@ Ext.define('ProtoUL.ux.protoZoom', {
         if ( me.zoomMultiple && me.newForm ) { selMode = 'multi'; }
         
         // Crea la grilla 
-        this.zoomGrid = Ext.create('ProtoUL.view.ProtoGrid', { 
+        this.zoomGrid = Ext.create('Softmachine.view.smgrid.SMGrid', { 
             gridSelectionMode : selMode,  
             viewCode  : me.zoomModel,
             // initialFilter : [{ 'property' : 'pk', 'filterStmt' :  -1 }], 
@@ -247,10 +247,10 @@ Ext.define('ProtoUL.ux.protoZoom', {
             */ 
             
             if (!me.zoomFilter) {return {}; }
-            if (!me.idProtoGrid) {return {}; }
+            if (!me.idSMGrid) {return {}; }
 
             // Esto trae la grilla activa, es correcto en la edicion, pero no en la creacion, debe existir un nuevo registro 
-            // var myGridBase = Ext.getCmp( me.idProtoGrid ); 
+            // var myGridBase = Ext.getCmp( me.idSMGrid ); 
             var rowData = me.up( 'form' ).tmpRegister
             var myFilter = { 'zoomFilter' : me.zoomFilter, 'baseRow' : rowData };
 
