@@ -8,7 +8,7 @@
  */
 Ext.define('Softmachine.view.main.Main', {
     extend : 'Ext.container.Viewport',
-    alias : 'widget.mainview',
+    alias : 'widget.app-main',
     xtype : 'app-main',
 
     requires : [

@@ -4,9 +4,14 @@
 
 Ext.define('Softmachine.view.smgrid.SMGrid', {
     extend: 'Ext.Panel',
-    alias: 'widget.smGrid',
-    requires: ['Ext.grid.*', 'Ext.data.*', 'Ext.util.*', 'Ext.state.*', 'Ext.form.*', 'Ext.selection.CheckboxModel', 'Ext.toolbar.TextItem'],
-    // iconCls: 'icon-grid',
+    alias : 'widget.smgrid',
+    xtype : 'smgrid',
+
+    requires : [
+        'Ext.selection.CheckboxModel'
+        'Softmachine.view.smgrid.SMGridController'
+    ],
+
 
     height: 200,
     viewCode: null,
@@ -58,7 +63,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         var baseFilter = [], myFilter = [], storeDefinition;
 
         if (this.isDetail) {
-            // Inicialmente la grilla esta en blanco hasta q linkDetail le entrega un maestro valido.
+            // Inicialmente la grilla esta en blanco hasta q linkDetail le entrega un maestro
+            // valido.
             baseFilter = myMeta.gridConfig.baseFilter;
             myFilter = [{
                 "property": this.detailDefinition.detailField,
@@ -66,7 +72,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             }];
 
         } else if (this.isPromoted) {
-            // El filtro base de una grilla promovida ( sacar detalle ) es el filtro base + la llave del maestro
+            // El filtro base de una grilla promovida ( sacar detalle ) es el filtro base + la llave
+            // del maestro
             baseFilter = myMeta.gridConfig.baseFilter;
             baseFilter = baseFilter.concat(this.mdFilter);
 
@@ -119,7 +126,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         createColDictionary();
 
         // gridColumns: Es un subconjuto para poder manejar diferentes conf de columnas
-        // tiene en cuenta siel usuario  definio su vist por defecto la carga
+        // tiene en cuenta siel usuario definio su vist por defecto la carga
         var gridColumns, tabConfig;
 
         tabConfig = _SM.defineTabConfig(myMeta.gridConfig);
@@ -145,7 +152,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
         this.editable = this.autoEdit;
 
-        // Grouping 
+        // Grouping
         var lFeatures = [], lField, sHeader, lGroup ; 
         if ( myMeta.gridConfig.groupCol  ) {
             if ( this.myFieldDict[ myMeta.gridConfig.groupCol ] ) { 
@@ -159,7 +166,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         var grid;
         if (myMeta.pciStyle == 'tree') {
             // me.store = _SM.getTreeStoreDefinition( storeDefinition )
-            // grid = Ext.create('Ext.tree.Panel', {border:false,region:'center',flex:1,layout:'fit',minSize:50,stripeRows:true,tools:[],useArrows:true,rootVisible:false,multiSelect:false,singleExpand:true,stripeRows:true,rowLines:true,store:me.store,columns:[{xtype:'treecolumn',text:myMeta.shortTitle,flex:3,dataIndex:'__str__'},{text:'model',dataIndex:'model'},{text:'id',dataIndex:'id'}]});
+            // grid = Ext.create('Ext.tree.Panel',
+            // {border:false,region:'center',flex:1,layout:'fit',minSize:50,stripeRows:true,tools:[],useArrows:true,rootVisible:false,multiSelect:false,singleExpand:true,stripeRows:true,rowLines:true,store:me.store,columns:[{xtype:'treecolumn',text:myMeta.shortTitle,flex:3,dataIndex:'__str__'},{text:'model',dataIndex:'model'},{text:'id',dataIndex:'id'}]});
         } else {
 
             me.store = _SM.getStoreDefinition(storeDefinition);
@@ -173,7 +181,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
                 plugins: [
                     'headertooltip'
-                  // this.rowEditing 
+                  // this.rowEditing
 
                 ],
 
@@ -184,7 +192,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                 store: this.store,
                 stripeRows: true,
 
-                // Tools  ( necesario para AddTools )
+                // Tools ( necesario para AddTools )
                 tools: [],
 
                 viewConfig: {
@@ -222,7 +230,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                                     }
 
                                 } else if (myZField.zoomModel == '@cellValue') {
-                                    // Podria usarse con @FieldName para indicar de donde tomar el modelo o la funcion
+                                    // Podria usarse con @FieldName para indicar de donde tomar el
+                                    // modelo o la funcion
 
                                     var pModel = record.get(myZField.name);
                                     _SM._mainWin.loadPciFromMenu(pModel);
@@ -236,7 +245,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                     },
 
                     getRowClass: function(record, rowIndex, rowParams, store) {
-                        //    Esto permite marcar los registros despues de la actualizacion
+                        // Esto permite marcar los registros despues de la actualizacion
                         var stRec = record.get('_ptStatus');
                         if (stRec) {
                             if (stRec === _SM._ROW_ST.NEWROW) {
@@ -303,8 +312,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         this.gridController.addNavigationPanel();
 
         grid.on({
-            // select: {fn: function ( rowModel , record,  rowIndex,  eOpts ) {
-            // me.fireSelectionChange( rowModel , record,  rowIndex,  eOpts   );
+            // select: {fn: function ( rowModel , record, rowIndex, eOpts ) {
+            // me.fireSelectionChange( rowModel , record, rowIndex, eOpts );
             // }, scope: this },
 
             selectionchange: {
@@ -337,18 +346,20 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                         msg = '';
                     }
 
-                    // Asigna un tooltip a la fila, pero respeta los de cada celda y los de los Actiosn
+                    // Asigna un tooltip a la fila, pero respeta los de cada celda y los de los
+                    // Actiosn
                     Ext.fly(item).set({
                         'data-qtip': msg
                     });
 
-                    // Dgt :  Este tooltip evita las actions columns
-                    // Ext.fly(item).select('.x-grid-cell:not(.x-action-col-cell)').set({'data-qtip': 'My tooltip: ' + record.get('name')});
+                    // Dgt : Este tooltip evita las actions columns
+                    // Ext.fly(item).select('.x-grid-cell:not(.x-action-col-cell)').set({'data-qtip':
+                    // 'My tooltip: ' + record.get('name')});
                 },
                 scope: this
             },
 
-            // Para manejar aciones por teclas, ie  ^I Insertar, etc ....
+            // Para manejar aciones por teclas, ie ^I Insertar, etc ....
             // processEvent: function(type, view, cell, recordIndex, cellIndex, e) {
             // if ( type == 'keydown' ) {
             // console.log( view, cell, recordIndex, cellIndex, e )
@@ -363,11 +374,14 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                         return;
                     }
 
-                    //Evento SM (Hmaury)..........................
-                    //ejemplo:
-                    //{ "dblClick":"{ fn: function(){ Ext.Msg.alert('','hola') } } " ,"Prueba" : ""  }
-                    //para cargar un js desde el codigo del evento:
-                    // var scrpt = document.createElement('script'); scrpt.src='../../static/aplications/GIS/factura_dblclick.js'; document.head.appendChild(scrpt);
+                    // Evento SM (Hmaury)..........................
+                    // ejemplo:
+                    // { "dblClick":"{ fn: function(){ Ext.Msg.alert('','hola') } } " ,"Prueba" : ""
+                    // }
+                    // para cargar un js desde el codigo del evento:
+                    // var scrpt = document.createElement('script');
+                    // scrpt.src='../../static/aplications/GIS/factura_dblclick.js';
+                    // document.head.appendChild(scrpt);
                     // eval(me.myMeta.businessRulesText["dblClick"]);
                     // var event = Ext.decode(me.myMeta.businessRulesText["dblClick"]);
                     // event.fn();
@@ -377,9 +391,9 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                 scope: me
             }
 
-            //   E D I C I O N  directa en la GRILLA   --------------------------------------------
+            // E D I C I O N directa en la GRILLA --------------------------------------------
             // beforeedit: {fn: function ( edPlugin, e, eOpts) {
-            // if ( ! this.editable )  return false;
+            // if ( ! this.editable ) return false;
             // var perms = _SM._UserInfo.perms[ this.myMeta.viewCode ]
             // if ( ! perms['change'] ) return false
             // // Resetea el zoom
@@ -387,16 +401,16 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             // var vFld = e.grid.columns[ix]
             // var initialConf = vFld.initialConfig
             // if (! initialConf.editor ) continue;
-            // if (  initialConf.editor.xtype != 'protoZoom' ) continue;
+            // if ( initialConf.editor.xtype != 'protoZoom' ) continue;
             // var zoom = vFld.getEditor()
             // zoom.resetZoom()
             // }
             // }, scope: me },
 
-            // canceledit :  function(editor, e, eOpts) {
+            // canceledit : function(editor, e, eOpts) {
             // Fires when the user started editing but then cancelled the edit. ...
 
-            // validateedit: {fn:  function(editor, e, eOpts) {
+            // validateedit: {fn: function(editor, e, eOpts) {
             // // Fires after editing, but before the value is set in the record. ...
             // // Resetea el status despues de la edicion
             // if ( ! e.record.getId() ) {
@@ -411,13 +425,13 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             // var vFld = e.grid.columns[ix]
             // var initialConf = vFld.initialConfig
             // if (! initialConf.editor ) continue;
-            // if (  initialConf.editor.xtype != 'protoZoom' ) continue;
+            // if ( initialConf.editor.xtype != 'protoZoom' ) continue;
             // var zoom = vFld.getEditor()
             // var idIndex = initialConf.editor.fkId
             // if ( ! zoom.zoomRecord ) continue;
             // // Actualiza el Id con el dato proveniente del zoom
             // // fix: Agrega el modificado en caso de q no se encuentre
-            // if ( ! e.record.modified[ idIndex ]  ) {
+            // if ( ! e.record.modified[ idIndex ] ) {
             // e.record.modified[ idIndex ] = e.record.data[ idIndex ]
             // }
             // e.record.data[ idIndex ] = zoom.zoomRecord.data.id
@@ -425,7 +439,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             // }, scope: me },
 
             // afterrender: {fn: function( grid, eOpts) {
-            // me.setChekSelection( me   )
+            // me.setChekSelection( me )
             // }, scope: me }
 
         });
@@ -449,7 +463,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                 }
 
                 // DGT: No se necesita, la definicion viene automatica
-                // if (( myMeta.pciStyle == 'tree' ) && ( gCol.dataIndex  == '__str__' )) { gCol.xtype = 'treecolumn' };
+                // if (( myMeta.pciStyle == 'tree' ) && ( gCol.dataIndex == '__str__' )) {
+                // gCol.xtype = 'treecolumn' };
                 me.colDictDefinition[gCol.dataIndex] = gCol;
 
             }
@@ -468,13 +483,14 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
     },
 
+
     fireSelectionChange: function(rowModel, record, rowIndex, eOpts) {
         this.fireEvent('selectionChange', rowModel, record, rowIndex, eOpts);
 
         // Condicionar los botones de edicion segun los permisos ( refAllow )
         var perms = _SM._UserInfo.perms[this.myMeta.viewCode];
 
-        // FIX : && perms['refallow']  Dgt 1503
+        // FIX : && perms['refallow'] Dgt 1503
         if (this.editable && record ) {
             this.verifyEdition(record, perms)
         }
@@ -572,13 +588,13 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
         hCt.add(0, vColumns);
 
-        // this.setChekSelection( this  );
+        // this.setChekSelection( this );
         this.resumeLayouts(true);
         this._extGrid.view.refresh();
 
     },
 
-    // setChekSelection : function( me  ) {
+    // setChekSelection : function( me ) {
     // // Hace visible o no checkColumn ( siempre es la ultima )
     // var hCt = me._extGrid.headerCt,
     // ix = hCt.items.items.length -1;
@@ -714,5 +730,5 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             this._extGrid.addTool(myTools);
         }
     }
-
+    
 }); 
