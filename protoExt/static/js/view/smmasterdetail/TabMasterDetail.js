@@ -111,31 +111,31 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
         this.callParent();
 
         // Controllers
-        Ext.create('ProtoUL.UI.MDDetailsController', {
+        Ext.create('Softmachine.view.smmasterdetail.MDDetailsController', {
             __MasterDetail : me
         });
-        Ext.create('ProtoUL.UI.MDTbSortByController', {
+        Ext.create('Softmachine.view.smmasterdetail.MDTbSortByController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });
-        Ext.create('ProtoUL.UI.MDPrintOptsController', {
+        Ext.create('Softmachine.view.smmasterdetail.MDPrintOptsController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });
-        Ext.create('ProtoUL.UI.MDActionsController', {
+        Ext.create('Softmachine.view.smmasterdetail.MDActionsController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });
 
-        Ext.create('ProtoUL.UI.MDSetFiltersController', {
+        Ext.create('Softmachine.view.smmasterdetail.MDSetFiltersController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });
-        Ext.create('ProtoUL.UI.MDSetSortersController', {
+        Ext.create('Softmachine.view.smmasterdetail.MDSetSortersController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });
-        Ext.create('ProtoUL.UI.MDSetTabsController', {
+        Ext.create('Softmachine.view.smmasterdetail.MDSetTabsController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });
@@ -146,7 +146,7 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
         });
 
         //
-        this.linkController = Ext.create('ProtoUL.UI.MDLinkController', {});
+        this.linkController = Ext.create('Softmachine.view.smmasterdetail.MDLinkController', {});
 
         // Agrega los botones de actions
         tb.addActions();

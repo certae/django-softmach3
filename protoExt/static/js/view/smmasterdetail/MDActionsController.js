@@ -2,7 +2,7 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.UI.MDActionsController', {
+Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
     extend: 'Ext.Base',
     myMeta: null,
     constructor: function(config) {

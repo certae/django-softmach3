@@ -8,8 +8,9 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
     xtype : 'smgrid',
 
     requires : [
-        'Ext.selection.CheckboxModel'
-        'Softmachine.view.smgrid.SMGridController'
+        'Ext.selection.CheckboxModel', 
+        'Softmachine.view.smgrid.SMGridController', 
+        'Softmachine.view.smmasterdetail.MDSetTabsController'
     ],
 
 
@@ -180,7 +181,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                 minSize: 50,
 
                 plugins: [
-                    'headertooltip'
+                    // 'headertooltip'
                   // this.rowEditing
 
                 ],
@@ -276,7 +277,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             this.gridController.myGrid = this;
             this.gridController.store = this.store;
         } else {
-            this.gridController = Ext.create('ProtoUL.UI.GridController', {
+            this.gridController = Ext.create('Softmachine.view.smgrid.SMGridController', {
                 myMeta: myMeta,
                 myGrid: this,
                 store: this.store
@@ -284,17 +285,21 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         }
         this.gridController.addGridTools(this.autoEdit);
 
-        this.sheetCrl = Ext.create('ProtoUL.UI.GridSheetController', {
-            myGrid: this
-        });
+        // DGT :  Agregar los otros controladores 
+        this.sheetCrl = {}
+        // this.sheetCrl = Ext.create('ProtoUL.UI.GridSheetController', {
+        //     myGrid: this
+        // });
 
         // ---
 
         var myItems = [grid];
-        var mySheet = this.sheetCrl.getSheetConfig();
-        if (mySheet) {
-            myItems.push(mySheet);
-        }
+
+        // DGT Decidir como implementar mySheet 
+        // var mySheet = this.sheetCrl.getSheetConfig();
+        // if (mySheet) {
+        //     myItems.push(mySheet);
+        // }
 
         Ext.apply(this, {
             layout: 'border',
@@ -495,10 +500,10 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             this.verifyEdition(record, perms)
         }
 
-        // Presenta la hoja de informacion en caso de q exista
-        if (this.IdeSheet) {
-            this.sheetCrl.prepareSheet();
-        }
+        // DGT : Presenta la hoja de informacion en caso de q exista
+        // if (this.IdeSheet) {
+        //     this.sheetCrl.prepareSheet();
+        // }
     },
 
     verifyEdition: function(record, perms) {

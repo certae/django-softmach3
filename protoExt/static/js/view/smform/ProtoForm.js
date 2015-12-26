@@ -115,7 +115,7 @@ Ext.define('ProtoUL.view.ProtoForm', {
 
         this.callParent();
 
-        this.linkController = Ext.create('ProtoUL.UI.MDLinkController', {});
+        this.linkController = Ext.create('Softmachine.view.smmasterdetail.MDLinkController', {});
         this.getHtmlPanels();
 
         // Asigna los campos heredados 

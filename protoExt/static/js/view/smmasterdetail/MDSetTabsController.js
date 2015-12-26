@@ -1,4 +1,4 @@
-Ext.define('ProtoUL.UI.MDSetTabsController', {
+Ext.define('Softmachine.view.smmasterdetail.MDSetTabsController', {
     extend: 'Ext.Base',
     myMeta: null,
     constructor: function(config) {

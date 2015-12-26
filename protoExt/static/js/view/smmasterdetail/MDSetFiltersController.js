@@ -3,7 +3,7 @@
 /*global _SM */
 /*global ProtoUL */
 
-Ext.define('ProtoUL.UI.MDSetFiltersController', {
+Ext.define('Softmachine.view.smmasterdetail.MDSetFiltersController', {
     extend : 'Ext.Base',
     myMeta : null,
 

@@ -1,4 +1,4 @@
-Ext.define('ProtoUL.UI.MDSetSortersController', {
+Ext.define('Softmachine.view.smmasterdetail.MDSetSortersController', {
     extend: 'Ext.Base',
     myMeta: null,
     constructor: function(config) {

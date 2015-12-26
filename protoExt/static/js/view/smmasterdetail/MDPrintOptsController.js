@@ -1,4 +1,4 @@
-Ext.define('ProtoUL.UI.MDPrintOptsController', {
+Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
     extend: 'Ext.Base',
     myMeta: null,
     constructor: function(config) {

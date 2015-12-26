@@ -12,7 +12,7 @@
 /*global ProtoUL */
 /*global getSimpleProperties */
 
-Ext.define('ProtoUL.UI.MDLinkController', {
+Ext.define('Softmachine.view.smmasterdetail.MDLinkController', {
     extend: 'Ext.Base',
 
     masterRowData: null,

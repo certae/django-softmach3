@@ -1,4 +1,4 @@
-Ext.define('ProtoUL.UI.MDTbSortByController', {
+Ext.define('Softmachine.view.smmasterdetail.MDTbSortByController', {
     extend: 'Ext.Base',
     myMeta: null,
     constructor: function(config) {
