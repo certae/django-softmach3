@@ -128,7 +128,7 @@ Ext.define('Softmachine.view.main.Main', {
                         this.ownerCt.clearStatus({
                             useDefaults : true
                         });
-                        _SM.__TabContainer.closeAllTabs();
+                        _SM.vp_TabContainer.controller.closeAllTabs();
                         _SM._cllPCI = {};
                     }
                 },

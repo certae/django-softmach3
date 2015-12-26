@@ -67,7 +67,7 @@ Ext.define('Softmachine.view.main.MainTabController', {
     },
 
     closeAllTabs : function(){
-        for (var ix = this.items.items.length; ix--;) {
+        for (var ix = this.view.items.items.length; ix--;) {
             var xTab = this.items.items[ix];
             this.remove(xTab, true);
         }
