@@ -34,7 +34,7 @@ Ext.define('ProtoUL.view.Viewport', {
     afterRender : function(){
         this.callParent(arguments);
 
-        _SM.__StBar.showBusy('loading ... ', 'vPort', 3000);
+        _SM.vp_StatusBar.showBusy('loading ... ', 'vPort', 3000);
 
         // Load MetaDefinition
         this._loadMetaStructure();

@@ -89,21 +89,21 @@ _SM.getStoreDefinition = function(stDef){
 
                             // Fires before a request is made for a new data object. ...
                             beforeload : function(store, operation, eOpts){
-                                _SM.__StBar.showBusy(_SM.__language.StatusBar_Message_Loading
+                                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Loading
                                         + store.viewCode, 'beforeLoad');
                             },
 
                             // Fired before a call to sync is executed. Return false from any
                             // listener to cancel the sync
                             beforesync : function(options, eOpts){
-                                _SM.__StBar.showBusy(_SM.__language.StatusBar_Message_Sync
+                                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Sync
                                         + this.viewCode, 'beforeSync');
                             },
 
                             // Fires whenever the records in the Store have changed in some way -
                             // this could include adding or removing records, or ...
                             datachanged : function(store, eOpts){
-                                _SM.__StBar.clear(store.viewCode, 'dataChanged');
+                                _SM.vp_StatusBar.clear(store.viewCode, 'dataChanged');
 
                                 // Guarda la info de sort
                                 try {
@@ -243,7 +243,7 @@ _SM.getProxyDefinition = function(stDef){
                 } else {
                     msg = 'REMOTE EXCEPTION: (' + myErr.status + ') ' + myErr.statusText;
                 }
-                _SM.__StBar.showError(msg, 'storeException');
+                _SM.vp_StatusBar.showError(msg, 'storeException');
             }
         }
 
@@ -286,16 +286,16 @@ _SM.getTreeStoreDefinition = function(stDef){
     // listeners: {
     // // Fires before a request is made for a new data object. ...
     // beforeload: function( store, operation, eOpts ) {
-    // _SM.__StBar.showBusy( 'loading ..' + store.viewCode, 'beforeLoad' );
+    // _SM.vp_StatusBar.showBusy( 'loading ..' + store.viewCode, 'beforeLoad' );
     // },
     // // Fired before a call to sync is executed. Return false from any listener to cancel the sync
     // beforesync: function ( options, eOpts ) {
-    // _SM.__StBar.showBusy( 'sync ..' + this.viewCode, 'beforeSync' );
+    // _SM.vp_StatusBar.showBusy( 'sync ..' + this.viewCode, 'beforeSync' );
     // },
     // // Fires whenever the records in the Store have changed in some way - this could include
     // adding or removing records, or ...
     // datachanged: function( store, eOpts ) {
-    // _SM.__StBar.clear( store.viewCode , 'dataChanged' );
+    // _SM.vp_StatusBar.clear( store.viewCode , 'dataChanged' );
     // }
     // }
 

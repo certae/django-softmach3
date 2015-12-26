@@ -96,7 +96,7 @@ Ext.define('ProtoUL.UI.MDPrintOptsController', {
             var prn = ProtoUL.ux.Printer, pGrid = __MasterDetail.protoMasterGrid;
 
             if ((!pGrid) || (!pGrid.sheetHtml )) {
-                _SM.__StBar.showWarning(_SM.__language.GridAction_NoRecord, 'MdPrintOptsController');
+                _SM.vp_StatusBar.showWarning(_SM.__language.GridAction_NoRecord, 'MdPrintOptsController');
                 return;
             }
 
@@ -115,7 +115,7 @@ Ext.define('ProtoUL.UI.MDPrintOptsController', {
                 params: pGrid.store.proxy.extraParams,
                 success: function(result, request) {
                     // prn.reportPrint(win, result.responseText);
-                    _SM.__StBar.showMessage( result.statusText, 'PrintSheetRep', 3000);
+                    _SM.vp_StatusBar.showMessage( result.statusText, 'PrintSheetRep', 3000);
                 },
                 failure: function(result, request) {
                     _SM.errorMessage(_SM.__language.Grid_ExportCSV_Err, result.status + ' ' + result.statusText);

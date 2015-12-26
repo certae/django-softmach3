@@ -268,7 +268,7 @@ _SM.clearProps = function (obj) {
 _SM.errorMessage = function (errTitle, errMsg) {
 
     // TODO: Log de errores, ya sea en stBar o en un panel del menu, habilitar un clear .
-    _SM.__StBar.showError( errMsg , errTitle );
+    _SM.vp_StatusBar.showError( errMsg , errTitle );
 
     // Ext.MessageBox.show({
         // title: errTitle,

@@ -101,15 +101,15 @@ Ext.define('ProtoUL.UI.MDActionsController', {
 
             // "selectionMode",
             if ((pAction.selectionMode == "single"  ) && (selectedKeys.length != 1 )) {
-                _SM.__StBar.showMessage('TITLE_ACTION_SELECTION_SINLGLE', btn.actionName, 3000);
+                _SM.vp_StatusBar.showMessage('TITLE_ACTION_SELECTION_SINLGLE', btn.actionName, 3000);
                 return;
 
             } else if ((pAction.selectionMode == "optional"  ) && (selectedKeys.length > 1 )) {
-                _SM.__StBar.showMessage('TITLE_ACTION_SELECTION_OPTIONAL', btn.actionName, 3000);
+                _SM.vp_StatusBar.showMessage('TITLE_ACTION_SELECTION_OPTIONAL', btn.actionName, 3000);
                 return;
 
             } else if ((pAction.selectionMode == "multiple"  ) && (selectedKeys.length < 1 )) {
-                _SM.__StBar.showMessage('TITLE_ACTION_SELECTION_MULTI', btn.actionName, 3000);
+                _SM.vp_StatusBar.showMessage('TITLE_ACTION_SELECTION_MULTI', btn.actionName, 3000);
                 return;
 
             } else if (pAction.selectionMode == "details"  ) {
@@ -165,7 +165,7 @@ Ext.define('ProtoUL.UI.MDActionsController', {
             scope: me,
             success: function(result, request) {
                 var myResult = Ext.decode(result.responseText);
-                _SM.__StBar.showMessage(actionDef.name + ' ' + myResult.message, 'MDActionsController', 3000);
+                _SM.vp_StatusBar.showMessage(actionDef.name + ' ' + myResult.message, 'MDActionsController', 3000);
 
                 if (myResult.success && actionDef.refreshOnComplete) {
                     this.__MasterDetail.mdGridReload();
@@ -177,13 +177,13 @@ Ext.define('ProtoUL.UI.MDActionsController', {
 
             },
             failure: function(result, request) {
-                _SM.__StBar.showError(actionDef.name + ' ' + result.statusText, 'MDActionsController');
+                _SM.vp_StatusBar.showError(actionDef.name + ' ' + result.statusText, 'MDActionsController');
 
             }
 
         };
 
-        _SM.__StBar.showMessage('executing  ' + actionDef.name + '...', 'MDActionsController');
+        _SM.vp_StatusBar.showMessage('executing  ' + actionDef.name + '...', 'MDActionsController');
         _SM.doProtoActions(viewCode, actionDef.name, selectedKeys, detKeys, parameters, actionDef, options);
 
     }

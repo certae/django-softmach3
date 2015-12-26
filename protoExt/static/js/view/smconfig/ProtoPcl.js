@@ -31,7 +31,7 @@ Ext.define('ProtoUL.proto.ProtoPcl', {
         var me = this, tBar, sbar, treeData, treeGridStore, treeGrid;
 
         if (!this.myMeta) {
-            _SM.__StBar.showError('not loaded???', 'protoPcl.init');
+            _SM.vp_StatusBar.showError('not loaded???', 'protoPcl.init');
             return;
         }
 

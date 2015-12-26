@@ -35,6 +35,9 @@ Ext.define('Softmachine.Application', {
 
         // Check to see the current value of the localStorage key
         loggedIn = localStorage.getItem("SmLoggedIn");
+        // DGT: Restaurar session info 
+        // _SM._UserInfo = localStorage.getItem("SmUserInfo" );
+
 
         // This ternary operator determines the value of the SmLoggedIn key.
         // If SmLoggedIn isn't true, we display the login window,

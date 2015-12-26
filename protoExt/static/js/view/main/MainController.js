@@ -56,7 +56,7 @@ Ext.define('Softmachine.view.main.MainController', {
             var formController = Ext.create('ProtoUL.UI.FormController', {});
             formController.openProtoForm.call(formController, viewCode, -1, true);
         } else {
-            me.mainTabContainer.addTabPanel(viewCode);
+            _SM.vp_TabContainer.controller.addTabPanel(viewCode);
         }
 
     },

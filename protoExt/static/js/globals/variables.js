@@ -5,7 +5,7 @@
 
 _SM = {};
 
-_SM._UserInfo = {}; 
+_SM._UserInfo = { perms : {}, isStaff : false }; 
 
 // Grid row state
 _SM._ROW_ST = {
@@ -15,7 +15,7 @@ _SM._ROW_ST = {
 };
 
 // Strings and messages moved to locale
-_SM.__language = {};
+_SM.__language = { };
 
 // Config Variables
 _SM._PConfig = {

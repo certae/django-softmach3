@@ -35,7 +35,7 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
             this.isPromoted = true;
         }
 
-        _SM.__StBar.showBusy('loading ' + this.viewCode + '...', 'prMD.init', 2000);
+        _SM.vp_StatusBar.showBusy('loading ' + this.viewCode + '...', 'prMD.init', 2000);
 
         // Master Grid ==========================================================
         // y la Guarda el store para efectos de eventos y referencias
