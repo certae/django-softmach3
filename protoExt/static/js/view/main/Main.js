@@ -161,7 +161,7 @@ Ext.define('Softmachine.view.main.Main', {
             ]
         })
 
-        _SM.StatusBar = myPanel;
+        _SM.vp_StatusBar = myPanel;
 
         return myPanel;
 

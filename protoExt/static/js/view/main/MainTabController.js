@@ -89,7 +89,7 @@ Ext.define('Softmachine.view.main.MainTabController', {
 _SM.closeTabListener = function(){
 
     var x = 'TODO:  liberar la memoria';
-    // _SM.__TabContainer.on
+    // _SM.vp_TabContainer.on
     // Ext.destroy( Ext.ComponentQuery.query('protoZoom') )
     // Ext.destroy( Ext.ComponentQuery.query('protoGrid') )
 
@@ -98,7 +98,7 @@ _SM.closeTabListener = function(){
 _SM.closeTabListener = function(){
 
     var x = 'TODO:  liberar la memoria';
-    // _SM.__TabContainer.on
+    // _SM.vp_TabContainer.on
     // Ext.destroy( Ext.ComponentQuery.query('protoZoom') )
     // Ext.destroy( Ext.ComponentQuery.query('protoGrid') )
 

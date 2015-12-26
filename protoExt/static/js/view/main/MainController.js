@@ -60,4 +60,15 @@ Ext.define('Softmachine.view.main.MainController', {
         }
 
     },
+
+
+    closeAllTabs : function(){
+        this.tooltip = '';
+        this.ownerCt.clearStatus({
+            useDefaults : true
+        });
+        _SM.vp_TabContainer.closeAllTabs();
+        _SM._cllPCI = {};
+    }, 
+    
 });

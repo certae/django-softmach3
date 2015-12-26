@@ -27,7 +27,7 @@ Ext.define('Softmachine.view.main.MainTabContainer', {
         /*
          * @loCale __TabContainer : Referencia al objeto padre de la interface
          */
-        _SM.__TabContainer = this;
+        _SM.vp_TabContainer = this;
         this.callParent();
     }
 

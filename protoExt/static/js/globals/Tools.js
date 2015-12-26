@@ -486,7 +486,7 @@ _SM.GetRowValue = function (cellName) {
 _SM.CloseProtoTab = function( name  ) {
 
     // Cierra las instancias de una pcl
-    _SM.__TabContainer.closeProtoTab( name );
+    _SM.vp_TabContainer.closeProtoTab( name );
 
 };
 

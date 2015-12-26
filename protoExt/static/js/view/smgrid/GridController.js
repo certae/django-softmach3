@@ -84,7 +84,7 @@ Ext.define('ProtoUL.UI.GridController', {
         myGrid.addDocked(myNavPanel);
 
         function onMenuPromoteDetail() {
-            _SM.__TabContainer.addTabPanel(myGrid.viewCode, myGrid.mdFilter, myGrid.detailTitle);
+            _SM.vp_TabContainer.addTabPanel(myGrid.viewCode, myGrid.mdFilter, myGrid.detailTitle);
         }
 
     },
