@@ -56,7 +56,7 @@ Ext.define('Softmachine.view.main.MainController', {
             var formController = Ext.create('Softmachine.view.smform.FormController', {});
             formController.openProtoForm.call(formController, viewCode, -1, true);
         } else {
-            _SM.vp_TabContainer.controller.addTabPanel(viewCode);
+            _SM.vp_TabContainer.addTabPanel(viewCode);
         }
 
     },
@@ -71,4 +71,30 @@ Ext.define('Softmachine.view.main.MainController', {
         _SM._cllPCI = {};
     }, 
     
+
+    clearStatus: function( text, origin ) {
+
+        // console.log( 'clear:' + origin,  text, this.busyCount );
+        _SM.vp_StatusBar.busyCount--;
+        if (_SM.vp_StatusBar.busyCount <= 0) {
+            _SM.vp_StatusBar.busyCount = 0;
+            _SM.vp_StatusBar.clearStatus({
+                useDefaults: true
+            })
+        }
+
+    },
+
+    showError: function(text, origin) {
+
+        // console.log( 'error :' + origin  ,  text )
+        _SM.vp_StatusBar.setStatus({
+            text: 'Oops! ' + text,
+            iconCls: 'x-status-error',
+            clear: true
+        });
+
+    },
+
+
 });

@@ -46,7 +46,7 @@ Ext.define('Softmachine.view.main.Main', {
 
         });
 
-        _SM.ViewPort = this;
+        _SM.vp_Main = this;
         this.callParent();
 
 
@@ -123,14 +123,7 @@ Ext.define('Softmachine.view.main.Main', {
                     text : _SM.__language.StatusBar_Text_Clean_Button || 'Clear' + ' cache',
                     tooltip : _SM.__language.StatusBar_Tooltip_Clean_Button,
                     iconCls : 'comment_delete',
-                    handler : function(){
-                        this.tooltip = '';
-                        this.ownerCt.clearStatus({
-                            useDefaults : true
-                        });
-                        _SM.vp_TabContainer.controller.closeAllTabs();
-                        _SM._cllPCI = {};
-                    }
+                    handler : this.closeAllTabs
                 },
                 {
                     itemId : 'openTaskForm',
@@ -151,7 +144,7 @@ Ext.define('Softmachine.view.main.Main', {
                     menu : new Ext.menu.Menu({
                         items : [
                             {
-                                text : _SM.__language.StatusBar_Text_Close_Session,
+                                text : _SM.__language.StatusBar_Text_Close_Session || 'Logout',
                                 handler : this.closeSession,
                                 iconCls : 'icon-logout'
                             }

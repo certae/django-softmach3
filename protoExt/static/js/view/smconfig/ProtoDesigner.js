@@ -14,7 +14,7 @@
 /*global Meta2Tree, Tree2Meta */
 
 
-Ext.define('Softmachine.view.smmconfig.ProtoDesigner', {
+Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
     // extend: 'Ext.panel.Panel',
     extend : 'Ext.container.Container',
     alias : 'widget.protoDesigner',

@@ -141,7 +141,7 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
             __MasterDetail : me
         });
 
-        Ext.create('Softmachine.view.smmconfig.ConfigController', {
+        Ext.create('Softmachine.view.smconfig.ConfigController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });

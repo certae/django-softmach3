@@ -2,7 +2,7 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('Softmachine.view.smmconfig.ConfigController', {
+Ext.define('Softmachine.view.smconfig.ConfigController', {
     extend: 'Ext.Base',
     myMeta: null,
     constructor: function(config) {
