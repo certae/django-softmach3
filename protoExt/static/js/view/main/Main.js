@@ -160,6 +160,7 @@ Ext.define('Softmachine.view.main.Main', {
         })
 
         _SM.vp_StatusBar = myPanel;
+        _SM.vp_StatusBar.busyCount = 0 
 
         return myPanel;
 
