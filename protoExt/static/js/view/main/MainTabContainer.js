@@ -4,7 +4,16 @@ Ext.define('Softmachine.view.main.MainTabContainer', {
 
     requires : [
         'Softmachine.view.main.MainTabController',
-        'Softmachine.view.toolbar.MainToolBar'
+        'Softmachine.view.toolbar.MainToolBar', 
+
+        'Softmachine.view.smmasterdetail.MDActionsController', 
+        'Softmachine.view.smmasterdetail.MDDetailsController', 
+        'Softmachine.view.smmasterdetail.MDPrintOptsController', 
+        'Softmachine.view.smmasterdetail.MDSetFiltersController', 
+        'Softmachine.view.smmasterdetail.MDSetSortersController', 
+        'Softmachine.view.smmasterdetail.MDSetTabsController', 
+        'Softmachine.view.smmasterdetail.MDTbSortByController', 
+        
     ],
     controller : 'maintab',
     border : false,
