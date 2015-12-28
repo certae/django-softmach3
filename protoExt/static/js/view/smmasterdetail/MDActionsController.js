@@ -177,7 +177,7 @@ Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
 
             },
             failure: function(result, request) {
-                _SM.vp_StatusBar.showError(actionDef.name + ' ' + result.statusText, 'MDActionsController');
+                _SM.errorMessage(actionDef.name + ' ' + result.statusText, 'MDActionsController');
 
             }
 

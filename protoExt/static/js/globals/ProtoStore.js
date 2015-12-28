@@ -243,7 +243,7 @@ _SM.getProxyDefinition = function(stDef){
                 } else {
                     msg = 'REMOTE EXCEPTION: (' + myErr.status + ') ' + myErr.statusText;
                 }
-                _SM.vp_StatusBar.showError(msg, 'storeException');
+                _SM.errorMessage(msg, 'storeException');
             }
         }
 

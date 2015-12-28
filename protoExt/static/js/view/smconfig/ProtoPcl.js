@@ -31,7 +31,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
         var me = this, tBar, sbar, treeData, treeGridStore, treeGrid;
 
         if (!this.myMeta) {
-            _SM.vp_StatusBar.showError('not loaded???', 'protoPcl.init');
+            _SM.errorMessage('not loaded???', 'protoPcl.init');
             return;
         }
 
