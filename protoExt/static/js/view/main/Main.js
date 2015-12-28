@@ -32,6 +32,8 @@ Ext.define('Softmachine.view.main.Main', {
 
     initComponent : function(){
 
+        _SM.vp_Main = this;
+
         Ext.apply(this, {
             autoRender : true,
             padding : 5,
@@ -46,7 +48,6 @@ Ext.define('Softmachine.view.main.Main', {
 
         });
 
-        _SM.vp_Main = this;
         this.callParent();
 
 
@@ -113,6 +114,7 @@ Ext.define('Softmachine.view.main.Main', {
 
     createMainStatusBar : function(){
 
+        var me = this; 
         var myPanel = Ext.create('Ext.ux.StatusBar', {
             defaultText : '',
             id : 'vp-statusbar',
@@ -123,16 +125,18 @@ Ext.define('Softmachine.view.main.Main', {
                     text : _SM.__language.StatusBar_Text_Clean_Button || 'Clear' + ' cache',
                     tooltip : _SM.__language.StatusBar_Tooltip_Clean_Button,
                     iconCls : 'comment_delete',
-                    handler : this.closeAllTabs
+                    handler : me.controller.clearCache, 
+                    scope : me.controller
                 },
                 {
                     itemId : 'openTaskForm',
                     xtype : 'button',
                     text : _SM.__language.StatusBar_Text_Task_Button,
                     hidden : true,
-                    scope : this,
+                    scope : me,
                     iconCls : 'taskManager',
-                    handler : this.openTaskForm
+                    handler : me.openTaskForm, 
+                    scope : me.controller
 
                 },
                 '-',
@@ -145,7 +149,8 @@ Ext.define('Softmachine.view.main.Main', {
                         items : [
                             {
                                 text : _SM.__language.StatusBar_Text_Close_Session || 'Logout',
-                                handler : this.closeSession,
+                                handler : me.controller.closeSession,
+                                scope : me.controller, 
                                 iconCls : 'icon-logout'
                             }
                         ]

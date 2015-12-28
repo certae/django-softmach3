@@ -118,14 +118,6 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
 
     }, 
 
-    setActiveTab : function(){
-
-        // Load ToolbarConfig for meta
-        this.protoEnable = (this.myMeta.gridConfig.searchFields.length > 0);
-
-
-    }
-
 
 
 });

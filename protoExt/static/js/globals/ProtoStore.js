@@ -103,7 +103,7 @@ _SM.getStoreDefinition = function(stDef){
                             // Fires whenever the records in the Store have changed in some way -
                             // this could include adding or removing records, or ...
                             datachanged : function(store, eOpts){
-                                _SM.vp_Main.controller.clearStatus(store.viewCode, 'dataChanged');
+                                _SM.vp_Main.controller.clearMainStatus(store.viewCode, 'dataChanged');
 
                                 // Guarda la info de sort
                                 try {

@@ -27,7 +27,8 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.protoform',
 
-    requires: ['Ext.form.field.Text', 'Ext.form.*', 'Ext.data.*', 'Ext.tip.QuickTipManager'],
+    requires: ['Softmachine.view.smmasterdetail.MDLinkController'
+    ],
 
     //@myMeta   Base Definition
     myMeta: null,
