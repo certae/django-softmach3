@@ -1,28 +1,28 @@
 /**
  * @class ProtoUL.ux.MDLinkController
- * @author  Dario Gomez
-
+ * @author Dario Gomez
+ * 
  * Helper class for control link behavior
-
+ * 
  */
 
-/*jslint nomen: true, sloppy : true, white : true, sub : true */
-/*global Ext */
-/*global _SM */
-/*global ProtoUL */
-/*global getSimpleProperties */
+/* jslint nomen: true, sloppy : true, white : true, sub : true */
+/* global Ext */
+/* global _SM */
+/* global ProtoUL */
+/* global getSimpleProperties */
 
 Ext.define('Softmachine.view.smmasterdetail.MDLinkController', {
-    extend: 'Ext.Base',
+    extend : 'Ext.Base',
 
-    masterRowData: null,
-    masterId: -1,
+    masterRowData : null,
+    masterId : -1,
 
-    constructor: function(config) {
+    constructor : function(config){
         Ext.apply(this, config || {});
     },
 
-    setMasterData: function(masterRowData) {
+    setMasterData : function(masterRowData){
 
         var me = this;
         me.masterRowData = masterRowData;
@@ -35,27 +35,28 @@ Ext.define('Softmachine.view.smmasterdetail.MDLinkController', {
 
     },
 
-    getDetailLink: function(detDefinition) {
+    getDetailLink : function(detDefinition){
         // after setMasterData
 
-        var me = this, 
-            detFilter, detTitle = '', masterTitleField = '', masterKey ;
+        var me = this, detFilter, detTitle = '', masterTitleField = '', masterKey;
 
-        detDefinition.masterField = detDefinition.masterField || 'pk'; 
-        if ( detDefinition.masterField === 'pk') {
-            if ( ! me.masterId ) {
+        detDefinition.masterField = detDefinition.masterField || 'pk';
+        if (detDefinition.masterField === 'pk') {
+            if (!me.masterId) {
                 me.masterId = -1;
             }
-            masterKey = me.masterId; 
+            masterKey = me.masterId;
         } else {
-            masterKey = me.masterRowData[ detDefinition.masterField ];
+            masterKey = me.masterRowData[detDefinition.masterField];
         }
-        
+
         // Filter
-        detFilter = [{
-            "property": detDefinition.detailField,
-            "filterStmt": masterKey
-        }];
+        detFilter = [
+            {
+                "property" : detDefinition.detailField,
+                "filterStmt" : masterKey
+            }
+        ];
 
         // Title
         if (me.masterRowData) {
@@ -65,17 +66,16 @@ Ext.define('Softmachine.view.smmasterdetail.MDLinkController', {
 
         // Return
         return {
-            'detFilter': detFilter,
-            'detTitle': detTitle
+            'detFilter' : detFilter,
+            'detTitle' : detTitle
         };
 
     },
 
-    setDetailDefaults: function(detDefinition, detFieldDict) {
+    setDetailDefaults : function(detDefinition, detFieldDict){
         // after setMasterData
 
-        var me = this, 
-            nField, myDetField, myTitleField, masterTitleField;
+        var me = this, nField, myDetField, myTitleField, masterTitleField;
 
         // nfield : campo en el detalle q apunta al maestro ( semanticKey )
         nField = detDefinition.detailField.replace(/__pk$/, '_id');

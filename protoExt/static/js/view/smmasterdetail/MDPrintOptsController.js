@@ -1,12 +1,12 @@
 Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
-    extend: 'Ext.Base',
-    myMeta: null,
-    constructor: function(config) {
+    extend : 'Ext.Base',
+    myMeta : null,
+    constructor : function(config){
         Ext.apply(this, config || {});
         this.getPrinterOptsBar();
     },
 
-    getPrinterOptsBar: function() {
+    getPrinterOptsBar : function(){
 
         var me = this;
         var myPrinterOpts = [];
@@ -15,11 +15,11 @@ Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
         if (this.myMeta.gridConfig.exportCsv) {
 
             myPrinterOpts.push(new Ext.Action({
-                text: _SM.__language.Grid_ExportCSV,
-                iconCls: 'icon-printGrid',
-                tooltip: _SM.__language.Grid_ExportCSV_Ttip,
-                scope: me,
-                handler: onClickExportCsv
+                text : _SM.__language.Grid_ExportCSV,
+                iconCls : 'icon-printGrid',
+                tooltip : _SM.__language.Grid_ExportCSV_Ttip,
+                scope : me,
+                handler : onClickExportCsv
             }));
 
         }
@@ -27,39 +27,40 @@ Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
         if (!this.myMeta.gridConfig.denyAutoPrint) {
 
             myPrinterOpts.push(new Ext.Action({
-                text: _SM.__language.Text_Grid,
-                iconCls: 'icon-printGrid',
-                scope: me,
-                handler: onClickPrintGrid
+                text : _SM.__language.Text_Grid,
+                iconCls : 'icon-printGrid',
+                scope : me,
+                handler : onClickPrintGrid
             }));
 
-            // Print Sheet Image 
+            // Print Sheet Image
             if (__MasterDetail.protoMasterGrid.IdeSheet != undefined) {
                 myPrinterOpts.push(new Ext.Action({
-                    text: 'Fiche',
-                    iconCls: 'icon-printSheet',
-                    scope: me,
-                    handler: onClickPrintSheet
+                    text : 'Fiche',
+                    iconCls : 'icon-printSheet',
+                    scope : me,
+                    handler : onClickPrintSheet
                 }));
             }
         }
 
-        // Los diferentes formatos definidos para cada grilla, definiria impresion en maestro deltalle usando templates y las relaciones definidas.
+        // Los diferentes formatos definidos para cada grilla, definiria impresion en maestro
+        // deltalle usando templates y las relaciones definidas.
         if (this.myMeta.sheetConfig.length > 0) {
 
-            for (var ix in this.myMeta.sheetConfig  ) {
+            for ( var ix in this.myMeta.sheetConfig) {
                 var pPrinterOpts = this.myMeta.sheetConfig[ix];
                 if (pPrinterOpts.sheetType == 'gridOnly') {
                     continue;
                 }
 
                 myPrinterOpts.push(new Ext.Action({
-                    text: pPrinterOpts.name,
-                    sheetName: pPrinterOpts.name,
-                    iconCls: pPrinterOpts.viewIcon || 'icon-printSheet',
-                    tooltip: pPrinterOpts.title,
-                    scope: me,
-                    handler: onClickPrintSheetRep
+                    text : pPrinterOpts.name,
+                    sheetName : pPrinterOpts.name,
+                    iconCls : pPrinterOpts.viewIcon || 'icon-printSheet',
+                    tooltip : pPrinterOpts.title,
+                    scope : me,
+                    handler : onClickPrintSheetRep
                 }));
             }
 
@@ -69,13 +70,15 @@ Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
         if (myPrinterOpts.length > 0) {
 
             __MasterDetail.tbPrinterOpts = Ext.create('Ext.toolbar.Toolbar', {
-                dock: 'top',
-                hidden: true,
-                enableOverflow: true,
-                items: [{
-                    xtype: 'tbtext',
-                    text: '<strong>' + _SM.__language.Text_Print + ':</strong>'
-                }]
+                dock : 'top',
+                hidden : true,
+                enableOverflow : true,
+                items : [
+                    {
+                        xtype : 'tbtext',
+                        text : '<strong>' + _SM.__language.Text_Print + ':</strong>'
+                    }
+                ]
             });
 
             __MasterDetail.tbPrinterOpts.add(myPrinterOpts);
@@ -84,19 +87,20 @@ Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
 
         }
 
-        function onClickProtoPrinterOpt(btn) {
+        function onClickProtoPrinterOpt(btn){
         }
 
-        function onClickPrintGrid(btn) {
+        function onClickPrintGrid(btn){
             var prn = ProtoUL.ux.Printer;
             prn.gridPrint(__MasterDetail.protoMasterGrid._extGrid);
         }
 
-        function onClickPrintSheet(btn) {
+        function onClickPrintSheet(btn){
             var prn = ProtoUL.ux.Printer, pGrid = __MasterDetail.protoMasterGrid;
 
-            if ((!pGrid) || (!pGrid.sheetHtml )) {
-                _SM.vp_StatusBar.showWarning(_SM.__language.GridAction_NoRecord, 'MdPrintOptsController');
+            if ((!pGrid) || (!pGrid.sheetHtml)) {
+                _SM.vp_StatusBar.showWarning(_SM.__language.GridAction_NoRecord,
+                        'MdPrintOptsController');
                 return;
             }
 
@@ -104,54 +108,56 @@ Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
 
         }
 
-        function onClickPrintSheetRep(btn) {
+        function onClickPrintSheetRep(btn){
             var prn = ProtoUL.ux.Printer, pGrid = __MasterDetail.protoMasterGrid;
 
             // var win = window.open('', 'printgrid');
             var selectedKeys = pGrid.getSelectedIds();
 
             var options = {
-                scope: me,
-                params: pGrid.store.proxy.extraParams,
-                success: function(result, request) {
+                scope : me,
+                params : pGrid.store.proxy.extraParams,
+                success : function(result, request){
                     // prn.reportPrint(win, result.responseText);
-                    _SM.vp_StatusBar.showMessage( result.statusText, 'PrintSheetRep', 3000);
+                    _SM.vp_StatusBar.showMessage(result.statusText, 'PrintSheetRep', 3000);
                 },
-                failure: function(result, request) {
-                    _SM.errorMessage(_SM.__language.Grid_ExportCSV_Err, result.status + ' ' + result.statusText);
+                failure : function(result, request){
+                    _SM.errorMessage(_SM.__language.Grid_ExportCSV_Err, result.status + ' '
+                            + result.statusText);
                 },
-                timeout: 60000
+                timeout : 60000
             };
 
             _SM.getSheeReport(pGrid.viewCode, btn.sheetName, selectedKeys, options);
 
         }
 
-        function onClickExportCsv(btn) {
+        function onClickExportCsv(btn){
 
             var pGrid = __MasterDetail.protoMasterGrid;
 
             Ext.Ajax.request({
-                method: 'POST',
-                url: _SM._PConfig.urlGetProtoExport,
-                params: pGrid.store.proxy.extraParams,
-                success: function(result, request) {
+                method : 'POST',
+                url : _SM._PConfig.urlGetProtoExport,
+                params : pGrid.store.proxy.extraParams,
+                success : function(result, request){
                     var myResult = Ext.decode(result.responseText);
                     _SM.getFile(myResult.message, false);
                 },
-                failure: function(result, request) {
-                    _SM.errorMessage(_SM.__language.Grid_ExportCSV_Err, result.status + ' ' + result.statusText);
+                failure : function(result, request){
+                    _SM.errorMessage(_SM.__language.Grid_ExportCSV_Err, result.status + ' '
+                            + result.statusText);
                 },
-                scope: this,
-                timeout: 60000
+                scope : this,
+                timeout : 60000
             });
 
         }
 
     },
 
-    openHtmlWin: function(sHtml) {
-        //open up a new printing window, write to it, print it and close
+    openHtmlWin : function(sHtml){
+        // open up a new printing window, write to it, print it and close
         var win = window.open('', 'printgrid');
         win.document.write(sHtml);
 
@@ -161,8 +167,8 @@ Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
     }
 });
 
-_SM.getFile = function(fName, newWindow) {
-    //  contentType = 'octet-stream'
+_SM.getFile = function(fName, newWindow){
+    // contentType = 'octet-stream'
     var dataURL = 'getFile/' + fName;
 
     // Not useful for application/octet-stream type
@@ -173,4 +179,4 @@ _SM.getFile = function(fName, newWindow) {
         window.location = dataURL;
     }
 
-}; 
+};

@@ -12,9 +12,9 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
     extend : 'Ext.Panel',
     alias : 'widget.tabMasterDetail',
     requires : [
-        'Softmachine.view.toolbar.MainToolBar', 
-        'Softmachine.view.smconfig.ConfigController', 
-        'Softmachine.view.smmasterdetail.MDLinkController', 
+        'Softmachine.view.toolbar.MainToolBar',
+        'Softmachine.view.smconfig.ConfigController',
+        'Softmachine.view.smmasterdetail.MDLinkController',
         'Softmachine.view.smgrid.SMGrid'
     ],
 

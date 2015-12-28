@@ -3,25 +3,20 @@
 /*global _SM */
 
 Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
-    extend: 'Ext.Base',
-    myMeta: null,
+    extend : 'Ext.Base',
+    myMeta : null,
 
-
-
-    constructor: function(config) {
+    constructor : function(config){
 
         Ext.apply(this, config || {});
         this.getDetailsTBar();
 
     },
 
-    getDetailsTBar: function() {
+    getDetailsTBar : function(){
 
         // @formatter:off
-        var me = this,
-            myMasterDetail = me.__MasterDetail,
-            myDetails = [], 
-            myAction, vDet, pDetail ;
+        var me = this, myMasterDetail = me.__MasterDetail, myDetails = [], myAction, vDet, pDetail;
         // @formatter:on
 
         // Recorre y agrega los detalles al menu
@@ -33,13 +28,13 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
             }
 
             myAction = new Ext.Action({
-                text: pDetail.menuText,
-                hidden: true,
+                text : pDetail.menuText,
+                hidden : true,
                 // enableToggle: true,
-                scope: me,
-                handler: onActionSelectDetail,
-                detailKey: pDetail.conceptDetail,
-                detailDefinition: pDetail
+                scope : me,
+                handler : onActionSelectDetail,
+                detailKey : pDetail.conceptDetail,
+                detailDefinition : pDetail
             });
 
             myDetails.push(myAction);
@@ -51,16 +46,18 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
 
             // toolBar de base para los items
             myMasterDetail.tbDetails = Ext.create('Ext.toolbar.Toolbar', {
-                dock: 'bottom',
-                border: true,
-                enableOverflow: true,
-                items: [{
-                    text: '<strong>' + _SM.__language.Grid_Detail_Title + ':</strong>',
-                    iconCls: 'icon-panelDown',
-                    enableToggle: false,
-                    scope: myMasterDetail,
-                    handler: myMasterDetail.hideDetailPanel
-                }]
+                dock : 'bottom',
+                border : true,
+                enableOverflow : true,
+                items : [
+                    {
+                        text : '<strong>' + _SM.__language.Grid_Detail_Title + ':</strong>',
+                        iconCls : 'icon-panelDown',
+                        enableToggle : false,
+                        scope : myMasterDetail,
+                        handler : myMasterDetail.hideDetailPanel
+                    }
+                ]
             });
 
             myMasterDetail.myDetails = myDetails;
@@ -69,15 +66,15 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
             // myMasterDetail.protoMasterGrid.ownerCt.addDocked( myMasterDetail.tbDetails )
         }
 
-        function loadDetailDefinition(item, myAction) {
+        function loadDetailDefinition(item, myAction){
 
             // Opciones del llamado AJAX para precargar los detalles
             var options = {
-                scope: me,
-                success: function(obj, result, request) {
+                scope : me,
+                success : function(obj, result, request){
                     createDetailGrid(item, myAction);
                 },
-                failure: function(obj, result, request) {
+                failure : function(obj, result, request){
                     createDummyPanel(item, myAction);
                 }
 
@@ -91,21 +88,23 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
 
         }
 
-        function createDummyPanel(item, myAction) {
+        function createDummyPanel(item, myAction){
             // Si hubo error en la creacion del detalle
             // El panel debe crearse para poder manejar la secuencia en la barra
             myMasterDetail.protoTabs.add({
-                html: _SM.__language.Grid_Detail_Error + ' :' + item.detailKey,
-                ixDetail: myMasterDetail.protoTabs.items.length
+                html : _SM.__language.Grid_Detail_Error + ' :' + item.detailKey,
+                ixDetail : myMasterDetail.protoTabs.items.length
             });
-            // myAction.show();   ( Debug Only )
+            // myAction.show(); ( Debug Only )
         }
 
-        function createDetailGrid(item, myAction) {
+        function createDetailGrid(item, myAction){
 
-            function setActionPrp(prp, meth, value) {
+            function setActionPrp(prp, meth, value){
                 myAction.initialConfig[prp] = value;
-                myAction.callEach(meth, [value]);
+                myAction.callEach(meth, [
+                    value
+                ]);
             }
 
             //
@@ -113,15 +112,15 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
 
             // Definicion grilla Detail
             detailGrid = Ext.create('Softmachine.view.smgrid.SMGrid', {
-                border: false,
-                viewCode: pDetail.conceptDetail,
-                protoIsDetailGrid: true,
-                detailDefinition: pDetail,
-                autoLoad: false,
-                isDetail: true,
+                border : false,
+                viewCode : pDetail.conceptDetail,
+                protoIsDetailGrid : true,
+                detailDefinition : pDetail,
+                autoLoad : false,
+                isDetail : true,
 
-                // Para saber de q linea del maestro  depende
-                _MasterDetail: myMasterDetail
+                // Para saber de q linea del maestro depende
+                _MasterDetail : myMasterDetail
             });
 
             // guarda el store con el indice apropiado
@@ -131,7 +130,7 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
             item.ixDetail = myMasterDetail.protoTabs.items.length;
             myMasterDetail.protoTabs.add(detailGrid);
 
-            //Definicion del detalle TODO: pasarlo a una clase
+            // Definicion del detalle TODO: pasarlo a una clase
 
             detailGrid.ixDetail = item.ixDetail;
 
@@ -141,20 +140,20 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
             // Configura el panel
             myMeta = detailGrid.myMeta;
 
-            // setActionPrp('text', 'setText',  myMeta.shortTitle );
+            // setActionPrp('text', 'setText', myMeta.shortTitle );
             // setActionPrp('tooltip', 'setTooltip', myMeta.description );
             setActionPrp('tooltip', 'setTooltip', pDetail.menuText);
 
             setActionPrp('iconCls', 'setIconCls', myMeta.viewIcon);
-            //setActionPrp('iconAlign', 'setIconAlign', 'top');
+            // setActionPrp('iconAlign', 'setIconAlign', 'top');
             setActionPrp('width', 'setWidth', 100);
             myAction.show();
 
         }
 
-        function onActionSelectDetail(item) {
-            //          fix : Toolbar overflow
-            //          myMasterDetail.ixActiveDetail = item.baseAction.initialConfig.ixDetail ;
+        function onActionSelectDetail(item){
+            // fix : Toolbar overflow
+            // myMasterDetail.ixActiveDetail = item.baseAction.initialConfig.ixDetail ;
             myMasterDetail.ixActiveDetail = item.initialConfig.ixDetail;
 
             // Si se carga directamente el Card Layout en el BorderLayout no permite el activeItem
