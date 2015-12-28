@@ -149,7 +149,7 @@ Ext.define('Softmachine.view.main.Main', {
                         items : [
                             {
                                 text : _SM.__language.StatusBar_Text_Close_Session || 'Logout',
-                                handler : me.controller.closeSession,
+                                handler : me.controller.onClickLogOut,
                                 scope : me.controller, 
                                 iconCls : 'icon-logout'
                             }

@@ -12,8 +12,10 @@ Ext.define('Softmachine.view.main.MainController', {
     ], 
 
     onClickLogOut : function(){
+
         // Remove the localStorage key/value
         localStorage.removeItem('SmLoggedIn');
+        localStorage.setItem("SmUserInfo", _SM._UserInfo  )
 
         // Remove Main View
         this.getView().destroy();
