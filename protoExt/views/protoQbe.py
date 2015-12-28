@@ -241,7 +241,7 @@ def addQbeFilterStmt( sFilter, cBase ):
         else : return models.Q()
 
 #   Para permitir filtros a diferentes niveles  context
-    if fieldName.endswith('_id'): 
+    if fieldName.endswith('_id') or fieldName.endswith('_pk'): 
         QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], 'int')
     else:   
         fAux = cBase.fieldsDict.get(fieldName, {})
