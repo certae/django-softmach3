@@ -254,12 +254,13 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
         // setDisabled( me.tbTabs )
 
         if (!me.autoEdit) {
-            setDisabled(me.tbFilters);
-            setDisabled(me.tbPrinterOpts);
-            setDisabled(me.tbConfigOpts);
-            setDisabled(me.tbSorters);
-            setDisabled(me.tbSortersSet);
-            setDisabled(me.tbProtoActions);
+            // Eliminate because ExtJs6 ( ARIA ) do'nt support click and menu 
+            // setDisabled(me.tbFilters);
+            // setDisabled(me.tbPrinterOpts);
+            // setDisabled(me.tbConfigOpts);
+            // setDisabled(me.tbSorters);
+            // setDisabled(me.tbSortersSet);
+            // setDisabled(me.tbProtoActions);
         } else {
             bEdit = me.autoEdit;
         }

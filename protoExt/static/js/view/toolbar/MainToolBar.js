@@ -8,7 +8,8 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
 
 
     requires : [
-        'Softmachine.view.toolbar.SearchToolBar'
+        'Softmachine.view.toolbar.SearchToolBar',
+        'Softmachine.view.toolbar.MainToolBarController'
     ],
 
     autoEdit : true,
@@ -32,7 +33,10 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
             items : [
                 {
                     xtype : 'searchToolBar',
-                    itemId : 'searchToolBar-id'
+                    itemId : 'searchToolBar-id', 
+                    listeners : {
+                            qbeLoadData : this.controller.main_qbeLoadData 
+                        }
                 },
                 {
                     iconCls : 'icon-edit',
@@ -152,19 +156,6 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
         if (!me.autoEdit && (me.perms['add'] || me.perms['change'] || me.perms['delete'])) {
             this.getComponent('edit').setVisible(true);
         }
-
-        // --------------------------------------------------------
-
-        this.searchBG.on({
-            qbeLoadData : {
-                fn : function(tbar, sFilter, sTitle, sorter){
-                    __MasterDetail.mdGridLoadData(sFilter, sorter);
-                    __MasterDetail.protoMasterGrid.filterTitle = sTitle;
-                    __MasterDetail.protoMasterGrid.setGridTitle(__MasterDetail.protoMasterGrid);
-                },
-                scope : this
-            }
-        });
 
         // -----------------------------------------------------------
 
