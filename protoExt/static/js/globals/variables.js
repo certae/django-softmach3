@@ -5,7 +5,6 @@
 
 _SM = {};
 
-_SM._UserInfo = { perms : {}, isStaff : false }; 
 
 // Grid row state
 _SM._ROW_ST = {

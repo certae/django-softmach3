@@ -421,6 +421,7 @@ _SM.verifyObj = function (myObj, defObj) {
 
 _SM.obj2tx = function( myObj ) {
     // recibe un obj y garantiza q retorne un texto ( con un array )
+    // Ext.encode Ext.decode 
     var sAux = typeof myObj;
     if ( sAux == 'string' ) { sAux = myObj; }
     else{ try { sAux  = Ext.encode( myObj );
