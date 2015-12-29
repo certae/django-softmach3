@@ -39,7 +39,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     itemId : 'edit',
                     tooltip : _SM.__language.Grid_Edit_Ttip,
                     text : _SM.__language.Grid_Edit_Title,
-                    hidden : false,
+                    hidden : true,
                     handler : editOpts
                 },
                 {
@@ -47,7 +47,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Clasify_Button,
                     iconCls : 'icon-order',
                     itemId : 'sorters',
-                    hidden : false,
+                    hidden : true,
                     handler : toogleTb2
                 },
                 {
@@ -56,7 +56,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Actions_Button,
                     iconCls : 'icon-action',
                     itemId : 'protoActions',
-                    hidden : false,
+                    hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
 
                 },
@@ -66,7 +66,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Details_Button,
                     iconCls : 'icon-details',
                     itemId : 'details',
-                    hidden : false,
+                    hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
                 },
                 {
@@ -75,7 +75,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Filters_Button,
                     iconCls : 'icon-filters',
                     itemId : 'filterSet',
-                    hidden : false,
+                    hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
 
                 },
@@ -85,7 +85,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Tabs_Button,
                     iconCls : 'icon-tabs',
                     itemId : 'tabSet',
-                    hidden : false,
+                    hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
 
                 },
@@ -95,7 +95,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Sorters_Button,
                     iconCls : 'icon-sorters',
                     itemId : 'sorterSet',
-                    hidden : false,
+                    hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
 
                 },
@@ -105,7 +105,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Printing_Options,
                     iconCls : 'icon-print',
                     itemId : 'printerOpts',
-                    hidden : false,
+                    hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
 
                 },
@@ -115,7 +115,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Config_Button,
                     iconCls : 'icon-config',
                     itemId : 'configOpts',
-                    hidden : false,
+                    hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
 
                 },
@@ -125,7 +125,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     itemId : 'editOff',
                     text : _SM.__language.Text_Exit_Edit_Mode_Button,
                     tooltip : _SM.__language.Tooltip_Exit_Edit_Mode_Button,
-                    hidden : false,
+                    hidden : true,
                     handler : editOpts
 
                 },
@@ -141,8 +141,6 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
 
         this.callParent();
 
-        // DGT : Eliminar este return 
-        return; 
 
         // Guarda los permisos
         me.perms = _SM._UserInfo.perms[this.protoMeta.viewCode];

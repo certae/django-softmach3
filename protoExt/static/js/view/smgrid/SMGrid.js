@@ -286,7 +286,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         this.gridController.addGridTools(this.autoEdit);
 
         // DGT :  Agregar los otros controladores 
-        this.sheetCrl = {}
+        // this.sheetCrl = {}
         // this.sheetCrl = Ext.create('ProtoUL.UI.GridSheetController', {
         //     myGrid: this
         // });

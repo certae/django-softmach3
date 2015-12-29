@@ -14,7 +14,6 @@ Ext.define('Softmachine.view.main.MainTabController', {
 
     addTabPanel : function(viewCode, mdFilter, detailTitle){
         
-        // DGT: Verificar esto 
         Ext.suspendLayouts();
          
 
