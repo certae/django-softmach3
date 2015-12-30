@@ -24,8 +24,7 @@ _SM = _SM || {};
 
 _SM.getStoreDefinition = function(stDef){
 
-    var myStore = Ext
-            .create(
+    var myStore = Ext.create(
                     'Ext.data.Store',
                     {
                         viewCode : stDef.viewCode,
@@ -103,7 +102,8 @@ _SM.getStoreDefinition = function(stDef){
                             // Fires whenever the records in the Store have changed in some way -
                             // this could include adding or removing records, or ...
                             datachanged : function(store, eOpts){
-                                _SM.vp_Main.controller.clearMainStatus(store.viewCode, 'dataChanged');
+                                _SM.vp_Main.controller.clearMainStatus(store.viewCode,
+                                        'dataChanged');
 
                                 // Guarda la info de sort
                                 try {
@@ -436,7 +436,7 @@ _SM.DefineProtoModel = function(myMeta){
             'autofield',
             'foreignid',
             'foreigntext'
-            
+
         ]))
         {
 

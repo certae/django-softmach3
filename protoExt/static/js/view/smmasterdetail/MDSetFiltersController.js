@@ -54,19 +54,19 @@ Ext.define('Softmachine.view.smmasterdetail.MDSetFiltersController', {
 
         if (myFilters.length > 0) {
 
-            __MasterDetail.tbFilters = Ext.create('Ext.toolbar.Toolbar', {
-                dock : 'top',
-                hidden : true,
-                enableOverflow : true,
-                items : [{
-                    xtype : 'tbtext',
-                    text : '<strong>Filtrer par :</strong>'
-                }]
-            });
+            // __MasterDetail.tbFilters = Ext.create('Ext.toolbar.Toolbar', {
+            //     dock : 'top',
+            //     hidden : true,
+            //     enableOverflow : true,
+            //     items : [{
+            //         xtype : 'tbtext',
+            //         text : '<strong>Filtrer par :</strong>'
+            //     }]
+            // });
 
-            __MasterDetail.tbFilters.add(myFilters);
+            // __MasterDetail.tbFilters.add(myFilters);
+            // __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbFilters);
             __MasterDetail.myFilters = myFilters;
-            __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbFilters);
 
         };
 

@@ -35,7 +35,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     xtype : 'searchToolBar',
                     itemId : 'searchToolBar-id', 
                     listeners : {
-                            qbeLoadData : this.controller.main_qbeLoadData 
+                            qbeLoadData : this.controller.mainQbeLoadData 
                         }
                 },
                 {
@@ -167,35 +167,35 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     __MasterDetail.tbSorters.setVisible(but.pressed);
                 }
 
-            } else if (but.itemId === 'filterSet') {
-                if (__MasterDetail.tbFilters) {
-                    __MasterDetail.tbFilters.setVisible(but.pressed);
-                }
+            // } else if (but.itemId === 'filterSet') {
+            //     if (__MasterDetail.tbFilters) {
+            //         __MasterDetail.tbFilters.setVisible(but.pressed);
+            //     }
 
-            } else if (but.itemId === 'tabSet') {
-                if (__MasterDetail.tbTabs) {
-                    __MasterDetail.tbTabs.setVisible(but.pressed);
-                }
+            // } else if (but.itemId === 'tabSet') {
+            //     if (__MasterDetail.tbTabs) {
+            //         __MasterDetail.tbTabs.setVisible(but.pressed);
+            //     }
 
-            } else if (but.itemId === 'sorterSet') {
-                if (__MasterDetail.tbSortersSet) {
-                    __MasterDetail.tbSortersSet.setVisible(but.pressed);
-                }
+            // } else if (but.itemId === 'sorterSet') {
+            //     if (__MasterDetail.tbSortersSet) {
+            //         __MasterDetail.tbSortersSet.setVisible(but.pressed);
+            //     }
 
-            } else if (but.itemId === 'printerOpts') {
-                if (__MasterDetail.tbPrinterOpts) {
-                    __MasterDetail.tbPrinterOpts.setVisible(but.pressed);
-                }
+            // } else if (but.itemId === 'printerOpts') {
+            //     if (__MasterDetail.tbPrinterOpts) {
+            //         __MasterDetail.tbPrinterOpts.setVisible(but.pressed);
+            //     }
 
-            } else if (but.itemId === 'configOpts') {
-                if (__MasterDetail.tbConfigOpts) {
-                    __MasterDetail.tbConfigOpts.setVisible(but.pressed);
-                }
+            // } else if (but.itemId === 'configOpts') {
+            //     if (__MasterDetail.tbConfigOpts) {
+            //         __MasterDetail.tbConfigOpts.setVisible(but.pressed);
+            //     }
 
-            } else if (but.itemId === 'details') {
-                if (__MasterDetail.tbDetails) {
-                    __MasterDetail.showDetailPanel(!but.pressed);
-                }
+            // } else if (but.itemId === 'details') {
+            //     if (__MasterDetail.tbDetails) {
+            //         __MasterDetail.showDetailPanel(!but.pressed);
+            //     }
 
             } else if (but.itemId === 'protoActions') {
                 if (__MasterDetail.tbProtoActions) {
