@@ -12,6 +12,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
         'Softmachine.view.toolbar.MainToolBarController'
     ],
 
+    controller : 'maintoolbar', 
     autoEdit : true,
 
     initComponent : function(){
