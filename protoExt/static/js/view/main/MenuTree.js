@@ -3,7 +3,8 @@ Ext.define('Softmachine.view.main.MenuTree', {
     alias : 'widget.menuTree',
 
     requires : [
-        'Softmachine.view.main.MenuOption'
+        'Softmachine.view.main.MenuOption', 
+        'Softmachine.view.main.MenuTreeModel'
     ],
 
     viewConfig : {
@@ -21,43 +22,10 @@ Ext.define('Softmachine.view.main.MenuTree', {
 
     initComponent : function(){
 
-        Ext.define('Proto.MenuModel', {
-            extend : 'Ext.data.Model',
-            proxy : {
-                type : 'ajax',
-                url : _SM._PConfig.urlMenu,
-                extraParams : {
-                    forceDefault : 0
-                },
-                actionMethods : {
-                    read : 'POST'
-                }
-            },
-
-            fields : [
-                {
-                    name : 'id',
-                    type : 'string'
-                },
-                {
-                    name : 'viewCode',
-                    type : 'string'
-                },
-                {
-                    name : 'text',
-                    type : 'string'
-                },
-                {
-                    name : 'leaf',
-                    type : 'boolean'
-                }
-            ]
-
-        });
 
         this.store = Ext.create('Ext.data.TreeStore', {
             autoLoad : true,
-            model : 'Proto.MenuModel',
+            model : 'Softmachine.view.main.MenuTreeModel',
             rootProperty : {
                 text : 'menu',
                 expanded : true
