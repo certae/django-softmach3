@@ -15,15 +15,6 @@
 	},
 	"buffers":
 	[
-		{
-			"contents": "Regarder - Look \n\nCollecte de données : Acquisition de l'information \n* Quel est le problème réel ici? (Sens dans leurs propres termes)\n* Pour qui est-il problématique? (Expériences)\n* Comment les parties prenantes perçoivent le problème? (Perspectives)\n* Sont, de problèmes et de questions dans ou derrière le problème initil?\n* Quelles sont les ressources nécessaires?\n* Comment les parties prenantes peuvent acquirir ces ressources?\n* Que peuvent-ils faire?\n* Comment peuvent-ils le faire?\n\nPenser  - think \n* Identifier les concepts clés et clarifier sa signification\n* Interprétation et analyse des concepts et des idées\n* Utiliser les processus d'interprétation pour distiller les informations recueillies, \n* Identifier les caractéristiques et les éléments clés de l'expérience des gens, et \n* permettre aux participants de mieux comprendre la façon dont le problème affecte leur vie activités\n* Enrichir l'analyse en utilisant des cadres d'interprétations\n\nPenser  - think  ( Interpretation )\n* Questions d'interprétation: pourquoi, quoi, comment, qui, où, quand\n* Examen de l'organisation: vision,  mission,  structure,  fonctionnement,  problèmes\n* Cartographie conceptuel : question, concept / influences, des liens\n* Analyse des problèmes: problèmes, antécédents, conséquences\n\n Agir  - Act \n\nPlanification et mis en œuvre des solutions pratiques aux problèmes qui ont fait l'objet de la recherche (résolution de problèmes) \n\n* Identifier les priorités d'actions\n* Élaborer des plans d'action qui intègrent:\n	* Buts : les actions nécessaires pour résoudre les problèmes (à long terme)\n	* Objectifs: Activités spécifiques nécessaires pour atteindre le(s) but(s)\n	* Tâches: La séquence des tâches nécessaires à la réalisation de chaque activité\n	* Personnes: Ceux qui effectuera les tâches\n	* Durée: le délai dans pour les tâches\n	* Ressources: matériaux, équipements et fondes nécessaires pour compléter la tâche\n\n* Mettre en œuvre les tâches décrites dans le plan d'action\n* Soutenir les personnes systématiquement par:\n	* communication: informer les gens de leurs activités respectives\n	* encourager: apprécier les efforts des participants\n	* reflétant: aider les participants à réfléchir sur les problèmes et les progrès\n	* aider: aider activement les personnes lorsque des difficultés entravent le progress \n",
-			"settings":
-			{
-				"buffer_size": 2323,
-				"line_ending": "Unix",
-				"name": "Regarder - Look"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -68,14 +59,13 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/locale",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/viewport",
 		"/home/dario/PyDev3/softmach3/protoExt/templates"
 	],
 	"file_history":
 	[
+		"/home/dario/PyDev3/softmach3/protoExt/templates/protoDebug.html",
 		"/tmp/RICARDO GOMEZ, Vuelo a BARRANQUILLA, COLOMBIA - YXAOPR.ics",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/AuthenticationController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/AuthenticationModel.js",
@@ -104,7 +94,6 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDActionsController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/app.js",
-		"/home/dario/PyDev3/softmach3/protoExt/templates/protoDebug.html",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/variables.js",
 		"/home/dario/DevExtJs6/ZVarios/sencha_extjs6_codigo/app01/app.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/Tools.js",
@@ -214,6 +203,7 @@
 		"height": 106.0,
 		"where_history":
 		[
+			"*.htm*",
 			"*.js",
 			"*.py",
 			"*.js",
@@ -236,6 +226,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ext",
+			"cdnjs",
 			"(Ext.cmd.derive",
 			"xtype",
 			"bind",
@@ -361,9 +353,7 @@
 			"/media/dario/VERBATIM HD/INTEGRA/DISCO D (Srvman)/FRANCISCO/",
 			"/media/dario/VERBATIM HD/INTEGRA/DISCO D (Srvman)/EMPRESAS/ATUNEC",
 			":plugins",
-			"\n\n\n",
-			"\n\n",
-			"=([A-Z])"
+			"\n\n\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -473,38 +463,8 @@
 			]
 		},
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2323,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_name": "Regarder - Look",
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -536,7 +496,7 @@
 		"cols":
 		[
 			0.0,
-			0.281779661017,
+			0.638059854254,
 			1.0
 		],
 		"rows":
