@@ -124,9 +124,9 @@
             var entryIndex = this.calculateEntryIndex(event);
 
             tbar.insert(entryIndex, this.createItem(data));
-            tbar.doLayout();
 
-            this.afterLayout();
+            // tbar.doLayout();
+            // this.afterLayout();
         }
 
         return canAdd;

@@ -138,7 +138,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         }
 
         // Lo genera de nuevo, quedaban componentes mal ubicados
-        this.doLayout();
+        // this.doLayout();
 
 
         function getDetails(prItems, me) {

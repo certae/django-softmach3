@@ -15,8 +15,8 @@
 Ext.define('Softmachine.view.smform.FormController', {
     extend : 'Ext.Base',
 
-    // requires: [ 'Softmachine.view.smform.ProtoForm' ],
-    // Required if linked,  retrived if zoom
+    requires: [ 'Softmachine.view.smform.ProtoForm' ],
+
     myMeta : null,
 
     // metaDict : contiene las metas de los detalles
@@ -35,6 +35,7 @@ Ext.define('Softmachine.view.smform.FormController', {
     myWidth : 620,
     myHeight : 460,
 
+    // Required if linked,  retrived if zoom
     newForm : false,
 
     constructor : function(config) {
@@ -164,7 +165,8 @@ Ext.define('Softmachine.view.smform.FormController', {
 
     newWindowLoad : function(me) {
 
-        _SM.updateWinPosition(me.myWidth, me.myHeight);
+        // Fix : same position ??
+        // _SM.updateWinPosition(me.myWidth, me.myHeight);
 
         var strEditing = '';
         if (me.newForm) {

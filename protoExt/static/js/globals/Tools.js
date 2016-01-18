@@ -279,11 +279,10 @@ _SM.errorMessage = function (errTitle, errMsg) {
 };
 
 _SM.updateWinPosition = function (myWidth, myHeight) {
-
-    _SM._winX += 40; _SM._winY += 20;
-    if ((_SM._winX + myWidth) > _SM._mainWin.width || (_SM._winY + myHeight) > _SM._mainWin.height) {
-        _SM._winX = 10; _SM._winY = 10;
-    }
+    // _SM._winX += 40; _SM._winY += 20;
+    // if ((_SM._winX + myWidth) > _SM._mainWin.width || (_SM._winY + myHeight) > _SM._mainWin.height) {
+    //     _SM._winX = 10; _SM._winY = 10;
+    // }
 };
 
 _SM.savePclCache = function (viewCode, protoMeta, reOpen ) {
