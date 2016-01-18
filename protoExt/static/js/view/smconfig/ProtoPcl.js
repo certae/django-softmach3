@@ -172,7 +172,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
                 saveFieldList();
 
                 me.treeRecord = record;
-                preparePropertiesPCL(record);
+                _SM.preparePropertiesPCL(record);
             },
             scope: me
         });
@@ -380,7 +380,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
             tBar.setButton('del', bVisible = false, true);
         }
 
-        function preparePropertiesPCL(record) {
+        function _SM.preparePropertiesPCL(record) {
 
             var oData, ptType, __ptConfig, template, sMsg;
             oData = record.data;
@@ -414,7 +414,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
 
             } else {
                 propsGrid.show();
-                prepareProperties(record, me.myMeta, propsGrid);
+                _SM.prepareProperties(record, me.myMeta, propsGrid);
             }
 
             // Prepara el menu

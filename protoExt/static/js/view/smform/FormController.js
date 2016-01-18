@@ -376,7 +376,7 @@ Ext.define('Softmachine.view.smform.FormController', {
 
                     myFld = me.myFieldDict[protoIx];
                     if (myFld) {
-                        template = getTemplate(__ptType, true, myFld);
+                        template = _SM.getTemplate(__ptType, true, myFld);
 
                         // Add listener to field 
                         if ( myFld.type in _SM.objConv(['string', 'text', 'int', 'decimal', 'combo', 'foreignid', 'foreigntext'])) {
@@ -430,7 +430,7 @@ Ext.define('Softmachine.view.smform.FormController', {
 
                     if (_SM.loadPci(protoObj.viewCode, false)) {
 
-                        template = getTemplate(__ptType, true);
+                        template = _SM.getTemplate(__ptType, true);
                         prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);
 
                         if ((!prLayout.minWidth) || (prLayout.minWidth < 100)) {
@@ -459,7 +459,7 @@ Ext.define('Softmachine.view.smform.FormController', {
                     }
                 } else if (__ptType == 'htmlset') {
 
-                    template = getTemplate(__ptType, true);
+                    template = _SM.getTemplate(__ptType, true);
                     prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);
 
                     prLayout.htlmFields = protoObj.items;
@@ -467,13 +467,13 @@ Ext.define('Softmachine.view.smform.FormController', {
 
                 } else if (__ptType == 'detailButton') {
 
-                    template = getTemplate(__ptType, true);
+                    template = _SM.getTemplate(__ptType, true);
                     prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);
                     prLayout.minWidth = 100;
 
                 } else {
 
-                    template = getTemplate(__ptType, true);
+                    template = _SM.getTemplate(__ptType, true);
                     prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);
 
                     // Agrega los items

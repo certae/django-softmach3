@@ -329,7 +329,7 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
 
                 // prepara las propiedades corresponidnetes,
                 // debe cpia las props por defecto de la pcl
-                prepareProperties(record, me.myMeta, me.properties);
+                _SM.prepareProperties(record, me.myMeta, me.properties);
             },
             scope : me
         });
