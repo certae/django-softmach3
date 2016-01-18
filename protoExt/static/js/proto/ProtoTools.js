@@ -36,7 +36,7 @@ function Meta2Tree(oData, pName, ptType) {
 
             var oData = items[sKey], t2Data;
 
-            var __ptConfig = getSimpleProperties(oData, ptType);
+            var __ptConfig = _SM.getSimpleProperties(oData, ptType);
             var ptType = __ptConfig.__ptType;
 
             //  contenedores de la forma
@@ -162,7 +162,7 @@ function Meta2Tree(oData, pName, ptType) {
 
     //   Function body  --------------------------------------------
 
-    var __ptConfig = getSimpleProperties(oData, ptType);
+    var __ptConfig = _SM.getSimpleProperties(oData, ptType);
     var tData = getNodeBase(ptType, ptType, __ptConfig);
 
     if (getSpecialNodes(nodeDef, tData, oData)) {
@@ -226,10 +226,10 @@ function Tree2Meta(tNode) {
         getChilds(myObj.tChilds, mData, 'array');
 
     } else if (nodeConf.__ptStyle in _SM.objConv(["colList", "jsonText"])) {
-        mData = getSimpleProperties(myObj.__ptConfig, myObj.__ptType);
+        mData = _SM.getSimpleProperties(myObj.__ptConfig, myObj.__ptType);
 
     } else if (nodeConf.properties || nodeConf.lists || nodeConf.objects) {
-        mData = getSimpleProperties(myObj.__ptConfig, myObj.__ptType);
+        mData = _SM.getSimpleProperties(myObj.__ptConfig, myObj.__ptType);
         if (myObj.tChilds.length > 0) {
             if (nodeConf.hideItems) {
                 mData.items = [];

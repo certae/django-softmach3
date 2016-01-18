@@ -10,7 +10,6 @@
 /*global Ext */
 /*global _SM */
 /*global ProtoUL */
-/*global getSimpleProperties */
 
 Ext.define('Softmachine.view.smform.WinGridController', {
     extend: 'Ext.Base',

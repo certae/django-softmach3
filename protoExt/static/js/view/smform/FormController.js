@@ -10,7 +10,7 @@
 /*global Ext */
 /*global _SM */
 /*global ProtoUL */
-/*global getSimpleProperties */
+
 
 Ext.define('Softmachine.view.smform.FormController', {
     extend : 'Ext.Base',
@@ -357,7 +357,7 @@ Ext.define('Softmachine.view.smform.FormController', {
 
                 // Configura el objeto
                 if (!protoObj.__ptConfig) {
-                    protoObj.__ptConfig = getSimpleProperties(protoObj);
+                    protoObj.__ptConfig = _SM.getSimpleProperties(protoObj);
                 }
                 if (!protoObj.__ptConfig.name) {
                     protoObj.__ptConfig.name = protoIx;

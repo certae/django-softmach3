@@ -10,7 +10,7 @@
 /* global Ext */
 /* global _SM */
 /* global ProtoUL */
-/* global getSimpleProperties */
+/* global _SM.getSimpleProperties */
 
 Ext.define('Softmachine.view.smmasterdetail.MDLinkController', {
     extend : 'Ext.Base',
