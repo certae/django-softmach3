@@ -24,93 +24,103 @@
 /*global _SM */
 
 Ext.define('Softmachine.view.smform.ProtoForm', {
-    extend: 'Ext.form.Panel',
-    alias: 'widget.protoform',
+    extend : 'Ext.form.Panel',
+    alias : 'widget.protoform',
 
-    requires: ['Softmachine.view.smmasterdetail.MDLinkController'
+    requires : [
+        'Softmachine.view.smmasterdetail.MDLinkController',
+        'Softmachine.view.smform.ProtoZoom'
     ],
 
-    //@myMeta   Base Definition
-    myMeta: null,
-    newForm: false,
+    // @myMeta Base Definition
+    myMeta : null,
+    newForm : false,
 
-    //@formConfig  Objeto correspondiente a la forma en la meta ( forma parte de la meta )
-    formConfig: null,
+    // @formConfig Objeto correspondiente a la forma en la meta ( forma parte de la meta )
+    formConfig : null,
 
-    //@prFormLayout  :  Componentes de la forma ( Itmems del arbol )
-    prFormLayout: [],
+    // @prFormLayout : Componentes de la forma ( Itmems del arbol )
+    prFormLayout : [],
 
     // Mantiene el IdMaster para las operaciones maestro detalle
-    idMaster: -1,
-    masterRecord: null,
+    idMaster : -1,
+    masterRecord : null,
 
-    linkDetails: false,
-    isReadOnly: false,
+    linkDetails : false,
+    isReadOnly : false,
 
-    //@ Store asociado al registro de entrada linked o independiente
-    store: null,
+    // @ Store asociado al registro de entrada linked o independiente
+    store : null,
 
     // Coleccion de campos html definidos en htmlSet
-    cllDetGrids: [],
-    htmlPanels: {},
+    cllDetGrids : [],
+    htmlPanels : {},
 
-    // Defne como manejar  maneja los campos heredados de los zoom
-    zoomReturnDef: null,
+    // Defne como manejar maneja los campos heredados de los zoom
+    zoomReturnDef : null,
 
-    // Registro temporal para enviar como parametro de los zooms 
-    tmpRegister : {}, 
-    
+    // Registro temporal para enviar como parametro de los zooms
+    tmpRegister : {},
+
     // Coleccion con los retornos
-    zoomMultiReturn: [],
+    zoomMultiReturn : [],
 
-    initComponent: function() {
+    initComponent : function(){
         // this.addEvents('create', 'close', 'hide');
 
         var me = this, myMeta = this.myMeta, _pForm = this;
 
         this.btSave = Ext.create('Ext.Button', {
             // id : this.idSaveBt,
-            iconCls: 'icon-saveMs',
-            text: _SM.__language.Text_SaveMs_Button,
-            scope: this,
-            handler: this.onSave
+            iconCls : 'icon-saveMs',
+            text : _SM.__language.Text_SaveMs_Button,
+            scope : this,
+            handler : this.onSave
         });
 
         this.btSaveDet = Ext.create('Ext.Button', {
-            // id :  this.idSaveBtDt,
-            iconCls: 'icon-saveDt',
-            text: _SM.__language.Text_SaveDt_Button,
-            hidden: true,
-            disabled: true,
-            scope: this,
-            handler: this.onSaveDet
+            // id : this.idSaveBtDt,
+            iconCls : 'icon-saveDt',
+            text : _SM.__language.Text_SaveDt_Button,
+            hidden : true,
+            disabled : true,
+            scope : this,
+            handler : this.onSaveDet
         });
 
         this.btCancelFormEdt = Ext.create('Ext.Button', {
-            // id :  this.idSCancel,
-            iconCls: 'icon-close',
-            text: _SM.__language.Text_Close_Button,
-            scope: this,
-            handler: this.onReset
+            // id : this.idSCancel,
+            iconCls : 'icon-close',
+            text : _SM.__language.Text_Close_Button,
+            scope : this,
+            handler : this.onReset
         });
 
         this.stMsg = Ext.create('Ext.toolbar.TextItem');
 
         Ext.apply(this, {
-            frame: true,
-            autoScroll: true,
+            frame : true,
+            autoScroll : true,
 
-            bodyStyle: 'padding:5px 5px',
-            bodyPadding: 10,
-            masterRecord: null,
-            items: this.prFormLayout,
+            bodyStyle : 'padding:5px 5px',
+            bodyPadding : 10,
+            masterRecord : null,
+            items : this.prFormLayout,
 
-            dockedItems: [{
-                xtype: 'toolbar',
-                dock: 'bottom',
-                ui: 'footer',
-                items: [this.stMsg, '->', this.btSave, this.btSaveDet, this.btCancelFormEdt]
-            }]
+            dockedItems : [
+                {
+                    xtype : 'toolbar',
+                    dock : 'bottom',
+                    ui : 'footer',
+                    items : [
+                        this.stMsg,
+                        '->',
+                        this.btSave,
+                        this.btSaveDet,
+                        this.btCancelFormEdt
+                    ]
+                }
+            ]
 
         });
 
@@ -119,8 +129,8 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         this.linkController = Ext.create('Softmachine.view.smmasterdetail.MDLinkController', {});
         this.getHtmlPanels();
 
-        // Asigna los campos heredados 
-        defineCpFromReturn( me ); 
+        // Asigna los campos heredados
+        defineCpFromReturn(me);
 
         // Obtiene los botones de detalle
         this.cllBtDetails = getBtDetails(me.items.items, me);
@@ -140,16 +150,16 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         // Lo genera de nuevo, quedaban componentes mal ubicados
         // this.doLayout();
 
-
-        function getDetails(prItems, me) {
+        function getDetails(prItems, me){
             // Obtiene los store de las grillas recursivamente
             var cllDetGrids = [], lGrid, ixV;
-            for (ixV in prItems ) {
+            for (ixV in prItems) {
                 lGrid = prItems[ixV];
                 if (lGrid.__ptType == "smGrid") {
                     if (lGrid.myMeta) {
                         cllDetGrids.push(lGrid);
-                    };
+                    }
+                    ;
                 } else if (lGrid.items && lGrid.items.items) {
                     cllDetGrids = cllDetGrids.concat(getDetails(lGrid.items.items, me));
                 }
@@ -157,10 +167,10 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
             return cllDetGrids;
         }
 
-        function getBtDetails(prItems, me) {
+        function getBtDetails(prItems, me){
             // Obtiene los botones de detalle recursivamente
             var cllBtDetails = [], ixV, lObj;
-            for (ixV in prItems ) {
+            for (ixV in prItems) {
                 lObj = prItems[ixV];
                 if (lObj.__ptType === "detailButton") {
                     cllBtDetails.push(lObj);
@@ -171,10 +181,11 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
             return cllBtDetails;
         }
 
-        function asignaDetailDefinition(me, cllDets) {
-            // Indexa los stores y/o loas botones con la info de los detalles copiando la info del detalle
+        function asignaDetailDefinition(me, cllDets){
+            // Indexa los stores y/o loas botones con la info de los detalles copiando la info del
+            // detalle
             var lObj, lDet, ix, ixD;
-            for (ix in cllDets ) {
+            for (ix in cllDets) {
                 lObj = cllDets[ix];
 
                 lObj.linkController = me.linkController;
@@ -182,7 +193,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
             }
         }
 
-        function defineCpFromReturn(me) {
+        function defineCpFromReturn(me){
             // Define la coleccion de campos heredados a partir del zoom
             // mantiene una lista con la definicion de los cpFromField
             var ix, cpFrom, vFld;
@@ -190,41 +201,41 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
             this.zoomReturnDef = [];
 
             // Crea la coleccion de campos q deben heredarse
-            for (ix in me.myMeta.fields ) {
+            for (ix in me.myMeta.fields) {
                 vFld = me.myMeta.fields[ix];
                 if (!vFld.cpFromZoom) {
                     continue;
                 }
                 cpFrom = {
-                    "name": vFld.fName,
-                    "cpFromZoom": vFld.cpFromZoom,
-                    "cpFromField": vFld.cpFromField
+                    "name" : vFld.fName,
+                    "cpFromZoom" : vFld.cpFromZoom,
+                    "cpFromField" : vFld.cpFromField
                 };
                 this.zoomReturnDef.push(cpFrom);
             }
         }
     },
 
-    setDetailsTilte: function() {
+    setDetailsTilte : function(){
         var ix, lGrid;
-        for (ix in this.cllDetGrids ) {
+        for (ix in this.cllDetGrids) {
             lGrid = this.cllDetGrids[ix];
             lGrid.embededGrid = true;
             lGrid.setGridTitle(lGrid);
         }
     },
 
-    showProtoForm: function() {
+    showProtoForm : function(){
         _SM.showConfig('Form Config', this.myMeta.formConfig);
     },
 
-    showLayoutConfig: function() {
+    showLayoutConfig : function(){
         _SM.showConfig('LayoutConfig', this.prFormLayout);
     },
 
-    updateHtmlPanels: function(record) {
+    updateHtmlPanels : function(record){
         var sHtml, ix, obj;
-        for (ix in this.htmlPanels  ) {
+        for (ix in this.htmlPanels) {
             obj = this.htmlPanels[ix];
             if (record) {
                 sHtml = record.get(ix);
@@ -236,29 +247,30 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         }
     },
 
-    readHtmlPanels: function(record) {
+    readHtmlPanels : function(record){
         var ix, obj;
-        for (ix in this.htmlPanels  ) {
+        for (ix in this.htmlPanels) {
             obj = this.htmlPanels[ix];
             record.set(ix, obj.rawHtml);
         }
     },
 
-    setText: function(sText) {
+    setText : function(sText){
         this.stMsg.setText(sText);
     },
 
-    onReset: function() {
+    onReset : function(){
         // this.setActiveRecord(null);
         // this.getForm().reset();
         this.idMaster = null;
         this.fireEvent('close', this);
     },
 
-    updateZoomIds: function() {
+    updateZoomIds : function(){
 
         // La info del zoom permanece en el campo fk, es necesario actualizar el registro
-        // antes de guardarlo, TODO: esto se podria hacer en el zoomReturn ( cpFromField ) para actualzar
+        // antes de guardarlo, TODO: esto se podria hacer en el zoomReturn ( cpFromField ) para
+        // actualzar
         // otros campos derivados del zoom.
 
         var me = this, lFields = me.getForm().getFields().items, ix, zoomField;
@@ -267,7 +279,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         me.zoomMultiReturn = null;
 
         // Manejo del retorno del zoom
-        for (ix in lFields  ) {
+        for (ix in lFields) {
             zoomField = lFields[ix];
             if (!zoomField.zoomModel) {
                 continue;
@@ -281,7 +293,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
                 }
                 me.zoomMultiReturn.push(zoomField.zoomRecords);
 
-            } else if ( zoomField.zoomRecord ) {
+            } else if (zoomField.zoomRecord) {
                 // Actualiza el IdValue en el zoom para hacer los vinculos
                 zoomField.fkIdValue = this.masterRecord.get(zoomField.fkId);
 
@@ -289,12 +301,12 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
                 me.updateFormField(zoomField.fkId, zoomField.zoomRecord.data.id);
             }
             // Actualiza los valores de retorno
-            // this.updateZoomReturn( zoomField  )
+            // this.updateZoomReturn( zoomField )
         }
 
     },
 
-    updateFormField: function(fldName, fldValue) {
+    updateFormField : function(fldName, fldValue){
         var lRec = {};
         lRec[fldName] = fldValue;
         this.getForm().setValues(lRec);
@@ -306,7 +318,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         }
     },
 
-    onCreate: function() {
+    onCreate : function(){
         var form = this.getForm();
 
         if (form.isValid()) {
@@ -316,7 +328,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     },
 
-    setFormReadOnly: function(bReadOnly) {
+    setFormReadOnly : function(bReadOnly){
 
         // por defecto viene editable
         this.isReadOnly = bReadOnly;
@@ -335,56 +347,58 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     },
 
-    setDetailsReadOnly: function(bReadOnly) {
+    setDetailsReadOnly : function(bReadOnly){
         var lObj, ix;
-        for (ix in this.cllDetGrids  ) {
+        for (ix in this.cllDetGrids) {
             lObj = this.cllDetGrids[ix];
             lObj.setEditMode(!bReadOnly);
         }
     },
 
-    setReadOnlyFields: function(bReadOnly, readOnlyFields) {
+    setReadOnlyFields : function(bReadOnly, readOnlyFields){
         /*
-        * @bReadOnly indica q toda la forma es readOnly, podria servir para prender y apagar el readOnly
-        * FIX: Una mascara seria mejor
-        */
+         * @bReadOnly indica q toda la forma es readOnly, podria servir para prender y apagar el
+         * readOnly FIX: Una mascara seria mejor
+         */
 
         // var readOnlyCls = 'protofield-readonly'
         var myFields = this.getForm().getFields(), obj, ix, fDef;
-        for (ix in myFields.items   ) {
+        for (ix in myFields.items) {
             obj = myFields.items[ix];
             if (obj.readOnly) {
                 obj.setReadOnly(true);
-            } else if (!readOnlyFields || (obj.name in _SM.objConv(readOnlyFields)  )) {
-                // El obj no es readOnly pero la forma si, se podria poner una mascara, pero q pasa con el zoom
+            } else if (!readOnlyFields || (obj.name in _SM.objConv(readOnlyFields))) {
+                // El obj no es readOnly pero la forma si, se podria poner una mascara, pero q pasa
+                // con el zoom
                 obj.setReadOnly(bReadOnly);
             }
         }
 
         // Recorre los htmlPanels
-        for (ix in this.htmlPanels  ) {
+        for (ix in this.htmlPanels) {
             obj = this.htmlPanels[ix];
             fDef = obj.__ptConfig;
 
             if (fDef.readOnly) {
                 obj.setReadOnly(true);
-            } else if (!readOnlyFields || (fDef.name in _SM.objConv(readOnlyFields)  )) {
+            } else if (!readOnlyFields || (fDef.name in _SM.objConv(readOnlyFields))) {
                 obj.setReadOnly(bReadOnly);
             }
         }
     },
 
-    getHtmlPanels: function() {
+    getHtmlPanels : function(){
         // Busca si tiene htmlSets podria agregarse los paneles como campos,
-        // los paneles al interior deberian heredar de  'Ext.form.field.Base' y mezclar Ext.form.Basic
-        // setear propiedad  isFormField : true
+        // los paneles al interior deberian heredar de 'Ext.form.field.Base' y mezclar
+        // Ext.form.Basic
+        // setear propiedad isFormField : true
         // implementar por lo menos los metodos : valueToRaw, setRawValue
 
         getHtmlPanelDefinition(this.items.items, this);
 
-        function getHtmlPanelDefinition(formItems, me) {
+        function getHtmlPanelDefinition(formItems, me){
             var vFld, ix;
-            for (ix in formItems   ) {
+            for (ix in formItems) {
                 vFld = formItems[ix];
 
                 if (vFld.xtype === "htmlset") {
@@ -397,7 +411,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     },
 
-    setActiveRecord: function(record) {
+    setActiveRecord : function(record){
         var me = this;
         this.masterRecord = record;
         this.store = record.store;
@@ -408,7 +422,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         if (record) {
             this.getForm().loadRecord(record);
 
-            // 1312:  No hay necesidad de actulizar los zoomsId pues vienen del registro
+            // 1312: No hay necesidad de actulizar los zoomsId pues vienen del registro
             // this.loadN2N( record );
             // this.updateZoomIds();
         } else {
@@ -418,9 +432,9 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         this.linkDetail(record);
         this.updateHtmlPanels(record);
 
-        // -------------------------------------------------- --------  evento del store
+        // -------------------------------------------------- -------- evento del store
         this.store.on({
-            update: function(store, record, operation, eOpts) {
+            update : function(store, record, operation, eOpts){
                 if (record && this.linkDetails) {
                     this.idMaster = record.get('id');
                     this.myFormController.newForm = false;
@@ -428,11 +442,11 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
                     this.setDetailsReadOnly(false);
                 }
             },
-            scope: me
+            scope : me
         });
     },
 
-    linkDetail: function(record) {
+    linkDetail : function(record){
         if (!this.linkDetails) {
             return;
         }
@@ -440,55 +454,55 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         var me = this, lGrid, lObj, detailLink, ixDet;
         me.linkController.setMasterData(record.data);
 
-        for (ixDet in me.cllDetGrids ) {
+        for (ixDet in me.cllDetGrids) {
 
             me.linkController.isReadOnly = me.isReadOnly;
             lGrid = me.cllDetGrids[ixDet];
             detailLink = me.linkController.getDetailLink(lGrid.detailDefinition);
             lGrid.store.myLoadData(detailLink.detFilter, null, me.idMaster);
 
-            if (me.idMaster >= 0 && (!me.isReadOnly )) {
+            if (me.idMaster >= 0 && (!me.isReadOnly)) {
                 lGrid.setEditMode(!me.isReadOnly);
                 me.linkController.setDetailDefaults(lGrid.detailDefinition, lGrid.myFieldDict);
             }
         }
 
         // activa los botones
-        if (me.idMaster >= 0 && (!me.isReadOnly )) {
-            for (ixDet in me.cllBtDetails  ) {
+        if (me.idMaster >= 0 && (!me.isReadOnly)) {
+            for (ixDet in me.cllBtDetails) {
                 lObj = me.cllBtDetails[ixDet];
                 lObj.setButtonsReadOnly(false);
             }
         }
     },
 
-    _doSyncMasterStore: function() {
+    _doSyncMasterStore : function(){
         this.store.sync({
-            success: function(result, request) {
-                var myReponse = result.operations[0].response, myResult = Ext.decode(myReponse.responseText);
+            success : function(result, request){
+                var myReponse = result.operations[0].response, myResult = Ext
+                        .decode(myReponse.responseText);
                 if (myResult.message) {
                     _SM.errorMessage(_SM.__language.Msg_Error_Save_Form, myResult.message);
                 }
                 // else { me.fireEvent('close', me );}
             },
-            failure: function(result, request) {
-                _SM.errorMessage(_SM.__language.Msg_Error_Save_Form, _SM.__language.Msg_Failed_Operation);
+            failure : function(result, request){
+                _SM.errorMessage(_SM.__language.Msg_Error_Save_Form,
+                        _SM.__language.Msg_Failed_Operation);
             }
 
         });
     },
 
-    onSaveDet: function() {
-        /*  El guardado se hace en varios ciclos.
-         - Se requiere tener un maestro,
-         si es upd, el maestro ya existe los defectos se sinclronizan
-         si es nuevo, se deshabilita el boton de guardar detalles hasta q exista un idMaster y un activeRecord
-
-         - en upd
-         se guarda el maestro y se actualiza el idMaster, y masterRecord
-         se habilita la edicion de las grillas
-         se puede esperar un evento "editComplete"  para esto generado por el store;
-         antes de iniciar la edicion la grilla lanza un before edit q puede ser cancelado si no hay idMaster
+    onSaveDet : function(){
+        /*
+         * El guardado se hace en varios ciclos. - Se requiere tener un maestro, si es upd, el
+         * maestro ya existe los defectos se sinclronizan si es nuevo, se deshabilita el boton de
+         * guardar detalles hasta q exista un idMaster y un activeRecord
+         *  - en upd se guarda el maestro y se actualiza el idMaster, y masterRecord se habilita la
+         * edicion de las grillas se puede esperar un evento "editComplete" para esto generado por
+         * el store; antes de iniciar la edicion la grilla lanza un before edit q puede ser
+         * cancelado si no hay idMaster
          */
 
         this.onSave();
@@ -496,7 +510,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     },
 
-    onSave: function() {
+    onSave : function(){
 
         var me = this, tmpAutoSync, form, lProduct, lBase, lRec, lZRet, ix, iz;
 
@@ -504,7 +518,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         form = me.getForm();
         me.updateZoomIds();
 
-        if (! form.isValid()) {
+        if (!form.isValid()) {
             me.setText(_SM.__language.Msg_Invalid_Form);
             return;
         }
@@ -531,13 +545,13 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
                 // Variable para alojar los retornos multiples
                 lProduct = _SM.Product(me.zoomMultiReturn);
-                for (ix in lProduct ) {
+                for (ix in lProduct) {
 
                     // Producto Cartersiano de multiReturn
                     lBase = lProduct[ix];
                     lRec = me.masterRecord.copy();
 
-                    for (iz in lBase   ) {
+                    for (iz in lBase) {
                         lZRet = lBase[iz];
                         lRec.data[lZRet.name] = lZRet.recStr;
                         lRec.data[lZRet.fkId] = lZRet.recId;
@@ -567,20 +581,20 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     },
 
-    setZoomEditMode: function(me) {
+    setZoomEditMode : function(me){
         // Para determinar el comportamiento del zoom de seleccion multiple
 
         var lFields = me.getForm().getFields().items, ix;
 
         // Manejo del retorno del zoom
-        for (ix in lFields  ) {
+        for (ix in lFields) {
             if (lFields[ix].xtype === 'protoZoom') {
                 lFields[ix].newForm = me.newForm;
             }
         }
     },
 
-    updateZoomReturn: function( zoomFld ) {
+    updateZoomReturn : function(zoomFld){
         // El problema es en q momento se dispara,
         // hay q capturar un evento para cerrar la ventana de zoom
         // verifica si esta definido y lo define a necesidad
@@ -590,10 +604,11 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         // Verifica si hay elementos a heredar
         if (this.zoomReturnDef.length == 0) {
             return;
-        };
+        }
+        ;
 
         // Recorre las propiedades a heredar
-        for (ix in this.zoomReturnDef ) {
+        for (ix in this.zoomReturnDef) {
             cpFrom = this.zoomReturnDef[ix]
             if (cpForm.cpFromZoom == zoomFld.name) {
                 this.updateFormField(zoomFld.name, zoomFld[cpForm.cpFromField])
@@ -602,4 +617,3 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
     }
 
 });
-
