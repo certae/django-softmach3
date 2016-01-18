@@ -148,7 +148,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
 
 
         // Guarda los permisos
-        me.perms = _SM._UserInfo.perms[this.protoMeta.viewCode];
+        me.perms = _SM._UserInfo.perms[this.protoMeta.viewCode] || {};
 
         this.setEditMode(this.autoEdit);
 

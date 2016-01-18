@@ -9,37 +9,38 @@ Ext.define('Softmachine.view.main.MainController', {
 
     requires : [
         'Softmachine.view.smform.FormController'
-    ], 
+    ],
 
     onClickLogOut : function(){
 
         // Remove the localStorage key/value
         localStorage.removeItem('SmLoggedIn');
-        localStorage.setItem("SmUserInfo", Ext.encode(  _SM._UserInfo  ))
 
-        // Remove Main View
-        this.getView().destroy();
-
-        // Add the Login Window
-        Ext.create({
-            xtype : 'login'
+        Ext.Ajax.request({
+            url : _SM._PConfig.urlLogOut,
+            success : function(response){
+                location.reload(true);
+            },
+            failure : function(){
+                location.reload(true);
+            }
         });
-    }, 
 
+    },
 
-    loadPciFromMenu: function(menuOpt) {
+    loadPciFromMenu : function(menuOpt){
 
         var viewCode = menuOpt;
         var me = this;
 
         var options = {
-            scope: this,
-            success: function(obj, result, request) {
+            scope : this,
+            success : function(obj, result, request){
 
                 me.openProtoOption(viewCode);
 
             },
-            failure: function(obj, result, request) {
+            failure : function(obj, result, request){
                 return;
             }
 
@@ -50,9 +51,9 @@ Ext.define('Softmachine.view.main.MainController', {
 
         }
 
-    },    
+    },
 
-    openProtoOption: function(viewCode) {
+    openProtoOption : function(viewCode){
 
         var me = this;
         var myMeta = _SM._cllPCI[viewCode];
@@ -66,38 +67,35 @@ Ext.define('Softmachine.view.main.MainController', {
 
     },
 
-
     clearCache : function(){
         this.tooltip = '';
         this.clearMainStatus();
         _SM.vp_TabContainer.controller.closeAllTabs();
         _SM._cllPCI = {};
-    }, 
-    
+    },
 
-    clearMainStatus: function( text, origin ) {
+    clearMainStatus : function(text, origin){
 
-        // console.log( 'clear:' + origin,  text, this.busyCount );
+        // console.log( 'clear:' + origin, text, this.busyCount );
         _SM.vp_StatusBar.busyCount--;
         if (_SM.vp_StatusBar.busyCount <= 0) {
             _SM.vp_StatusBar.busyCount = 0;
             _SM.vp_StatusBar.clearStatus({
-                useDefaults: true
+                useDefaults : true
             })
         }
 
     },
 
-    showError: function(text, origin) {
+    showError : function(text, origin){
 
-        // console.log( 'error :' + origin  ,  text )
+        // console.log( 'error :' + origin , text )
         _SM.vp_StatusBar.setStatus({
-            text: 'Oops! ' + text,
-            iconCls: 'x-status-error',
-            clear: true
+            text : 'Oops! ' + text,
+            iconCls : 'x-status-error',
+            clear : true
         });
 
     },
-
 
 });
