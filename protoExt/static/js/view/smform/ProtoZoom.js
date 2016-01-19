@@ -34,7 +34,10 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
 
     requires : [
         'Softmachine.view.toolbar.SearchToolBar',
+        'Softmachine.view.smform.ProtoZoomController'
     ],
+
+    controller: 'protoZoomController',
 
     // * Zoom initialization
     zoomModel : null,
@@ -45,7 +48,22 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
     zoomMultiple : false,
 
     // trigger button cls
-    triggerCls : Ext.baseCSSPrefix + 'form-search-trigger',
+
+        triggers: {
+            clear: {
+                cls: 'x-form-clear-trigger',
+                handler: 'onNavFilterClearTriggerClick',
+                // hidden: true,
+                scope: this.controller
+            },
+            search: {
+                cls: 'x-form-search-trigger',
+                weight: 1,
+                handler: 'onNavFilterSearchTriggerClick',
+                scope: 'controller'
+            }
+        },
+
     // readOnlyCls : 'protoLink',
 
     /**
@@ -75,7 +93,11 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
     listeners : {
         'render' : function(cmp1){
             cmp1.getEl().on('click', this.onClickLink, this);
+        }, 
+        'onNavFilterFieldChange' : function(cmp1){
+            // cmp1.getEl().on('click', this.onClickLink, this);
         }
+
     },
 
     onClickLink : function(ev, nd){
