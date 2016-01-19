@@ -34,10 +34,10 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
 
     requires : [
         'Softmachine.view.toolbar.SearchToolBar',
-        'Softmachine.view.smform.ProtoZoomController'
+    // 'Softmachine.view.smform.ProtoZoomController'
     ],
 
-    controller: 'protoZoomController',
+    // controller: 'protoZoomController',
 
     // * Zoom initialization
     zoomModel : null,
@@ -49,20 +49,25 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
 
     // trigger button cls
 
-        triggers: {
-            clear: {
-                cls: 'x-form-clear-trigger',
-                handler: 'onNavFilterClearTriggerClick',
-                // hidden: true,
-                scope: this.controller
+    triggers : {
+        clear : {
+            cls : 'x-form-clear-trigger',
+            handler : function(){
+                this.onZoomClearTriggerClick()
             },
-            search: {
-                cls: 'x-form-search-trigger',
-                weight: 1,
-                handler: 'onNavFilterSearchTriggerClick',
-                scope: 'controller'
-            }
+
+        // hidden: true,
+        // scope : this
         },
+        search : {
+            cls : 'x-form-search-trigger',
+            handler : function(){
+                this.onZoomTriggerClick()
+            },
+            weight : 1,
+        // scope : this
+        }
+    },
 
     // readOnlyCls : 'protoLink',
 
@@ -85,7 +90,7 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
         // Para activar el evento con ENTER
         this.on('specialkey', function(f, e){
             if (e.getKey() == e.ENTER) {
-                this.onTriggerClick();
+                this.onZoomTriggerClick();
             }
         }, this);
     },
@@ -93,8 +98,8 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
     listeners : {
         'render' : function(cmp1){
             cmp1.getEl().on('click', this.onClickLink, this);
-        }, 
-        'onNavFilterFieldChange' : function(cmp1){
+        },
+        'onZoomFilterFieldChange' : function(cmp1){
             // cmp1.getEl().on('click', this.onClickLink, this);
         }
 
@@ -269,7 +274,8 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
 
     },
 
-    onTriggerClick : function(){
+    onZoomTriggerClick : function(){
+        // this.onZoomFilterFieldChange(field, field.getValue());
         this._loadZoom(this.doTriggerClick);
     },
 
@@ -380,6 +386,35 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
 
     resetZoom : function(){
         this.setSelected();
-    }
+    },
+
+    onZoomFilterFieldChange : function(field, value){
+        var me = this, tree = me.getReferences().tree;
+
+        if (value) {
+            me.preFilterSelection = me.getViewModel().get('selectedView');
+            me.rendererRegExp = new RegExp('(' + value + ')', "gi");
+            field.getTrigger('clear').show();
+            me.filterStore(value);
+        } else {
+            me.rendererRegExp = null;
+            tree.store.clearFilter();
+            field.getTrigger('clear').hide();
+
+            // Ensure selection is still selected.
+            // It may have been evicted by the filter
+            if (me.preFilterSelection) {
+                tree.ensureVisible(me.preFilterSelection, {
+                    select : true
+                });
+            }
+        }
+    },
+
+    onZoomClearTriggerClick : function(){
+        this.setValue();
+        this.resetZoom();
+    },
+
 
 });
