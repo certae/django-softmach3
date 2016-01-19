@@ -6,10 +6,6 @@ Ext.define('ProtoUL.proto.model.FieldSelectorModel', {
         actionMethods : {
             read : 'POST'
         },
-        extraParams : {
-            viewCode : viewCode,
-            protoEntityId : protoEntityId
-        }
     },
 
     fields : [
