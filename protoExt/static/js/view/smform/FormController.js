@@ -1,26 +1,16 @@
-/**
- * @class ProtoUL.ux.FormController
- * @author  Dario Gomez
-
- * Helper class for instancing ProtoForm
-
- */
-
-/*jslint nomen: true, sloppy : true, white : true, sub : true */
 /*global Ext */
 /*global _SM */
 /*global ProtoUL */
-
 
 Ext.define('Softmachine.view.smform.FormController', {
     extend : 'Ext.Base',
 
     requires: [ 'Softmachine.view.smform.ProtoForm' ],
 
-    myMeta : null,
+    myMeta : null, 
 
     // metaDict : contiene las metas de los detalles
-    myMetaDict : null,
+    myMetaDict : null, 
 
     // Entry point if zoom
     viewCode : null,
@@ -35,7 +25,7 @@ Ext.define('Softmachine.view.smform.FormController', {
     myWidth : 620,
     myHeight : 460,
 
-    // Required if linked,  retrived if zoom
+    // Required if linked, retrived if zoom
     newForm : false,
 
     constructor : function(config) {
@@ -43,30 +33,30 @@ Ext.define('Softmachine.view.smform.FormController', {
         this.myMetaDict = {};
     },
 
+    loadDetailDefinition : function (me, detCode) {
+
+        // Opciones del llamado AJAX para precargar los detalles
+        var options = {
+            scope : me,
+            success : function(obj, result, request) {
+                me._waitForDetails(me, detCode);
+            },
+            failure : function(obj, result, request) {
+                me._waitForDetails(me, detCode);
+                _SM.errorMessage('ViewDefinition Error :', detCode + ': viewDefinition not found');
+            }
+        };
+
+        // PreCarga los detalles
+        if (_SM.loadPci(detCode, true, options)) {
+            me._waitForDetails(me, detCode);
+        }
+
+    }, 
+
     _loadFormDefinition : function() {
         // antes de cargar la forma, requiere la carga de detalles
         // llama a waitForDetails q llama a newProtoForm
-
-        function loadDetailDefinition(me, detCode) {
-
-            // Opciones del llamado AJAX para precargar los detalles
-            var options = {
-                scope : me,
-                success : function(obj, result, request) {
-                    me._waitForDetails(me, detCode);
-                },
-                failure : function(obj, result, request) {
-                    me._waitForDetails(me, detCode);
-                    _SM.errorMessage('ViewDefinition Error :', detCode + ': viewDefinition not found');
-                }
-            };
-
-            // PreCarga los detalles
-            if (_SM.loadPci(detCode, true, options)) {
-                me._waitForDetails(me, detCode);
-            }
-
-        }
 
         // This increase performance.
         Ext.suspendLayouts();
@@ -88,7 +78,7 @@ Ext.define('Softmachine.view.smform.FormController', {
             if ( detCode in _SM._cllPCI) {
                 me.myMetaDict[detCode] = true;
             } else {
-                loadDetailDefinition(me, detCode);
+                me.loadDetailDefinition(me, detCode);
             }
         }
 
@@ -96,7 +86,7 @@ Ext.define('Softmachine.view.smform.FormController', {
         if (!me.loaded) {
             me._waitForDetails(me);
         }
-        Ext.resumeLayouts(true);
+      Ext.resumeLayouts(true);
     },
 
     _waitForDetails : function(me, detCode) {
@@ -125,7 +115,8 @@ Ext.define('Softmachine.view.smform.FormController', {
         me.myForm.store = this.myRecordBase.store;
 
         // Si la forma es visible no salen los tools
-        // if ( me.isReadOnly ) {me.myWin.tools = [{type: 'readOnly', tooltip: 'readOnly'}, {type: 'gear', scope: me.myForm, handler: me.myForm.showProtoForm }] me.myWin.addTools() };
+        // if ( me.isReadOnly ) {me.myWin.tools = [{type: 'readOnly', tooltip: 'readOnly'}, {type:
+        // 'gear', scope: me.myForm, handler: me.myForm.showProtoForm }] me.myWin.addTools() };
 
         // Si la forma no esta visible no puede desactivar los headers
         if (me.isReadOnly) {
@@ -140,7 +131,7 @@ Ext.define('Softmachine.view.smform.FormController', {
     },
 
     newProtoForm : function() {
-        // llamado tambien desde formConfig  (protoDesigner)
+        // llamado tambien desde formConfig (protoDesigner)
 
         var me = this;
         if (!me.myFieldDict) {
@@ -203,7 +194,7 @@ Ext.define('Softmachine.view.smform.FormController', {
                 // if ( me.newForm ) {
                 // function doAgain( btn ){
                 // if(btn == 'yes') { me.openNewForm( me.myStore );}}
-                // Ext.MessageBox.confirm('AddRecord', 'Add another?', doAgain  );
+                // Ext.MessageBox.confirm('AddRecord', 'Add another?', doAgain );
                 // }
             },
             'hide' : function() {
@@ -313,12 +304,12 @@ Ext.define('Softmachine.view.smform.FormController', {
             myStore.on({
                 'load' : function(store, records, successful, options) {
 
-                    // Fix:  Esta entrando dos veces  porq????
+                    // Fix: Esta entrando dos veces porq????
                     if (this.myWin) {
                         return;
                     }
 
-                    // The form is now linked to  store
+                    // The form is now linked to store
                     this.openLinkedForm(records[0], this.isReadOnly);
                 },
                 scope : this
@@ -380,10 +371,11 @@ Ext.define('Softmachine.view.smform.FormController', {
                     if (myFld) {
                         template = _SM.getTemplate(__ptType, true, myFld);
 
-                        // Add listener to field 
+                        // Add listener to field
                         if ( myFld.type in _SM.objConv(['string', 'text', 'int', 'decimal', 'combo', 'foreignid', 'foreigntext'])) {
                             template.__ptConfig.listeners = {
-                                // blur : function() {this.setValue(Ext.String.trim(this.getValue())); },
+                                // blur : function()
+                                // {this.setValue(Ext.String.trim(this.getValue())); },
                                 // render : function(field) {},
                                 change : function(field, newValue, oldValue ) {
                                     // Update record with new value
@@ -410,9 +402,9 @@ Ext.define('Softmachine.view.smform.FormController', {
 
                     } else {
 
-                        // El campo no existe en la definicion:  es un label
+                        // El campo no existe en la definicion: es un label
                         // Incluso los campos calculados deben existir en la definicion
-                        // console.log( 'invalid formField,name  :' , protoObj )
+                        // console.log( 'invalid formField,name :' , protoObj )
                         prLayout = {
                             text : protoIx,
                             xtype : 'label',
@@ -498,7 +490,7 @@ Ext.define('Softmachine.view.smform.FormController', {
 
                 }
 
-                // Establece el layout  ( Columns )
+                // Establece el layout ( Columns )
                 var sAux, ix;
                 sAux = prLayout['fsLayout'];
                 if (sAux) {
@@ -541,7 +533,7 @@ Ext.define('Softmachine.view.smform.FormController', {
 
                 }
 
-                // El fieldContainer requiere!!  el defaultType
+                // El fieldContainer requiere!! el defaultType
                 // prFld.xtype = 'fieldcontainer';
                 // prFld.defaultType = 'textfield'
                 // prFld.combineErrors = true;

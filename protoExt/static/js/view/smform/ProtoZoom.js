@@ -1,7 +1,6 @@
 /**
  * @class ProtoUL.ux.ProtoZoom
- * @extends Ext.form.field.Text
- *          Field with search fk model
+ * @extends Ext.form.field.Text Field with search fk model
  * @author Dario Gomez
  */
 
@@ -31,6 +30,7 @@
 Ext.define('Softmachine.view.smform.ProtoForm', {
     extend : 'Ext.form.field.Text',
     alias : 'widget.protoZoom',
+    xtype : 'protoZoom',
 
     // * Zoom initialization
     zoomModel : null,
@@ -119,22 +119,6 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
             me.resetZoom();
             me.win.hide();
         }
-
-        // function doNew() {
-        // var formController = Ext.create('Softmachine.view.smform.FormController', { myMeta :
-        // me.myMeta });
-        // formController.openNewForm ( this.zoomGrid.store );
-        // }
-        // function doEdit() {
-        // if ( ! this.zoomGrid.selected ) {
-        // _SM.errorMessage(_SM.__language.Title_Form_Panel, _SM.__language.GridAction_NoRecord);
-        // return;
-        // }
-        // var formController = Ext.create('Softmachine.view.smform.FormController', {
-        // myMeta : me.myMeta
-        // });
-        // formController.openLinkedForm ( this.zoomGrid.selected );
-        // }
 
         if (me.isLoaded) {
             return;
@@ -372,32 +356,4 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         this.setSelected();
     }
 
-// setReadOnly: function(readOnly) {
-// if (readOnly != this.readOnly) {
-// this.setReadOnly( true );
-// // this.readOnly = readOnly;
-// // if ( readOnly ) {
-// // this.fieldCls = 'protoLink'
-// // this.addCls( 'protoLink' )
-// // } else if ( hasCls( 'protoLink' )) {
-// // this.removeCls( 'protoLink' )
-// // }
-// // this.updateLayout();
-// }
-// }
-
 });
-
-// String format function if not exist
-if (!String.prototype.format) {
-    String.prototype.format = function(){
-        var args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, number){
-            return typeof args[number] != 'undefined' ? args[number] : match;
-        });
-    };
-}
-
-// _SM.trim = function ( str ) {
-// return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-// }

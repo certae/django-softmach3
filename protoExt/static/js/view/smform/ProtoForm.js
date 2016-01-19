@@ -28,8 +28,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
     alias : 'widget.protoform',
 
     requires : [
-        'Softmachine.view.smmasterdetail.MDLinkController',
-        'Softmachine.view.smform.ProtoZoom'
+        'Softmachine.view.smmasterdetail.MDLinkController'
     ],
 
     // @myMeta Base Definition
@@ -498,11 +497,11 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         /*
          * El guardado se hace en varios ciclos. - Se requiere tener un maestro, si es upd, el
          * maestro ya existe los defectos se sinclronizan si es nuevo, se deshabilita el boton de
-         * guardar detalles hasta q exista un idMaster y un activeRecord
-         *  - en upd se guarda el maestro y se actualiza el idMaster, y masterRecord se habilita la
-         * edicion de las grillas se puede esperar un evento "editComplete" para esto generado por
-         * el store; antes de iniciar la edicion la grilla lanza un before edit q puede ser
-         * cancelado si no hay idMaster
+         * guardar detalles hasta q exista un idMaster y un activeRecord - en upd se guarda el
+         * maestro y se actualiza el idMaster, y masterRecord se habilita la edicion de las grillas
+         * se puede esperar un evento "editComplete" para esto generado por el store; antes de
+         * iniciar la edicion la grilla lanza un before edit q puede ser cancelado si no hay
+         * idMaster
          */
 
         this.onSave();

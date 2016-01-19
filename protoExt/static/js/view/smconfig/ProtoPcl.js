@@ -379,7 +379,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
             tBar.setButton('del', bVisible = false, true);
         }
 
-        function _SM.preparePropertiesPCL(record) {
+        function preparePropertiesPCL(record) {
 
             var oData, ptType, __ptConfig, template, sMsg;
             oData = record.data;
@@ -585,5 +585,3 @@ function callVerifyMeta(oMeta, ptType, tNode, record ) {
     });
 
 }
-
-
