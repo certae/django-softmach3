@@ -5,6 +5,15 @@
 Ext.define('Softmachine.view.smconfig.ConfigController', {
     extend: 'Ext.Base',
     myMeta: null,
+
+    requires: [
+        'Softmachine.view.smconfig.ProtoDesigner', 
+        'Softmachine.view.smconfig.ProtoDetailSelector', 
+        'Softmachine.view.smconfig.ProtoFieldSelector', 
+        'ProtoUL.ux.ProtoProperty'
+    ],
+
+
     constructor: function(config) {
         Ext.apply(this, config || {});
         this.getProtoConfigBar();
@@ -137,7 +146,7 @@ Ext.define('Softmachine.view.smconfig.ConfigController', {
             return;
         }
 
-        var fieldsTree = Ext.create('ProtoUL.proto.ProtoFieldSelector', {
+        var fieldsTree = Ext.create('Softmachine.view.smconfig.ProtoFieldSelector', {
             viewCode: this.viewCode,
             myMeta: myMeta
         });
@@ -168,7 +177,7 @@ Ext.define('Softmachine.view.smconfig.ConfigController', {
             return;
         };
 
-        var detailsTree = Ext.create('ProtoUL.proto.ProtoDetailSelector', {
+        var detailsTree = Ext.create('Softmachine.view.smconfig.ProtoDetailSelector', {
             myMeta: myMeta,
             viewCode: this.viewCode
         });

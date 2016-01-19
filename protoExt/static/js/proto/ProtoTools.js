@@ -1,64 +1,74 @@
 /*global Ext, _SM  */
-/*global Meta2Tree, Tree2Meta */
+/*global _SM.Meta2Tree, _SM.Tree2Meta */
 
-function Meta2Tree(oData, pName, ptType) {
-    /* Convierte la meta en treeStore ( Arbol )
-    *
-    * Input    ---------------------------------
-    * @oData     : Data a convertir
-    * @pName     : property Name ( iteraction en el objeto padre, en el caso de las formas )
-    * @ptType    : property Type ( Tipo del padre en caso de ser un array  )
-    *
-    * Return   -------------------------------
-    * @tData   treeData
-    *
-    */
+_SM.Meta2Tree = function(oData, pName, ptType){
+    /*
+     * Convierte la meta en treeStore ( Arbol )
+     * 
+     * Input --------------------------------- @oData : Data a convertir @pName : property Name (
+     * iteraction en el objeto padre, en el caso de las formas ) @ptType : property Type ( Tipo del
+     * padre en caso de ser un array )
+     * 
+     * Return ------------------------------- @tData treeData
+     * 
+     */
 
-    //    Initial validation  --------------------------------------------
-
+    // Initial validation --------------------------------------------
     var nodeDef = _SM._MetaObjects[ptType];
     if (!nodeDef) {
         return;
     }
 
-    //    Embeded functions --------------------------------------------
+    // Embeded functions --------------------------------------------
 
-    function doFinalFormat(tData) {
+    function doFinalFormat(tData){
         tData.text = oData.name || oData.menuText || oData.property || oData.viewEntity || ptType;
         return tData;
     }
 
-    function formContainer2Tree(items) {
-        // Aqui solo llegan los contenedores de la forma,  ( hideItems : true )
+    function formContainer2Tree(items){
+        // Aqui solo llegan los contenedores de la forma, ( hideItems : true )
 
         var tItems = [];
-        for (var sKey in items ) {
+        for ( var sKey in items) {
 
             var oData = items[sKey], t2Data;
 
             var __ptConfig = _SM.getSimpleProperties(oData, ptType);
             var ptType = __ptConfig.__ptType;
 
-            //  contenedores de la forma
-            if ( ptType in _SM.objConv(['htmlset', 'fieldset', 'tabpanel', 'accordeon', 'panel'])) {
-                var cName = ptType; 
-                if (ptType == 'fieldset' ) {
-                    cName += ' - ' + __ptConfig.title 
+            // contenedores de la forma
+            if (ptType in _SM.objConv([
+                'htmlset',
+                'fieldset',
+                'tabpanel',
+                'accordeon',
+                'panel'
+            ]))
+            {
+                var cName = ptType;
+                if (ptType == 'fieldset') {
+                    cName += ' - ' + __ptConfig.title
                 }
-                t2Data = getNodeBase( cName, ptType, __ptConfig);
+                t2Data = _SM.getNodeBase(cName, ptType, __ptConfig);
                 t2Data['children'] = formContainer2Tree(oData.items);
                 tItems.push(t2Data);
 
-            } else if ( ptType in _SM.objConv(['formField', 'smGrid', 'detailButton'])) {
+            } else if (ptType in _SM.objConv([
+                'formField',
+                'smGrid',
+                'detailButton'
+            ]))
+            {
 
-                if (ptType == 'smGrid' ) {
-                    t2Data = getNodeBase(__ptConfig.menuText, ptType, __ptConfig);
+                if (ptType == 'smGrid') {
+                    t2Data = _SM.getNodeBase(__ptConfig.menuText, ptType, __ptConfig);
 
-                } else if ( ptType == 'detailButton') {
-                    t2Data = getNodeBase(__ptConfig.text, ptType, __ptConfig);
+                } else if (ptType == 'detailButton') {
+                    t2Data = _SM.getNodeBase(__ptConfig.text, ptType, __ptConfig);
 
                 } else {
-                    t2Data = getNodeBase(__ptConfig.name, ptType, __ptConfig);
+                    t2Data = _SM.getNodeBase(__ptConfig.name, ptType, __ptConfig);
                 }
                 t2Data['leaf'] = true;
                 tItems.push(t2Data);
@@ -70,7 +80,7 @@ function Meta2Tree(oData, pName, ptType) {
         return tItems;
     }
 
-    function getSpecialNodes(nodeDef, treeData, objData) {
+    function getSpecialNodes(nodeDef, treeData, objData){
         // Recibe el treeData y lo configura en caso de nodos especiales
         // retorna true si fue configurado
 
@@ -99,22 +109,22 @@ function Meta2Tree(oData, pName, ptType) {
 
     }
 
-    function Array2Tree(oList, ptType, tNode) {
+    function Array2Tree(oList, ptType, tNode){
         // REcibe un array y genera los hijos,
-        // @tNode   referencia al nodo base
-        // @ptType  tipo de nodo hijo
-        // @oList    objeto lista de la meta
+        // @tNode referencia al nodo base
+        // @ptType tipo de nodo hijo
+        // @oList objeto lista de la meta
         var nodeDef = _SM._MetaObjects[ptType];
 
-        for (var sKey in oList ) {
+        for ( var sKey in oList) {
             var oData = oList[sKey];
 
-            var tChild = Meta2Tree(oData, pName, ptType);
+            var tChild = _SM.Meta2Tree(oData, pName, ptType);
             tNode['children'].push(tChild);
         }
     }
 
-    function verifyNodeDef(nodeDef) {
+    function verifyNodeDef(nodeDef){
         // Verifica las listas y objetos
 
         var ix, sKey;
@@ -124,10 +134,11 @@ function Meta2Tree(oData, pName, ptType) {
                 // console.log( 'pciObjects definicion errada de listas para ' + ptType )
                 nodeDef.lists = [];
             } else {
-                for (var ix in nodeDef.lists  ) {
+                for ( var ix in nodeDef.lists) {
                     var sKey = nodeDef.lists[ix];
-                    if ( typeof (sKey) != 'string') {
-                        // console.log( 'pciObjects definicion errada en listas ' + ptType + ' key ' , sKey  )
+                    if (typeof (sKey) != 'string') {
+                        // console.log( 'pciObjects definicion errada en listas ' + ptType + ' key '
+                        // , sKey )
                         delete nodeDef.lists[ix];
                         continue;
                     }
@@ -136,7 +147,7 @@ function Meta2Tree(oData, pName, ptType) {
                         continue;
                     }
                     if (!childConf.listOf) {
-                        // console.log( 'pciObjects no se encontro listOf para ' + sKey  )
+                        // console.log( 'pciObjects no se encontro listOf para ' + sKey )
                         continue;
                     }
                 }
@@ -149,10 +160,11 @@ function Meta2Tree(oData, pName, ptType) {
                 // console.log( 'pciObjects definicion errada de objects para ' + ptType )
                 nodeDef.lists = [];
             } else {
-                for (ix in nodeDef.objects  ) {
+                for (ix in nodeDef.objects) {
                     sKey = nodeDef.objects[ix];
-                    if ( typeof (sKey) != 'string') {
-                        // console.log( 'pciObjects definicion errada en objects ' + ptType + ' key ' , sKey  )
+                    if (typeof (sKey) != 'string') {
+                        // console.log( 'pciObjects definicion errada en objects ' + ptType + ' key
+                        // ' , sKey )
                         continue;
                     }
                 }
@@ -160,16 +172,16 @@ function Meta2Tree(oData, pName, ptType) {
         }
     }
 
-    //   Function body  --------------------------------------------
+    // Function body --------------------------------------------
 
     var __ptConfig = _SM.getSimpleProperties(oData, ptType);
-    var tData = getNodeBase(ptType, ptType, __ptConfig);
+    var tData = _SM.getNodeBase(ptType, ptType, __ptConfig);
 
     if (getSpecialNodes(nodeDef, tData, oData)) {
         return doFinalFormat(tData);
     }
 
-    // es una lista  lista, se hace el mismo recorrido ( solo en caso de una lista de listas )
+    // es una lista lista, se hace el mismo recorrido ( solo en caso de una lista de listas )
     if (nodeDef.listOf) {
         Array2Tree(oData, ptType, tData);
     }
@@ -178,27 +190,27 @@ function Meta2Tree(oData, pName, ptType) {
     verifyNodeDef(nodeDef);
 
     // Recorre las listas
-    for (var ix in nodeDef.lists  ) {
+    for ( var ix in nodeDef.lists) {
         var sKey = nodeDef.lists[ix];
         var childConf = _SM._MetaObjects[sKey], tChild;
 
-        tChild = getNodeBase(sKey, sKey, {
+        tChild = _SM.getNodeBase(sKey, sKey, {
             '__ptType' : sKey
         });
 
-        if (! getSpecialNodes(childConf, tChild, oData[sKey])) {
+        if (!getSpecialNodes(childConf, tChild, oData[sKey])) {
             Array2Tree(oData[sKey], childConf.listOf, tChild);
         }
 
-        //  agrega la base de la lista
+        // agrega la base de la lista
         tData['children'].push(tChild);
 
     }
 
     // Recorre los objetos
-    for (var ix in nodeDef.objects  ) {
+    for ( var ix in nodeDef.objects) {
         // Obtiene el objeto de la meta, lo convierte y lo genera
-        var sKey = nodeDef.objects[ix], tChild = Meta2Tree(oData[sKey], sKey, sKey);
+        var sKey = nodeDef.objects[ix], tChild = _SM.Meta2Tree(oData[sKey], sKey, sKey);
         tData['children'].push(tChild);
     }
 
@@ -208,7 +220,7 @@ function Meta2Tree(oData, pName, ptType) {
 
 }
 
-function Tree2Meta(tNode) {
+_SM.Tree2Meta = function(tNode){
     // Dada la informacion del arbol genera la meta correspondiente
 
     // Obtiene la info del nodo
@@ -225,7 +237,11 @@ function Tree2Meta(tNode) {
         mData = [];
         getChilds(myObj.tChilds, mData, 'array');
 
-    } else if (nodeConf.__ptStyle in _SM.objConv(["colList", "jsonText"])) {
+    } else if (nodeConf.__ptStyle in _SM.objConv([
+        "colList",
+        "jsonText"
+    ]))
+    {
         mData = _SM.getSimpleProperties(myObj.__ptConfig, myObj.__ptType);
 
     } else if (nodeConf.properties || nodeConf.lists || nodeConf.objects) {
@@ -240,28 +256,28 @@ function Tree2Meta(tNode) {
         }
 
         // } else {
-        // console.log( 'tre2meta no considera esta conf ', nodeConf,  tNode )
+        // console.log( 'tre2meta no considera esta conf ', nodeConf, tNode )
     }
 
     return mData;
 
-    function getChilds(tChilds, mData, sType) {
+    function getChilds(tChilds, mData, sType){
         var ix, lNode, nChildData;
 
         // Recorre los hijos para crear los objetos segun su tipo
-        for (ix in tChilds ) {
+        for (ix in tChilds) {
             lNode = tChilds[ix];
-            nChildData = Tree2Meta(lNode);
+            nChildData = _SM.Tree2Meta(lNode);
 
             if (sType == 'object') {
-                mData[ getPtType(lNode)] = nChildData;
+                mData[getPtType(lNode)] = nChildData;
             } else {
                 mData.push(nChildData);
             }
         }
     }
 
-    function getNodeInfo(tNode) {
+    function getNodeInfo(tNode){
         var tData, myObj = {};
         if (tNode.data) {
             tData = tNode.data;
@@ -277,11 +293,11 @@ function Tree2Meta(tNode) {
             myObj.__ptConfig = {};
             return myObj;
         }
-        myObj.__ptConfig = clearPhantonProps(tData.__ptConfig, myObj.__ptType);
+        myObj.__ptConfig = _SM.clearPhantonProps(tData.__ptConfig, myObj.__ptType);
         return myObj;
     }
 
-    function getPtType(lNode) {
+    function getPtType(lNode){
         if (lNode.__ptType) {
             return lNode.__ptType;
         } else if (lNode.data && lNode.data.__ptType) {
@@ -294,8 +310,8 @@ function Tree2Meta(tNode) {
 
 //
 
-function getNodeBase(pName, ptType, __ptConfig) {
-    // Obtiene un Id y genera  una referencia cruzada de la pcl con el arbol
+_SM.getNodeBase = function(pName, ptType, __ptConfig){
+    // Obtiene un Id y genera una referencia cruzada de la pcl con el arbol
     // El modelo debe crear la referencia a la data o se perdera en el treeStore
 
     return {
@@ -308,14 +324,21 @@ function getNodeBase(pName, ptType, __ptConfig) {
 
 }
 
-function clearPhantonProps(__ptConfig, __ptType) {
-    /* Borra las propieades q no hacen parte de la config de base
+_SM.clearPhantonProps = function(__ptConfig, __ptType){
+    /*
+     * Borra las propieades q no hacen parte de la config de base
      */
     var objConfig = _SM._MetaObjects[__ptType] || {};
 
-    if ( objConfig.properties) { 
-        for (var ix in __ptConfig ) {
-            if (!( ix in _SM.objConv(objConfig.properties.concat(['name', '__ptValue', '__ptList', '__ptType'])))) {
+    if (objConfig.properties) {
+        for ( var ix in __ptConfig) {
+            if (!(ix in _SM.objConv(objConfig.properties.concat([
+                'name',
+                '__ptValue',
+                '__ptList',
+                '__ptType'
+            ]))))
+            {
                 // console.log( ix )
                 delete __ptConfig[ix];
             }

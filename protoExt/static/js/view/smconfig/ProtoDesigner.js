@@ -11,7 +11,6 @@
 
 /*jslint nomen: true, sloppy : true, white : true, sub : true */
 /*global Ext, _SM  */
-/*global Meta2Tree, Tree2Meta */
 
 
 Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
@@ -49,7 +48,7 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
 
     updateFormTree : function() {
         // Genera el arbol a partir de la meta
-        var treeData = Meta2Tree(this.myMeta.formConfig, 'formConfig', 'formConfig');
+        var treeData = _SM.Meta2Tree(this.myMeta.formConfig, 'formConfig', 'formConfig');
         treeData.expanded = true;
 
         this.formTree.getStore().setRootNode(treeData);
@@ -62,7 +61,7 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
 
         this.formPreview.removeAll(true);
 
-        formMeta = Tree2Meta(this.formTree.store.getRootNode());
+        formMeta = _SM.Tree2Meta(this.formTree.store.getRootNode());
         this.myMeta.formConfig = formMeta;
         this.formController.myMeta.formConfig = formMeta;
 
@@ -300,7 +299,7 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
                             dropHandler.cancelDrop();
 
                             // Crea un nodo
-                            tNode = getNodeBase(ptType, ptType, {
+                            tNode = _SM.getNodeBase(ptType, ptType, {
                                 '__ptType' : ptType
                             });
                             nParent.insertChild(nIndex, tNode);
@@ -348,7 +347,7 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
         var btSave = this.tBar.down('#save');
         btSave.on('click', function(btn, event, eOpts) {
 
-            var formMeta = Tree2Meta(this.formTree.store.getRootNode());
+            var formMeta = _SM.Tree2Meta(this.formTree.store.getRootNode());
             this.myMeta.formConfig = formMeta;
 
             _SM.savePclCache(this.myMeta.viewCode, this.myMeta, true);

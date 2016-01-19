@@ -247,10 +247,10 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
                         listDisplay: me.myMeta.gridConfig.listDisplay
                     };
                     myCustom = Ext.apply(myCustom, me.myMeta.gridSets);
-                    treeData = Meta2Tree(myCustom, 'custom', 'custom');
+                    treeData = _SM.Meta2Tree(myCustom, 'custom', 'custom');
                 } else {
                     // Aqui solmanete manejara el custom
-                    treeData = Meta2Tree(me.myMeta.custom, 'custom', 'custom');
+                    treeData = _SM.Meta2Tree(me.myMeta.custom, 'custom', 'custom');
                 }
             } else {
 
@@ -260,7 +260,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
                 tmpMeta.fieldsBase = tmpMeta.fieldsBase.sort(_SM.sortObjByName);
                 tmpMeta.fieldsAdm = tmpMeta.fieldsAdm.sort(_SM.sortObjByName);
 
-                treeData = Meta2Tree(tmpMeta, 'pcl', 'pcl');
+                treeData = _SM.Meta2Tree(tmpMeta, 'pcl', 'pcl');
                 for (ix in treeData.children ) {
                     vFld = treeData.children[ix];
                     if (vFld.text === 'fields') {
@@ -303,7 +303,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
             nodeName = childDef.nodeName || 'name';
 
             // Crea el nodo base
-            tNode = getNodeBase(pName, nodeDef.listOf, {
+            tNode = _SM.getNodeBase(pName, nodeDef.listOf, {
                 '__ptType': nodeDef.listOf
             });
 
@@ -468,7 +468,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
 
         var myCustom, saveAs = false, winTitle;
 
-        myCustom = Tree2Meta(me.treeGridStore.getRootNode());
+        myCustom = _SM.Tree2Meta(me.treeGridStore.getRootNode());
         if (me.custom) {
 
             if (me.metaConfig) {

@@ -121,7 +121,7 @@ _SM.prepareProperties = function( record , myMeta,  propPanel  ){
     __ptConfig = Ext.apply(  template.__ptConfig, __ptConfig   );
 
     // Solo maneja las propiedades propias de la version
-    __ptConfig = clearPhantonProps( __ptConfig,  __ptType );
+    __ptConfig = _SM.clearPhantonProps( __ptConfig,  __ptType );
 
     propPanel.setSource( __ptConfig );
     propPanel.setCombos( template.__ppChoices );

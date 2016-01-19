@@ -8,7 +8,8 @@ Ext.Loader.setConfig({
     enabled : true,
     paths : {
         'Softmachine' : 'static/js',
-        'Softmachine.view' : 'static/js/view'
+        'Softmachine.view' : 'static/js/view', 
+        'ProtoUL.ux' : 'static/js/ux', 
     }
 });
 
