@@ -32,6 +32,10 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
     alias : 'widget.protoZoom',
     xtype : 'protoZoom',
 
+    requires : [
+        'Softmachine.view.toolbar.SearchToolBar',
+    ],
+
     // * Zoom initialization
     zoomModel : null,
     zoomGrid : null,
@@ -145,7 +149,7 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
             listDisplay : '__str__'
         });
 
-        var searchBG = Ext.create('ProtoUL.ux.SearchToolBar', {
+        var searchBG = Ext.create('Softmachine.view.toolbar.SearchToolBar', {
             myMeta : me.myMeta
         });
 
