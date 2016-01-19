@@ -2,15 +2,15 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('Softmachine.view.smconfig.ConfigController', {
+Ext.define('ProtoUL.proto.view.ConfigController', {
     extend: 'Ext.Base',
     myMeta: null,
 
     requires: [
-        'Softmachine.view.smconfig.ProtoPcl', 
-        'Softmachine.view.smconfig.ProtoDesigner', 
-        'Softmachine.view.smconfig.ProtoDetailSelector', 
-        'Softmachine.view.smconfig.ProtoFieldSelector', 
+        'ProtoUL.proto.view.ProtoPcl', 
+        'ProtoUL.proto.view.ProtoDesigner', 
+        'ProtoUL.proto.view.ProtoDetailSelector', 
+        'ProtoUL.proto.view.ProtoFieldSelector', 
 
         'ProtoUL.ux.ProtoProperty', 
         'ProtoUL.proto.ProtoToolBar',
@@ -149,7 +149,7 @@ Ext.define('Softmachine.view.smconfig.ConfigController', {
             return;
         }
 
-        var fieldsTree = Ext.create('Softmachine.view.smconfig.ProtoFieldSelector', {
+        var fieldsTree = Ext.create('ProtoUL.proto.view.ProtoFieldSelector', {
             viewCode: this.viewCode,
             myMeta: myMeta
         });
@@ -180,7 +180,7 @@ Ext.define('Softmachine.view.smconfig.ConfigController', {
             return;
         };
 
-        var detailsTree = Ext.create('Softmachine.view.smconfig.ProtoDetailSelector', {
+        var detailsTree = Ext.create('ProtoUL.proto.view.ProtoDetailSelector', {
             myMeta: myMeta,
             viewCode: this.viewCode
         });

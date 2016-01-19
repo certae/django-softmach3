@@ -10,7 +10,7 @@
 /*global _SM */
 
 
-Ext.define('Softmachine.view.smconfig.ProtoDetailSelector', {
+Ext.define('ProtoUL.proto.view.ProtoDetailSelector', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.detailsSelector',
 

@@ -13,7 +13,7 @@
 /*global Ext, _SM  */
 
 
-Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
+Ext.define('ProtoUL.proto.view.ProtoDesigner', {
     // extend: 'Ext.panel.Panel',
     extend : 'Ext.container.Container',
     alias : 'widget.protoDesigner',

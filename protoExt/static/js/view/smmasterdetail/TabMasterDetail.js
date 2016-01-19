@@ -13,7 +13,7 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
     alias : 'widget.tabMasterDetail',
     requires : [
         'Softmachine.view.toolbar.MainToolBar',
-        'Softmachine.view.smconfig.ConfigController',
+        'ProtoUL.proto.view.ConfigController',
         'Softmachine.view.smmasterdetail.MDLinkController',
         'Softmachine.view.smgrid.SMGrid'
     ],
@@ -143,7 +143,7 @@ Ext.define('Softmachine.view.smmasterdetail.TabMasterDetail', {
             __MasterDetail : me
         });
 
-        Ext.create('Softmachine.view.smconfig.ConfigController', {
+        Ext.create('ProtoUL.proto.view.ConfigController', {
             myMeta : this.myMeta,
             __MasterDetail : me
         });
