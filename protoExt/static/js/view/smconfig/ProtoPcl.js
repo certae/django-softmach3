@@ -14,8 +14,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.protoPcl',
     /*
-     * @Required
-     * myMeta  : Metadata
+     * @Required myMeta : Metadata
      */
     myMeta: null,
     myFieldDict: null,
@@ -27,7 +26,8 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
 
     initComponent: function() {
 
-        var me = this, tBar, sbar, treeData, treeGridStore, treeGrid;
+        var me , tBar, sbar, treeData, treeGridStore, treeGrid;
+        me = this;
 
         if (!this.myMeta) {
             _SM.errorMessage('not loaded???', 'protoPcl.init');
@@ -67,7 +67,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
             rowLines: true,
 
             columns: [{
-                xtype: 'treecolumn', //this is so we know which column will show the tree
+                xtype: 'treecolumn', // this is so we know which column will show the tree
                 text: 'text',
                 flex: 3,
                 dataIndex: 'text'
@@ -108,7 +108,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
             labelAlign: 'top'
         });
 
-        //  ================================================================================================
+        // ================================================================================================
 
         panelItems = [{
             region: 'center',
@@ -198,7 +198,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
                     oData = me.treeRecord.data.__ptConfig;
                     prpName = e.record.data.name;
 
-                    // ****  Solo llegan objetos, los Array deben tener un __ptConfig aidcional
+                    // **** Solo llegan objetos, los Array deben tener un __ptConfig aidcional
                     if (_SM.typeOf(oData) != "object") {
 
                         if (!oData.__ptConfig) {
@@ -237,7 +237,8 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
 
         function getTreeData(me) {
 
-            var treeData = {}, ix, vFld, tmpData, myCustom;
+            // tmpData,
+            var treeData = {}, ix, vFld, myCustom;
 
             if (me.custom) {
                 if (me.metaConfig) {
@@ -248,7 +249,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
                     myCustom = Ext.apply(myCustom, me.myMeta.gridSets);
                     treeData = Meta2Tree(myCustom, 'custom', 'custom');
                 } else {
-                    // Aqui solmanete  manejara el custom
+                    // Aqui solmanete manejara el custom
                     treeData = Meta2Tree(me.myMeta.custom, 'custom', 'custom');
                 }
             } else {
@@ -279,8 +280,8 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
 
         function addTreeNode(record) {
 
-            // verifica el tipo de datos
-            var ptType = record.data.__ptType, __ptConfig, nodeDef, nodeName, tNode, childDef, pName, template;
+            // verifica el tipo de datos __ptConfig,
+            var ptType = record.data.__ptType, nodeDef, nodeName, tNode, childDef, pName, template;
             if (!ptType) {
                 return;
             }
@@ -351,7 +352,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
             return msg.description || '';
         }
 
-        // jsonText.on({'deactivate': function ( obj ,  eOpts ) {
+        // jsonText.on({'deactivate': function ( obj , eOpts ) {
         function saveJsonText() {
             if (jsonText.isVisible()) {
                 jsonText.__ptConfig.__ptValue = jsonText.getRawValue();
@@ -363,7 +364,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
                 // __ptConfig guarda la ref al obj de base
                 fieldList.__ptConfig.__ptList = Ext.encode(fieldList.getChecked());
             }
-        }
+        };
 
         // ----------------------------------------------------------------------------------------------
 
@@ -377,6 +378,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
         function resetButtons() {
             tBar.setButton('add', bVisible = false, true);
             tBar.setButton('del', bVisible = false, true);
+
         }
 
         function preparePropertiesPCL(record) {
@@ -476,7 +478,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
                 me.myMeta.gridSets = myCustom;
 
             } else {
-                // Aqui solmanete  manejara el custom
+                // Aqui solmanete manejara el custom
                 me.myMeta.custom = myCustom;
             }
 
@@ -519,7 +521,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
     },
 
     cancelChanges: function() {
-        //TODO: Verificar si hace un reload
+        // TODO: Verificar si hace un reload
         // this.treeGridStore.getRootNode().removeAll();
         // this.treeGridStore.setRootNode( this.treeData )
     },
@@ -527,12 +529,12 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
     decodeViewName: function(me) {
         // Eliminates viewEntity name to facilitate the user edition
 
-        // view code must be not null 
+        // view code must be not null
         if ( ( ! me.myMeta.viewCode ) || (  me.myMeta.viewCode.length == 0  )) { 
             me.myMeta.viewCode = me.myMeta.viewEntity;
         }
 
-        // Save Original ViewCode 
+        // Save Original ViewCode
         if ( ! me.myViewCode )  {
             if ( me.myMeta.viewCode.substring(0, me.myMeta.viewEntity.length) == me.myMeta.viewEntity ) {
                 me.myViewCode = me.myMeta.viewCode.toString();
@@ -541,7 +543,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
             }
         }
 
-        // Strip prefix 
+        // Strip prefix
         if ( me.myMeta.viewCode.substring(0, me.myMeta.viewEntity.length) == me.myMeta.viewEntity ) {
             me.myMeta.viewCode = me.myViewCode.substring(me.myMeta.viewEntity.length + 1);
         }
@@ -550,7 +552,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
     },
 
     encodeViewName: function(me) {
-        // Recode viewEntity. Only one prefx 
+        // Recode viewEntity. Only one prefx
         if ( ! me.myMeta.viewCode ) {
             me.myMeta.viewCode = me.myMeta.viewEntity
 
@@ -584,4 +586,4 @@ function callVerifyMeta(oMeta, ptType, tNode, record ) {
         scope: this
     });
 
-}
+}; 
