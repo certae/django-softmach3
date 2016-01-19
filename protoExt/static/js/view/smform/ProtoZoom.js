@@ -416,5 +416,4 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
         this.resetZoom();
     },
 
-
 });
