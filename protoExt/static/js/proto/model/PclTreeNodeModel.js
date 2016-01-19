@@ -1,4 +1,4 @@
-Ext.define('Proto.model.PclTreeNodeModel', {
+Ext.define('ProtoUL.proto.model.PclTreeNodeModel', {
     extend : 'Ext.data.Model',
     fields : [
         {

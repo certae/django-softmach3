@@ -190,7 +190,7 @@ Ext.define('ProtoUL.proto.ProtoFieldTree', {
             folderSort: false,
             sorters: [{ property: 'text', direction: 'ASC' }],
 
-            model: 'Proto.ProtoFieldSelectorModel',
+            model: 'ProtoUL.proto.model.FieldSelectorModel',
             rootProperty: {
                 text: _SM.__language.Protofield_Fields,
                 expanded: true
