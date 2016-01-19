@@ -157,9 +157,6 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
 
         me.myMeta = _SM._cllPCI[me.zoomModel];
 
-        // Para identificar el StatusBar
-        me.idStBar = Ext.id();
-
         var selMode = 'single';
         if (me.zoomMultiple && me.newForm) {
             selMode = 'multi';
@@ -209,8 +206,12 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
             }
         });
 
+        // Para identificar el StatusBar
+        me.idStBar = Ext.id();
+
         // @@ Verificar los permisos de usuario
-        var perms = _SM._UserInfo.perms[me.myMeta.viewCode], zoomBtns = [
+        var perms = _SM._UserInfo.perms[me.myMeta.viewCode], 
+            zoomBtns = [
             {
                 xtype : 'tbtext',
                 text : '',
@@ -328,6 +329,7 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
         // @ZoomSelection
 
         var stBar = Ext.getCmp(this.idStBar), me = this, ix;
+        if ( ! me.isLoaded ) { return }
 
         function getZoomReturn(record){
             var recStr;
