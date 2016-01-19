@@ -13,6 +13,11 @@
 Ext.define('Softmachine.view.smconfig.ProtoPcl', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.protoPcl',
+
+    requires: [
+        'Proto.model.PclTreeNodeModel'
+    ],
+
     /*
      * @Required myMeta : Metadata
      */
@@ -50,7 +55,7 @@ Ext.define('Softmachine.view.smconfig.ProtoPcl', {
 
         treeData = getTreeData(me);
         treeGridStore = Ext.create('Ext.data.TreeStore', {
-            model: 'Proto.PclTreeNode',
+            model: 'Proto.model.PclTreeNodeModel',
             rootProperty: treeData
         });
 

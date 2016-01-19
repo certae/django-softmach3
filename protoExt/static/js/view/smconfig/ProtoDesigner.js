@@ -18,6 +18,10 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
     extend : 'Ext.container.Container',
     alias : 'widget.protoDesigner',
 
+    requires: [
+        'Proto.model.PclTreeNodeModel'
+    ],
+
     //@myMeta
     myMeta : null,
 
@@ -214,7 +218,7 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
         var treeStore, toolsTree, formTree, formTreeView;
 
         treeStore = Ext.create('Ext.data.TreeStore', {
-            model : 'Proto.PclTreeNode',
+            model : 'Proto.model.PclTreeNodeModel',
             rootProperty : {
                 expanded : true,
                 children : treeData
@@ -241,7 +245,7 @@ Ext.define('Softmachine.view.smconfig.ProtoDesigner', {
         // ------------------------------------------------
 
         treeStore = Ext.create('Ext.data.TreeStore', {
-            model : 'Proto.PclTreeNode',
+            model : 'Proto.model.PclTreeNodeModel',
             rootProperty : {
                 expanded : true,
                 text : _SM.__language.Title_Main_Panel,

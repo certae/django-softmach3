@@ -190,7 +190,7 @@ Ext.define('ProtoUL.proto.ProtoFieldTree', {
             folderSort: false,
             sorters: [{ property: 'text', direction: 'ASC' }],
 
-            model: 'Proto.FieldSelectionModel',
+            model: 'Proto.ProtoFieldSelectorModel',
             rootProperty: {
                 text: _SM.__language.Protofield_Fields,
                 expanded: true
@@ -292,48 +292,9 @@ Ext.define('ProtoUL.proto.ProtoFieldTree', {
 
         function definieProtoFieldSelctionModel( viewCode, protoEntityId ) {
 
-            // Modelo usado en la lista de campos con la jerarquia completa de los de zoom ( detalle de fk )
+            // TODO: Modelo usado en la lista de campos con la jerarquia completa de los de zoom ( detalle de fk )
 
-            Ext.define('Proto.FieldSelectionModel', {
-                extend: 'Ext.data.Model',
-                proxy: {
-                    type: 'ajax',
-                    url: _SM._PConfig.urlGetFieldTree ,
-                    actionMethods: { read : 'POST' },
-                    extraParams : {
-                        viewCode : viewCode,
-                        protoEntityId : protoEntityId
-                    }
-                },
 
-                fields: [
-        //         Contiene el nombre en notacion objeto ( django )
-                    {name: 'id', type: 'string'},
-
-        //         Contiene el nombre del campo dentro del modelo
-                    {name: 'text', type: 'string'},
-                    {name: 'type', type: 'string'},
-
-                    {name: 'readOnly', type: 'boolean'},
-                    {name: 'required', type: 'boolean'},
-                    {name: 'tooltip', type: 'string'},
-                    {name: 'header', type: 'string'},
-
-                    {name: 'zoomModel', type: 'string'},
-                    {name: 'fkField', type: 'string'},
-                    {name: 'fkId', type: 'string'},
-                    {name: 'vType', type: 'string'},
-                    {name: 'prpDefault', type: 'string'},
-                    {name: 'choices', type: 'string'},
-
-                    {name: 'cpFromZoom', type: 'string'},
-                    {name: 'cpFromField', type: 'string'},
-
-                    {name: 'checked', type: 'boolean'},
-                    {name: 'leaf', type: 'boolean'}
-                ]
-
-            });
 
         }
 

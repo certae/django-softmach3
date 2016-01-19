@@ -1094,32 +1094,8 @@ _SM.saveProtoObj = function(viewCode, sMeta, options){
 
 _SM.defineProtoPclTreeModel = function(){
 
-    // Definicion del modelo para los arboles de la PCL
+    // TODO: Definicion del modelo para los arboles de la PCL
 
-    Ext.define('Proto.PclTreeNode', {
-        extend : 'Ext.data.Model',
-        fields : [
-            {
-                name : '__ptType',
-                type : 'string'
-            },
-            {
-                name : 'text',
-                type : 'string'
-            },
-            {
-                name : 'id',
-                type : 'string'
-            },
-            // {name: 'iconCls', type: 'string', prpDefault: null, persist: false },
-            // {name: 'ptValue', type: 'string'},
-
-            // Referencia al modelo de base
-            {
-                name : '__ptConfig'
-            }
-        ]
-    });
 
 };
 
@@ -1156,8 +1132,7 @@ _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options){
     });
 };
 
-_SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, parameters, actionDef,
-        options)
+_SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, parameters, actionDef, options)
 {
 
     parameters = parameters || [];
