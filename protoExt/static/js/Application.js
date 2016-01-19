@@ -10,6 +10,7 @@ Ext.Loader.setConfig({
         'Softmachine' : 'static/js',
         'Softmachine.view' : 'static/js/view', 
         'ProtoUL.ux' : 'static/js/ux', 
+        'ProtoUL.proto' : 'static/js/proto', 
     }
 });
 

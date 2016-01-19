@@ -7,10 +7,13 @@ Ext.define('Softmachine.view.smconfig.ConfigController', {
     myMeta: null,
 
     requires: [
+        'Softmachine.view.smconfig.ProtoPcl', 
         'Softmachine.view.smconfig.ProtoDesigner', 
         'Softmachine.view.smconfig.ProtoDetailSelector', 
         'Softmachine.view.smconfig.ProtoFieldSelector', 
-        'ProtoUL.ux.ProtoProperty'
+
+        'ProtoUL.ux.ProtoProperty', 
+        'ProtoUL.proto.ProtoToolBar',
     ],
 
 
