@@ -27,7 +27,7 @@
 /* global Ext */
 /* global _SM */
 
-Ext.define('Softmachine.view.smform.ProtoForm', {
+Ext.define('Softmachine.view.smform.ProtoZoom', {
     extend : 'Ext.form.field.Text',
     alias : 'widget.protoZoom',
     xtype : 'protoZoom',

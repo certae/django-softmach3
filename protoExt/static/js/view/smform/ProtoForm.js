@@ -28,7 +28,8 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
     alias : 'widget.protoform',
 
     requires : [
-        'Softmachine.view.smmasterdetail.MDLinkController'
+        'Softmachine.view.smmasterdetail.MDLinkController', 
+        'Softmachine.view.smform.ProtoZoom'
     ],
 
     // @myMeta Base Definition
