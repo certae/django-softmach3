@@ -12,20 +12,19 @@
 /*jslint nomen: true, sloppy : true, white : true, sub : true */
 /*global Ext, _SM  */
 
-
 Ext.define('ProtoUL.proto.view.ProtoDesigner', {
     // extend: 'Ext.panel.Panel',
     extend : 'Ext.container.Container',
     alias : 'widget.protoDesigner',
 
-    requires: [
-        'Proto.model.PclTreeNodeModel'
+    requires : [
+        'ProtoUL.proto.model.PclTreeNodeModel'
     ],
 
-    //@myMeta
+    // @myMeta
     myMeta : null,
 
-    initComponent : function() {
+    initComponent : function(){
 
         var me = this;
 
@@ -50,7 +49,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
     },
 
-    updateFormTree : function() {
+    updateFormTree : function(){
         // Genera el arbol a partir de la meta
         var treeData = _SM.Meta2Tree(this.myMeta.formConfig, 'formConfig', 'formConfig');
         treeData.expanded = true;
@@ -59,7 +58,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
     },
 
-    onClickRedraw : function(myObj) {
+    onClickRedraw : function(myObj){
 
         var formMeta, myForm;
 
@@ -75,7 +74,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
     },
 
-    doFormatLayout : function(myObj) {
+    doFormatLayout : function(myObj){
 
         var me = this, ix, myForm, vNod, propsGrid;
 
@@ -90,10 +89,10 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
         myForm = this.formController.newProtoForm();
 
-        //      -------------  Nested functions
-        function getTreeNodeByText(treeData, textKey) {
+        // ------------- Nested functions
+        function getTreeNodeByText(treeData, textKey){
             // recupera un nodo del arbol segun su texto, para los fields y los details
-            for (ix in treeData ) {
+            for (ix in treeData) {
                 vNod = treeData[ix];
                 if (vNod.text == textKey) {
                     return vNod;
@@ -103,21 +102,21 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
             return {};
         }
 
-        //      --------------- function body
+        // --------------- function body
 
         myForm.setFormReadOnly(true);
         this.formPreview.add(myForm);
 
         this.tBar = this.toolsPanel.addDocked({
-        xtype : 'toolbar',
-        dock : 'top',
-        items : myObj.tbar
+            xtype : 'toolbar',
+            dock : 'top',
+            items : myObj.tbar
         })[0];
 
         this.toolsTabs.add(myObj.toolsTabs);
         this.toolsTree = this.toolsTabs.down('#toolsTree');
 
-        // *******************   Properties
+        // ******************* Properties
 
         var propsGrid = Ext.create('ProtoUL.ux.ProtoProperty', {});
         this.properties = this.toolsTabs.down('#properties');
@@ -125,7 +124,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         this.properties = propsGrid;
 
         propsGrid.on({
-            'edit' : function(editor, e, eOpts) {
+            'edit' : function(editor, e, eOpts){
 
                 if (e.value == e.originalValue) {
                     return;
@@ -133,7 +132,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
                 var oData = me.treeRecord.data.__ptConfig, prpName = e.record.data.name;
 
-                // ****  Solo llegan objetos, los Array se manejan en otro lado
+                // **** Solo llegan objetos, los Array se manejan en otro lado
                 if (_SM.typeOf(oData) == "object") {
                     oData[prpName] = e.value;
                 }
@@ -143,7 +142,8 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
             scope : me
         });
 
-        /* Se podrian cargar directamente desde el json, dejando un hook en el store y asignandolo
+        /*
+         * Se podrian cargar directamente desde el json, dejando un hook en el store y asignandolo
          * antes de crear el componente.
          */
 
@@ -152,10 +152,10 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         var treeData, treeNodAux, treeNodAuxData, ptConfig, vFld;
 
         treeData = _SM.clone(myObj.toolsTree);
-        
+
         // Agrega los campos de la pci particular
         treeNodAux = getTreeNodeByText(treeData, 'Fields');
-        for (ix in this.myMeta.fields ) {
+        for (ix in this.myMeta.fields) {
             vFld = this.myMeta.fields[ix];
             ptConfig = _SM.getFormFieldDefinition(vFld);
             ptConfig['name'] = vFld.name;
@@ -167,9 +167,10 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
                 "__ptConfig" : ptConfig
             };
             treeNodAux.children.push(treeNodAuxData);
-        };
+        }
+        ;
 
-        // FutureUse : Dont delete  ( dgt )
+        // FutureUse : Dont delete ( dgt )
         // "masterField" : vFld.masterField,
         // "detailField" : vFld.detailField,
         // "detailTitleLbl" : vFld.detailTitleLbl,
@@ -178,7 +179,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
         // Agrega los detalles
         treeNodAux = getTreeNodeByText(treeData, 'Details');
-        for (ix in this.myMeta.detailsConfig ) {
+        for (ix in this.myMeta.detailsConfig) {
             vFld = this.myMeta.detailsConfig[ix];
             treeNodAuxData = {
                 "text" : vFld.menuText,
@@ -196,7 +197,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         }
 
         treeNodAux = getTreeNodeByText(treeData, 'DetailsButtons');
-        for (ix in this.myMeta.detailsConfig ) {
+        for (ix in this.myMeta.detailsConfig) {
             vFld = this.myMeta.detailsConfig[ix];
             treeNodAuxData = {
                 "text" : vFld.menuText,
@@ -213,12 +214,12 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
             treeNodAux.children.push(treeNodAuxData);
         }
 
-        //  -----------------------------------
+        // -----------------------------------
         // Crea el store
         var treeStore, toolsTree, formTree, formTreeView;
 
         treeStore = Ext.create('Ext.data.TreeStore', {
-            model : 'Proto.model.PclTreeNodeModel',
+            model : 'ProtoUL.proto.model.PclTreeNodeModel',
             rootProperty : {
                 expanded : true,
                 children : treeData
@@ -245,7 +246,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         // ------------------------------------------------
 
         treeStore = Ext.create('Ext.data.TreeStore', {
-            model : 'Proto.model.PclTreeNodeModel',
+            model : 'ProtoUL.proto.model.PclTreeNodeModel',
             rootProperty : {
                 expanded : true,
                 text : _SM.__language.Title_Main_Panel,
@@ -276,17 +277,27 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
         formTreeView.on({
             'beforedrop' : {
-                fn : function(node, data, overModel, dropPosition, dropHandler, eOpts) {
+                fn : function(node, data, overModel, dropPosition, dropHandler, eOpts){
 
-                    // Verifica q el objeto sea valido ( no puede copiar las categorias ni los items  )
+                    // Verifica q el objeto sea valido ( no puede copiar las categorias ni los items
+                    // )
                     if (data.view.id != this.formTreeViewId) {
                         rec = data.records[0];
                         ptType = rec.get('text');
-                        if ( ptType in _SM.objConv(['Fields', 'Containers', 'Grids'])) {
+                        if (ptType in _SM.objConv([
+                            'Fields',
+                            'Containers',
+                            'Grids'
+                        ]))
+                        {
                             return false;
                         }
 
-                        if ( ptType in _SM.objConv(['htmlset', 'fieldset'])) {
+                        if (ptType in _SM.objConv([
+                            'htmlset',
+                            'fieldset'
+                        ]))
+                        {
 
                             // Obtiene el padre y el ix
                             nParent = overModel.store.getById(overModel.data.parentId);
@@ -317,7 +328,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
                 }
             },
             'drop' : {
-                fn : function() {
+                fn : function(){
                     this.onClickRedraw();
                 }
             },
@@ -326,7 +337,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         });
 
         this.formTree.on({
-            'select' : function(rowModel, record, rowIndex, eOpts) {
+            'select' : function(rowModel, record, rowIndex, eOpts){
                 // Guarda el registro actico, para actualizarlo mas tarde
                 me.treeRecord = record;
 
@@ -339,17 +350,18 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
         // Para manejar los botones dinamicamente addListener
 
-        // EL wizzard utiliza Ext.element.loader para cargar dinamicamenta la definicion a partir de una URL
+        // EL wizzard utiliza Ext.element.loader para cargar dinamicamenta la definicion a partir de
+        // una URL
         // la URL ya probe q puede ser un archivo json,
 
-        // revisar en el ejemplo como usar  jsonForm y jsonPropertyGrid   codepress
+        // revisar en el ejemplo como usar jsonForm y jsonPropertyGrid codepress
         var btRedraw = this.tBar.down('#redraw');
-        btRedraw.on('click', function(btn, event, eOpts) {
+        btRedraw.on('click', function(btn, event, eOpts){
             this.onClickRedraw()
         }, me);
 
         var btSave = this.tBar.down('#save');
-        btSave.on('click', function(btn, event, eOpts) {
+        btSave.on('click', function(btn, event, eOpts){
 
             var formMeta = _SM.Tree2Meta(this.formTree.store.getRootNode());
             this.myMeta.formConfig = formMeta;
@@ -359,56 +371,62 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         }, me);
 
         var btDel = this.tBar.down('#delete');
-        btDel.on('click', function(btn, event, eOpts) {
+        btDel.on('click', function(btn, event, eOpts){
             // var ptType = me.treeRecord.data.__ptType
             me.treeRecord.remove();
         }, me);
 
     },
 
-    //  ==============================================================================
+    // ==============================================================================
 
-    getPanelItems : function() {
+    getPanelItems : function(){
 
         // this.myForm = Ext.widget('protoform', {
         // myMeta : this.myMeta
         // });
 
-        return [{
-            region : 'center',
-            layout : 'fit',
-            itemId : 'formPreview',
-            // items : this.myForm,
-            // autoScroll : true,
-            flex : 2,
-            minSize : 200
-        }, {
-            region : 'west',
-            collapsible : true,
-            split : true,
-            flex : 1,
-            title : _SM.__language.Title_Form_Panel,
-            itemId : 'toolsPanel',
-            layout : 'border',
-            defaults : {
-                lauyout : 'fit'
-            },
-            items : [{
+        return [
+            {
                 region : 'center',
                 layout : 'fit',
-                itemId : 'formTree',
-                autoScroll : true,
-                minHeight : 150
-            }, {
-                region : 'south',
-                layout : 'fit',
-                itemId : 'toolsTabs',
+                itemId : 'formPreview',
+                // items : this.myForm,
+                // autoScroll : true,
+                flex : 2,
+                minSize : 200
+            },
+            {
+                region : 'west',
                 collapsible : true,
                 split : true,
                 flex : 1,
-                title : _SM.__language.Title_Panel_Tools
-            }]
-        }]; 
+                title : _SM.__language.Title_Form_Panel,
+                itemId : 'toolsPanel',
+                layout : 'border',
+                defaults : {
+                    lauyout : 'fit'
+                },
+                items : [
+                    {
+                        region : 'center',
+                        layout : 'fit',
+                        itemId : 'formTree',
+                        autoScroll : true,
+                        minHeight : 150
+                    },
+                    {
+                        region : 'south',
+                        layout : 'fit',
+                        itemId : 'toolsTabs',
+                        collapsible : true,
+                        split : true,
+                        flex : 1,
+                        title : _SM.__language.Title_Panel_Tools
+                    }
+                ]
+            }
+        ];
 
     }
 });

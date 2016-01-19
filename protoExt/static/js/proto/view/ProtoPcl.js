@@ -15,7 +15,7 @@ Ext.define('ProtoUL.proto.view.ProtoPcl', {
     alias: 'widget.protoPcl',
 
     requires: [
-        'Proto.model.PclTreeNodeModel'
+        'ProtoUL.proto.model.PclTreeNodeModel'
     ],
 
     /*
@@ -55,7 +55,7 @@ Ext.define('ProtoUL.proto.view.ProtoPcl', {
 
         treeData = getTreeData(me);
         treeGridStore = Ext.create('Ext.data.TreeStore', {
-            model: 'Proto.model.PclTreeNodeModel',
+            model: 'ProtoUL.proto.model.PclTreeNodeModel',
             rootProperty: treeData
         });
 
