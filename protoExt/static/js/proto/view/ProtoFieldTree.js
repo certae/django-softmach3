@@ -125,19 +125,19 @@ Ext.define('ProtoUL.proto.view.ProtoFieldTree', {
             }}, scope: me }
         );
 
-        definieProtoFieldSelctionModel( me.viewCode, me.myMeta.protoEntityId )
+        definieProtoFieldSelctionModel( tree, me.viewCode, me.myMeta.protoEntityId )
 
         me.callParent(arguments);
 
-        function definieProtoFieldSelctionModel( viewCode, protoEntityId ) {
+        function definieProtoFieldSelctionModel( tree, viewCode, protoEntityId ) {
 
             // TODO: Modelo usado en la lista de campos con la jerarquia completa de los de zoom ( detalle de fk )
             var extraParams = {
                 viewCode : viewCode,
                 protoEntityId : protoEntityId
             }; 
-            this.store.getProxy().extraParams = extraParams;
-            this.store.load();
+            tree.store.getProxy().extraParams = extraParams;
+            // tree.store.load();
 
         }
 

@@ -12,6 +12,12 @@ Ext.define('ProtoUL.proto.view.ProtoFieldSelector', {
     extend : 'Ext.panel.Panel',
     alias : 'widget.protoFieldSelector',
 
+    requires: [
+        'ProtoUL.proto.view.ProtoFieldTree', 
+        'ProtoUL.proto.ProtoToolBar', 
+        'ProtoUL.ux.ProtoList'
+    ],
+
     // @viewCode Required
     viewCode : null,
 
