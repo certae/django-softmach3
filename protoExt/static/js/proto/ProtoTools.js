@@ -347,9 +347,3 @@ _SM.clearPhantonProps = function(__ptConfig, __ptType){
     return __ptConfig;
 }
 
-
-_SM.defineProtoPclTreeModel = function(){
-
-    // TODO: Definicion del modelo para los arboles de la PCL
-
-};

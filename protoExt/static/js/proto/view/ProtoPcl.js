@@ -45,7 +45,6 @@ Ext.define('ProtoUL.proto.view.ProtoPcl', {
         me.decodeViewName(me);
 
         // TODO: ??? _SM.defineProtoPclTreeModel(); por q en una funcion 
-        _SM.defineProtoPclTreeModel()
 
         tBar = Ext.create('ProtoUL.proto.ProtoToolBar', {
             dock: 'top'

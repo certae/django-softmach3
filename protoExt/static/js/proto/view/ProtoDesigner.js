@@ -148,7 +148,6 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
          */
 
         // TODO: ??? _SM.defineProtoPclTreeModel(); por q en una funcion 
-        _SM.defineProtoPclTreeModel()
 
         var treeData, treeNodAux, treeNodAuxData, ptConfig, vFld;
 
