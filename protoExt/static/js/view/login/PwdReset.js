@@ -1,7 +1,7 @@
 /**
  * @author Giovanni Victorette
  */
-Ext.define('ProtoUL.view.password.PasswordReset', {
+Ext.define('ProtoUL.view.password.PwdReset', {
     extend: 'Ext.form.Panel',
     alias: 'widget.passwordForm',
 

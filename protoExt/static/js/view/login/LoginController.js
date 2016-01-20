@@ -2,6 +2,17 @@ Ext.define('Softmachine.view.login.LoginController', {
     extend : 'Ext.app.ViewController',
     alias : 'controller.login',
 
+    requires: [
+        'ProtoUL.view.password.LostPwd', 
+        'ProtoUL.view.password.PasswordReset'
+    ],
+
+    onKeyEnter: function(me, e) {
+        if (e.getKey() == e.ENTER) {
+            this.submitLogin();
+        }
+    },
+
     submitLogin : function(btn){
 
         btn.disable();
@@ -52,12 +63,11 @@ Ext.define('Softmachine.view.login.LoginController', {
     },
 
     resetPassword : function(btn){
-        // var resetForm = Ext.create('ProtoUL.view.password.ForgotPasswordForm');
-        // resetForm.show();
+        Ext.create('ProtoUL.view.password.ForgotPasswordForm').show();
     },
 
     changePassword : function(btn){
-        // Ext.create('ProtoUL.view.password.PasswordReset').show();
+        Ext.create('ProtoUL.view.password.PasswordReset').show();
     }
 
 });

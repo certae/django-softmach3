@@ -1,4 +1,3 @@
-
 Ext.define('Softmachine.view.login.Login', {
     extend : 'Ext.window.Window',
     xtype : 'login',
@@ -16,7 +15,6 @@ Ext.define('Softmachine.view.login.Login', {
     title : 'Login Window',
     closable : false,
     autoShow : true,
-
 
     items : {
         xtype : 'form',
@@ -39,7 +37,12 @@ Ext.define('Softmachine.view.login.Login', {
                 name : 'username',
                 reference : 'username',
                 fieldLabel : _SM.__language.Textfield_User_Login,
-                allowBlank : false
+                allowBlank : false, 
+                value: this.username,
+                listeners: {
+                    keydown: 'onKeyEnter'
+                }
+
             },
             {
                 xtype : 'textfield',
@@ -47,23 +50,29 @@ Ext.define('Softmachine.view.login.Login', {
                 reference : 'password',
                 inputType : 'password',
                 fieldLabel : _SM.__language.Textfield_Password_Login,
-                allowBlank : false
+                allowBlank : false, 
+                listeners: {
+                    keydown: 'onKeyEnter'
+                }
+
             }
         ],
         buttons : [
             {
-                // text: _SM.__language.Text_Forgotten_Password,
-                // iconCls: "st-user-who",
-                // listeners: {
-                // click: 'resetPassword'
-                // }
-                // }, {
-                // text: _SM.__language.Text_change_Password_Button,
-                // iconCls: "st-key-go",
-                // listeners: {
-                // click: 'changePassword'
-                // }
-                // },{
+                text : _SM.__language.Text_Forgotten_Password,
+                iconCls : "st-user-who",
+                listeners : {
+                    click : 'resetPassword'
+                }
+            },
+            {
+                text : _SM.__language.Text_change_Password_Button,
+                iconCls : "st-key-go",
+                listeners : {
+                    click : 'changePassword'
+                }
+            },
+            {
                 text : _SM.__language.Text_Validate_Login_Button,
                 iconCls : "st-user-go",
                 formBind : true,
@@ -72,8 +81,5 @@ Ext.define('Softmachine.view.login.Login', {
                 }
             }
         ]
-    }, 
-    // initComponent : function(){
-    //     var a = 1; 
-    // }
+    },
 });
