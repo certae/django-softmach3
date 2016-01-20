@@ -31,6 +31,10 @@ Ext.define('Softmachine.Application', {
 
     launch : function(){
 
+
+        // There is only one langbase loaded in main page 
+        _SM.__language = _SM.__langbase
+
         // It's important to note that this type of application could use
         // any type of storage, i.e., Cookies, LocalStorage, etc.
         var loggedIn;
@@ -39,6 +43,7 @@ Ext.define('Softmachine.Application', {
         loggedIn = localStorage.getItem("SmLoggedIn");
         if (loggedIn) {
             _SM._UserInfo = Ext.decode(localStorage.getItem("SmUserInfo"));
+            _SM.__language = Ext.decode(localStorage.getItem("SmLanguage"));
             if (!_SM._UserInfo) {
                 loggedIn = false
             } else {
@@ -56,16 +61,9 @@ Ext.define('Softmachine.Application', {
         // This ternary operator determines the value of the SmLoggedIn key.
         // If SmLoggedIn isn't true, we display the login window,
         // otherwise, we display the main view
-
-        getLanguage()
-
         Ext.create({
             xtype : loggedIn ? 'app-main' : 'login'
         });
-
-        function getLanguage(){
-            _SM.__language = _SM.__language.fr
-        }
 
     },
 

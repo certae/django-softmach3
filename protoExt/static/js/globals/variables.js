@@ -14,7 +14,7 @@ _SM._ROW_ST = {
 };
 
 // Strings and messages moved to locale
-_SM.__language = { };
+_SM.__language = {};
 
 // Config Variables
 _SM._PConfig = {
