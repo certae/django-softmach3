@@ -22,7 +22,10 @@ _SM.Meta2Tree = function(oData, pName, ptType){
     // Embeded functions --------------------------------------------
 
     function doFinalFormat(tData){
-        tData.text = oData.name || oData.menuText || oData.property || oData.viewEntity || ptType;
+        if (  oData ) {
+            tData.text = oData.name || oData.menuText || oData.property || oData.viewEntity || ptType;    
+        } 
+        
         return tData;
     }
 
