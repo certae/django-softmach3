@@ -523,14 +523,27 @@ _SM.DefineProtoModel = function(myMeta){
     myModelFields.push(mField);
 
     // myModelFields = [{"name":"id","type":"int","useNull":true},{"name":"first","type":"string"}]
-    Ext.define(_SM.getModelName(myMeta.viewCode), {
-        extend : 'Ext.data.Model',
-        fields : myModelFields
 
-    // TODO: Validation, Validaciones
-    // validations: [{ type: 'length', field: 'name', min: 1 }]
+    // EXTJS6 redefine Is not possible  
+    var mySchema = Ext.data.schema.Schema.get(); 
+    var modelName = _SM.getModelName(myMeta.viewCode)
 
-    });
+    // For testing : open pci, clear cache, reopen pci
+    if ( ! mySchema.hasEntity(modelName) ) { 
+        Ext.define( modelName, {
+            extend : 'Ext.data.Model',
+            fields : myModelFields
+        // TODO: Validation, Validaciones
+        // validations: [{ type: 'length', field: 'name', min: 1 }]
+        });
+    } else { 
+
+        Ext.define( modelName, {
+            override: modelName,
+            fields : myModelFields
+        });
+    }
+
 
     // Adiciona las dos colecciones
     myMeta.fieldsBase = fieldsBase;
@@ -1092,12 +1105,6 @@ _SM.saveProtoObj = function(viewCode, sMeta, options){
 
 // };
 
-_SM.defineProtoPclTreeModel = function(){
-
-    // TODO: Definicion del modelo para los arboles de la PCL
-
-
-};
 
 _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options){
 
