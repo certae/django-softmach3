@@ -37,7 +37,7 @@
                 url: _SM._PConfig.urlHelpQbe,
                 reader: {
                     type: 'json',
-                    rootProperty: 'data',
+                    root: 'data',
                     totalProperty: 'totalCount'
                 },
                 actionMethods: {

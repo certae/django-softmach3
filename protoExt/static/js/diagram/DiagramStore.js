@@ -13,14 +13,14 @@ Ext.define('ProtoUL.store.Diagrams', {
         },
         reader: {
             type: 'json',
-            rootProperty: 'diagrams',
+            root: 'diagrams',
             successProperty: 'success'
         },
         writer: {
             type: 'json',
             writeAllFields: true,
             encode: true,
-            rootProperty: 'diagrams'
+            root: 'diagrams'
         },
         pageParam:  false,
         startParam: false,

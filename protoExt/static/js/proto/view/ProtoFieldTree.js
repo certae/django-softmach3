@@ -29,7 +29,7 @@ Ext.define('ProtoUL.proto.view.ProtoFieldTree', {
             sorters: [{ property: 'text', direction: 'ASC' }],
 
             model: 'ProtoUL.proto.model.FieldSelectorModel',
-            rootProperty: {
+            root: {
                 text: _SM.__language.Protofield_Fields,
                 expanded: true
             },

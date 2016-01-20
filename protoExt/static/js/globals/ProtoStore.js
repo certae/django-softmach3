@@ -208,7 +208,7 @@ _SM.getProxyDefinition = function(stDef){
         },
         reader : {
             type : 'json',
-            rootProperty : 'rows',
+            root : 'rows',
             successProperty : 'success',
             totalProperty : 'totalCount',
             messageProperty : 'message'
@@ -216,7 +216,7 @@ _SM.getProxyDefinition = function(stDef){
 
         writer : {
             type : 'json',
-            rootProperty : 'rows',
+            root : 'rows',
             allowSingle : false,
             writeAllFields : true,
             // Incluye los parametros en el post ( por defecto en el get )
@@ -278,7 +278,7 @@ _SM.getTreeStoreDefinition = function(stDef){
         remoteSort : true,
         autoSync : true,
 
-        rootProperty : {
+        root : {
             // text:'details',
             expanded : true
         }
