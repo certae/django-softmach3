@@ -346,3 +346,34 @@ _SM.clearPhantonProps = function(__ptConfig, __ptType){
     }
     return __ptConfig;
 }
+
+
+_SM.defineProtoPclTreeModel = function(){
+
+    // TODO: Definicion del modelo para los arboles de la PCL
+    Ext.define('Proto.PclTreeNodeModel', {
+        extend : 'Ext.data.Model',
+        fields : [
+            {
+                name : '__ptType',
+                type : 'string'
+            },
+            {
+                name : 'text',
+                type : 'string'
+            },
+            {
+                name : 'id',
+                type : 'string'
+            },
+            // {name: 'iconCls', type: 'string', prpDefault: null, persist: false },
+            // {name: 'ptValue', type: 'string'},
+
+            // Referencia al modelo de base
+            {
+                name : '__ptConfig'
+            }
+        ]
+    });
+
+};

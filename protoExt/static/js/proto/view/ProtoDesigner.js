@@ -18,7 +18,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
     alias : 'widget.protoDesigner',
 
     requires : [
-        'ProtoUL.proto.model.PclTreeNodeModel'
+        // 'Proto.PclTreeNodeModel'
     ],
 
     // @myMeta
@@ -147,7 +147,8 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
          * antes de crear el componente.
          */
 
-        _SM.defineProtoPclTreeModel();
+        // TODO: ??? _SM.defineProtoPclTreeModel(); por q en una funcion 
+        _SM.defineProtoPclTreeModel()
 
         var treeData, treeNodAux, treeNodAuxData, ptConfig, vFld;
 
@@ -219,8 +220,8 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         var treeStore, toolsTree, formTree, formTreeView;
 
         treeStore = Ext.create('Ext.data.TreeStore', {
-            model : 'ProtoUL.proto.model.PclTreeNodeModel',
-            rootProperty : {
+            model : 'Proto.PclTreeNodeModel',
+            root : {
                 expanded : true,
                 children : treeData
             }
@@ -246,8 +247,8 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
         // ------------------------------------------------
 
         treeStore = Ext.create('Ext.data.TreeStore', {
-            model : 'ProtoUL.proto.model.PclTreeNodeModel',
-            rootProperty : {
+            model : 'Proto.PclTreeNodeModel',
+            root : {
                 expanded : true,
                 text : _SM.__language.Title_Main_Panel,
                 children : []

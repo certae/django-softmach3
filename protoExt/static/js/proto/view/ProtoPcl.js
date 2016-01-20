@@ -15,7 +15,7 @@ Ext.define('ProtoUL.proto.view.ProtoPcl', {
     alias: 'widget.protoPcl',
 
     requires: [
-        'ProtoUL.proto.model.PclTreeNodeModel'
+        // 'Proto.PclTreeNodeModel'
     ],
 
     /*
@@ -44,7 +44,8 @@ Ext.define('ProtoUL.proto.view.ProtoPcl', {
         // Guarda el viewCode Oritginal ( asegura una copia )
         me.decodeViewName(me);
 
-        _SM.defineProtoPclTreeModel();
+        // TODO: ??? _SM.defineProtoPclTreeModel(); por q en una funcion 
+        _SM.defineProtoPclTreeModel()
 
         tBar = Ext.create('ProtoUL.proto.ProtoToolBar', {
             dock: 'top'
@@ -55,8 +56,8 @@ Ext.define('ProtoUL.proto.view.ProtoPcl', {
 
         treeData = getTreeData(me);
         treeGridStore = Ext.create('Ext.data.TreeStore', {
-            model: 'ProtoUL.proto.model.PclTreeNodeModel',
-            rootProperty: treeData
+            model: 'Proto.PclTreeNodeModel',
+            root: treeData
         });
 
         this.treeGridStore = treeGridStore;

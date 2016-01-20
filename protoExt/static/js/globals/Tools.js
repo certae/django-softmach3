@@ -295,7 +295,7 @@ _SM.savePclCache = function (viewCode, protoMeta, reOpen ) {
 
     protoMeta.viewCode = viewCode
 
-    _SM.DefineProtoModel(protoMeta );
+    _SM.DefineProtoModel( protoMeta );
 
     // Guarda el cache de  pcl's
     _SM._cllPCI[viewCode] = protoMeta;
