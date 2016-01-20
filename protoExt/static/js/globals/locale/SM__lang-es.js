@@ -1,30 +1,25 @@
-/**
- * @author Giovanni Victorette
- */
 // basic i18n for login screen, only used where it's impossible to get string values from Django server
-// TODO translate to espagnol
-_SM.__language = _SM.__language || {};
-_SM.__language.es = {
+_SM.__langbase = {
     'Text_Validate_Login_Button' : 'chek',
-    'Text_change_Password_Button' : 'change password',
-    'Text_Forgotten_Password' : 'lost password',
-    'Textfield_User_Login' : 'user',
+    'Text_change_Password_Button' : 'Cambiar clave',
+    'Text_Forgotten_Password' : 'Recuperar clave',
+    'Textfield_User_Login' : 'Usuario',
     'Textfield_User_Email' : 'email',
-    'Textfield_Password_Login' : 'password',
-    'Textfield_New_Password' : 'new password',
-    'Textfield_Confirm_Password' : 'confirm password',
-    'Title_Window_Email_Request' : 'Recover lost password',
-    'Title_Window_Password_Change':'Change your password',
+    'Textfield_Password_Login' : 'Clave',
+    'Textfield_New_Password' : 'Nueva clave',
+    'Textfield_Confirm_Password' : 'confirmar clave',
+    'Title_Window_Email_Request' : 'Recuperar clave',
+    'Title_Window_Password_Change':'Cambiar clave',
     
-    'Text_Send_Button' : 'Submit',
+    'Text_Send_Button' : 'Enviar',
     
-    'Message_Enter_Email' : 'Type your email address',
-    'Message_Success' : 'Success',
-    'Message_Email_Forgotten_Password' : 'An email has been sent with the instructions',
-    'Message_Email_New_Password' : 'An email has been sent with your new password',
-    'Message_Success_Password_Change':'The password has been changed successfully',
+    'Message_Enter_Email' : 'Digite su email',
+    'Message_Success' : 'Correcto',
+    'Message_Email_Forgotten_Password' : 'Un email le fue enviado con instrucciones',
+    'Message_Email_New_Password' : 'Un email le fue enviado con instrucciones',
+    'Message_Success_Password_Change':'La clave fue cambiada exitosamente',
     'Message_Error' : 'Error',
-    'Message_Error_Login' : 'Unable to connect',
+    'Message_Error_Login' : 'Imposible conectar con el servidor',
     
-    'StatusBar_Message_Loading' : 'Loading'
+    'StatusBar_Message_Loading' : 'Cargando'
 };
