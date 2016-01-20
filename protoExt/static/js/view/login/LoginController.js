@@ -3,8 +3,8 @@ Ext.define('Softmachine.view.login.LoginController', {
     alias : 'controller.login',
 
     requires: [
-        'ProtoUL.view.password.LostPwd', 
-        'ProtoUL.view.password.PasswordReset'
+        'Softmachine.view.login.PwdLost', 
+        'Softmachine.view.login.PwdReset'
     ],
 
     onKeyEnter: function(me, e) {
@@ -63,11 +63,11 @@ Ext.define('Softmachine.view.login.LoginController', {
     },
 
     resetPassword : function(btn){
-        Ext.create('ProtoUL.view.password.ForgotPasswordForm').show();
+        Ext.create('Softmachine.view.login.PwdLost').show();
     },
 
     changePassword : function(btn){
-        Ext.create('ProtoUL.view.password.PasswordReset').show();
+        Ext.create('Softmachine.view.login.PwdReset').show();
     }
 
 });

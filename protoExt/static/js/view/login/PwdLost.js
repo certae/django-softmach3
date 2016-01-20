@@ -1,4 +1,4 @@
-Ext.define('ProtoUL.view.password.PwdLost', {
+Ext.define('Softmachine.view.login.PwdLost', {
     extend: 'Ext.window.Window',
     alias: 'widget.forgotPasswordForm',
 

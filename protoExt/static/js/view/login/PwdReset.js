@@ -1,7 +1,7 @@
 /**
  * @author Giovanni Victorette
  */
-Ext.define('ProtoUL.view.password.PwdReset', {
+Ext.define('Softmachine.view.login.PwdReset', {
     extend: 'Ext.form.Panel',
     alias: 'widget.passwordForm',
 
@@ -72,7 +72,7 @@ Ext.define('ProtoUL.view.password.PwdReset', {
     }],
     listeners: {
         afterlayout: function() {
-            if (window.isPasswordReseted === 'True') {
+            if (window.isPwdReseted === 'True') {
                 setTimeout(function() {
                     Ext.Msg.show({
                         title: _SM.__language.Message_Success,

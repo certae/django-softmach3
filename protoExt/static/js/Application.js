@@ -58,6 +58,10 @@ Ext.define('Softmachine.Application', {
             };
         }
 
+                // // Globally changing the text of Cancel and Save buttons;
+                // Ext.grid.RowEditor.prototype.saveBtnText = _SM.__language.Text_Save_Button;
+                // Ext.grid.RowEditor.prototype.cancelBtnText = _SM.__language.Text_Cancel_Button;
+
         // This ternary operator determines the value of the SmLoggedIn key.
         // If SmLoggedIn isn't true, we display the login window,
         // otherwise, we display the main view
