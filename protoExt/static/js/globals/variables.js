@@ -77,8 +77,8 @@ _SM._defaultViewIcon = 'default_view';
 
 // Windows Position
 _SM._mainWin = null;
-_SM._winX = 10;
-_SM._winY = 10;
+// _SM._winX = 10;
+// _SM._winY = 10;
 
 // *  Configuracion del metodo por defecto
 // Ext.data.Connection.prototype.method = 'POST';
