@@ -13,6 +13,12 @@ Ext.define('ProtoUL.proto.view.ProtoDetailSelector', {
     extend : 'Ext.panel.Panel',
     alias : 'widget.detailsSelector',
 
+    requires: [
+        'ProtoUL.ux.ProtoList', 
+        'ProtoUL.proto.ProtoToolBar', 
+        'ProtoUL.proto.view.ProtoDetailTree'
+    ],
+
     // Contenedor para probar el arbol de detalles
 
     // @viewCode Required
@@ -28,7 +34,7 @@ Ext.define('ProtoUL.proto.view.ProtoDetailSelector', {
             dock : 'top'
         })
 
-        var elemTree = Ext.create('ProtoUL.proto.ProtoDetailTree', {
+        var elemTree = Ext.create('ProtoUL.proto.view.ProtoDetailTree', {
             viewCode : me.viewCode,
             myMeta : me.myMeta
         })

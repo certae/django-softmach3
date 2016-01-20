@@ -7,8 +7,8 @@ Ext.define('ProtoUL.proto.model.DetailsTreeModel', {
             read : 'POST'
         },
         extraParams : {
-            viewCode : viewCode,
-            protoEntityId : protoEntityId
+            viewCode : '',
+            protoEntityId : -1
         }
     },
 

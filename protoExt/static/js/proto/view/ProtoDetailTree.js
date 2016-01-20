@@ -25,10 +25,8 @@ Ext.define('ProtoUL.proto.view.ProtoDetailTree', {
         var me = this;
         // me.addEvents('checkModif', 'loadComplete');
 
-        definieDetailsConfigTreeModel(me.viewCode, me.myMeta.protoEntityId);
-
         this.treeStore = Ext.create('Ext.data.TreeStore', {
-            autoLoad : true,
+            autoLoad : false,
             model : 'ProtoUL.proto.model.DetailsTreeModel',
             root : {
                 text : _SM.__language.Grid_Detail_Title,
@@ -36,6 +34,12 @@ Ext.define('ProtoUL.proto.view.ProtoDetailTree', {
             },
 
             listeners : {
+                beforeload : function(store, operation, eOpts){
+                    store.getProxy().extraParams = {
+                        viewCode : me.viewCode,
+                        protoEntityId : me.myMeta.protoEntityId
+                    }; 
+                },
                 load : function(treeStore, records, successful, eOpts){
                     configureCurrentDetails()
                     me.fireEvent('loadComplete', treeStore, records, successful, eOpts);
@@ -119,11 +123,6 @@ Ext.define('ProtoUL.proto.view.ProtoDetailTree', {
                     })
         }
 
-        function definieDetailsConfigTreeModel(viewCode, protoEntityId){
-            // TODO: Modelo usado en la lista de campos con la jerarquia completa de los de zoom (
-            // detalle de fk )
-
-        }
     }
 
 });
