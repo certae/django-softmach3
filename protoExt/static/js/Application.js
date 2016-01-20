@@ -4,6 +4,10 @@
  * details. Licence GPLv3, CeRTAE, Dario Gomez
  */
 
+
+// There is only one langbase loaded in main page 
+_SM.__language = _SM.__langbase
+
 Ext.Loader.setConfig({
     enabled : true,
     paths : {
@@ -30,10 +34,6 @@ Ext.define('Softmachine.Application', {
     ],
 
     launch : function(){
-
-
-        // There is only one langbase loaded in main page 
-        _SM.__language = _SM.__langbase
 
         // It's important to note that this type of application could use
         // any type of storage, i.e., Cookies, LocalStorage, etc.
