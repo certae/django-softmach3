@@ -24,23 +24,32 @@ Ext.define('ProtoUL.proto.view.ProtoFieldTree', {
 
 
         this.treeStore = Ext.create('Ext.data.TreeStore', {
-            autoLoad: true,
+            autoLoad: false,
             folderSort: false,
             sorters: [{ property: 'text', direction: 'ASC' }],
 
             model: 'ProtoUL.proto.model.FieldSelectorModel',
+
             root: {
                 text: _SM.__language.Protofield_Fields,
                 expanded: true
             },
 
             listeners: {
+                beforeload : function(store, operation, eOpts){
+                    store.getProxy().extraParams = {
+                        viewCode : me.viewCode,
+                        protoEntityId : me.myMeta.protoEntityId
+                    }; 
+                },
+
                 load: function ( treeStore, records,  successful,  eOpts ) {
                     me.fireEvent('loadComplete', treeStore, records,  successful,  eOpts );
                 }
-            }
+            }, 
 
         });
+
 
         var tree = Ext.apply(this, {
             store: this.treeStore,
@@ -125,21 +134,10 @@ Ext.define('ProtoUL.proto.view.ProtoFieldTree', {
             }}, scope: me }
         );
 
-        definieProtoFieldSelctionModel( tree, me.viewCode, me.myMeta.protoEntityId )
 
         me.callParent(arguments);
+        // tree.store.load();
 
-        function definieProtoFieldSelctionModel( tree, viewCode, protoEntityId ) {
-
-            // TODO: Modelo usado en la lista de campos con la jerarquia completa de los de zoom ( detalle de fk )
-            var extraParams = {
-                viewCode : viewCode,
-                protoEntityId : protoEntityId
-            }; 
-            tree.store.getProxy().extraParams = extraParams;
-            // tree.store.load();
-
-        }
 
     },
 
