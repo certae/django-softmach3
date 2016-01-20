@@ -733,7 +733,7 @@ _SM.getColDefinition = function(vFld){
         break;
 
     case 'bool':
-        colDefinition['xtype'] = 'mycheckcolumn';
+        colDefinition['xtype'] = 'checkcolumn';
         colDefinition['editable'] = false;
         colDefinition['inGrid'] = true;
 
@@ -790,12 +790,12 @@ _SM.getColDefinition = function(vFld){
 
     // verificacion de xtype
     switch (colDefinition.xtype) {
-    case 'mycheckcolumn':
+    case 'checkcolumn':
     case 'datecolumn':
     case 'numbercolumn':
         break;
     case 'checkbox':
-        colDefinition.xtype = 'mycheckcolumn';
+        colDefinition.xtype = 'checkcolumn';
         break;
     case 'datefield':
         colDefinition.xtype = 'datecolumn';

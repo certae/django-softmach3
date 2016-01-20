@@ -55,7 +55,7 @@ Ext.define('ProtoUL.ux.ProtoList' ,{
         var myGridColumns = [];
         if ( me.checkStyle ) {
             myGridColumns = [{
-                xtype: 'mycheckcolumn',
+                xtype: 'checkcolumn',
                 dataIndex: '__Checked', 
                 menuDisabled : true, 
                 width: 33,  
