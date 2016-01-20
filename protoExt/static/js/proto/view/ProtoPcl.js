@@ -176,7 +176,7 @@ Ext.define('ProtoUL.proto.view.ProtoPcl', {
                 saveFieldList();
 
                 me.treeRecord = record;
-                _SM.preparePropertiesPCL(record);
+                preparePropertiesPCL(record);
             },
             scope: me
         });
