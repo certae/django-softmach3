@@ -208,7 +208,7 @@ _SM.getProxyDefinition = function(stDef){
         },
         reader : {
             type : 'json',
-            root : 'rows',
+            rootProperty : 'rows',
             successProperty : 'success',
             totalProperty : 'totalCount',
             messageProperty : 'message'
@@ -216,7 +216,7 @@ _SM.getProxyDefinition = function(stDef){
 
         writer : {
             type : 'json',
-            root : 'rows',
+            rootProperty : 'rows',
             allowSingle : false,
             writeAllFields : true,
             // Incluye los parametros en el post ( por defecto en el get )
