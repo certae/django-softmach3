@@ -1,19 +1,16 @@
-/**
- * @author Giovanni Victorette
- */
 Ext.define('Softmachine.view.login.PwdReset', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.window.Window',
     alias: 'widget.passwordForm',
 
     title: _SM.__language.Title_Window_Password_Change,
+
     floating: true,
-    centered: true,
     closable: true,
     modal: true,
-    width: 400,
-    height: 200,
+    width: 600,
+    height: 250,
     bodyPadding: 5,
-    labelWidth: 140,
+    labelWidth: 160,
 
     // Fields will be arranged vertically, stretched to full width
     layout: 'anchor',

@@ -2,13 +2,23 @@ Ext.define('Softmachine.view.login.PwdLost', {
     extend: 'Ext.window.Window',
     alias: 'widget.forgotPasswordForm',
 
-    requires: ['Ext.form.Panel', 'Ext.form.field.Text'],
-
     title: _SM.__language.Title_Window_Email_Request,
-    height: 160,
-    width: 400,
-    layout: 'fit',
+
+    floating: true,
     closable: true,
+    modal: true,
+    width: 600,
+    height: 200,
+    bodyPadding: 5,
+    labelWidth: 160,
+
+    // Fields will be arranged vertically, stretched to full width
+    layout: 'anchor',
+    defaults: {
+        anchor: '100%',
+        enableKeyEvents: true
+    },
+
     initComponent: function() {
         this.items = [{
             xtype: 'form',

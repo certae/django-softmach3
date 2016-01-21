@@ -4,7 +4,7 @@ Ext.define('Softmachine.view.login.Login', {
 
     iconCls : 'st-user-who',
     layout : 'fit',
-    width : 450,
+    width : 400,
 
     requires : [
         'Softmachine.view.login.LoginController'
