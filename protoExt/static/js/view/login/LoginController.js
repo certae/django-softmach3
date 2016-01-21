@@ -8,16 +8,16 @@ Ext.define('Softmachine.view.login.LoginController', {
     ],
 
     onKeyEnter: function(me, e) {
-        if (e.getKey() == e.ENTER) {
-            this.submitLogin();
+        if ((e.getKey() == e.ENTER) &&  this.lookupReference('form').isValid()   ) {
+            this.submitLogin(this.lookupReference('submit'));
         }
     },
 
     submitLogin : function(btn){
 
         btn.disable();
-
         var view = this.getView(), user = {}, me = this;
+
         user.login = this.lookupReference('username').getValue();
         user.password = this.lookupReference('password').getValue();
 

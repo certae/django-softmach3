@@ -2,9 +2,12 @@ Ext.define('Softmachine.view.login.Login', {
     extend : 'Ext.window.Window',
     xtype : 'login',
 
-    iconCls : 'st-user-who',
+    iconCls : 'st-user-go',
     layout : 'fit',
     width : 400,
+
+    bodyPadding: 5,
+    labelWidth: 160,
 
     requires : [
         'Softmachine.view.login.LoginController'
@@ -75,6 +78,7 @@ Ext.define('Softmachine.view.login.Login', {
             {
                 text : _SM.__language.Text_Validate_Login_Button,
                 iconCls : "st-user-go",
+                reference : 'submit',
                 formBind : true,
                 listeners : {
                     click : 'submitLogin'
