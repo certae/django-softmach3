@@ -83,6 +83,10 @@ Ext.define('Softmachine.view.login.PwdLost', {
                     itemId : 'btForgotPWDForm',
                     iconCls : "st-key-go",
                     action : 'forgotpassword',
+                    listeners : {
+                        click : 'btforgotpassword'
+                    }
+                    
                 }
             ]
         }
