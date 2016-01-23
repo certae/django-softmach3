@@ -3,10 +3,16 @@ Ext.define('Softmachine.view.login.Login', {
     xtype : 'login',
 
     iconCls : 'st-user-go',
+    title : 'Login Window',
+
+    closable : false,
+    autoShow : true,
+
     layout : 'fit',
     width : 400,
 
     bodyPadding: 5,
+    bodyPadding : 10,
     labelWidth: 160,
 
     requires : [
@@ -14,17 +20,13 @@ Ext.define('Softmachine.view.login.Login', {
     ],
 
     controller : 'login',
-    bodyPadding : 10,
-    title : 'Login Window',
-    closable : false,
-    autoShow : true,
 
     items : {
         xtype : 'form',
         reference : 'form',
 
         bodyStyle : "padding:10px",
-        labelWidth : 120,
+        labelWidth : 160,
         labelAlign : 'right',
         redirectUrl : false,
 
@@ -65,14 +67,14 @@ Ext.define('Softmachine.view.login.Login', {
                 text : _SM.__language.Text_Forgotten_Password,
                 iconCls : "st-user-who",
                 listeners : {
-                    click : 'resetPassword'
+                    click : 'showResetPasswordForm'
                 }
             },
             {
                 text : _SM.__language.Text_change_Password_Button,
                 iconCls : "st-key-go",
                 listeners : {
-                    click : 'changePassword'
+                    click : 'showChangePasswordForm'
                 }
             },
             {

@@ -84,7 +84,7 @@ Ext.define('Softmachine.view.login.PwdReset', {
                 iconCls : 'st-key-go',
                 formBind : true,
                 disabled : true,
-                action : 'changepassword'
+                action : 'showChangePasswordForm'
             }
         ],
         // listeners : {

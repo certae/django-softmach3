@@ -62,11 +62,11 @@ Ext.define('Softmachine.view.login.LoginController', {
 
     },
 
-    resetPassword : function(btn){
+    showChangePasswordForm : function(btn){
         Ext.create('Softmachine.view.login.PwdLost').show();
     },
 
-    changePassword : function(btn){
+    showChangePasswordForm : function(btn){
         Ext.create('Softmachine.view.login.PwdReset').show();
     }, 
 

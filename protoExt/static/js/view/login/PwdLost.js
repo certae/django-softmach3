@@ -8,10 +8,12 @@ Ext.define('Softmachine.view.login.PwdLost', {
     floating : true,
     closable : true,
     modal : true,
-    width : 600,
+    width : 450,
     height : 200,
     bodyPadding : 5,
     labelWidth : 160,
+
+    controller : 'login',
 
     // Fields will be arranged vertically, stretched to full width
     layout : 'anchor',
@@ -84,8 +86,9 @@ Ext.define('Softmachine.view.login.PwdLost', {
                     iconCls : "st-key-go",
                     action : 'forgotpassword',
                     listeners : {
-                        click : 'btforgotpassword'
-                    }
+                        click : 'btforgotpassword', 
+                        scope : this, 
+                    }, 
                     
                 }
             ]
