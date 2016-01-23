@@ -13,8 +13,6 @@ Ext.define('Softmachine.view.login.PwdLost', {
     bodyPadding : 5,
     labelWidth : 160,
 
-    controller : 'login',
-
     // Fields will be arranged vertically, stretched to full width
     layout : 'anchor',
     defaults : {
@@ -22,77 +20,62 @@ Ext.define('Softmachine.view.login.PwdLost', {
         enableKeyEvents : true
     },
 
-    items : [
-        {
-            xtype : 'form',
-            bodyPadding : 25,
-            centered : true,
+    items : {
+        xtype : 'form',
+        bodyPadding : 25,
+        centered : true,
 
-            fieldDefaults : {
-                anchor : '100%',
-                labelAlign : 'left',
+        fieldDefaults : {
+            anchor : '100%',
+            labelAlign : 'left',
+            allowBlank : false,
+            combineErrors : true,
+            msgTarget : 'side',
+            labelWidth : 80
+        },
+        items : [
+            {
+                xtype : 'textfield',
+                fieldLabel : _SM.__language.Textfield_User_Login,
+                name : 'login',
                 allowBlank : false,
-                combineErrors : true,
-                msgTarget : 'side',
-                labelWidth : 80
+                flex : 1,
             },
-            items : [
-                {
-                    xtype : 'textfield',
-                    fieldLabel : _SM.__language.Textfield_User_Login,
-                    name : 'login',
-                    allowBlank : false,
-                    flex : 1,
-                    listeners : {
-                        afterrender : function(field){
-                            field.focus(false, 500);
-                        },
-                        blur : function(){
-                            this.setValue(Ext.String.trim(this.getValue()));
-                        }
-                    }
-                },
-                {
-                    xtype : 'textfield',
-                    fieldLabel : _SM.__language.Textfield_User_Email,
-                    name : 'email',
-                    vtype : 'email',
-                    allowBlank : false,
-                    flex : 1,
-                    listeners : {
-                        specialkey : function(f, e){
-                            if (e.getKey() == e.ENTER) {
-                                var submitButton = Ext.ComponentQuery
-                                        .query('button[itemId=btForgotPWDForm]')[0];
-                                submitButton.fireEvent('click', submitButton);
-                            }
-                        }
-                    }
-                }
-            ]
-        }
-    ],
+            {
+                xtype : 'textfield',
+                fieldLabel : _SM.__language.Textfield_User_Email,
+                name : 'email',
+                vtype : 'email',
+                allowBlank : false,
+                flex : 1,
+            }
+        ],
 
-    dockedItems : [
-        {
-            xtype : 'toolbar',
-            dock : 'bottom',
-            ui : 'footer',
-            items : [
-                '->',
-                {
-                    text : _SM.__language.Text_Send_Button,
-                    itemId : 'btForgotPWDForm',
-                    iconCls : "st-key-go",
-                    action : 'forgotpassword',
-                    listeners : {
-                        click : 'btforgotpassword', 
-                        scope : this, 
-                    }, 
-                    
+        // Reset and Submit buttons
+        buttons : [
+            {
+                text : _SM.__language.Text_Send_Button,
+                itemId : 'btForgotPWDForm',
+                iconCls : 'st-key-go',
+                formBind : true,
+                disabled : true,
+
+                handler : function(){
+                    var form = this.up('form').getForm();
+                    if (form.isValid()) {
+                        form.submit({
+                            success : function(form, action){
+                                Ext.Msg.alert('Success', action.result.msg);
+                            },
+                            failure : function(form, action){
+                                Ext.Msg.alert('Failed', action.result.msg);
+                            }
+                        });
+                    }
                 }
-            ]
-        }
-    ],
+
+            }
+        ],
+    }
 
 });

@@ -67,7 +67,7 @@ Ext.define('Softmachine.view.login.Login', {
                 text : _SM.__language.Text_Forgotten_Password,
                 iconCls : "st-user-who",
                 listeners : {
-                    click : 'showResetPasswordForm'
+                    click : 'showLostPasswordForm'
                 }
             },
             {

@@ -62,7 +62,7 @@ Ext.define('Softmachine.view.login.LoginController', {
 
     },
 
-    showChangePasswordForm : function(btn){
+    showLostPasswordForm : function(btn){
         Ext.create('Softmachine.view.login.PwdLost').show();
     },
 
@@ -70,10 +70,6 @@ Ext.define('Softmachine.view.login.LoginController', {
         Ext.create('Softmachine.view.login.PwdReset').show();
     }, 
 
-    btforgotpassword: function(me, e) {
-        if ((e.getKey() == e.ENTER) &&  this.lookupReference('form').isValid()   ) {
-            this.submitLogin(this.lookupReference('submit'));
-        }
-    },
+
 
 });

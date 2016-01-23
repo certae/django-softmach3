@@ -28,8 +28,11 @@ _SM._PConfig = {
     urlVerifyMeta: 'protoLib/protoVerifyMeta/',
     urlGetMetaStructure: 'protoLib/protoGetMetaStructure/',
 
+//  PasswordRecovery
     urlGetPasswordRecovery: 'protoLib/protoGetPasswordRecovery/',
     urlSubmitChangePassword: 'protoLib/submitChangePassword/',
+
+
     urlGetSheetReport: 'protoLib/protoWiki/',
     urlGetProtoExport: 'protoLib/protoExport/',
     urlDoAction: 'protoLib/protoDoActions/',
@@ -38,6 +41,9 @@ _SM._PConfig = {
     urlGetNextIncrement: 'protoLib/getFieldIncrement/',
     urlLoadFile: 'protoLib/loadFile/',
     urlGetEntitiesJSONDiagram: 'protoDiagram/getEntitiesJSONDiagram/',
+
+
+//  Diagram 
     synchDBFromDiagram: 'protoDiagram/synchDBFromDiagram/',
     synchDiagramFromDB: 'protoDiagram/synchDiagramFromDB/',
     getElementsDiagramFromSelectedTables: 'protoDiagram/getElementsDiagramFromSelectedTables/',

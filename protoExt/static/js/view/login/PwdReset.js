@@ -8,11 +8,10 @@ Ext.define('Softmachine.view.login.PwdReset', {
     floating : true,
     closable : true,
     modal : true,
-    width : 600,
+    width : 450,
     // height : 250,
     bodyPadding : 5,
     labelWidth : 160,
-
 
     // The fields
     username : '',
@@ -25,9 +24,9 @@ Ext.define('Softmachine.view.login.PwdReset', {
         labelWidth : 160,
         labelAlign : 'right',
         redirectUrl : false,
-    
+
         layout : 'anchor',
-        defaultType: 'textfield',
+        defaultType : 'textfield',
 
         defaults : {
             anchor : '100%',
@@ -38,12 +37,7 @@ Ext.define('Softmachine.view.login.PwdReset', {
                 fieldLabel : _SM.__language.Textfield_User_Login,
                 name : "login",
                 value : this.username,
-                allowBlank : false, 
-                // listeners : {
-                //     afterrender : function(field){
-                //         field.focus(false, 500);
-                //     }
-                // }
+                allowBlank : false,
             },
             {
                 fieldLabel : _SM.__language.Textfield_Password_Login,
@@ -62,17 +56,6 @@ Ext.define('Softmachine.view.login.PwdReset', {
                 name : 'newPassword2',
                 inputType : 'password',
                 allowBlank : false,
-            // listeners : {
-            // // this is used to fire the click event, so the PasswordManager is able to
-            // // capture the form.
-            // specialkey : function(f, e){
-            // if (e.getKey() == e.ENTER) {
-            // var changeButton = Ext.ComponentQuery
-            // .query('button[itemId=btChangePWD]')[0];
-            // changeButton.fireEvent('click', changeButton);
-            // }
-            // }
-            // }
             }
         ],
 
@@ -84,23 +67,23 @@ Ext.define('Softmachine.view.login.PwdReset', {
                 iconCls : 'st-key-go',
                 formBind : true,
                 disabled : true,
-                action : 'showChangePasswordForm'
+
+                handler : function(){
+                    var form = this.up('form').getForm();
+                    if (form.isValid()) {
+                        form.submit({
+                            success : function(form, action){
+                                Ext.Msg.alert('Success', action.result.msg);
+                            },
+                            failure : function(form, action){
+                                Ext.Msg.alert('Failed', action.result.msg);
+                            }
+                        });
+                    }
+                }
+
             }
         ],
-        // listeners : {
-        //     afterlayout : function(){
-        //         if (window.isPwdReseted === 'True') {
-        //             setTimeout(function(){
-        //                 Ext.Msg.show({
-        //                     title : _SM.__language.Message_Success,
-        //                     msg : _SM.__language.Message_Email_New_Password,
-        //                     buttons : Ext.Msg.OK,
-        //                     icon : Ext.MessageBox.INFO
-        //                 });
-        //             }, 1000);
-        //         }
-        //     }
-        // },
     },
 
 });
