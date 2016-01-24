@@ -33,21 +33,19 @@ Ext.define('Softmachine.Application', {
         'Softmachine.view.main.Main'
     ],
 
+    launchPwdChange : function(){
+        // it was the old launch, for pwd recovery 
+        if (window.isPasswordReseted === 'True') {
+            this.showResetPasswordForm();
+        } else { 
+            this.launch()
+        }
+    },
+
     launch : function(){
 
         // It's important to note that this type of application could use
         // any type of storage, i.e., Cookies, LocalStorage, etc.
-
-        // for pwd recovery 
-        if (window.isPasswordReseted === 'True') {
-            this.showResetPasswordForm();
-        } else { 
-            this.launchProto()
-        }
-
-    },
-
-    launchProto : function(){
 
         // Check to see the current value of the localStorage key
         var loggedIn;
@@ -81,7 +79,7 @@ Ext.define('Softmachine.Application', {
         });
 
     }, 
-    
+
     onAppUpdate : function(){
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?', function(
                 choice)

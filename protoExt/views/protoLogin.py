@@ -73,6 +73,8 @@ def protoGetPasswordRecovery(request):
     if request.method != 'POST':
         return JsonError( 'invalid message' ) 
                 
+    errMsg =  "Mauvais utilisateur / email"
+
     if request.POST.get('email') and request.POST.get('login'):
         try:
             u = User.objects.get(email = request.POST['email'], username = request.POST['login'])
@@ -94,12 +96,14 @@ def protoGetPasswordRecovery(request):
             u.email_user( _('Nouveau mot de passe'), message)
 
         except Exception as e:
-            return JsonError(getReadableError(e))  
+            return JsonError(_(errMsg))
 
     else: 
         return JsonError( 'invalid message' ) 
+
+    return JsonSuccess({ 'message': 'Ok' })
     
-    return HttpResponseRedirect('/')
+#     return HttpResponseRedirect('/')
 
 
 def resetpassword(request):
@@ -107,7 +111,8 @@ def resetpassword(request):
     if request.method != 'GET':
         return JsonError( 'invalid message' ) 
     
-    link = '/protoExtReset'
+#   link = '/protoExtReset'
+    link = '/main'
     if request.GET.get('a') and request.GET.get('t'):
         user = User.objects.get(pk = request.GET['a'])
         token = user_token(user)
@@ -136,12 +141,14 @@ def changepassword(request):
     userName = request.POST['login']
     userPwd  = request.POST['current']
     
+    errMsg =  "Mauvais utilisateur ou mot de passe"
     try:
         pUser = authenticate(username = userName, password = userPwd )
     except:
-        errMsg =  "Mauvais utilisateur ou mot de passe"
         return JsonError(_(errMsg))
-    
+
+    if pUser is None:    
+        return JsonError(_(errMsg))
     
     errMsg =  "Mauvais utilisateur ou mot de passe"
 
@@ -155,7 +162,7 @@ def changepassword(request):
                 pUser.email_user(_( 'Nouveau mot de passe'), message)
             except:
                 pass
-        return JsonSuccess()
+        return JsonSuccess({ 'message': 'Ok' })
     else:
         errMsg = 'Les mots de passe ne correspondent pas!'
     return JsonError(_(errMsg))

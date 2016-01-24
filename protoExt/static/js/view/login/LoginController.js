@@ -82,18 +82,12 @@ Ext.define('Softmachine.view.login.LoginController', {
                 success: function(form, action) {
                     Ext.Msg.alert(_SM.__language.Message_Success, _SM.__language.Message_Email_Forgotten_Password, function(btn) {
                         if (btn == 'ok') {
-                            Ext.destroy(Ext.ComponentQuery.query('pwdLostForm'));
+                            location.reload(true);
                         }
                     });
-                    btn.setIconCls("st-key-go");
                 },
                 failure: function(form, action) {
-                    Ext.Msg.show({
-                        title: _SM.__language.Message_Error,
-                        msg: action.response.statusText,
-                        buttons: Ext.Msg.OK,
-                        icon: Ext.MessageBox.WARNING
-                    });
+                    Ext.Msg.alert('Failed', action.result.message);
                     btn.setIconCls("st-key-go");
                 }
             });
@@ -112,13 +106,7 @@ Ext.define('Softmachine.view.login.LoginController', {
                 success: function(form, action) {
                     Ext.Msg.alert("Success", _SM.__language.Message_Success_Password_Change, function(btn) {
                         if (btn == 'ok') {
-                            Ext.destroy(Ext.ComponentQuery.query('pwdResetForm'));
-                            Ext.Ajax.request({
-                                url: 'protoExt',
-                                success: function() {
-                                    window.location = 'protoExt';
-                                }
-                            });
+                            location.reload(true);
                         }
                     });
                 },
