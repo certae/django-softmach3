@@ -1,6 +1,6 @@
 Ext.define('Softmachine.view.login.PwdLost', {
     extend : 'Ext.window.Window',
-    alias : 'widget.forgotPasswordForm',
+    alias : 'widget.pwdLostForm',
 
     title : _SM.__language.Title_Window_Email_Request,
     iconCls : 'st-user-who',

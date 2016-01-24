@@ -37,9 +37,20 @@ Ext.define('Softmachine.Application', {
 
         // It's important to note that this type of application could use
         // any type of storage, i.e., Cookies, LocalStorage, etc.
-        var loggedIn;
+
+        // for pwd recovery 
+        if (window.isPasswordReseted === 'True') {
+            this.showResetPasswordForm();
+        } else { 
+            this.launchProto()
+        }
+
+    },
+
+    launchProto : function(){
 
         // Check to see the current value of the localStorage key
+        var loggedIn;
         loggedIn = localStorage.getItem("SmLoggedIn");
         if (loggedIn) {
             _SM._UserInfo = Ext.decode(localStorage.getItem("SmUserInfo"));
@@ -69,8 +80,8 @@ Ext.define('Softmachine.Application', {
             xtype : loggedIn ? 'app-main' : 'login'
         });
 
-    },
-
+    }, 
+    
     onAppUpdate : function(){
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?', function(
                 choice)
@@ -79,7 +90,11 @@ Ext.define('Softmachine.Application', {
                 window.location.reload();
             }
         });
-    }
+    }, 
+
+    showResetPasswordForm: function() {
+        Ext.create('Softmachine.view.login.PwdReset').show();
+    }     
 });
 
 // Add csrf token to every ajax request

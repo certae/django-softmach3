@@ -71,7 +71,7 @@ Ext.define('Softmachine.view.login.LoginController', {
     }, 
 
     doPwdRecovery : function(btn){
-        var form = this.up('form').getForm();  
+        var form = btn.up('form').getForm();  
         // var win = btn.up('window'), form = win.down('form').getForm();
         if (form.isValid()) {
             btn.setIconCls("st-loading");
@@ -82,7 +82,7 @@ Ext.define('Softmachine.view.login.LoginController', {
                 success: function(form, action) {
                     Ext.Msg.alert(_SM.__language.Message_Success, _SM.__language.Message_Email_Forgotten_Password, function(btn) {
                         if (btn == 'ok') {
-                            Ext.destroy(Ext.ComponentQuery.query('forgotPasswordForm'));
+                            Ext.destroy(Ext.ComponentQuery.query('pwdLostForm'));
                         }
                     });
                     btn.setIconCls("st-key-go");
@@ -101,10 +101,10 @@ Ext.define('Softmachine.view.login.LoginController', {
 
     }, 
 
-    doPwdReset: function(button) {
-        var form = button.up('form').getForm();
+    doPwdReset: function(btn) {
+        var form = btn.up('form').getForm();
         if (form.isValid()) {
-            button.setIconCls("st-loading");
+            btn.setIconCls("st-loading");
             form.submit({
                 url: _SM._PConfig.urlSubmitChangePassword,
                 method: 'POST',
@@ -112,7 +112,7 @@ Ext.define('Softmachine.view.login.LoginController', {
                 success: function(form, action) {
                     Ext.Msg.alert("Success", _SM.__language.Message_Success_Password_Change, function(btn) {
                         if (btn == 'ok') {
-                            Ext.destroy(Ext.ComponentQuery.query('passwordForm'));
+                            Ext.destroy(Ext.ComponentQuery.query('pwdResetForm'));
                             Ext.Ajax.request({
                                 url: 'protoExt',
                                 success: function() {
@@ -124,7 +124,7 @@ Ext.define('Softmachine.view.login.LoginController', {
                 },
                 failure: function(form, action) {
                     Ext.Msg.alert('Failed', action.result.message);
-                    button.setIconCls("st-key-go");
+                    btn.setIconCls("st-key-go");
                 }
             });
         }
