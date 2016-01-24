@@ -20,6 +20,8 @@ Ext.define('Softmachine.view.login.PwdLost', {
         enableKeyEvents : true
     },
 
+    controller : 'login',
+
     items : {
         xtype : 'form',
         bodyPadding : 25,
@@ -55,23 +57,13 @@ Ext.define('Softmachine.view.login.PwdLost', {
         buttons : [
             {
                 text : _SM.__language.Text_Send_Button,
-                itemId : 'btForgotPWDForm',
+                itemId : 'btPwdLostSubmit',
                 iconCls : 'st-key-go',
                 formBind : true,
                 disabled : true,
 
-                handler : function(){
-                    var form = this.up('form').getForm();
-                    if (form.isValid()) {
-                        form.submit({
-                            success : function(form, action){
-                                Ext.Msg.alert('Success', action.result.msg);
-                            },
-                            failure : function(form, action){
-                                Ext.Msg.alert('Failed', action.result.msg);
-                            }
-                        });
-                    }
+                listeners : {
+                    click : 'doPwdRecovery'
                 }
 
             }

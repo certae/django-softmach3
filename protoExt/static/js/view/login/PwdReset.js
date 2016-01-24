@@ -16,6 +16,8 @@ Ext.define('Softmachine.view.login.PwdReset', {
     // The fields
     username : '',
 
+    controller : 'login',
+
     items : {
         xtype : 'form',
         reference : 'pwdReset',
@@ -63,23 +65,13 @@ Ext.define('Softmachine.view.login.PwdReset', {
         buttons : [
             {
                 text : _SM.__language.Text_change_Password_Button,
-                itemId : 'btChangePWD',
+                itemId : 'btPwdResetSubmit',
                 iconCls : 'st-key-go',
                 formBind : true,
                 disabled : true,
 
-                handler : function(){
-                    var form = this.up('form').getForm();
-                    if (form.isValid()) {
-                        form.submit({
-                            success : function(form, action){
-                                Ext.Msg.alert('Success', action.result.msg);
-                            },
-                            failure : function(form, action){
-                                Ext.Msg.alert('Failed', action.result.msg);
-                            }
-                        });
-                    }
+                listeners : {
+                    click : 'doPwdReset'
                 }
 
             }

@@ -70,6 +70,64 @@ Ext.define('Softmachine.view.login.LoginController', {
         Ext.create('Softmachine.view.login.PwdReset').show();
     }, 
 
+    doPwdRecovery : function(btn){
+        var form = this.up('form').getForm();  
+        // var win = btn.up('window'), form = win.down('form').getForm();
+        if (form.isValid()) {
+            btn.setIconCls("st-loading");
+            form.submit({
+                url: _SM._PConfig.urlGetPasswordRecovery,
+                method: 'POST',
+                scope: this,
+                success: function(form, action) {
+                    Ext.Msg.alert(_SM.__language.Message_Success, _SM.__language.Message_Email_Forgotten_Password, function(btn) {
+                        if (btn == 'ok') {
+                            Ext.destroy(Ext.ComponentQuery.query('forgotPasswordForm'));
+                        }
+                    });
+                    btn.setIconCls("st-key-go");
+                },
+                failure: function(form, action) {
+                    Ext.Msg.show({
+                        title: _SM.__language.Message_Error,
+                        msg: action.response.statusText,
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.MessageBox.WARNING
+                    });
+                    btn.setIconCls("st-key-go");
+                }
+            });
+        }
 
+    }, 
+
+    doPwdReset: function(button) {
+        var form = button.up('form').getForm();
+        if (form.isValid()) {
+            button.setIconCls("st-loading");
+            form.submit({
+                url: _SM._PConfig.urlSubmitChangePassword,
+                method: 'POST',
+                scope: this,
+                success: function(form, action) {
+                    Ext.Msg.alert("Success", _SM.__language.Message_Success_Password_Change, function(btn) {
+                        if (btn == 'ok') {
+                            Ext.destroy(Ext.ComponentQuery.query('passwordForm'));
+                            Ext.Ajax.request({
+                                url: 'protoExt',
+                                success: function() {
+                                    window.location = 'protoExt';
+                                }
+                            });
+                        }
+                    });
+                },
+                failure: function(form, action) {
+                    Ext.Msg.alert('Failed', action.result.message);
+                    button.setIconCls("st-key-go");
+                }
+            });
+        }
+    },
 
 });
