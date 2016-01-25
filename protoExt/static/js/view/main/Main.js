@@ -156,7 +156,44 @@ Ext.define('Softmachine.view.main.Main', {
                         ]
                     })
                 }
-            ]
+            ], 
+
+            showMessage: function(text, origin, clear) {
+
+                var o = {
+                    text: origin + ' ' + text,
+                    iconCls: this.iconCls, 
+                    clear: clear 
+
+                };
+                return this.setStatus(o)
+
+            },
+
+
+            showError: function(text, origin) {
+
+                // console.log( 'error :' + origin  ,  text )
+                this.setStatus({
+                    text: 'Oops! ' + text,
+                    iconCls: 'x-status-error',
+                    clear: true
+                });
+
+            },
+
+            showWarning: function(text, origin) {
+
+                // console.log( 'warning :' + origin, text )
+
+                this.setStatus({
+                    text: text,
+                    iconCls: 'x-status-warning',
+                    clear: true
+                });
+
+            },
+
         })
 
         _SM.vp_StatusBar = myPanel;
