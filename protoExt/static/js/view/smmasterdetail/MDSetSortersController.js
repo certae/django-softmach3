@@ -26,19 +26,19 @@ Ext.define('Softmachine.view.smmasterdetail.MDSetSortersController', {
 
         if (mySortersSet.length > 0) {
 
-            __MasterDetail.tbSortersSet = Ext.create('Ext.toolbar.Toolbar', {
-                dock: 'top',
-                hidden: true,
-                enableOverflow: true,
-                items: [{
-                    xtype: 'tbtext',
-                    text: '<strong>Sorters :</strong>'
-                }]
-            });
+            // __MasterDetail.tbSortersSet = Ext.create('Ext.toolbar.Toolbar', {
+            //     dock: 'top',
+            //     hidden: true,
+            //     enableOverflow: true,
+            //     items: [{
+            //         xtype: 'tbtext',
+            //         text: '<strong>Sorters :</strong>'
+            //     }]
+            // });
 
-            __MasterDetail.tbSortersSet.add(mySortersSet);
+            // __MasterDetail.tbSortersSet.add(mySortersSet);
+            // __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbSortersSet);
             __MasterDetail.mySortersSet = mySortersSet;
-            __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbSortersSet);
 
         };
 

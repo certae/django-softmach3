@@ -69,21 +69,21 @@ Ext.define('Softmachine.view.smmasterdetail.MDPrintOptsController', {
         // Modificacion del entorno
         if (myPrinterOpts.length > 0) {
 
-            __MasterDetail.tbPrinterOpts = Ext.create('Ext.toolbar.Toolbar', {
-                dock : 'top',
-                hidden : true,
-                enableOverflow : true,
-                items : [
-                    {
-                        xtype : 'tbtext',
-                        text : '<strong>' + _SM.__language.Text_Print + ':</strong>'
-                    }
-                ]
-            });
+            // __MasterDetail.tbPrinterOpts = Ext.create('Ext.toolbar.Toolbar', {
+            //     dock : 'top',
+            //     hidden : true,
+            //     enableOverflow : true,
+            //     items : [
+            //         {
+            //             xtype : 'tbtext',
+            //             text : '<strong>' + _SM.__language.Text_Print + ':</strong>'
+            //         }
+            //     ]
+            // });
 
-            __MasterDetail.tbPrinterOpts.add(myPrinterOpts);
+            // __MasterDetail.tbPrinterOpts.add(myPrinterOpts);
+            // __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbPrinterOpts);
             __MasterDetail.myPrinterOpts = myPrinterOpts;
-            __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbPrinterOpts);
 
         }
 

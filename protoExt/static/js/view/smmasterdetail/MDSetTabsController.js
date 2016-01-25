@@ -22,19 +22,19 @@ Ext.define('Softmachine.view.smmasterdetail.MDSetTabsController', {
 
         if (myTabs.length > 0) {
 
-            __MasterDetail.tbTabs = Ext.create('Ext.toolbar.Toolbar', {
-                dock: 'top',
-                hidden: true,
-                enableOverflow: true,
-                items: [{
-                    xtype: 'tbtext',
-                    text: '<strong>Tabs :</strong>'
-                }]
-            });
+            // __MasterDetail.tbTabs = Ext.create('Ext.toolbar.Toolbar', {
+            //     dock: 'top',
+            //     hidden: true,
+            //     enableOverflow: true,
+            //     items: [{
+            //         xtype: 'tbtext',
+            //         text: '<strong>Tabs :</strong>'
+            //     }]
+            // });
 
-            __MasterDetail.tbTabs.add(myTabs);
+            // __MasterDetail.tbTabs.add(myTabs);
+            // __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbTabs);
             __MasterDetail.myTabs = myTabs;
-            __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbTabs);
 
         };
 

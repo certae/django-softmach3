@@ -61,19 +61,19 @@ Ext.define('ProtoUL.proto.view.ConfigController', {
         // Modificacion del entorno
         if (myConfigOpts.length > 0) {
 
-            __MasterDetail.tbConfigOpts = Ext.create('Ext.toolbar.Toolbar', {
-                dock: 'top',
-                hidden: true,
-                enableOverflow: true,
-                items: [{
-                    xtype: 'tbtext',
-                    text: '<strong>' + _SM.__language.Text_Config + ':</strong>'
-                }]
-            });
+            // __MasterDetail.tbConfigOpts = Ext.create('Ext.toolbar.Toolbar', {
+            //     dock: 'top',
+            //     hidden: true,
+            //     enableOverflow: true,
+            //     items: [{
+            //         xtype: 'tbtext',
+            //         text: '<strong>' + _SM.__language.Text_Config + ':</strong>'
+            //     }]
+            // });
 
-            __MasterDetail.tbConfigOpts.add(myConfigOpts);
+            // __MasterDetail.tbConfigOpts.add(myConfigOpts);
+            // __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbConfigOpts);
             __MasterDetail.myConfigOpts = myConfigOpts;
-            __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbConfigOpts);
 
         }
     },

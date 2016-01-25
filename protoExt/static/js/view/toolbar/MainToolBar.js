@@ -47,14 +47,27 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     hidden : true,
                     handler : editOpts
                 },
+
+                // {
+                //     text : _SM.__language.Text_Clasify_Button,
+                //     tooltip : _SM.__language.Tooltip_Clasify_Button,
+                //     iconCls : 'icon-order',
+                //     itemId : 'sorters',
+                //     hidden : true,
+                //     handler : toogleTb2
+                // },
+
                 {
-                    text : _SM.__language.Text_Clasify_Button,
-                    tooltip : _SM.__language.Tooltip_Clasify_Button,
-                    iconCls : 'icon-order',
-                    itemId : 'sorters',
+                    // xtype : 'splitbutton',
+                    text : _SM.__language.Text_Sorters_Button,
+                    tooltip : _SM.__language.Tooltip_Sorters_Button,
+                    iconCls : 'icon-sorters',
+                    itemId : 'sorterSet',
                     hidden : true,
-                    handler : toogleTb2
+                    menu : Ext.create('Ext.menu.Menu', {})
+
                 },
+
                 {
                     xtype : 'splitbutton',
                     text : _SM.__language.Text_Actions_Button,
@@ -90,16 +103,6 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                     tooltip : _SM.__language.Tooltip_Tabs_Button,
                     iconCls : 'icon-tabs',
                     itemId : 'tabSet',
-                    hidden : true,
-                    menu : Ext.create('Ext.menu.Menu', {})
-
-                },
-                {
-                    // xtype : 'splitbutton',
-                    text : _SM.__language.Text_Sorters_Button,
-                    tooltip : _SM.__language.Tooltip_Sorters_Button,
-                    iconCls : 'icon-sorters',
-                    itemId : 'sorterSet',
                     hidden : true,
                     menu : Ext.create('Ext.menu.Menu', {})
 
@@ -164,9 +167,9 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
             // 'details', 'printerOpts', 'sorters', 'tbHelp', 'filterSet',
 
             if (but.itemId === 'sorters') {
-                if (__MasterDetail.tbSorters) {
-                    __MasterDetail.tbSorters.setVisible(but.pressed);
-                }
+                // if (__MasterDetail.tbSorters) {
+                //     __MasterDetail.tbSorters.setVisible(but.pressed);
+                // }
 
             // } else if (but.itemId === 'filterSet') {
             //     if (__MasterDetail.tbFilters) {
@@ -198,10 +201,10 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
             //         __MasterDetail.showDetailPanel(!but.pressed);
             //     }
 
-            } else if (but.itemId === 'protoActions') {
-                if (__MasterDetail.tbProtoActions) {
-                    __MasterDetail.tbProtoActions.setVisible(but.pressed);
-                }
+            // } else if (but.itemId === 'protoActions') {
+            //     if (__MasterDetail.tbProtoActions) {
+            //         __MasterDetail.tbProtoActions.setVisible(but.pressed);
+            //     }
 
                 // } else if ( but.itemId == 'config' ) {
                 // this.configCtrl.showMetaConfig()
@@ -270,7 +273,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
             // --------------------- 'details', 'printerOpts', 'sorters', 'tbHelp', 'filterSet',
             setMdButton(this, 'printerOpts', bEdit);
             setMdButton(this, 'configOpts', bEdit);
-            setMdButton(this, 'sorters', bEdit);
+            // setMdButton(this, 'sorters', bEdit);
             setMdButton(this, 'filterSet', bEdit);
             setMdButton(this, 'protoActions', bEdit);
             setMdButton(this, 'sorterSet', bEdit);
@@ -334,11 +337,11 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
             bt.show();
         }
 
-        if (this.__MasterDetail.tbSorters) {
-            var bt = this.getComponent('sorters');
-            bt.protoEnable = true;
-            bt.show();
-        }
+        // if (this.__MasterDetail.tbSorters) {
+        //     var bt = this.getComponent('sorters');
+        //     bt.protoEnable = true;
+        //     bt.show();
+        // }
 
         if (this.__MasterDetail.myTabs) {
             var bt = this.getComponent('tabSet');

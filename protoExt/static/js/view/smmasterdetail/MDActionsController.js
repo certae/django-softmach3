@@ -75,19 +75,19 @@ Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
 
         if (myProtoActions.length > 0) {
 
-            __MasterDetail.tbProtoActions = Ext.create('Ext.toolbar.Toolbar', {
-                dock: 'top',
-                hidden: true,
-                enableOverflow: true,
-                items: [{
-                    xtype: 'tbtext',
-                    text: '<strong>Actions :</strong>'
-                }]
-            });
+            // __MasterDetail.tbProtoActions = Ext.create('Ext.toolbar.Toolbar', {
+            //     dock: 'top',
+            //     hidden: true,
+            //     enableOverflow: true,
+            //     items: [{
+            //         xtype: 'tbtext',
+            //         text: '<strong>Actions :</strong>'
+            //     }]
+            // });
 
-            __MasterDetail.tbProtoActions.add(myProtoActions);
+            // __MasterDetail.tbProtoActions.add(myProtoActions);
+            // __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbProtoActions);
             __MasterDetail.myProtoActions = myProtoActions;
-            __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbProtoActions);
 
         };
 

@@ -45,21 +45,21 @@ Ext.define('Softmachine.view.smmasterdetail.MDTbSortByController', {
                 }
             });
 
-            __MasterDetail.tbSorters = Ext.create('Ext.toolbar.Toolbar', {
-                dock : 'top',
-                hidden : true,
-                items : [
-                    {
-                        iconCls : 'sort',
-                        xtype : 'tbtext',
-                        text : '<strong>' + _SM.__language.Grid_Sort_Title + ':</strong>',
-                        reorderable : false
-                    }
-                ],
-                plugins : [
-                    reorderer
-                ]
-            });
+            // __MasterDetail.tbSorters = Ext.create('Ext.toolbar.Toolbar', {
+            //     dock : 'top',
+            //     hidden : true,
+            //     items : [
+            //         {
+            //             iconCls : 'sort',
+            //             xtype : 'tbtext',
+            //             text : '<strong>' + _SM.__language.Grid_Sort_Title + ':</strong>',
+            //             reorderable : false
+            //         }
+            //     ],
+            //     plugins : [
+            //         reorderer
+            //     ]
+            // });
 
             for ( var ix in mySortCols) {
 
@@ -70,19 +70,19 @@ Ext.define('Softmachine.view.smmasterdetail.MDTbSortByController', {
                     continue;
                 }
 
-                // Agrega el sort
-                __MasterDetail.tbSorters.add(createSorterButtonConfig({
-                    text : c.header,
-                    tooltip : c.header,
-                    maxWidth : 100,
-                    sortData : {
-                        property : c.name,
-                        direction : 'ASC'
-                    }
-                }));
+                // // Agrega el sort
+                // __MasterDetail.tbSorters.add(createSorterButtonConfig({
+                //     text : c.header,
+                //     tooltip : c.header,
+                //     maxWidth : 100,
+                //     sortData : {
+                //         property : c.name,
+                //         direction : 'ASC'
+                //     }
+                // }));
             }
 
-            __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbSorters);
+            // __MasterDetail.protoMasterGrid.addDocked(__MasterDetail.tbSorters);
             this.mySortCols = mySortCols;
 
         }
@@ -144,9 +144,9 @@ Ext.define('Softmachine.view.smmasterdetail.MDTbSortByController', {
         function getSorters(){
 
             var sorters = [];
-            Ext.each(__MasterDetail.tbSorters.query('button'), function(button){
-                sorters.push(button.sortData);
-            }, me);
+            // Ext.each(__MasterDetail.tbSorters.query('button'), function(button){
+            //     sorters.push(button.sortData);
+            // }, me);
 
             // Solo orderna por los 4 primeros criterios
             return sorters.slice(0, 3);
