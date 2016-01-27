@@ -816,29 +816,30 @@ _SM.getColDefinition = function(vFld){
         colDefinition['editor'] = editor;
     }
 
-    // WordWrap
-    if (vFld.wordWrap === true) {
-        colDefinition.renderer = columnWrap;
-    }
+// Fix TODO looking for insert error u=in extjs 
+    // // WordWrap
+    // if (vFld.wordWrap === true) {
+    //     colDefinition.renderer = columnWrap;
+    // }
 
-    // Agrega un tool tip con el contenido de la celda
-    if (vFld.cellToolTip) {
-        colDefinition.renderer = cellToolTip;
-    }
+    // // Agrega un tool tip con el contenido de la celda
+    // if (vFld.cellToolTip) {
+    //     colDefinition.renderer = cellToolTip;
+    // }
 
-    // Formatea el contenido como un hiperLink, TODO: la logica debe estar en otra propiedad
-    if (vFld.cellLink) {
-        colDefinition.renderer = cellLink;
-    }
+    // // Formatea el contenido como un hiperLink, TODO: la logica debe estar en otra propiedad
+    // if (vFld.cellLink) {
+    //     colDefinition.renderer = cellLink;
+    // }
 
-    // Maneja los subtipos
-    if (vFld.vType) {
-        // vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites
-        // Red-Yellow; Yellow-Green
-        if (vFld.vType == 'stopLight') {
-            colDefinition.renderer = cellStopLight;
-        }
-    }
+    // // Maneja los subtipos
+    // if (vFld.vType) {
+    //     // vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites
+    //     // Red-Yellow; Yellow-Green
+    //     if (vFld.vType == 'stopLight') {
+    //         colDefinition.renderer = cellStopLight;
+    //     }
+    // }
 
     // sortable por defecto
     if (!colDefinition.sortable) {
