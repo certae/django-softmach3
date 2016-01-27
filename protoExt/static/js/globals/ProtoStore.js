@@ -817,6 +817,7 @@ _SM.getColDefinition = function(vFld){
     }
 
 // Fix TODO looking for insert error u=in extjs 
+// Buscar en el statusbar 
     // // WordWrap
     // if (vFld.wordWrap === true) {
     //     colDefinition.renderer = columnWrap;
