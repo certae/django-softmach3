@@ -146,10 +146,11 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             checkCtrl = false;
         }
 
-        this.selModel = Ext.create('Ext.selection.CheckboxModel', {
-            injectCheckbox: checkCtrl,
-            mode: this.gridSelectionMode
-        });
+        // TODO FIX BUG 
+        // this.selModel = Ext.create('Ext.selection.CheckboxModel', {
+        //     injectCheckbox: checkCtrl,
+        //     mode: this.gridSelectionMode
+        // });
 
         this.editable = this.autoEdit;
 

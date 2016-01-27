@@ -51,9 +51,9 @@ Ext.define('ProtoUL.ux.ProtoList' ,{
             data: [] 
         });
 
-        // Inicializac con el checkBox
+        // FIX :  TODO Bug Inicializac con el checkBox
         var myGridColumns = [];
-        if ( me.checkStyle ) {
+        if ( false && me.checkStyle ) {
             myGridColumns = [{
                 xtype: 'checkcolumn',
                 dataIndex: '__Checked', 
