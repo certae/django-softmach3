@@ -7,8 +7,9 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
     alias : 'widget.smgrid',
     xtype : 'smgrid',
 
+    // FIX BUG TODO 
     requires : [
-        'Ext.selection.CheckboxModel', 
+        // 'Ext.selection.CheckboxModel', 
         'Softmachine.view.smgrid.SMGridController', 
         'Softmachine.view.smmasterdetail.MDSetTabsController'
     ],
