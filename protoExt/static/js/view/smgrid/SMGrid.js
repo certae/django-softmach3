@@ -7,9 +7,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
     alias : 'widget.smgrid',
     xtype : 'smgrid',
 
-    // FIX BUG TODO 
     requires : [
-        // 'Ext.selection.CheckboxModel', 
+        'Ext.selection.CheckboxModel', 
         'Softmachine.view.smgrid.SMGridController', 
         'Softmachine.view.smmasterdetail.MDSetTabsController'
     ],
@@ -147,11 +146,10 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             checkCtrl = false;
         }
 
-        // TODO FIX BUG 
-        // this.selModel = Ext.create('Ext.selection.CheckboxModel', {
-        //     injectCheckbox: checkCtrl,
-        //     mode: this.gridSelectionMode
-        // });
+        this.selModel = Ext.create('Ext.selection.CheckboxModel', {
+            injectCheckbox: checkCtrl,
+            mode: this.gridSelectionMode
+        });
 
         this.editable = this.autoEdit;
 

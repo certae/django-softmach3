@@ -311,10 +311,9 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         lRec[fldName] = fldValue;
         this.getForm().setValues(lRec);
 
+        // TODO : verifier modified ??? in extjs 6 
         lRec = this.masterRecord;
         lRec.data[fldName] = fldValue;
-
-        // TODO : verifier modified ??? in extjs 6 
         if ( lRec.modified && (!lRec.modified[fldName])) {
             lRec.modified[fldName] = lRec.data[fldName];
         }

@@ -166,8 +166,7 @@ Ext.define('Softmachine.view.main.Main', {
                     clear: clear 
 
                 };
-                // Fix 
-                // return this.setStatus(o)
+                return this.setStatus(o)
 
             },
 
@@ -175,11 +174,11 @@ Ext.define('Softmachine.view.main.Main', {
             showError: function(text, origin) {
 
                 // console.log( 'error :' + origin  ,  text )
-                // this.setStatus({
-                //     text: 'Oops! ' + text,
-                //     iconCls: 'x-status-error',
-                //     clear: true
-                // });
+                this.setStatus({
+                    text: 'Oops! ' + text,
+                    iconCls: 'x-status-error',
+                    clear: true
+                });
 
             },
 
@@ -187,11 +186,11 @@ Ext.define('Softmachine.view.main.Main', {
 
                 // console.log( 'warning :' + origin, text )
 
-                // this.setStatus({
-                //     text: text,
-                //     iconCls: 'x-status-warning',
-                //     clear: true
-                // });
+                this.setStatus({
+                    text: text,
+                    iconCls: 'x-status-warning',
+                    clear: true
+                });
 
             },
 

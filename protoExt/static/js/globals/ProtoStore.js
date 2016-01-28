@@ -816,31 +816,29 @@ _SM.getColDefinition = function(vFld){
         colDefinition['editor'] = editor;
     }
 
-// Fix TODO looking for insert error u=in extjs 
-// Buscar en el statusbar 
-    // // WordWrap
-    // if (vFld.wordWrap === true) {
-    //     colDefinition.renderer = columnWrap;
-    // }
+    // WordWrap
+    if (vFld.wordWrap === true) {
+        colDefinition.renderer = columnWrap;
+    }
 
-    // // Agrega un tool tip con el contenido de la celda
-    // if (vFld.cellToolTip) {
-    //     colDefinition.renderer = cellToolTip;
-    // }
+    // Agrega un tool tip con el contenido de la celda
+    if (vFld.cellToolTip) {
+        colDefinition.renderer = cellToolTip;
+    }
 
-    // // Formatea el contenido como un hiperLink, TODO: la logica debe estar en otra propiedad
-    // if (vFld.cellLink) {
-    //     colDefinition.renderer = cellLink;
-    // }
+    // Formatea el contenido como un hiperLink, TODO: la logica debe estar en otra propiedad
+    if (vFld.cellLink) {
+        colDefinition.renderer = cellLink;
+    }
 
-    // // Maneja los subtipos
-    // if (vFld.vType) {
-    //     // vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites
-    //     // Red-Yellow; Yellow-Green
-    //     if (vFld.vType == 'stopLight') {
-    //         colDefinition.renderer = cellStopLight;
-    //     }
-    // }
+    // Maneja los subtipos
+    if (vFld.vType) {
+        // vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites
+        // Red-Yellow; Yellow-Green
+        if (vFld.vType == 'stopLight') {
+            colDefinition.renderer = cellStopLight;
+        }
+    }
 
     // sortable por defecto
     if (!colDefinition.sortable) {
@@ -851,8 +849,8 @@ _SM.getColDefinition = function(vFld){
 
     //
     function columnWrap(value){
-        // return '<div style="white-space:normal; text-align:justify !important";>' + value + "</div>";
-        return value 
+        return '<div style="white-space:normal; text-align:justify !important";>' + value
+                + "</div>";
     }
 
     function cellToolTip(value, metaData, record, rowIndex, colIndex, store, view){
