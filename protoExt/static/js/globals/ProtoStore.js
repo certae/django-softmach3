@@ -524,26 +524,25 @@ _SM.DefineProtoModel = function(myMeta){
 
     // myModelFields = [{"name":"id","type":"int","useNull":true},{"name":"first","type":"string"}]
 
-    // EXTJS6 redefine Is not possible  
-    var mySchema = Ext.data.schema.Schema.get(); 
+    // EXTJS6 redefine Is not possible
+    var mySchema = Ext.data.schema.Schema.get();
     var modelName = _SM.getModelName(myMeta.viewCode)
 
     // For testing : open pci, clear cache, reopen pci
-    if ( ! mySchema.hasEntity(modelName) ) { 
-        Ext.define( modelName, {
+    if (!mySchema.hasEntity(modelName)) {
+        Ext.define(modelName, {
             extend : 'Ext.data.Model',
             fields : myModelFields
         // TODO: Validation, Validaciones
         // validations: [{ type: 'length', field: 'name', min: 1 }]
         });
-    } else { 
+    } else {
 
-        Ext.define( modelName, {
-            override: modelName,
+        Ext.define(modelName, {
+            override : modelName,
             fields : myModelFields
         });
     }
-
 
     // Adiciona las dos colecciones
     myMeta.fieldsBase = fieldsBase;
@@ -849,10 +848,12 @@ _SM.getColDefinition = function(vFld){
 
     //
     function columnWrap(value){
-        var newVal = value; 
-        if ( newVal > 10 ) {
-           newVal = '<div style="white-space:normal; text-align:justify !important";>' + value + "</div>";
-        }; 
+        var newVal = value;
+        if (newVal > 10) {
+            newVal = '<div style="white-space:normal; text-align:justify !important";>' + value
+                    + "</div>";
+        }
+        ;
         return newVal
     }
 
@@ -863,13 +864,11 @@ _SM.getColDefinition = function(vFld){
 
     function cellReadOnly(value, metaData, record, rowIndex, colIndex, store, view){
         return '<span style="color:grey;">' + value + '</span>';
-    }
-    ;
+    };
 
     function cellLink(value){
         return '<a href="#">' + value + '</a>';
-    }
-    ;
+    };
 
     function cellStopLight(value, metaData, record, rowIndex, colIndex, store, view){
         /*
@@ -1107,7 +1106,6 @@ _SM.saveProtoObj = function(viewCode, sMeta, options){
 // });
 
 // };
-
 
 _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options){
 

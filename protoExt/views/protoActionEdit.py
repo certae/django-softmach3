@@ -6,14 +6,14 @@ from django.http import HttpResponse
 from django.utils.encoding import smart_str
 
 from protoLib.getStuff import getDjangoModel
-from protoLib.models.protomodel import smControlFields 
-from . import validateRequest 
+from protoLib.models.protomodel import smControlFields
+from . import validateRequest
 
 from protoExt.utils.utilsConvert import toInteger, toDate, toDateTime, toTime, toFloat, toDecimal, toBoolean,\
     setString
-from protoExt.utils.utilsBase import  getReadableError, list2dict
+from protoExt.utils.utilsBase import getReadableError, list2dict
 from protoExt.utils.utilsWeb import doReturn
-from jsonfield2.utils import JSONEncoder 
+from jsonfield2.utils import JSONEncoder
 
 
 from protoLib.getStuff import getModelPermission
@@ -25,7 +25,7 @@ from protoExt.utils.utilsBase import traceError
 ERR_NOEXIST = '<b>ErrType:</b> KeyNotFound<br>The specifique record does not exist'
 ERR_REFONLY = '<b>ErrType:</b> RefOnly<br>The specifique record is reference only'
 
-# Actions 
+# Actions
 ACT_INS = 'add'
 ACT_UPD = 'change'
 ACT_DEL = 'delete'
@@ -34,25 +34,28 @@ ACT_DEL = 'delete'
 def protoCreate(request):
     myAction = ACT_INS
     msg = _protoEdit(request, myAction)
-    return  msg
+    return msg
+
 
 def protoUpdate(request):
     myAction = ACT_UPD
     return _protoEdit(request, myAction)
 
+
 def protoDelete(request):
     myAction = ACT_DEL
     return _protoEdit(request, myAction)
 
+
 def _protoEdit(request, myAction):
 
-    cBase, msgReturn = validateRequest( request )
-    if msgReturn: return msgReturn  
+    cBase, msgReturn = validateRequest(request)
+    if msgReturn:
+        return msgReturn
 
-
-    msgReturn = getGenericPci( cBase, True  )
-    if msgReturn: return msgReturn  
-
+    msgReturn = getGenericPci(cBase, True)
+    if msgReturn:
+        return msgReturn
 
     msgReturn = ''
 
@@ -60,26 +63,28 @@ def _protoEdit(request, myAction):
 
 #   Autentica
     if not getModelPermission(request.user, cBase.model, myAction):
-        return doReturn ({'success':False , 'message' : 'No ' + myAction + 'permission'})
+        return doReturn({'success': False, 'message': 'No ' + myAction + 'permission'})
 
 
 #   Verfica si es un protoModel ( maneja TeamHierarchy )
-    cBase.isProtoModel = hasattr(cBase.model , '_protoObj')
-    cBase.isPJsonModel = hasattr(cBase.model , '_protoJson')
+    cBase.isProtoModel = hasattr(cBase.model, '_protoObj')
+    cBase.isPJsonModel = hasattr(cBase.model, '_protoJson')
     cBase.jsonField = cBase.protoMeta.get('jsonField', '')
-    cBase.fakeId = hasattr(cBase.model , '_fakeId')
-    
-    if cBase.isPJsonModel: cBase.jsonField = 'smInfo' 
+    cBase.fakeId = hasattr(cBase.model, '_fakeId')
+
+    if cBase.isPJsonModel:
+        cBase.jsonField = 'smInfo'
 
 #   Decodifica los eltos
-    # Verifica q sea una lista de registros, (no deberia pasar, ya desde Extjs se controla )
+    # Verifica q sea una lista de registros, (no deberia pasar, ya desde Extjs
+    # se controla )
     rows = request.POST.get('rows', [])
     rows = json.loads(rows)
-    if type(rows).__name__ == 'dict': rows = [rows]
+    if type(rows).__name__ == 'dict':
+        rows = [rows]
 
-#   Fields 
-    fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
-
+#   Fields
+    fieldsDict = list2dict(cBase.protoMeta['fields'], 'name')
 
     pList = []
     for data in rows:
@@ -96,20 +101,19 @@ def _protoEdit(request, myAction):
                 pList.append(data)
                 continue
 
-
         if not (myAction == ACT_DEL):
             # Upd, Ins
             for key in data:
                 key = smart_str(key)
-                if  key in ['id', '_ptStatus', '_ptId', '__str__']:
+                if key in ['id', '_ptStatus', '_ptId', '__str__']:
                     continue
 
                 vFld = fieldsDict[key]
-                if vFld.get('crudType')  in ["screenOnly", "linked" ]:
+                if vFld.get('crudType') in ["screenOnly", "linked"]:
                     continue
 
                 #  Los campos de seguridad se manejan a nivel registro
-                if cBase.isProtoModel and key in smControlFields :
+                if cBase.isProtoModel and key in smControlFields:
                     continue
 
                 #  cBase.JsonField
@@ -117,23 +121,19 @@ def _protoEdit(request, myAction):
                     continue
 
                 try:
-                    setRegister(cBase , rec, key, data)
+                    setRegister(cBase, rec, key, data)
                 except Exception as e:
                     traceError()
                     data['_ptStatus'] = data['_ptStatus'] + getReadableError(e)
-
-
 
             if len(cBase.jsonField) > 0:
                 jsonInfo = {}
                 for key in data:
                     if not key.startswith(cBase.jsonField + '__'):
                         continue
-                    jKey = key[ len(cBase.jsonField) + 2 : ]
-                    jsonInfo[ jKey ] = data[ key ]
-                setattr(rec, cBase.jsonField , jsonInfo)
-
-
+                    jKey = key[len(cBase.jsonField) + 2:]
+                    jsonInfo[jKey] = data[key]
+                setattr(rec, cBase.jsonField, jsonInfo)
 
             # Guarda el idInterno para concatenar registros nuevos en la grilla
             try:
@@ -145,17 +145,16 @@ def _protoEdit(request, myAction):
                 rec.save()
 
                 # Para retornar el resultado, algunos tipos de datos (ie. date), generan un error, es necesario hacerlo detalladamente
-                # Convierte el registro en una lista y luego toma solo el primer elto de la lista resultado.
+                # Convierte el registro en una lista y luego toma solo el
+                # primer elto de la lista resultado.
                 data = Q2Dict(cBase, [rec])[0]
                 data['_ptId'] = _ptId
 
-            except Exception as  e:
-                data['_ptStatus'] = data['_ptStatus'] +  getReadableError(e)
+            except Exception as e:
+                data['_ptStatus'] = data['_ptStatus'] + getReadableError(e)
                 data['_ptId'] = _ptId
 
-
-
-        else:# Action Delete
+        else:  # Action Delete
             try:
                 rec.delete()
 
@@ -166,8 +165,6 @@ def _protoEdit(request, myAction):
 
         if data.get('_ptStatus', ''):
             msgReturn += data['_ptStatus'] + ';'
-
-
 
     context = {
         'totalCount': pList.__len__(),
@@ -182,8 +179,7 @@ def _protoEdit(request, myAction):
 # ---------------------
 
 
-
-def setRegister(cBase , rec, key, data):
+def setRegister(cBase, rec, key, data):
 
     try:
         field = cBase.model._meta.get_field(key)
@@ -196,7 +192,7 @@ def setRegister(cBase , rec, key, data):
     # Si es definido como no editable en el modelo
     if getattr(field, 'editable', False) == False:
         return
-    if  cName == 'AutoField':
+    if cName == 'AutoField':
         return
 
     # Obtiene el valor
@@ -208,12 +204,13 @@ def setRegister(cBase , rec, key, data):
             setattr(rec, key, value)
             return
 
-        elif  cName == 'ForeignKey':
-            if not key.endswith('_id'): 
+        elif cName == 'ForeignKey':
+            if not key.endswith('_id'):
                 keyId = key + '_id'
-            else: keyId = key
-            
-            exec('rec.' + keyId + ' =  ' + setString( data[keyId] ))
+            else:
+                keyId = key
+
+            exec('rec.' + keyId + ' =  ' + setString(data[keyId]))
             return
 
         elif cName == 'DateField':
@@ -232,7 +229,7 @@ def setRegister(cBase , rec, key, data):
         elif cName == 'FloatField':
             value = toFloat(value)
         elif cName == 'JsonField':
-            if type(value) == type('') and len( value ) == 0:
+            if type(value) == type('') and len(value) == 0:
                 value = {}
 
         setattr(rec, key, value)
