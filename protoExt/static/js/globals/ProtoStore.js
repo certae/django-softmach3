@@ -849,8 +849,11 @@ _SM.getColDefinition = function(vFld){
 
     //
     function columnWrap(value){
-        return '<div style="white-space:normal; text-align:justify !important";>' + value
-                + "</div>";
+        var newVal = value; 
+        if ( newVal > 10 ) {
+           newVal = '<div style="white-space:normal; text-align:justify !important";>' + value + "</div>";
+        }; 
+        return newVal
     }
 
     function cellToolTip(value, metaData, record, rowIndex, colIndex, store, view){
