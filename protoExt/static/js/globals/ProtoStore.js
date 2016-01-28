@@ -24,8 +24,7 @@ _SM = _SM || {};
 
 _SM.getStoreDefinition = function(stDef){
 
-    var myStore = Ext
-            .create(
+    var myStore = Ext.create(
                     'Ext.data.Store',
                     {
                         viewCode : stDef.viewCode,
@@ -525,25 +524,26 @@ _SM.DefineProtoModel = function(myMeta){
 
     // myModelFields = [{"name":"id","type":"int","useNull":true},{"name":"first","type":"string"}]
 
-    // EXTJS6 redefine Is not possible
-    var mySchema = Ext.data.schema.Schema.get();
+    // EXTJS6 redefine Is not possible  
+    var mySchema = Ext.data.schema.Schema.get(); 
     var modelName = _SM.getModelName(myMeta.viewCode)
 
     // For testing : open pci, clear cache, reopen pci
-    if (!mySchema.hasEntity(modelName)) {
-        Ext.define(modelName, {
+    if ( ! mySchema.hasEntity(modelName) ) { 
+        Ext.define( modelName, {
             extend : 'Ext.data.Model',
             fields : myModelFields
         // TODO: Validation, Validaciones
         // validations: [{ type: 'length', field: 'name', min: 1 }]
         });
-    } else {
+    } else { 
 
-        Ext.define(modelName, {
-            override : modelName,
+        Ext.define( modelName, {
+            override: modelName,
             fields : myModelFields
         });
     }
+
 
     // Adiciona las dos colecciones
     myMeta.fieldsBase = fieldsBase;
@@ -666,148 +666,147 @@ _SM.getColDefinition = function(vFld){
         vFld.type = 'combo';
     }
 
-    // Fix TODO looking for insert error u=in extjs
-    // switch (vFld.type) {
-    // case 'string':
-    // if (!colDefinition.flex) {
-    // colDefinition.flex = 1;
-    // }
-    // break;
+    switch (vFld.type) {
+    case 'string':
+        if (!colDefinition.flex) {
+            colDefinition.flex = 1;
+        }
+        break;
 
-    // case 'text':
-    // if (!colDefinition.flex) {
-    // colDefinition.flex = 2;
-    // }
-    // colDefinition.renderer = columnWrap;
-    // break;
+    case 'text':
+        if (!colDefinition.flex) {
+            colDefinition.flex = 2;
+        }
+        colDefinition.renderer = columnWrap;
+        break;
 
-    // case 'secuence':
-    // case 'int':
-    // colDefinition['xtype'] = 'numbercolumn';
-    // colDefinition['align'] = 'right';
-    // colDefinition['format'] = '0,000';
+    case 'int':
+    case 'secuence':
+        colDefinition['xtype'] = 'numbercolumn';
+        colDefinition['align'] = 'right';
+        colDefinition['format'] = '0,000';
 
-    // editor.xtype = 'numberfield';
-    // editor.format = colDefinition['format'];
-    // editor.align = 'right';
-    // editor.allowDecimals = false;
-    // break;
+        editor.xtype = 'numberfield';
+        editor.format = colDefinition['format'];
+        editor.align = 'right';
+        editor.allowDecimals = false;
+        break;
 
-    // case 'decimal':
-    // case 'money':
-    // colDefinition['xtype'] = 'numbercolumn';
-    // colDefinition['align'] = 'right';
-    // colDefinition['format'] = '0,000.00';
-    // // vFld['renderer'] = 'usMoney'
+    case 'decimal':
+    case 'money':
+        colDefinition['xtype'] = 'numbercolumn';
+        colDefinition['align'] = 'right';
+        colDefinition['format'] = '0,000.00';
+        // vFld['renderer'] = 'usMoney'
 
-    // editor.xtype = 'numberfield';
-    // editor.format = colDefinition['format'];
-    // editor.align = 'right';
-    // editor.allowDecimals = true;
-    // editor.decimalPrecision = 2;
-    // break;
+        editor.xtype = 'numberfield';
+        editor.format = colDefinition['format'];
+        editor.align = 'right';
+        editor.allowDecimals = true;
+        editor.decimalPrecision = 2;
+        break;
 
-    // case 'date':
-    // colDefinition['xtype'] = 'datecolumn';
-    // colDefinition['format'] = 'Y/m/d';
+    case 'date':
+        colDefinition['xtype'] = 'datecolumn';
+        colDefinition['format'] = 'Y/m/d';
 
-    // editor.xtype = 'datefield';
-    // editor.format = colDefinition['format'];
-    // break;
+        editor.xtype = 'datefield';
+        editor.format = colDefinition['format'];
+        break;
 
-    // case 'datetime':
-    // // colDefinition['xtype'] = 'datecolumn'
-    // // colDefinition['format'] = 'Y/m/d H:i:s'
-    // // editor.xtype = 'datefield'
-    // // editor.format = 'Y/m/d'
-    // // editor.timeFormat = 'H:i'
-    // break;
+    case 'datetime':
+        // colDefinition['xtype'] = 'datecolumn'
+        // colDefinition['format'] = 'Y/m/d H:i:s'
+        // editor.xtype = 'datefield'
+        // editor.format = 'Y/m/d'
+        // editor.timeFormat = 'H:i'
+        break;
 
-    // case 'time':
-    // // TODO: En la edicion de grilla, al regresar cambia el formato
-    // colDefinition['xtype'] = 'datecolumn';
-    // colDefinition['format'] = 'H:i';
-    // // 'H:i:s'
+    case 'time':
+        // TODO: En la edicion de grilla, al regresar cambia el formato
+        colDefinition['xtype'] = 'datecolumn';
+        colDefinition['format'] = 'H:i';
+        // 'H:i:s'
 
-    // editor.xtype = 'timefield';
-    // editor.format = colDefinition['format'];
-    // break;
+        editor.xtype = 'timefield';
+        editor.format = colDefinition['format'];
+        break;
 
-    // case 'bool':
-    // colDefinition['xtype'] = 'checkcolumn';
-    // colDefinition['editable'] = false;
-    // colDefinition['inGrid'] = true;
+    case 'bool':
+        colDefinition['xtype'] = 'checkcolumn';
+        colDefinition['editable'] = false;
+        colDefinition['inGrid'] = true;
 
-    // editor.xtype = 'checkbox';
-    // // editor.cls = 'x-grid-checkheader-editor'
-    // break;
+        editor.xtype = 'checkbox';
+        // editor.cls = 'x-grid-checkheader-editor'
+        break;
 
-    // case 'combo':
-    // editor.xtype = 'combobox';
-    // editor.typeAhead = true;
-    // editor.triggerAction = 'all';
-    // editor.selectOnTab = true;
+    case 'combo':
+        editor.xtype = 'combobox';
+        editor.typeAhead = true;
+        editor.triggerAction = 'all';
+        editor.selectOnTab = true;
 
-    // // Lo normal es q venga como una lista de opciones ( string )
-    // var cbChoices = vFld.choices;
-    // if (_SM.typeOf(cbChoices) == 'string') {
-    // cbChoices = cbChoices.split(",");
-    // } else {
-    // cbChoices = [];
-    // }
+        // Lo normal es q venga como una lista de opciones ( string )
+        var cbChoices = vFld.choices;
+        if (_SM.typeOf(cbChoices) == 'string') {
+            cbChoices = cbChoices.split(",");
+        } else {
+            cbChoices = [];
+        }
 
-    // editor.store = cbChoices;
-    // editor.lazyRender = true;
-    // editor.listClass = 'x-combo-list-small';
-    // break;
+        editor.store = cbChoices;
+        editor.lazyRender = true;
+        editor.listClass = 'x-combo-list-small';
+        break;
 
-    // case 'foreigntext':
-    // // El zoom se divide en 2 cols el texto ( _unicode ) y el ID ( foreignid )
-    // if (!colDefinition.flex) {
-    // colDefinition.flex = 1;
-    // }
+    case 'foreigntext':
+        // El zoom se divide en 2 cols el texto ( _unicode ) y el ID ( foreignid )
+        if (!colDefinition.flex) {
+            colDefinition.flex = 1;
+        }
 
-    // vFld.cellLink = true;
-    // editor.xtype = 'protoZoom';
-    // editor.editable = false;
-    // break;
+        vFld.cellLink = true;
+        editor.xtype = 'protoZoom';
+        editor.editable = false;
+        break;
 
-    // case 'foreignid':
-    // // El zoom id debe estar oculto
-    // // colDefinition['hidden']= true
-    // editor.xtype = 'numberfield';
-    // editor.hidden = true;
-    // break;
+    case 'foreignid':
+        // El zoom id debe estar oculto
+        // colDefinition['hidden']= true
+        editor.xtype = 'numberfield';
+        editor.hidden = true;
+        break;
 
-    // case 'autofield':
-    // break;
+    case 'autofield':
+        break;
 
-    // }
+    }
 
     // Ancho minimo
     if (!colDefinition.minWidth) {
         colDefinition.minWidth = 70;
     }
 
-    // Fix TODO looking for insert error u=in extjs
     // verificacion de xtype
-    // switch (colDefinition.xtype) {
-    // case 'checkcolumn':
-    // case 'datecolumn':
-    // case 'numbercolumn':
-    // break;
-    // case 'checkbox':
-    // colDefinition.xtype = 'checkcolumn';
-    // break;
-    // case 'datefield':
-    // colDefinition.xtype = 'datecolumn';
-    // break;
-    // case 'numberfield':
-    // colDefinition.xtype = 'numbercolumn';
-    // break;
-    // default:
-    // delete colDefinition.xtype;
-    // };
+    switch (colDefinition.xtype) {
+    case 'checkcolumn':
+    case 'datecolumn':
+    case 'numbercolumn':
+        break;
+    case 'checkbox':
+        colDefinition.xtype = 'checkcolumn';
+        break;
+    case 'datefield':
+        colDefinition.xtype = 'datecolumn';
+        break;
+    case 'numberfield':
+        colDefinition.xtype = 'numbercolumn';
+        break;
+    default:
+        delete colDefinition.xtype;
+    }
+    ;
 
     // Asigna las coleccoiones de presentacion
     // El foreignid puede ser editable directamente,
@@ -817,30 +816,30 @@ _SM.getColDefinition = function(vFld){
         colDefinition['editor'] = editor;
     }
 
-    // Fix TODO looking for insert error u=in extjs
-    // Buscar en el statusbar
+// Fix TODO looking for insert error u=in extjs 
+// Buscar en el statusbar 
     // // WordWrap
     // if (vFld.wordWrap === true) {
-    // colDefinition.renderer = columnWrap;
+    //     colDefinition.renderer = columnWrap;
     // }
 
     // // Agrega un tool tip con el contenido de la celda
     // if (vFld.cellToolTip) {
-    // colDefinition.renderer = cellToolTip;
+    //     colDefinition.renderer = cellToolTip;
     // }
 
     // // Formatea el contenido como un hiperLink, TODO: la logica debe estar en otra propiedad
     // if (vFld.cellLink) {
-    // colDefinition.renderer = cellLink;
+    //     colDefinition.renderer = cellLink;
     // }
 
     // // Maneja los subtipos
     // if (vFld.vType) {
-    // // vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites
-    // // Red-Yellow; Yellow-Green
-    // if (vFld.vType == 'stopLight') {
-    // colDefinition.renderer = cellStopLight;
-    // }
+    //     // vType stopLigth Maneja el codigo de colores para un semaforo con 3 indicadores, 2 limites
+    //     // Red-Yellow; Yellow-Green
+    //     if (vFld.vType == 'stopLight') {
+    //         colDefinition.renderer = cellStopLight;
+    //     }
     // }
 
     // sortable por defecto
@@ -852,8 +851,8 @@ _SM.getColDefinition = function(vFld){
 
     //
     function columnWrap(value){
-        return '<div style="white-space:normal; text-align:justify !important";>' + value
-                + "</div>";
+        // return '<div style="white-space:normal; text-align:justify !important";>' + value + "</div>";
+        return value 
     }
 
     function cellToolTip(value, metaData, record, rowIndex, colIndex, store, view){
@@ -1108,6 +1107,7 @@ _SM.saveProtoObj = function(viewCode, sMeta, options){
 
 // };
 
+
 _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options){
 
     options = options || {};
@@ -1141,8 +1141,7 @@ _SM.getSheeReport = function(viewCode, sheetName, selectedKeys, options){
     });
 };
 
-_SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, parameters, actionDef,
-        options)
+_SM.doProtoActions = function(viewCode, actionName, selectedKeys, detKeys, parameters, actionDef, options)
 {
 
     parameters = parameters || [];

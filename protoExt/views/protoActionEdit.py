@@ -172,7 +172,8 @@ def _protoEdit(request, myAction):
     context = {
         'totalCount': pList.__len__(),
         'message': msgReturn,
-        'rows': pList,
+#         'rows': pList,
+        'rows': [],
         'success': True
     }
 
