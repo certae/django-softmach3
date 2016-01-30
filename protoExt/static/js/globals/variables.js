@@ -82,7 +82,6 @@ _SM._MENU_COLLAPSED = false;
 _SM._defaultViewIcon = 'default_view';
 
 // Windows Position
-_SM._mainWin = null;
 // _SM._winX = 10;
 // _SM._winY = 10;
 

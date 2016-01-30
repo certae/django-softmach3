@@ -280,7 +280,7 @@ _SM.errorMessage = function (errTitle, errMsg) {
 
 _SM.updateWinPosition = function (myWidth, myHeight) {
     // _SM._winX += 40; _SM._winY += 20;
-    // if ((_SM._winX + myWidth) > _SM._mainWin.width || (_SM._winY + myHeight) > _SM._mainWin.height) {
+    // if ((_SM._winX + myWidth) > _SM.vp_Main.width || (_SM._winY + myHeight) > _SM.vp_Main.height) {
     //     _SM._winX = 10; _SM._winY = 10;
     // }
 };
@@ -303,7 +303,7 @@ _SM.savePclCache = function (viewCode, protoMeta, reOpen ) {
     // Cierra todas las instancias de esta pcl
     if ( reOpen ) {
         _SM.CloseProtoTab( viewCode );
-        _SM._mainWin.loadPciFromMenu( viewCode );
+        _SM.vp_Main.controller.loadPciFromMenu( viewCode );
     }
 
 };
@@ -486,7 +486,7 @@ _SM.GetRowValue = function (cellName) {
 _SM.CloseProtoTab = function( name  ) {
 
     // Cierra las instancias de una pcl
-    _SM.vp_TabContainer.closeProtoTab( name );
+    _SM.vp_TabContainer.controller.closeProtoTab( name );
 
 };
 

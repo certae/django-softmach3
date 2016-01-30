@@ -234,7 +234,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                                     // modelo o la funcion
 
                                     var pModel = record.get(myZField.name);
-                                    _SM._mainWin.loadPciFromMenu(pModel);
+                                    _SM.vp_Main.controller.loadPciFromMenu(pModel);
 
                                 } else {
                                     _SM.errorMessage('LinkedForm definition error : ' + clickedDataIndex, 'zoomModel : ' + myZField.zoomModel + '<br>' + 'fkId : ' + myZField.fkId);

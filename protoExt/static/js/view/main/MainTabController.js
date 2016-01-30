@@ -65,10 +65,10 @@ Ext.define('Softmachine.view.main.MainTabController', {
 
     closeProtoTab : function(viewCode){
 
-        for (var ix = this.items.items.length; ix--;) {
-            var xTab = this.items.items[ix];
+        for (var ix = this.view.items.items.length; ix--;) {
+            var xTab = this.view.items.items[ix];
             if (xTab.viewCode == viewCode) {
-                this.remove(xTab, true);
+                this.view.remove(xTab, true);
             }
         }
 
