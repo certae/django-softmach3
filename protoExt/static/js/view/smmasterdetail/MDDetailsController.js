@@ -45,24 +45,24 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
         if (myDetails.length > 0) {
 
             // toolBar de base para los items
-            // myMasterDetail.tbDetails = Ext.create('Ext.toolbar.Toolbar', {
-            //     dock : 'bottom',
-            //     border : true,
-            //     enableOverflow : true,
-            //     items : [
-            //         {
-            //             text : '<strong>' + _SM.__language.Grid_Detail_Title + ':</strong>',
-            //             iconCls : 'icon-panelDown',
-            //             enableToggle : false,
-            //             scope : myMasterDetail,
-            //             handler : myMasterDetail.hideDetailPanel
-            //         }
-            //     ]
-            // });
+            myMasterDetail.tbDetails = Ext.create('Ext.toolbar.Toolbar', {
+                dock : 'bottom',
+                border : true,
+                enableOverflow : true,
+                items : [
+                    {
+                        text : '<strong>' + _SM.__language.Grid_Detail_Title + ':</strong>',
+                        iconCls : 'icon-panelDown',
+                        enableToggle : false,
+                        scope : myMasterDetail,
+                        handler : myMasterDetail.hideDetailPanel
+                    }
+                ]
+            });
 
-            // myMasterDetail.tbDetails.add(myDetails);
-            // myMasterDetail.protoMasterGrid.addDocked(myMasterDetail.tbDetails, 0);
             myMasterDetail.myDetails = myDetails;
+            myMasterDetail.tbDetails.add(myDetails);
+            myMasterDetail.protoMasterGrid.addDocked(myMasterDetail.tbDetails, 0);
 
         }
 
