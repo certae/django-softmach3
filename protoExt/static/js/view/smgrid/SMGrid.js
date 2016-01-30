@@ -220,9 +220,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                                             myMeta: me.myMeta
                                         });
 
-                                        if (_SM.validaSelected( me )) {
-                                            formController.openLinkedForm.call(formController, me.selected, !me.editable);
-                                        } 
+                                        // if (_SM.validaSelected( me )) {
+                                        formController.openLinkedForm.call(formController, record, !me.editable);
 
                                     } else {
                                         // es un vinculo a otro objeto
