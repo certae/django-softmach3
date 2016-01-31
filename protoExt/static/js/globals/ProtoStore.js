@@ -77,8 +77,7 @@ _SM.getStoreDefinition = function(stDef){
 
                             this.clearFilter();
                             this.getProxy().extraParams.protoFilter = _SM.obj2tx([]);
-                            this.getProxy().extraParams.baseFilter = _SM
-                                    .obj2tx(this.storeDefinition.baseFilter);
+                            this.getProxy().extraParams.baseFilter = _SM.obj2tx(this.storeDefinition.baseFilter);
                             this.getProxy().extraParams.zoomParams = _SM.obj2tx(zoomParams);
                             this.load();
 
@@ -88,22 +87,34 @@ _SM.getStoreDefinition = function(stDef){
 
                             // Fires before a request is made for a new data object. ...
                             beforeload : function(store, operation, eOpts){
-                                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Loading
-                                        + store.viewCode, 'beforeLoad');
+                                // Load column sorters 
+                                var ix, mySortCol, mySorters = [] 
+                                if ( operation._sorters ) {
+                                    for (ix in operation._sorters) {
+                                        var mySortCol =  operation._sorters
+                                        // _SM.clone(store.getSorters(), 0, [], [
+                                        //     'property',
+                                        //     'direction'
+                                        // ]);
+                                    }
+                                    // store.proxy.extraParams.sort = Ext.encode(mySort);
+
+                                }
+
+                                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Loading + store.viewCode, 'beforeLoad');
                             },
 
                             // Fired before a call to sync is executed. Return false from any
                             // listener to cancel the sync
                             beforesync : function(options, eOpts){
-                                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Sync
-                                        + this.viewCode, 'beforeSync');
+                                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Sync + this.viewCode, 'beforeSync');
                             },
 
                             // Fires whenever the records in the Store have changed in some way -
                             // this could include adding or removing records, or ...
+                            // TODO DGT en q momento se dispara ??? 
                             datachanged : function(store, eOpts){
-                                _SM.vp_Main.controller.clearMainStatus(store.viewCode,
-                                        'dataChanged');
+                                _SM.vp_Main.controller.clearMainStatus(store.viewCode, 'dataChanged');
 
                                 // Guarda la info de sort
                                 try {

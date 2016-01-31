@@ -42,6 +42,9 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
     initComponent: function() {
 
+        // DGT TODO multiColumnSort
+
+
         var me = this;
 
         if (! _SM.loadPci(this.viewCode, false)) {
@@ -196,6 +199,17 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                 // Tools ( necesario para AddTools )
                 tools: [],
 
+                listeners: {
+
+                    sortchange: function ( ct, column, direction, eOpts ) {
+                        me.store.getProxy().extraParams = {
+                            'sort'  : column.dataIndex,
+                            'dir'   : direction
+                        }
+
+                    }, 
+                }, 
+
                 viewConfig: {
                     // Manejo de rows y cells
 
@@ -240,7 +254,8 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                                     _SM.errorMessage('LinkedForm definition error : ' + clickedDataIndex, 'zoomModel : ' + myZField.zoomModel + '<br>' + 'fkId : ' + myZField.fkId);
                                 }
                             }
-                        }
+                        }, 
+
 
                     },
 
@@ -266,6 +281,13 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             });
 
         }
+
+        grid.on({
+            sortchange : function (  ct,  column,  direction,  eOpts ) {
+                 me.fireEvent('reorder' );
+            },
+            scope : me
+        });
 
         this._extGrid = grid;
         this.setGridTitle(this);
