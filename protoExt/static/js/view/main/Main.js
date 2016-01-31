@@ -5,6 +5,7 @@
  * That setting automatically applies the "viewport" plugin causing this view to become the body
  * element (i.e., the viewport).
  * 
+ * Verification Pci.config 
  */
 Ext.define('Softmachine.view.main.Main', {
     extend : 'Ext.container.Viewport',
