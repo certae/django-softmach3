@@ -199,16 +199,6 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                 // Tools ( necesario para AddTools )
                 tools: [],
 
-                listeners: {
-
-                    sortchange: function ( ct, column, direction, eOpts ) {
-                        me.store.getProxy().extraParams = {
-                            'sort'  : column.dataIndex,
-                            'dir'   : direction
-                        }
-
-                    }, 
-                }, 
 
                 viewConfig: {
                     // Manejo de rows y cells
@@ -282,12 +272,16 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
         }
 
-        grid.on({
-            sortchange : function (  ct,  column,  direction,  eOpts ) {
-                 me.fireEvent('reorder' );
-            },
-            scope : me
-        });
+        // grid.on({
+        //     sortchange : function (  ct,  column,  direction,  eOpts ) {
+        //         // event sortchange fires after before load 
+        //         var extraParams = {
+        //             'sort'  : column.dataIndex,
+        //             'dir'   : direction
+        //         }
+        //     },
+        //     scope : me
+        // });
 
         this._extGrid = grid;
         this.setGridTitle(this);

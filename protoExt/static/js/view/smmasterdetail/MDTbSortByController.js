@@ -124,8 +124,7 @@ Ext.define('Softmachine.view.smmasterdetail.MDTbSortByController', {
 
             if (sortData) {
                 if (changeDirection !== false) {
-                    button.sortData.direction = Ext.String.toggle(button.sortData.direction, "ASC",
-                            "DESC");
+                    button.sortData.direction = Ext.String.toggle(button.sortData.direction, "ASC", "DESC");
                     button.setIconCls(Ext.String.toggle(iconCls, "sort-asc", "sort-desc"));
                 }
                 doSort();

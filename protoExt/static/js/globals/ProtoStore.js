@@ -91,14 +91,14 @@ _SM.getStoreDefinition = function(stDef){
                                 var ix, mySortCol, mySorters = [] 
                                 if ( operation._sorters ) {
                                     for (ix in operation._sorters) {
-                                        var mySortCol =  operation._sorters
-                                        // _SM.clone(store.getSorters(), 0, [], [
-                                        //     'property',
-                                        //     'direction'
-                                        // ]);
-                                    }
-                                    // store.proxy.extraParams.sort = Ext.encode(mySort);
+                                        var mySortCol =  operation._sorters[ix]; 
+                                        mySorters.push ( {
+                                               'property'  : mySortCol._property,
+                                               'direction' : mySortCol._direction
+                                        })
 
+                                    }
+                                    store.proxy.extraParams.sort = Ext.encode(mySorters);
                                 }
 
                                 _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Loading + store.viewCode, 'beforeLoad');
