@@ -15,6 +15,24 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "Searching 8 files for \"icon-user\" (case sensitive)\n\n/home/dario/PyDev3/softmach3/protoExt/static/css/app.css:\n   37  .icon-login   { background-image: url(../img/protoImg/login.png )!important;}\n   38  .icon-logout  { background-image: url(../img/protoImg/logout.png )!important;}\n   39: .icon-user    {	background-image: url(../img/protoImg/user.png )!important;}\n   40  .icon-edit    { background-image: url(../img/protoImg/base-edit.png ) !important;}\n   41  .icon-editoff { background-image: url(../img/protoImg/base-editoff.png ) !important;}\n\n1 match in 1 file\n",
+			"settings":
+			{
+				"buffer_size": 567,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "protoExt/static/css/app.css",
+			"settings":
+			{
+				"buffer_size": 18222,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -57,6 +75,16 @@
 	],
 	"file_history":
 	[
+		"/home/dario/PyDev3/softmach3/protoLib/migrations/0001_initial.py",
+		"/home/dario/PyDev3/softmach3/protoLib/admin/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/meta/metaObjects.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py",
+		"/home/dario/PyDev3/softmach3/protoExt/models.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
+		"/home/dario/PyDev3/softmach3/db/db-160201.sql",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/setDefaults.py",
+		"/home/dario/PyDev3/softmach3/protoExt/tests/test_Models_base.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/css/app.css",
 		"/home/dario/PyDev3/softmach3/protoExt/templates/protoDebug.html",
 		"/tmp/RICARDO GOMEZ, Vuelo a BARRANQUILLA, COLOMBIA - YXAOPR.ics",
@@ -174,27 +202,19 @@
 		"/home/dario/DevExtJs6/02Login/app/view/RegisterForm.js",
 		"/home/dario/DevExtJs6/02Login/index.html",
 		"/home/dario/DevExtJs6/02Login41/README.md",
-		"/home/dario/DevExtJs6/02Login41/Readme.md",
-		"/home/dario/DevExtJs6/02Login41/app.js",
-		"/home/dario/DevExtJs6/02Login41/app.json",
-		"/home/dario/DevExtJs6/02Login41/app/Application.js",
-		"/home/dario/DevExtJs6/02Login41/app/controller/LoginFormViewController.js",
-		"/home/dario/DevExtJs6/02Login41/app/controller/MainViewViewController.js",
-		"/home/dario/DevExtJs6/02Login41/app/controller/RegisterFormViewController.js",
-		"/home/dario/DevExtJs6/02Login41/app/model/LoginFormViewModel.js",
-		"/home/dario/DevExtJs6/02Login41/app/model/MainViewViewModel.js",
-		"/home/dario/DevExtJs6/02Login41/app/model/RegisterFormViewModel.js",
-		"/home/dario/DevExtJs6/02Login41/app/view/LoginForm.js"
+		"/home/dario/DevExtJs6/02Login41/Readme.md"
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
 		"height": 132.0,
 		"where_history":
 		[
+			"*.css",
+			"*.js, *.py",
 			"*.js",
 			"*.css",
 			"*.html",
@@ -219,9 +239,21 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"icon-user",
+			"userConfig",
+			"UserProfile",
+			"model",
+			"userprofile",
+			"\" (\"id\" integer",
+			"(\"id\"",
+			"actionSetDefaults",
+			"doSetDefaults",
+			"CustomDefinition",
+			"setContextFilter",
+			"context",
 			"default",
 			"context",
 			"icon-config",
@@ -337,19 +369,7 @@
 			"\\| \\*",
 			"\\|  \\*",
 			"|  *",
-			"\\{\\{wiki\\:Image.\\}\\}",
-			".\\{\\{wiki\\:Image.\\}\\}",
-			"\\{\\{wiki\\:Image.\\}\\}",
-			"{{wiki:Image.}}",
-			"\\\\",
-			"[[++",
-			"[[",
-			"\n#",
-			"/media/dario/Dario1T/VirtualMachines/VPC/Discos Virtuales",
-			"/media/dario/Dario1T/VirtualMachines/Discos Virtuales",
-			"/media/dario/VERBATIM HD/INTEGRA/INTEGRA (WILLIAM)/EMPRESAS",
-			"/media/dario/VERBATIM HD/INTEGRA/MARIA/DISCO D/VIDEO TUTORIALES",
-			"/media/dario/VERBATIM HD/INTEGRA/GRABACIONES MODULOS DESARROLLADOS"
+			"\\{\\{wiki\\:Image.\\}\\}"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -357,6 +377,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\"\n    (\"id\" integer",
+			"\n    (\"id\"",
 			"\n// -----------\nExt.create",
 			"\n\n(Ext.cmd.derive",
 			"username",
@@ -454,8 +476,85 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 567,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										289,
+										298
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								295,
+								295
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "protoExt/static/css/app.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								257,
+								257
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 219.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		},
 		{
@@ -492,7 +591,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.632062146893,
 			1.0
 		],
 		"rows":
@@ -514,7 +613,7 @@
 	"project": "Sm3.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 94.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -544,7 +643,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
