@@ -23,7 +23,7 @@ smControlFields = [
 
 class ProtoModelBase(models.Model):
     """
-    Tabla modelo para la creacion de entidades de usuario     ( sm  security mark )
+    model for user entities creation     ( sm  security mark )
     related_name="%(app_label)s_%(class)s"
     """ 
 
@@ -42,6 +42,7 @@ class ProtoModelBase(models.Model):
 
     smUUID = models.UUIDField( default=uuid.uuid4, editable=False)
 
+    smVersion = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')
 
     # Si la tabla no es manajada por teams,  debe cambiarse el manager 
     objects = ProtoTeamManager()
