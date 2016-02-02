@@ -43,12 +43,12 @@ class ProtoModelBase(models.Model):
     smUUID = models.UUIDField( default=uuid.uuid4, editable=False)
 
     smVersion = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')
-
+ 
     # Si la tabla no es manajada por teams,  debe cambiarse el manager 
     objects = ProtoTeamManager()
     smObjects = models.Manager()    
 
-    # Security indicator used to control permissions
+    # Security indicator used by control permissions
     _protoObj = True
     
     # En los modelos q esto es falso NaturalCode debe manejarse directamente      
@@ -87,7 +87,7 @@ class ProtoModelBase(models.Model):
 class ProtoModelExt(ProtoModelBase):
     """
     Tabla modelo para la creacion de entidades de usuario  ( sm  security mark )
-    Con manejo de campos json para filtrado  
+    with json fields  ( UDPs ) and filtering allow 
     """ 
 
     smInfo = JSONField(default={})

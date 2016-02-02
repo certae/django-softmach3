@@ -5,9 +5,10 @@ Created on Feb 1, 2016
 '''
 
 
-from .protomodel import ProtoModelBase 
 from django.db import models
 from .usermodel import AUTH_USER_MODEL
+from protoLib.middleware import CurrentUserMiddleware
+
 
 
 class VersionTitle(models.Model):
@@ -48,4 +49,16 @@ class VersionTitle(models.Model):
                 setattr(self, 'smCreatedBy', cuser)
     
         super(VersionTitle, self).save(*args, **kwargs)
+
+
+
+class VersionHeaders(models.Model):
+    """
+    Para poder buscar las entidades, hay q comenzar por los padres  
+    """
+
+    modelCType = models.ForeignKey(ContentType, blank=False, null=False)
+
+    def __str__(self):
+        return "%s %s" % ( self.modelCType.__str__()  )   
 

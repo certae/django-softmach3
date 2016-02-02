@@ -81,7 +81,7 @@ class CustomDefinition(ProtoModelBase):
         return self.code
 
     class Meta:
-        unique_together = ('code', 'smOwningUser', )
+        unique_together = ('code', 'smOwningUser', 'smVersion' )
 
     protoExt = {
         "gridConfig" : {
