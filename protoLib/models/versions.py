@@ -13,18 +13,17 @@ from .usermodel import AUTH_USER_MODEL
 class VersionTitle(models.Model):
     """
     """
-    versionCode = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')
+    versionCode = models.CharField(max_length=50, null=True, blank=True, editable=True, default = '0')
 
-    versionBase = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')
+    versionBase = models.ForeignKey('VersionTitle', null=True, blank=True, )
     description = models.TextField(verbose_name=u'Descriptions', blank=True, null=True)
-
+    active      = models.BooleanField(default=True)
+    
     smCreatedBy = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=True, related_name='+', editable=False)
     smCreatedOn = models.DateTimeField( auto_now_add =True, editable=False, null=True, blank=True )
 
     smModifiedBy = models.ForeignKey(AUTH_USER_MODEL, null=True, blank=True, related_name='+', editable=False)
     smModifiedOn = models.DateTimeField( auto_now =True, editable=False, null=True, blank=True)
-
-    smRegStatus = models.CharField(max_length=50, null=True, blank=True, editable=False)
 
 
     def __str__(self):
@@ -36,4 +35,17 @@ class VersionTitle(models.Model):
         }
     } 
 
+
+    def save(self, *args, **kwargs):
+
+        cuser = CurrentUserMiddleware.get_user( False )
+        
+        if cuser: 
+            setattr(self, 'smModifiedBy', cuser)
+
+            # Insert 
+            if not self.pk:   
+                setattr(self, 'smCreatedBy', cuser)
+    
+        super(VersionTitle, self).save(*args, **kwargs)
 

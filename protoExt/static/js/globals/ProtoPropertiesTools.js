@@ -223,6 +223,11 @@ _SM._MetaProperties =  {
     "required.type" : "boolean", 
     "readOnly.type"  : "boolean",
     "primary.type" : "boolean", 
+
+//versions     
+    "versioning.type":"boolean",
+    "versioning.help": "use Versions?",
+
     
 // PCI
     "viewEntity.help" : "Backend model (Django)",
@@ -456,6 +461,7 @@ _SM._MetaObjects = {
         "properties" : [
                 "viewCode", "viewEntity", "viewIcon", "description", "shortTitle", 
                 "localSort", "pageSize", 
+                "versioning", 
                 "sheetSelector", "pciStyle", "helpPath", "idProperty", 
                 "jsonField", "returnField", "updateTime", 
                 "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciType"
