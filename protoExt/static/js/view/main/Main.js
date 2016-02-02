@@ -119,6 +119,7 @@ Ext.define('Softmachine.view.main.Main', {
         var myPanel = Ext.create('Ext.ux.StatusBar', {
             defaultText : '',
             id : 'vp-statusbar',
+            controller : 'main',
             items : [
                 {
                     itemId : 'btClearCache',
@@ -141,6 +142,35 @@ Ext.define('Softmachine.view.main.Main', {
 
                 },
                 '-',
+
+
+                {
+
+                    xtype : 'splitbutton',
+                    text : 'Versions',
+                    iconCls : 'icon-version',
+                    menu : new Ext.menu.Menu({
+                        items : [
+                            {
+                                text : 'Current Version',
+                            }, 
+                            {
+                                text : 'Change Version',
+                                reference : 'changeVersion', 
+                                listeners : {
+                                    click : 'doChangeVersion'
+                                }, 
+                            }, 
+                            {
+                                text : 'Create Version',
+                                reference : 'createVersion', 
+                                listeners : {
+                                    click : 'doCreateVersion'
+                                }, 
+                            }, 
+                        ]
+                    })
+                }, 
                 {
 
                     xtype : 'splitbutton',
@@ -157,6 +187,7 @@ Ext.define('Softmachine.view.main.Main', {
                         ]
                     })
                 }
+
             ], 
 
             showMessage: function(text, origin, clear) {

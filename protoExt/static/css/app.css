@@ -37,6 +37,10 @@
 .icon-login   { background-image: url(../img/protoImg/login.png )!important;}
 .icon-logout  { background-image: url(../img/protoImg/logout.png )!important;}
 .icon-user    {	background-image: url(../img/protoImg/user.png )!important;}
+
+.icon-version { background-image: url(../img/protoImg/versions.png ) !important;}
+
+
 .icon-edit    { background-image: url(../img/protoImg/base-edit.png ) !important;}
 .icon-editoff { background-image: url(../img/protoImg/base-editoff.png ) !important;}
 .icon-order   { background-image: url(../img/protoImg/base-sort.png ) !important;  }
@@ -123,8 +127,6 @@
 .icon-pclContainers { background-image: url(../img/protoImg/d_add_folder.png ) !important;}
 .icon-pclDetails    { background-image: url(../img/protoImg/d_add_detail.png ) !important;}
 .icon-pclOthers     { background-image: url(../img/protoImg/d_add_plugin.png ) !important;}
-
-.icon-versions      { background-image: url(../img/protoImg/versions.png ) !important;}
 
 
 .icon-proto         { background-image: url(../img/protoImg/icon_proto.png ) !important;}
