@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'protoLib', 
     'protoExt', 
     'prototype', 
-    'rai00base', 
+#     'rai00base', 
     'rai01ref', 
     'django_extensions',
 )
