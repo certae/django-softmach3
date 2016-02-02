@@ -10,7 +10,7 @@ from django.db import models
 from .usermodel import AUTH_USER_MODEL
 
 
-class VersionTitle(ProtoModelBase):
+class VersionTitle(models.Model):
     """
     """
     versionCode = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')
@@ -28,15 +28,12 @@ class VersionTitle(ProtoModelBase):
 
 
     def __str__(self):
-        return "%s %s" % ( self.viewCode, self.versionCode )   
+        return "%s %s" % ( self.versionCode )   
     
     protoExt = { 
         "gridConfig" : {
             "listDisplay": ["__str__", "description", "smCreatedBy"]      
         }
     } 
-
-    class Meta:
-        unique_together = ('viewCode', 'versionCode' )
 
 
