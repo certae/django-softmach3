@@ -379,6 +379,7 @@ def createProtoMeta( cBase, grid ):
     id_field = u'id'
     shortTitle = cBase.protoMeta.get('shortTitle', grid.title)
 
+
     # Manejo de documentos rai00base          
     if getattr(cBase.model, '_uddObject', False ):
         dBase = getattr(cBase.model, '_jDefValueDoc', False )    
@@ -391,7 +392,6 @@ def createProtoMeta( cBase, grid ):
 
 
         # TODO : Los hijos deben ser del mismo tipo, o deben eliminarse 
-
         if len( dBase ) > 0 and len( idType ) > 0:
 
             docFields, shortTitle  = cBase.model.getJfields( idType )

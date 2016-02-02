@@ -2,7 +2,7 @@
 
 from django.db import models
 from jsonfield2 import JSONField, JSONAwareManager
-
+from django.contrib.contenttypes.models import ContentType
 
 from protoLib.models.protomodel import ProtoModelBase, ProtoModelExt
 from protoLib.models.protomanager import ProtoUserManager

@@ -37,4 +37,9 @@ patch_admin(EntityMap)
 # admin.site.register( Permission )
 # admin.site.register( Message )
  
- 
+from protoLib.models import VersionTitle
+from protoLib.admin.admVersion import VersionAdm
+  
+admin.site.register( VersionTitle, VersionAdm  )
+patch_admin(VersionTitle)
+
