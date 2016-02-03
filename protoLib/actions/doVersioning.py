@@ -10,7 +10,7 @@ def doDeleteVersion(modeladmin, request, queryset, parameters):
     TODO : Borra los datos de una version existente
     """
 
-    result = getDetailList( modeladmin, request, queryset, parameters )
+    result = getdetailSet( modeladmin, request, queryset, parameters )
     if type(result) == list:
         return result 
 
@@ -20,12 +20,12 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     Clear una copia de la informacion bajo una nueva version 
     """
 
-    result = getDetailList( modeladmin, request, queryset )
+    result = getdetailSet( modeladmin, request, queryset )
     if type(result) is not list:
         return result 
 
-    idList0 = []
-    idList1 = []
+    # Se manejan uan estructuras por tabla con dos listas ordenadas { 'entidad' : [ [], [] ] }
+    idEquiv = {}
 
 #   Get selected version
     v0 = queryset[0].versionBase 
@@ -35,6 +35,10 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
         if not hasattr( pEntity, 'smVersion'): 
             continue 
 
+        # Listas de ids 
+        idList0 = []
+        idList1 = []
+
         #  Se asegura de borrar para no sobre escribir 
         pEntity.objects.filter( smVersion = v1 ).delete()
 
@@ -43,49 +47,44 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
             
             idList0.append( reg.pk )
 
-            reg.smUUID = newUUId 
+            reg.smUUID = uuid.uuid4()
             reg.smVersion = v1 
             reg.id = None 
             reg.save()
 
-            idList1.append( newUUId )
+            idList1.append( reg.id )
 
-        # Busca todas los foreignkey  por UUID y los actualiza 
+
+        # Guarda la estructura con las listas de equivalencia de ids 
+        idEquiv[ pEntity._meta.db_table ] = [ idList0, idList1 ]
+        
+    # Busca todas los foreignkey  por UUID y los actualiza 
 
 
     return {'success':True, 'message' : 'Ok'}
 
 
-def getDetailList( modeladmin, request, queryset  ):
+def getdetailSet( modeladmin, request, queryset  ):
 
 
 #   El QSet viene con la lista de Ids  
     if queryset.count() != 1:
         return  {'success':False, 'message' : 'One version needed !!' }
         
-    detailList = []
-    detailNames = []
+    detailSet = ()
 
 #   Get Version Headers 
     for entity in VersionHeaders.objects.all(): 
-        addDetailToVersionList( detailNames, detailList,  entity.modelCType.model_class()  )
+        addDetailToVersionList(  detailSet,  entity.modelCType.model_class()  )
 
-    return  detailList 
+    return  detailSet 
 
 
-def addDetailToVersionList( detailNames, detailList, model ):
+def addDetailToVersionList(  detailSet, model ):
 
-    #  only the last element for dependencies 
-    # try:    
-    #     ix = detailNames.index (  model._meta.db_table )
-    #     del detailNames[ix]
-    #     del detailList[ix]
-    # except: 
-    #     pass 
 
-    detailList.append ( model ) 
-    # detailNames.append ( model._meta.db_table ) 
+    detailSet.add ( model ) 
 
     for detail in model._meta.get_all_related_objects():
-        addDetailToVersionList( detailNames, detailList, detail.related_model )
+        addDetailToVersionList(  detailSet, detail.related_model )
 
