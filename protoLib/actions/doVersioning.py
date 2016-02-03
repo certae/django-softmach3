@@ -24,9 +24,36 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     if type(result) is not list:
         return result 
 
-#   Get selected version
-    pVersion = queryset[0]
+    idList0 = []
+    idList1 = []
 
+#   Get selected version
+    v0 = queryset[0].versionBase 
+    v1 = queryset[0].versionCode 
+
+    for pEntity in  result: 
+        if not hasattr( pEntity, 'smVersion'): 
+            continue 
+
+        #  Se asegura de borrar para no sobre escribir 
+        pEntity.objects.filter( smVersion = v1 ).delete()
+
+        #  Hace la copia
+        for reg in pEntity.objects.filter( smVersion = v0 ): 
+            
+            idList0.append( reg.pk )
+
+            reg.smUUID = newUUId 
+            reg.smVersion = v1 
+            reg.id = None 
+            reg.save()
+
+            idList1.append( newUUId )
+
+        # Busca todas los foreignkey  por UUID y los actualiza 
+
+
+    return {'success':True, 'message' : 'Ok'}
 
 
 def getDetailList( modeladmin, request, queryset  ):
@@ -49,15 +76,15 @@ def getDetailList( modeladmin, request, queryset  ):
 def addDetailToVersionList( detailNames, detailList, model ):
 
     #  only the last element for dependencies 
-    try:    
-        ix = detailNames.index (  model._meta.db_table )
-        del detailNames[ix]
-        del detailList[ix]
-    except: 
-        pass 
+    # try:    
+    #     ix = detailNames.index (  model._meta.db_table )
+    #     del detailNames[ix]
+    #     del detailList[ix]
+    # except: 
+    #     pass 
 
     detailList.append ( model ) 
-    detailNames.append ( model._meta.db_table ) 
+    # detailNames.append ( model._meta.db_table ) 
 
     for detail in model._meta.get_all_related_objects():
         addDetailToVersionList( detailNames, detailList, detail.related_model )
