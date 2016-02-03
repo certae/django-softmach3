@@ -6,12 +6,28 @@ import uuid
 
 def doDeleteVersion(modeladmin, request, queryset, parameters):
     """ 
-    TODO : Borra los datos de una version existente
+    Borra los datos de una version existente
     """
 
     result = getdetailSet( modeladmin, request, queryset, parameters )
     if type(result) == list:
         return result 
+
+#   Get selected version
+    v1 = queryset[0].versionCode 
+
+    for pEntity in  result: 
+
+        # Version Allow
+        try:  
+            pEntity._meta.get_field('smVersion')
+        except:  
+            continue 
+
+        #  Delete old versions 
+        pEntity.objects.filter( smVersion = v1 ).delete()
+
+    return  {'success':True , 'message' :  'Ok' }
 
 
 def doCreateVersion(modeladmin, request, queryset, parameters):
