@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from protoLib.getStuff import getDjangoModel
-from protoExt.utils.utilsWeb import JsonError
-from protoExt.views.protoGrid import getModelDetails
+
 from protoLib.models.versions import VersionHeaders
+import uuid
 
 
 def doDeleteVersion(modeladmin, request, queryset, parameters):
@@ -21,7 +20,7 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     """
 
     result = getdetailSet( modeladmin, request, queryset )
-    if type(result) is not list:
+    if type(result) is not set:
         return result 
 
     # Se manejan uan estructuras por tabla con dos listas ordenadas { 'entidad' : [ [], [] ] }
@@ -32,14 +31,24 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     v1 = queryset[0].versionCode 
 
     for pEntity in  result: 
-        if not hasattr( pEntity, 'smVersion'): 
+
+        entityName = pEntity._meta.db_table
+
+        # Version Allow
+        try:  
+            pEntity._meta.get_field('smVersion')
+        except:  
             continue 
+
+        # Duplicate entity? 
+        if idEquiv.get( entityName, '' ) != '':
+            continue
 
         # Listas de ids 
         idList0 = []
         idList1 = []
 
-        #  Se asegura de borrar para no sobre escribir 
+        #  Delete old versions 
         pEntity.objects.filter( smVersion = v1 ).delete()
 
         #  Hace la copia
@@ -56,9 +65,28 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
 
 
         # Guarda la estructura con las listas de equivalencia de ids 
-        idEquiv[ pEntity._meta.db_table ] = [ idList0, idList1 ]
+        idEquiv[ entityName ] = [ idList0, idList1 ]
         
     # Busca todas los foreignkey  por UUID y los actualiza 
+    for pEntity in  result: 
+
+        entityName = pEntity._meta.db_table
+
+        # Version Allow
+        try:  
+            pEntity._meta.get_field('smVersion')
+        except:  
+            continue 
+
+        # Duplicate entity? 
+        if idEquiv.get( entityName, '' ) != '':
+            continue
+
+    # for f in MyModel._meta.get_fields()
+    # if not f.is_relation
+    #     or f.one_to_one
+    #     or (f.many_to_one and f.related_model)
+
 
 
     return {'success':True, 'message' : 'Ok'}
@@ -71,7 +99,7 @@ def getdetailSet( modeladmin, request, queryset  ):
     if queryset.count() != 1:
         return  {'success':False, 'message' : 'One version needed !!' }
         
-    detailSet = ()
+    detailSet = set()
 
 #   Get Version Headers 
     for entity in VersionHeaders.objects.all(): 
