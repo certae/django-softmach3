@@ -58,8 +58,9 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
             continue
 
         # Dependant entity
-        if len(pEntity._meta.parents) > 0:
-            continue
+        # Si anulo la entidad dependiente, solo pasan los campos del padre, el hijo no se copia 
+        # La solucion es buscar cuando un registro del padre es invocado por el hijo 
+        # if len(pEntity._meta.parents) > 0: continue
 
         # Duplicate entity?
         if idEquiv.get(entityName, '') != '':
@@ -74,6 +75,14 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
 
         #  Hace la copia
         for reg in pEntity.objects.filter(smVersion=v0):
+
+            # Identifica la primera relacion ( id )
+            try:
+                parentLink = ( entityName == 'prototype_property' ) and reg.isForeign
+            except: parentLink = False 
+
+            if parentLink: 
+                continue 
 
             idList0.append(reg.pk)
 
@@ -90,26 +99,36 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     # Busca todas los foreignkey  por UUID y los actualiza
     for pEntity in result:
 
-        entityName = pEntity._meta.db_table
-
-        # Version Allow
-        try:
-            pEntity._meta.get_field('smVersion')
-        except:
-            continue
-
         # Dependant entity
         if len(pEntity._meta.parents) > 0:
             continue
 
+        # FK identification          
+        relFields = []
         for f in pEntity._meta.get_fields():
-            if not (f.is_relation or f.one_to_one or (f.many_to_one and f.related_model)):
-                continue
+            if f.is_relation or f.one_to_one or (f.many_to_one and f.related_model):
+                relFields.append( f )
+        
+        if len(relFields) == 0: 
+            continue 
 
-            entityName = pEntity._meta.db_table
+        for reg in pEntity.objects.filter(smVersion=v0):
 
-            # get entity ids
-            idList0, idList1 = idEquiv.get(entityName, set([[], []]))
+            for f in relFields:
+       
+                entityName = pEntity._meta.db_table
+
+                # get entity ids
+                idList0, idList1 = idEquiv.get(entityName, set([[], []]))
+
+            #  Hace la copia
+                idList0.append(reg.pk)
+    
+                reg.smUUID = uuid.uuid4()
+                reg.smVersion = v1
+
+            reg.save()
+
 
     return {'success': True, 'message': 'Ok'}
 
@@ -131,7 +150,14 @@ def getdetailSet(modeladmin, request, queryset):
 
 def addDetailToVersionList(detailSet, model):
 
+    # Version Allow
+    try:
+        model._meta.get_field('smVersion')
+    except:
+        return 
+
     detailSet.add(model)
 
+    # Se podrian definir todos los detalles, para el debuger  
     for detail in model._meta.get_all_related_objects():
         addDetailToVersionList(detailSet, detail.related_model)
