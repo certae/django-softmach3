@@ -67,7 +67,7 @@ class Project(ProtoModelExt):
         return slugify2(self.code) 
 
     class Meta:
-        unique_together = ('code', 'smOwningTeam')
+        unique_together = ('code', 'smOwningTeam', 'smVersion')
         # permissions = (( "read_domain", "Can read project"), )        
 
     protoExt = { 
@@ -127,7 +127,7 @@ class Model(ProtoModelExt):
     smTags = TaggableManager( blank=True )
     
     class Meta:
-        unique_together = ('project', 'code', 'smOwningTeam')
+        unique_together = ('project', 'code', 'smOwningTeam', 'smVersion')
         
     unicode_sort = ('project', 'code',)
 
@@ -187,7 +187,7 @@ class Entity(ProtoModelExt):
         return slugify2(self.model.code + '-' + self.code) 
 
     class Meta:
-        unique_together = ('model', 'code', 'smOwningTeam')
+        unique_together = ('model', 'code', 'smOwningTeam', 'smVersion')
 
     protoExt = { 
         "actions": [
@@ -301,7 +301,7 @@ class Property(ProtoModelExt):
         super(Property, self).save(*args, **kwargs) 
 
     class Meta:
-        unique_together = ('entity', 'code', 'smOwningTeam')
+        unique_together = ('entity', 'code', 'smOwningTeam', 'smVersion')
 
     def __str__(self):
         return slugify2(self.entity.code + '-' + self.code)      
@@ -385,7 +385,7 @@ class PropertyEquivalence(ProtoModelExt):
         return slugify2(self.sourceProperty.code + ' - ' + self.targetProperty.code)   
 
     class Meta:
-        unique_together = ('sourceProperty', 'targetProperty', 'smOwningTeam')
+        unique_together = ('sourceProperty', 'targetProperty', 'smOwningTeam', 'smVersion')
 
 #     def delete(self, *args, **kwargs):
 #       twoWayPropEquivalence( self, PropertyEquivalence, True )
@@ -443,7 +443,7 @@ class Prototype(ProtoModelBase):
     } 
 
     class Meta:
-        unique_together = ( 'entity', 'code', 'smOwningTeam')
+        unique_together = ( 'entity', 'code', 'smOwningTeam', 'smVersion')
 
 
 class ProtoTable(ProtoModelBase):
@@ -524,7 +524,7 @@ class Diagram(ProtoModelExt):
         return slugify2(self.project.code + '-' + self.code) 
 
     class Meta:
-        unique_together = ('project', 'code', 'smOwningTeam')
+        unique_together = ('project', 'code', 'smOwningTeam', 'smVersion')
 
 
     protoExt = { 
@@ -553,7 +553,7 @@ class DiagramEntity(ProtoModelExt):
         return slugify2(self.diagram.code + '-' + self.entity.code) 
 
     class Meta:
-        unique_together = ('diagram', 'entity', 'smOwningTeam')
+        unique_together = ('diagram', 'entity', 'smOwningTeam', 'smVersion')
 
 
 

@@ -27,12 +27,17 @@ class VersionTitle(models.Model):
     smModifiedOn = models.DateTimeField(auto_now=True, editable=False, null=True, blank=True)
 
     def __str__(self):
-        return "%s %s" % (self.versionCode)
+        return "%s" % (self.versionCode)
 
     protoExt = {
         "gridConfig": {
             "listDisplay": ["__str__", "description", "smCreatedBy"]
-        }
+        }, 
+        "actions": [
+            { "name": "doCreateVersion", "selectionMode" : "single"}, 
+            { "name": "doDeleteVersion", "selectionMode" : "single"}, 
+        ],
+                
     }
 
     def save(self, *args, **kwargs):

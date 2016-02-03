@@ -21,8 +21,11 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     """
 
     result = getDetailList( modeladmin, request, queryset )
-    if type(result) == list:
+    if type(result) is not list:
         return result 
+
+#   Get selected version
+    pVersion = queryset[0]
 
 
 
@@ -33,22 +36,29 @@ def getDetailList( modeladmin, request, queryset  ):
     if queryset.count() != 1:
         return  {'success':False, 'message' : 'One version needed !!' }
         
-#   Get selected version
-    pVersion = queryset[0]
     detailList = []
+    detailNames = []
 
 #   Get Version Headers 
     for entity in VersionHeaders.objects.all(): 
-        addDetailToVersionList( detailList,  entity.modelCType.model_class()  )
+        addDetailToVersionList( detailNames, detailList,  entity.modelCType.model_class()  )
 
     return  detailList 
 
 
-def addDetailToVersionList( detailList, model ):
+def addDetailToVersionList( detailNames, detailList, model ):
+
+    #  only the last element for dependencies 
+    try:    
+        ix = detailNames.index (  model._meta.db_table )
+        del detailNames[ix]
+        del detailList[ix]
+    except: 
+        pass 
 
     detailList.append ( model ) 
-    baseMeta = model._meta
+    detailNames.append ( model._meta.db_table ) 
 
-    for detail in baseMeta.get_all_related_objects():
-        addDetailToVersionList( detailList, detail.related_model )
+    for detail in model._meta.get_all_related_objects():
+        addDetailToVersionList( detailNames, detailList, detail.related_model )
 
