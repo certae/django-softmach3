@@ -105,7 +105,7 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
         if len(relFields) == 0: 
             continue 
 
-        for reg in pEntity.objects.filter(smVersion=v0):
+        for reg in pEntity.objects.filter(smVersion=v1):
 
             # Excepcion para el manejode relaciones heredadas de propiedades ( relationship - property )
             try:
