@@ -16,15 +16,13 @@ def doDeleteVersion(modeladmin, request, queryset, parameters):
 #   Get selected version
     v1 = queryset[0].versionCode
 
+    return _doDelVersion(result, v1)
+
+
+def _doDelVersion(result, v1):
+
+    #  Delete old versions
     for pEntity in result:
-
-        # Version Allow
-        try:
-            pEntity._meta.get_field('smVersion')
-        except:
-            continue
-
-        #  Delete old versions
         pEntity.objects.filter(smVersion=v1).delete()
 
     return {'success': True, 'message':  'Ok'}
@@ -47,15 +45,12 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     v0 = queryset[0].versionBase
     v1 = queryset[0].versionCode
 
+
+    _doDelVersion(result, v1)
+
     for pEntity in result:
 
         entityName = pEntity._meta.db_table
-
-        # Version Allow
-        try:
-            pEntity._meta.get_field('smVersion')
-        except:
-            continue
 
         # Dependant entity
         # Si anulo la entidad dependiente, solo pasan los campos del padre, el hijo no se copia 
@@ -70,24 +65,22 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
         idList0 = []
         idList1 = []
 
-        #  Delete old versions
-        pEntity.objects.filter(smVersion=v1).delete()
-
         #  Hace la copia
         for reg in pEntity.objects.filter(smVersion=v0):
 
-            # Identifica la primera relacion ( id )
+            # Excepcion para el manejode relaciones heredadas de propiedades ( relationship - property )
             try:
                 parentLink = ( entityName == 'prototype_property' ) and reg.isForeign
             except: parentLink = False 
-
-            if parentLink: 
-                continue 
+            if parentLink: continue
 
             idList0.append(reg.pk)
 
             reg.smUUID = uuid.uuid4()
             reg.smVersion = v1
+
+            # https://docs.djangoproject.com/en/1.9/topics/db/queries/#copying-model-instances             
+            reg.pk = None
             reg.id = None
             reg.save()
 
@@ -99,33 +92,35 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     # Busca todas los foreignkey  por UUID y los actualiza
     for pEntity in result:
 
-        # Dependant entity
-        if len(pEntity._meta.parents) > 0:
-            continue
+        entityName = pEntity._meta.db_table
 
         # FK identification          
         relFields = []
         for f in pEntity._meta.get_fields():
-            if f.is_relation or f.one_to_one or (f.many_to_one and f.related_model):
-                relFields.append( f )
+            if f.is_relation and (f.many_to_one and f.related_model):
+                relName = f.related_model()._meta.db_table
+                if not relName in idEquiv.keys(): continue
+                relFields.append( (f, relName) )
         
         if len(relFields) == 0: 
             continue 
 
         for reg in pEntity.objects.filter(smVersion=v0):
 
-            for f in relFields:
+            # Excepcion para el manejode relaciones heredadas de propiedades ( relationship - property )
+            try:
+                parentLink = ( entityName == 'prototype_property' ) and reg.isForeign
+            except: parentLink = False 
+            if parentLink: continue
+
+            for f, relName in relFields:
        
-                entityName = pEntity._meta.db_table
-
                 # get entity ids
-                idList0, idList1 = idEquiv.get(entityName, set([[], []]))
+                idRef0 = getattr( reg , f.column)
+                idList0, idList1 = idEquiv.get(relName, [[], []])
 
-            #  Hace la copia
-                idList0.append(reg.pk)
-    
-                reg.smUUID = uuid.uuid4()
-                reg.smVersion = v1
+                ix = idList0.index(idRef0)
+                setattr( reg , f.column, idList1[ ix ])
 
             reg.save()
 
