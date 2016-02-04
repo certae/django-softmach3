@@ -5,6 +5,8 @@ Created on Jun 21, 2015
 '''
 
 from protoExt.utils.utilsBase import list2dict
+from protoLib.models.versions import VersionUser
+
 
 def getContext( cBase ):
     """
@@ -59,8 +61,6 @@ def setContextFilter( cBase ):
     Define los filtros contextuales 
     """
 
-    cBase.contextFilter = [] 
-
     userContext = getContext(cBase)
     if len( userContext ) == 0: return 
 
@@ -71,7 +71,32 @@ def setContextFilter( cBase ):
             'property': lField['property'], 
             'filterStmt' : '=%s' % lField.get( 'propValue' )   
         } )
+
+
+def setVersionFilter( cBase ): 
+
+    # Version Allow
+    try:
+        cBase.model._meta.get_field('smVersion')
+    except:
+        return 
+
+    #  Active user version 
+    try: 
+        cVersion = VersionUser.objects.get(
+               user = cBase.userProfile.user, 
+               active = True   
+               )
+    except: 
+        return  
+
+
+    cBase.contextFilter.append( { 
+        'property': 'smVersion', 
+        'filterStmt' : '=%s' % cVersion.get( 'versionCode' )   
+    } )
         
+
 
 def getParameter(paramKey, default):
 
@@ -81,3 +106,5 @@ def getParameter(paramKey, default):
     param  = Parameters.objects.get_or_create(parameterKey = paramKey , defaults = jAux )[0]
     
     return param.parameterValue 
+
+

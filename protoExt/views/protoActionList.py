@@ -96,9 +96,7 @@ def prepareListEnv( request ):
     cBase.jsonLookups = [] 
     cBase.jsonSorters = [] 
     cBase.qsLookups = [] 
-
-    setContextFilter( cBase )
-    setZoomFilter( cBase )
+    cBase.contextFilter = [] 
 
     return cBase, message 
 
@@ -204,6 +202,10 @@ def getQSet( cBase ):
     cBase.orderBy = []
     # pStyle = cBase.protoMeta.get( 'pciStyle', '')
 
+
+    setContextFilter( cBase )
+    setZoomFilter( cBase )
+    setVersionFilter( cBase )
 
 #   Autentica '
     if not getModelPermission( cBase.userProfile.user, cBase.model, 'list'):
