@@ -37,6 +37,9 @@ __language ={
     
     'Title_Msg_Confirm_Delete' : 'Confirmation de la suppression',
 
+    'Title_Action_Confirm' : 'Confirm Action', 
+    'Msg_Action_Confirm' : 'Confirm Action',
+
     'GridNav_In_New_Tab' : 'Voir dans un nouvel onglet',
     'GridNav_PageSize' : 'par page',
     'GridNav_Current' : 'Résultats',

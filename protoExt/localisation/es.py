@@ -36,6 +36,9 @@ __language ={
     'Msg_Confirm_Delete_Operation' : 'Está seguro?',
 
     'Title_Msg_Confirm_Delete' : 'Confirmar eliminación',
+
+    'Title_Action_Confirm' : 'Confirm Action', 
+    'Msg_Action_Confirm' : 'Confirm Action',
     
     'GridNav_In_New_Tab' : 'Ver en una nueva pestaña',
     'GridNav_PageSize' : 'por página',

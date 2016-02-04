@@ -183,8 +183,23 @@ Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
 
         };
 
-        _SM.vp_StatusBar.showMessage('executing  ' + actionDef.name + '...', 'MDActionsController');
-        _SM.doProtoActions(viewCode, actionDef.name, selectedKeys, detKeys, parameters, actionDef, options);
+
+        if ( actionDef.actionConfirm ) { 
+            Ext.MessageBox.confirm( _SM.__language.Title_Action_Confirm, 
+                _SM.__language.Msg_Action_Confirm, 
+                doFireAction );
+        } else { 
+            doFireAction('yes')
+        }
+
+        function doFireAction(btn){
+            if (btn === 'yes') {
+                _SM.vp_StatusBar.showMessage('executing  ' + actionDef.name + '...', 'MDActionsController');
+                _SM.doProtoActions(viewCode, actionDef.name, selectedKeys, detKeys, parameters, actionDef, options);
+            }
+        }
+
+
 
     }
 

@@ -36,6 +36,9 @@ __language ={
     'Msg_Confirm_Delete_Operation' : 'Are you sure?',
     
     'Title_Msg_Confirm_Delete' : 'Confirm Delete',
+
+    'Title_Action_Confirm' : 'Confirm Action', 
+    'Msg_Action_Confirm' : 'Confirm Action',
     
     'GridNav_In_New_Tab' : 'View in a new tab',
     'GridNav_PageSize' : 'by page',

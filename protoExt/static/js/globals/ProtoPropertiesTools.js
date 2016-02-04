@@ -442,7 +442,7 @@ _SM._MetaProperties =  {
     "addDetailForm.help" : "Shortcut to the add form", 
     "addDetailForm.type" : "boolean", 
 
-    "actionConfirm": False,
+    "actionConfirm": false,
     "actionConfirm.help": "t/f",
     "actionConfirm.type": "boolean",
 
