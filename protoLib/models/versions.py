@@ -62,4 +62,30 @@ class VersionHeaders(models.Model):
     modelCType = models.ForeignKey(ContentType, blank=False, null=False)
 
     def __str__(self):
-        return "%s %s" % (self.modelCType.__str__())
+        return "%s" % (self.modelCType.__str__())
+
+
+class VersionUser(models.Model):
+    """
+    Para poder buscar las entidades, hay q comenzar por los padres  
+    """
+
+    version = models.ForeignKey('VersionTitle', null=True, blank=True, )
+    user = models.ForeignKey(AUTH_USER_MODEL, null=False, blank=False, related_name='+')
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "%s %s" % ( self.user.__str__(), self.version.__str__())
+
+    class Meta:
+        unique_together = ('version', 'user'  )
+
+
+    def save(self, *args, **kwargs):
+        #  Only one active register 
+        if self.active:
+            try:
+                self.__class__.objects.filter( user = self.user, active = True ).exclude( pk = self.pk ).update( active = False )
+            except:
+                pass
+        super(VersionUser, self).save(*args, **kwargs)

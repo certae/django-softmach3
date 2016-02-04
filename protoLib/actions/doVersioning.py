@@ -115,7 +115,7 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
 
             for f, relName in relFields:
        
-                # get entity ids
+                # get entity idsVersionTitle
                 idRef0 = getattr( reg , f.column)
                 idList0, idList1 = idEquiv.get(relName, [[], []])
 
