@@ -273,5 +273,10 @@ META_PROPERTIES = {
     "crudType.choices": [ "", "editable", "screenOnly", "storeOnly", "insertOnly", "updateOnly", "linked", "copied" ],
 
     "selectionMode.help": "En las acciones determina el tipo de seleccion en la grilla",
-    "selectionMode.choices": [ "none", "single", "multiple" ]
+    "selectionMode.choices": [ "none", "single", "multiple" ], 
+
+    "actioConfirm": False,
+    "actioConfirm.help": "t/f",
+    "actioConfirm.type": "boolean",
+
 }

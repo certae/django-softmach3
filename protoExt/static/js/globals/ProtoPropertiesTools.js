@@ -224,10 +224,6 @@ _SM._MetaProperties =  {
     "readOnly.type"  : "boolean",
     "primary.type" : "boolean", 
 
-//versions     
-    "versioning.type":"boolean",
-    "versioning.help": "use Versions?",
-
     
 // PCI
     "viewEntity.help" : "Backend model (Django)",
@@ -444,7 +440,11 @@ _SM._MetaProperties =  {
     "selectionMode.choices" : [ "none", "single", "multiple", "details" ], 
 
     "addDetailForm.help" : "Shortcut to the add form", 
-    "addDetailForm.type" : "boolean"
+    "addDetailForm.type" : "boolean", 
+
+    "actionConfirm": False,
+    "actionConfirm.help": "t/f",
+    "actionConfirm.type": "boolean",
 
 };
 
@@ -461,7 +461,6 @@ _SM._MetaObjects = {
         "properties" : [
                 "viewCode", "viewEntity", "viewIcon", "description", "shortTitle", 
                 "localSort", "pageSize", 
-                "versioning", 
                 "sheetSelector", "pciStyle", "helpPath", "idProperty", 
                 "jsonField", "returnField", "updateTime", 
                 "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciType"
@@ -820,9 +819,9 @@ _SM._MetaObjects = {
         "properties" : [
             "name", 
             "title", "actionType", "selectionMode", 
+            "actionConfirm", "actionConfirmMsg", 
             "refreshOnComplete",
-            "executeJS", 
-            "jsCode"
+            "executeJS", "jsCode"
          ],
         "lists" : ["actionParams"],
 

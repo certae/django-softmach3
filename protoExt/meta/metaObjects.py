@@ -378,6 +378,7 @@ META_OBJECTS = {
         "properties" : [
             "name", 
             "title", "actionType", "selectionMode", 
+            "actionConfirm", "actionConfirmMsg", 
             "refreshOnComplete",
             "executeJS", 
             "jsCode"
