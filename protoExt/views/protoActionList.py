@@ -16,7 +16,7 @@ from . import validateRequest
 
 import json
 from protoExt.utils.utilsBase import traceError
-from protoExt.views.getStuff import setContextFilter
+from protoExt.views.getStuff import setContextFilter, setVersionFilter
 from protoExt.views.protoGetPci import getGenericPci
 from jsonfield2.utils import JSONEncoder
 

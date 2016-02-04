@@ -93,7 +93,7 @@ def setVersionFilter( cBase ):
 
     cBase.contextFilter.append( { 
         'property': 'smVersion', 
-        'filterStmt' : '=%s' % cVersion.get( 'versionCode' )   
+        'filterStmt' : '=%s' % cVersion.version   
     } )
         
 
