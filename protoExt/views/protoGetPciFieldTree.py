@@ -72,6 +72,9 @@ def protoGetFieldTree(request):
 
 def addFiedToList(fieldList , field, fieldBase):
     """ return parcial field tree  ( Called from protoGetFieldTree ) 
+
+        TODO DGT: This the base for protoype version copy, bcause we need to get the fk 
+        Verificar su es un repositorio dinamico, prototypo o artefacto 
     """
 
     fieldId = fieldBase + field.name
