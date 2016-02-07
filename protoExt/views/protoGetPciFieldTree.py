@@ -42,6 +42,8 @@ def protoGetFieldTree(request):
     else: 
         # Se crean los campos con base al modelo ( trae todos los campos del modelo 
         # for field in cBase.model._meta._fields(): # only for django 1.4
+
+        # DGT TODO Field identification for version copy in prototypes 
         for field in cBase.model._meta.fields:
             try: 
                 addFiedToList(fieldList, field , '')
