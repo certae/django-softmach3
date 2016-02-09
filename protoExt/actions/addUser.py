@@ -1,4 +1,4 @@
-#  Dgt 1303  Creacion automatica de usuarios, team, grupo 
+#  Dario GomezT 1303  Creacion automatica de usuarios, team, grupo 
 
 # -*- coding: utf-8 -*-
 
