@@ -486,13 +486,14 @@ _SM.DefineProtoModel = function(myMeta){
 
         // Determina el xType y otros parametros
         switch (vFld.type) {
+        case 'money':
         case 'decimal':
             mField.type = 'number';
             break;
 
         case 'jsonfield':
             mField.readOnly = true;
-            mField.type = 'json';
+            mField.type = 'string';
             break;
 
         case 'date':
