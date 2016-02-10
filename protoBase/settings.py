@@ -34,15 +34,17 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jsonfield2', 
-    'taggit',
-    'import_export',
     'reversion',
     'protoLib', 
     'protoExt', 
     'prototype', 
-#     'rai00base', 
     'rai01ref', 
-    'django_extensions',
+
+    # 'import_export',     : deprecate warning importlib 
+    'taggit',
+
+    # 'rai00base', 
+    # 'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (

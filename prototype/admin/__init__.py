@@ -1,7 +1,7 @@
 # This is an auto-generated model module by CeRTAE OMS PlugIn
 
-from import_export import resources
-from import_export.admin import ImportExportActionModelAdmin # ImportExportModelAdmin
+# from import_export import resources
+# from import_export.admin import ImportExportActionModelAdmin,  ImportExportModelAdmin
 
 from reversion.helpers import patch_admin
 from prototype.models import ProtoTable
@@ -19,13 +19,14 @@ from prototype.actions import  doEntityPrototype, doDiagram
 from prototype.models import Entity
 
 
-class EntityResource(resources.ModelResource):
-    class Meta:
-        model = Entity
+# class EntityResource(resources.ModelResource):
+#     class Meta:
+#         model = Entity
 
-class EntityAdmin( ImportExportActionModelAdmin ):
+class EntityAdmin( admin.ModelAdmin ):
+# class EntityAdmin( ImportExportActionModelAdmin ):
     actions = [ doEntityPrototype  ]
-    resource_class = EntityResource
+    # resource_class = EntityResource
 
 admin.site.register(Entity, EntityAdmin )
 patch_admin(Entity)
