@@ -32,8 +32,8 @@ def protoGetFieldTree(request):
     
     fieldList = []
     if isPrototypePci( cBase ): 
-        protoEntityId = request.POST.get('protoEntityId')
-        if not protoEntityId >= 0: return JsonError('invalid idEntity')
+        protoEntityId = request.POST.get('protoEntityId', -1)
+        if int( protoEntityId ) < 0: return JsonError('invalid idEntity')
 
         from prototype.actions.viewDefinition import GetProtoFieldsTree
         fieldList = GetProtoFieldsTree(protoEntityId)
