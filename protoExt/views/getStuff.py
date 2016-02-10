@@ -73,12 +73,13 @@ def setContextFilter( cBase ):
         } )
 
 
-def setVersionFilter( cBase ): 
-
+def getCurrentVersion( cBase ):
+     
     # Version Allow
     try:
         cBase.model._meta.get_field('smVersion')
     except:
+        cBase.cVersion = None 
         return 
 
     #  Active user version 
@@ -88,13 +89,23 @@ def setVersionFilter( cBase ):
                active = True   
                )
     except: 
+        cBase.cVersion = '0' 
         return  
 
 
-    cBase.contextFilter.append( { 
-        'property': 'smVersion', 
-        'filterStmt' : '=%s' % cVersion.version   
-    } )
+    cBase.cVersion = cVersion 
+
+
+
+def setVersionFilter( cBase ): 
+
+    getCurrentVersion( cBase )
+    if not cBase.cVersion is None: 
+
+        cBase.contextFilter.append( { 
+            'property': 'smVersion', 
+            'filterStmt' : '=%s' % cBase.cVersion.version   
+        } )
         
 
 
