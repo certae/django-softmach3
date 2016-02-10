@@ -4,61 +4,70 @@
 Funciones asociadas al manejo de prototype 
 """
 
-import json 
+import json
 
-from django.conf import settings 
-from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
+from django.conf import settings
+from protoExt.utils.utilsWeb import JsonError, JsonSuccess
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsBase import traceError
+from protoExt.views.getStuff import getCurrentVersion
 
 try:
     PROTO_PREFIX = settings.PROTO_PREFIX or "prototype.ProtoTable."
     from prototype.models import Prototype, Entity
-except: 
-    pass     
+except:
+    pass
 
 
-def isPrototypePci( cBase   ):
+def isPrototypePci(cBase):
 
-    if cBase.viewCode.startswith(PROTO_PREFIX)  and cBase.viewCode != cBase.viewEntity :
+    if cBase.viewCode.startswith(PROTO_PREFIX) and cBase.viewCode != cBase.viewEntity:
         return True
-    return False 
+    return False
 
 
-def getPrototypePci( cBase ):
+def getPrototypePci(cBase):
+
+    getCurrentVersion( cBase )
+    if cBase.cVersion is None:
+        cBase.cVersion = '0' 
 
     try:
-        prototypeView = cBase.viewCode.replace( PROTO_PREFIX, '')
-        protoDef = Prototype.objects.get(code=prototypeView, smOwningTeam=cBase.userProfile.userTeam)
+        prototypeView = cBase.viewCode.replace(PROTO_PREFIX, '')
+        protoDef = Prototype.objects.get(
+            code=prototypeView, 
+            smOwningTeam=cBase.userProfile.userTeam, 
+            smVersion = cBase.cVersion
+            )
 
         cBase.protoMeta = protoDef.metaDefinition
-        cBase.protoMeta['viewCode'] = cBase.viewCode  
+        cBase.protoMeta['viewCode'] = cBase.viewCode
 
     except Exception as e:
         traceError()
-        return JsonError('{0}: {1}'.format( cBase.viewCode, getReadableError(e)  ))
+        return JsonError('{0}: {1}'.format(cBase.viewCode, getReadableError(e)))
 
-        
-def saveProtoPci( cBase ): 
 
-    protoCode = cBase.viewCode.replace( PROTO_PREFIX, '' )
+def saveProtoPci(cBase):
+
+    protoCode = cBase.viewCode.replace(PROTO_PREFIX, '')
 
     try:
-        protoMeta = json.loads( cBase.sMeta)
+        protoMeta = json.loads(cBase.sMeta)
 
-        entityId = protoMeta['protoEntityId'] 
+        entityId = protoMeta['protoEntityId']
         entityObj = Entity.objects.get(id=entityId)
-        
-        protoDef  = Prototype.objects.get(\
-            code= protoCode, \
-            entity= entityObj, \
-            smOwningTeam= cBase.userProfile.userTeam \
-            )
- 
-        protoDef.metaDefinition = cBase.sMeta 
-        protoDef.save()    
+
+        protoDef = Prototype.objects.get(
+            code=protoCode,
+            entity=entityObj,
+            smOwningTeam=cBase.userProfile.userTeam
+        )
+
+        protoDef.metaDefinition = cBase.sMeta
+        protoDef.save()
 
     except Exception as e:
-        return JsonError(getReadableError(e)) 
+        return JsonError(getReadableError(e))
 
-    return  JsonSuccess({ 'message': 'Ok' })
+    return JsonSuccess({'message': 'Ok'})
