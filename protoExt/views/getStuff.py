@@ -93,7 +93,7 @@ def getCurrentVersion( cBase ):
         return  
 
 
-    cBase.cVersion = cVersion 
+    cBase.cVersion = cVersion.version 
 
 
 
@@ -104,7 +104,7 @@ def setVersionFilter( cBase ):
 
         cBase.contextFilter.append( { 
             'property': 'smVersion', 
-            'filterStmt' : '=%s' % cBase.cVersion.version   
+            'filterStmt' : '=%s' % cBase.cVersion   
         } )
         
 
