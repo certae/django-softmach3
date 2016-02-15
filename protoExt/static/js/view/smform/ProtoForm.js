@@ -480,8 +480,8 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
     _doSyncMasterStore : function(){
         this.store.sync({
             success : function(result, request){
-                var myReponse = result.operations[0].response, myResult = Ext
-                        .decode(myReponse.responseText);
+                var myReponse = result.operations[0].response; 
+                var myResult = Ext.decode(myReponse._responseText);
                 if (myResult.message) {
                     _SM.errorMessage(_SM.__language.Msg_Error_Save_Form, myResult.message);
                 }
@@ -513,7 +513,8 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     onSave : function(){
 
-        var me = this, tmpAutoSync, form, lProduct, lBase, lRec, lZRet, ix, iz;
+        var me = this, tmpAutoSync, form, lProduct, lBase, lRec, lZRet, ix, iz, ib;
+        var modelName = _SM.getModelName(me.myMeta.viewCode)
 
         tmpAutoSync = me.store.autoSync;
         form = me.getForm();
@@ -550,13 +551,24 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
                     // Producto Cartersiano de multiReturn
                     lBase = lProduct[ix];
-                    lRec = me.masterRecord.copy();
 
+                    // lRec = me.masterRecord.copy();
+                    lRec = Ext.create(modelName, {});
+
+                    // Obtiene los datos del masterRecord 
+                    for (ib in me.masterRecord.data ) {
+                        if ( ib == 'id' ) {continue; }
+                        lRec.data[ ib ] = me.masterRecord.data[ ib ]
+                    }
+
+                    // Copia los datos de los zoom multiples 
                     for (iz in lBase) {
                         lZRet = lBase[iz];
                         lRec.data[lZRet.name] = lZRet.recStr;
                         lRec.data[lZRet.fkId] = lZRet.recId;
                     }
+                    // lRec.phantom = true;
+                    // lRec.dirty = true;
                     me.store.add(lRec);
 
                 }
