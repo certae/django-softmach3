@@ -90,7 +90,7 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
         myGrid.addDocked(myNavPanel);
 
         function onMenuPromoteDetail(){
-            _SM.vp_TabContainer.addTabPanel(myGrid.viewCode, myGrid.mdFilter, myGrid.detailTitle);
+            _SM.vp_TabContainer.controller.addTabPanel(myGrid.viewCode, myGrid.mdFilter, myGrid.detailTitle);
         }
 
     },
