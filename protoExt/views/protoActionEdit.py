@@ -228,10 +228,13 @@ def setRegister(cBase, rec, key, data):
             value = toDecimal(value)
         elif cName == 'FloatField':
             value = toFloat(value)
-        elif cName == 'JsonField':
+        elif cName in [ 'JsonField', 'JSONField' ] :
             if type(value) == type('') and len(value) == 0:
                 value = {}
 
+        else: 
+            value = None 
+             
         setattr(rec, key, value)
 
     except Exception:
