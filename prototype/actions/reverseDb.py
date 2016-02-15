@@ -28,6 +28,11 @@ def getDbSchemaDef(dProject , request):
 
 def readSchemaDef(dProject):
 
+    # Prepara el nombre de la tabla
+    def table2model(table_name):
+    #     return table_name.name.replace('_', '').replace(' ', '').replace('-', '')
+        return re.sub(r'[^a-zA-Z0-9]', '', table_name.title())
+
     if dProject.dbEngine == 'sqlite3':
         dProject.dbEngine = 'django.db.backends.sqlite3'
     elif  dProject.dbEngine == 'mysql':
@@ -49,15 +54,16 @@ def readSchemaDef(dProject):
             'PORT':dProject.dbPort,
           }
 
-    # Prepara el nombre de la tabla
-    table2model = lambda table_name: table_name.title().replace('_', '').replace(' ', '').replace('-', '')
 
     # Ensure the remaining default connection information is defined.
     # connections.databases.ensure_defaults('new-alias')
     connection = connections[ pCode ]
     cursor = connection.cursor()
 
-    for table_name in connection.introspection.get_table_list(cursor):
+    for table_name in connection.introspection.table_names(cursor):
+
+        if table_name.split( '_')[0] in ['auth', 'django', 'tagit', 'reversion', 'protoExt', 'protoLib', 'prototype', 'ref00base' ]: 
+            continue 
 
         pEntity = { 'code' : table2model(table_name)  }
         pEntities[ pEntity['code'] ] = pEntity
@@ -77,28 +83,38 @@ def readSchemaDef(dProject):
             indexes = {}
 
 
-        for i, row in enumerate(connection.introspection.get_table_description(cursor, table_name)):
+        for row in connection.introspection.get_table_description(cursor, table_name):
             column_name = row[0]
             att_name = column_name.lower()
 
             if att_name in ['smowninguser_id', 'smowningteam_id', 'smcreatedby_id', 'smmodifiedby_id',
                             'smregstatus', 'smwflowstatus',
                             'smcreatedon', 'smmodifiedon',
-                            'smuuid' ] :
+                            'smuuid', 'smnaturalcode', 'id', 
+                            'smversion' ] :
                 continue
 
             pProperty = { 'code' :  att_name , 'notes' : ''}
             pProperties.append(pProperty)
 
 
-            if i in relations:
-                rel_to = relations[i][1] == table_name and "'self'" or table2model(relations[i][1])
+            if column_name in relations:
+                # rel_to = relations[i][1] == table_name and "'self'" or table2model(relations[i][1])
+                rel_to = table2model(relations[column_name][1])
+
                 pProperty['refEntity'] = rel_to
 
                 if att_name.endswith('_id'):
                     att_name = att_name[:-3]
                     pProperty['code'] = att_name
                     pProperty['notes'] += 'id removed from colName;'
+
+# -=
+
+                        # if rel_to in known_models:
+                        #     field_type = 'ForeignKey(%s' % rel_to
+                        # else:
+                        #     field_type = "ForeignKey('%s'" % rel_to
 
             else:
 
@@ -144,50 +160,50 @@ def readSchemaDef(dProject):
     # Tournarrount sqlite introspection  
     # FOREIGN KEY (syncObjectTypeID) REFERENCES syncObjectTypes(syncObjectTypeID) not supported 
     # Django v1.6.10  Dgt 150128
-    table_def = [] 
-    if dProject.dbEngine == 'django.db.backends.sqlite3':
-        cursor.execute("""
-            SELECT name, sql FROM sqlite_master
-            WHERE type = 'table' AND NOT name in ('sqlite_sequence')
-            """)
+    # table_def = [] 
+    # if dProject.dbEngine == 'django.db.backends.sqlite3':
+    #     cursor.execute("""
+    #         SELECT name, sql FROM sqlite_master
+    #         WHERE type = 'table' AND NOT name in ('sqlite_sequence')
+    #         """)
     
-        table_def = [(row[0], row[1] ) for row in cursor.fetchall()]
+    #     table_def = [(row[0], row[1] ) for row in cursor.fetchall()]
 
-    for table_name, table_sch in table_def:
-        table_sch = table_sch[table_sch.index('(') + 1:table_sch.rindex(')')] 
+    # for table_name, table_sch in table_def:
+    #     table_sch = table_sch[table_sch.index('(') + 1:table_sch.rindex(')')] 
 
-        if not ("foreign" in table_sch.lower() ): 
-            continue 
+    #     if not ("foreign" in table_sch.lower() ): 
+    #         continue 
  
-        try:
-            pEntity = pEntities[ table2model(table_name)  ]
-        except NotImplementedError:
-            continue
+    #     try:
+    #         pEntity = pEntities[ table2model(table_name)  ]
+    #     except NotImplementedError:
+    #         continue
 
-        # Walk through and look for references to other tables. SQLite doesn't
-        # really have enforced references, but since it echoes out the SQL used
-        # to create the table we can look for REFERENCES statements used there.
-        for field_desc in table_sch.split(','):
-            field_desc = field_desc.strip().replace(' ','').lower()
+    #     # Walk through and look for references to other tables. SQLite doesn't
+    #     # really have enforced references, but since it echoes out the SQL used
+    #     # to create the table we can look for REFERENCES statements used there.
+    #     for field_desc in table_sch.split(','):
+    #         field_desc = field_desc.strip().replace(' ','').lower()
 
-            # This is the issue d'expetion 
-            if not field_desc.startswith("foreignkey"): 
-                continue 
+    #         # This is the issue d'expetion 
+    #         if not field_desc.startswith("foreignkey"): 
+    #             continue 
             
-            m = re.search('references(\S*) ?\(["|]?(.*)["|]?\)', field_desc, re.I)
-            if not m:
-                continue
-            table_ref  = [s.strip('"') for s in m.groups()][0]
+    #         m = re.search('references(\S*) ?\(["|]?(.*)["|]?\)', field_desc, re.I)
+    #         if not m:
+    #             continue
+    #         table_ref  = [s.strip('"') for s in m.groups()][0]
 
-            try:
-                att_name = re.match('foreignkey\(([^\)]*)\).*', field_desc, re.I).groups()[0]
-            except NotImplementedError:
-                continue
+    #         try:
+    #             att_name = re.match('foreignkey\(([^\)]*)\).*', field_desc, re.I).groups()[0]
+    #         except NotImplementedError:
+    #             continue
             
-            for pProperty in pEntity[ 'properties' ]:
-                if  att_name != pProperty['code']: continue  
-                if not 'refEntity' in pProperty:
-                    pProperty['refEntity'] = table2model(table_ref)
+    #         for pProperty in pEntity[ 'properties' ]:
+    #             if  att_name != pProperty['code']: continue  
+    #             if not 'refEntity' in pProperty:
+    #                 pProperty['refEntity'] = table2model(table_ref)
 
 
 # @transaction.commit_on_success

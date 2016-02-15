@@ -89,7 +89,7 @@ class Project(ProtoModelExt):
                 "name": "prototype.property"
             }],                 
         "actions": [
-            { "name": "doImportSchema", , "selectionMode" : "single" },
+            { "name": "doImportSchema", "selectionMode" : "single" },
 #             { "name": "doImportOMS", "selectionMode" : "single",
 #               "actionParams": [
 #                  {"name" : "fileName", "type" : "string", "required": False, "tooltip" : "option de menu (msi)" }
