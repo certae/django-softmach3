@@ -8,12 +8,12 @@ from django.utils import six
 from protoLib.middleware import CurrentUserMiddleware
 from .smbase import UserProfile 
 
-class ProtoTeamManager(models.Manager):
+class TeamPermissionManager(models.Manager):
  
     def get_queryset(self):
         cuser = CurrentUserMiddleware.get_user( False )
 
-        Qs = super(ProtoTeamManager, self).get_queryset() 
+        Qs = super(TeamPermissionManager, self).get_queryset() 
         
         if not cuser or cuser.is_superuser :
             return Qs
@@ -25,13 +25,13 @@ class ProtoTeamManager(models.Manager):
         return Qs.filter(smOwningTeam__in=  userProfile.userTree.split(',') )
 
 
-class ProtoUserManager(models.Manager):
-
+class UserPermissionManager(models.Manager):
+#     PErmission manager 
  
     def get_queryset(self):
         cuser = CurrentUserMiddleware.get_user( False )
 
-        Qs = super(ProtoUserManager, self).get_queryset() 
+        Qs = super(UserPermissionManager, self).get_queryset() 
         
         if not cuser or cuser.is_superuser :
             return Qs
@@ -43,7 +43,7 @@ class ProtoUserManager(models.Manager):
 
 
 
-class ProtoJSONManager(ProtoTeamManager):
+class ProtoJSONManager(TeamPermissionManager):
      
     def __init__(self, json_fields=[], *args, **kwargs):
         self.json_fields = json_fields

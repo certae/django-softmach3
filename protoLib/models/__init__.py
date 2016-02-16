@@ -5,7 +5,7 @@ from .usermodel import User, AUTH_USER_MODEL
 from .smbase import TeamHierarchy, UserProfile, EntityMap
 from .protomodel import ProtoModelBase, ProtoModelExt
 from .protomanager import ProtoJSONManager
-from .protoContext import UserContext 
+from .protoContext import ContextVar, ContextEntity, ContextUser 
 from .versions import VersionTitle, VersionHeaders, VersionUser
 
 

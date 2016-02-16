@@ -8,7 +8,7 @@ from protoLib.models import TeamHierarchy
 from protoLib.middleware import CurrentUserMiddleware
 from protoLib.getStuff import getUserTeam
 
-from .protomanager import ProtoTeamManager, ProtoJSONManager
+from .protomanager import TeamPermissionManager, ProtoJSONManager
 
 import uuid 
 
@@ -45,11 +45,12 @@ class ProtoModelBase(models.Model):
     smVersion = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')
  
     # Si la tabla no es manajada por teams,  debe cambiarse el manager 
-    objects = ProtoTeamManager()
+    objects = TeamPermissionManager()
     smObjects = models.Manager()    
 
     # Security indicator used by control permissions
     _protoObj = True
+    _useVersion = True 
     
     # En los modelos q esto es falso NaturalCode debe manejarse directamente      
     _setNaturalCode = True

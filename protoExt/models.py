@@ -2,10 +2,9 @@
 
 from django.db import models
 from jsonfield2 import JSONField, JSONAwareManager
-from django.contrib.contenttypes.models import ContentType
 
 from protoLib.models.protomodel import ProtoModelBase, ProtoModelExt
-from protoLib.models.protomanager import ProtoUserManager
+from protoLib.models.protomanager import UserPermissionManager
 
 
 """
@@ -64,6 +63,8 @@ class CustomDefinition(ProtoModelBase):
     """
     maneja las definiciones por usuarios
     aqui se guardan los menus personalizados, y las customOptions
+    
+    La diferencia con el userProfile es q aqui existen varios registros por codigo 
     """
 
     code = models.CharField(blank=False, null=False, max_length=200)
@@ -75,7 +76,7 @@ class CustomDefinition(ProtoModelBase):
 
     metaDefinition = JSONField(default={})
 
-    objects = ProtoUserManager()
+    objects = UserPermissionManager()
 
     def __str__(self):
         return self.code
@@ -95,6 +96,6 @@ from django.db.models.signals import post_save
 from protoLib.models import UserContext
 from protoExt.signals import context2customdefinition 
  
-post_save.connect(context2customdefinition, sender = UserContext)
+# post_save.connect(context2customdefinition, sender = UserContext)
 
 

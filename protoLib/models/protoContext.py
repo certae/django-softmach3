@@ -3,52 +3,87 @@
 from .protomodel import ProtoModelBase 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from protoLib.models.protomanager import ProtoUserManager
+from protoLib.models.protomanager import UserPermissionManager
 
-class UserContext(ProtoModelBase):
-    """
-    Esta tabla maneja los elementos que pueden servir como :
-    - valores por default o 
-    - como filtros predeterminados  
-    
-    Al momento de buscar la pci generar valores por defecto  
-    Al momento de hacer el query buscar  generar valores de filtro 
 
-    Los registros de esta tabla se agregaran desde la ocurrencia del registro; por ejemplo  
-    en project, se selecciona un registro y se invoca la accion que genera el valor por defecto 
-    
-    El sistema buscara los hijos directos y generara un registro con el valor de la tabla y el campo 
-    de referencia ( el fk en la tabla hijo ) marcandolo con el valor seleecionado del padre.     
+class ContextVar(ProtoModelBase):
 
-    En una prox version se podria navegar a diferentes niveles para por ejemplo filtrar solo las 
-    propiedades de un determinado projecto, de todas maneras esto podria hacerse manualmente mientras.
-    
-    Nota: no se genera nunca la tabla de base pues esto impediria la creacion de nuevos defectos 
-    En todo caso esta tabla sera editable
-    
-    Esto debe funcionar a nivel individual,  
-    """
+    modelCType = models.OneToOneField(ContentType, unique=True, blank=False, null=False)
 
-    modelCType = models.ForeignKey(ContentType, blank=False, null=False)
-    propName = models.CharField(blank=False, null=False, max_length=500)
-
-    propValue = models.CharField(blank=False, null=False, max_length=200)
+    # Default name for var      
+    propName = models.CharField(blank=False, null=False, max_length=500, default = '')
     propDescription = models.TextField(blank=True, null=True)
 
+    # Legacy ( all true ) 
     isDefault = models.BooleanField(default=True) 
     isFilter = models.BooleanField(default=True) 
 
-    objects = ProtoUserManager()
+    # Dont use Versioning      
+    _useVersion = False 
 
 
     def __str__(self):
-        return "%s %s" % ( self.modelCType.__str__(), self.propName )   
+        return "%s" % ( self.modelCType.__str__() )   
     
     protoExt = { 
         "gridConfig" : {
-            "listDisplay": ["__str__", "propDescription", "smOwningUser"]      
+            "listDisplay": ["__str__", "propName", "propDescription" ]      
+        }
+    } 
+
+
+
+class ContextEntity(ProtoModelBase):
+
+    contextVar = models.ForeignKey(ContextVar, blank=False, null=False)
+    entity = models.ForeignKey(ContentType, blank=False, null=False)
+
+    # Default name for var      
+    propName = models.CharField(blank=True, null=True, max_length=200, default = '')
+    active = models.BooleanField(default=True) 
+
+    # Dont use Versioning      
+    _useVersion = False 
+    
+
+    def __str__(self):
+        return "%s %s" % ( self.modelCType.__str__(), self.entity.__str__() )   
+    
+    protoExt = { 
+        "gridConfig" : {
+            "listDisplay": ["__str__", "propName" ]      
         }
     } 
 
     class Meta:
-        unique_together = ('modelCType', 'propName', 'smOwningUser')
+        unique_together = ('contextVar', 'entity' )
+
+
+
+class ContextUser(ProtoModelBase):
+
+    contextVar = models.ForeignKey(ContextVar, blank=False, null=False)
+
+    # Default name for var
+    propValue = models.CharField(blank=False, null=False, max_length=200)      
+    active = models.BooleanField(default=True) 
+
+    # Dont use Versioning      
+    _useVersion = False 
+
+    objects = UserPermissionManager()
+    
+
+    def __str__(self):
+        return "%s %s" % ( self.modelCType.__str__(), self.propValue )   
+    
+    protoExt = { 
+        "gridConfig" : {
+            "listDisplay": ["__str__", "propValue"  ]      
+        }
+    } 
+
+    class Meta:
+        unique_together = ('contextVar', 'smOwningUser'  )
+
+
