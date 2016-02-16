@@ -93,9 +93,10 @@ class CustomDefinition(ProtoModelBase):
 
 # --  Load fixture problem PK Conflict, marcar raw !!!   
 from django.db.models.signals import post_save
-from protoLib.models import UserContext
-from protoExt.signals import context2customdefinition 
- 
+
+# from protoLib.models import UserContext
+# from protoExt.signals import context2customdefinition 
+
 # post_save.connect(context2customdefinition, sender = UserContext)
 
 
