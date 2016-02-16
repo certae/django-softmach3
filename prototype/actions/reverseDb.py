@@ -62,7 +62,7 @@ def readSchemaDef(dProject):
 
     for table_name in connection.introspection.table_names(cursor):
 
-        if table_name.split( '_')[0] in ['auth', 'django', 'tagit', 'reversion', 'protoExt', 'protoLib', 'prototype', 'ref00base' ]: 
+        if table_name.split( '_')[0] in ['auth', 'django', 'taggit', 'reversion' ]: 
             continue 
 
         pEntity = { 'code' : table2model(table_name)  }
