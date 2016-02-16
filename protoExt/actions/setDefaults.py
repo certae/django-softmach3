@@ -2,7 +2,7 @@
 
 from django.views.generic import detail
 from django.contrib.contenttypes.models import ContentType
-from protoLib.models.protoContext import UserContext
+from protoLib.models.protoContext import ContextUser
 from protoExt.views import validateRequest
 from protoExt.models import ViewDefinition
 from protoExt.utils.utilsWeb import JsonError
@@ -12,7 +12,7 @@ from protoExt.utils.utilsWeb import JsonError
 
 def actionSetDefaults(request, queryset , parameters):
     """
-    Genera los defaults en la tabla  UserContext 
+    Genera los defaults en la tabla  ContextUser 
     """
 
     cBase, message = validateRequest( request )
@@ -45,7 +45,7 @@ def actionSetDefaults(request, queryset , parameters):
         modelCType = ContentType.objects.get_by_natural_key( *detModel.strip().split('.')) 
         detField =  detail.get( 'deftField' )
         
-        UserContext.smObjects.update_or_create(
+        ContextUser.smObjects.update_or_create(
            modelCType = modelCType,
            smOwningUser = request.user,
            propName = detField,

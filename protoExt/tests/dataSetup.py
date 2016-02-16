@@ -12,11 +12,11 @@ def createContext():
 
     # createAuthExt()
 
-    # # Processing model: UserContext
+    # # Processing model: ContextUser
 
-    # from protoLib.models.protoContext import UserContext
+    # from protoLib.models.protoContext import ContextUser
 
-    # protoLib_usercontext_1 = UserContext()
+    # protoLib_usercontext_1 = ContextUser()
     # protoLib_usercontext_1.smNaturalCode = 'model project_id'
     # protoLib_usercontext_1.smOwningUser = importer.locate_object(User, "id", User, "id", 1)
     # protoLib_usercontext_1.smOwningTeam = TeamHierarchy.objects.get(id=1)
@@ -28,7 +28,7 @@ def createContext():
     # protoLib_usercontext_1 = importer.save_or_locate(protoLib_usercontext_1)
 
 
-    # protoLib_usercontext_3 = UserContext()
+    # protoLib_usercontext_3 = ContextUser()
     # protoLib_usercontext_3.smNaturalCode = 'entity model__project_id'
     # protoLib_usercontext_3.smOwningUser = importer.locate_object(User, "id", User, "id", 1)
     # protoLib_usercontext_3.smOwningTeam = TeamHierarchy.objects.get(id=1)

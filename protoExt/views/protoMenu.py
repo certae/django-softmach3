@@ -285,7 +285,11 @@ def getAutoMenuViews(app_list, currentUser ):
     ix = 0 
     for option in prototypes:
 
-        model = getDjangoModel( option.code ) 
+        try:
+            model = getDjangoModel( option.code )
+        except: 
+            continue 
+
         if not getModelPermission(currentUser, model , 'menu'):
             continue 
 
