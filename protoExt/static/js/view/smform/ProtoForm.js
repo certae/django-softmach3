@@ -480,9 +480,14 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
     _doSyncMasterStore : function(){
         this.store.sync({
             success : function(result, request){
-                var myReponse = result.operations[0].response; 
-                var myResult = Ext.decode(myReponse._responseText);
-                if (myResult.message) {
+                var myResult, myReponse = result.operations[0].response; 
+
+                // fix _responseText some times ??
+                if ( myReponse && myReponse.responseText ) { myResult = myReponse.responseText }
+                if ( myReponse && myReponse._responseText ) { myResult = myReponse._responseText }
+
+                if ( myResult ) {
+                    myResult = Ext.decode( myResult );
                     _SM.errorMessage(_SM.__language.Msg_Error_Save_Form, myResult.message);
                 }
                 // else { me.fireEvent('close', me );}
