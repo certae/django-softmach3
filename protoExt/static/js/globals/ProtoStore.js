@@ -432,7 +432,7 @@ _SM.DefineProtoModel = function(myMeta){
         };
 
         // Tipos validos
-        if (!vFld.type in _SM.objConv([
+        if (! (vFld.type in _SM.objConv([
             'string',
             'text',
             'html',
@@ -448,7 +448,7 @@ _SM.DefineProtoModel = function(myMeta){
             'foreignid',
             'foreigntext'
 
-        ]))
+        ])))
         {
 
             vFld.type = 'string';
