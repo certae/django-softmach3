@@ -5,7 +5,6 @@ Created on Jun 21, 2015
 '''
 
 from protoExt.utils.utilsBase import list2dict
-from protoLib.models.versions import VersionUser
 
 
 def getContext( cBase ):
@@ -75,38 +74,40 @@ def setContextFilter( cBase ):
 
 
 def getCurrentVersion( cBase ):
-     
-    # Version Allow
-    try:
-        cBase.model._meta.get_field('smVersion')
-    except:
-        cBase.cVersion = None 
-        return 
+    pass 
 
-    #  Active user version 
-    try: 
-        cVersion = VersionUser.objects.get(
-               user = cBase.userProfile.user, 
-               active = True   
-               )
-    except: 
-        cBase.cVersion = '0' 
-        return  
+    # DGT FIX Version Allow
+    # try:
+    #     cBase.model._meta.get_field('smVersion')
+    # except:
+    #     cBase.cVersion = None 
+    #     return 
 
-
-    cBase.cVersion = cVersion.version 
+    # #  Active user version 
+    # try: 
+    #     cVersion = VersionUser.objects.get(
+    #            user = cBase.userProfile.user, 
+    #            active = True   
+    #            )
+    # except: 
+    #     cBase.cVersion = '0' 
+    #     return  
 
 
+    # cBase.cVersion = cVersion.version 
 
-def setVersionFilter( cBase ): 
 
-    getCurrentVersion( cBase )
-    if not cBase.cVersion is None: 
 
-        cBase.contextFilter.append( { 
-            'property': 'smVersion', 
-            'filterStmt' : '=%s' % cBase.cVersion   
-        } )
+def setVersionFilter( cBase ):
+#   DGT FIX    
+    pass 
+#     getCurrentVersion( cBase )
+#     if not cBase.cVersion is None: 
+# 
+#         cBase.contextFilter.append( { 
+#             'property': 'smVersion', 
+#             'filterStmt' : '=%s' % cBase.cVersion   
+#         } )
         
 
 
