@@ -18,7 +18,7 @@ smControlFields = [
     'smCreatedBy',  'smModifiedBy', 'smCreatedBy_id',  'smModifiedBy_id', \
     'smCreatedOn', 'smModifiedOn', \
     'smWflowStatus', 'smRegStatus', \
-    'smNaturalCode', 'smUUID']
+    'smNaturalCode', 'smUUID', 'smVersion' ]
 
 
 class ProtoModelBase(models.Model):

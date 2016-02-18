@@ -39,7 +39,8 @@ def setContextDefaults( cBase ):
     cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
     for lField in userContext:
-        if not lField[ 'isDefault' ]: continue 
+        continue 
+        # if not lField[ 'isDefault' ]: continue 
         
         lName = lField[ 'property' ]
         vFld = cBase.fieldsDict.get( lName ) 

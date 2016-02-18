@@ -28,8 +28,8 @@ def context2customdefinition(sender, instance, created, **kwargs):
            'property': instance.propName,
            'propValue': instance.propValue, 
            'propDescription': instance.propDescription,
-           'isFilter': instance.isFilter, 
-           'isDefault': instance.isDefault, 
+           # 'isFilter': instance.isFilter, 
+           # 'isDefault': instance.isDefault, 
            } )
 
     protoDef.active = True 
