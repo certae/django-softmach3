@@ -95,7 +95,7 @@ def clearPhantonProps( ptConfig, ptType) :
 
 def addDefaultActions( cBase  ): 
 
-    # Add setDefault Action 
+    # Add setContext Action 
     ACTION_NAME =  "doSetContext"
     if cBase.protoMeta.get( 'contextTo', []): 
 

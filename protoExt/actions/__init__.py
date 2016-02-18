@@ -14,10 +14,10 @@ def doSetContext(modeladmin, request, queryset, parameters):
         return  {'success':False, 'message' : 'Single or null selection required'}
 
 
-    from protoExt.actions.setDefaults import actionSetDefaults
+    from protoExt.actions.setDefaults import actionSetContext
 
     try:
-        result = actionSetDefaults(request, queryset, parameters)
+        result = actionSetContext(request, queryset, parameters)
 
     except Exception as e:
         traceError()

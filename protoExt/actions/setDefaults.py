@@ -9,7 +9,7 @@ from protoLib.getStuff import getDjangoModel
 
 
 
-def actionSetDefaults(request, queryset , parameters):
+def actionSetContext(request, queryset , parameters):
     """
     Genera los defaults en la tabla  ContextUser 
     """
