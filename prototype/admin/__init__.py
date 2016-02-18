@@ -19,6 +19,15 @@ from prototype.actions import  doEntityPrototype, doDiagram
 from prototype.models import Entity
 
 
+
+# from prototype.models import ProtoVersionTitle
+# from protoLib.admin.admVersion import VersionAdm
+#   
+# admin.site.register( ProtoVersionTitle, VersionAdm  )
+# patch_admin(ProtoVersionTitle)
+
+
+
 # class EntityResource(resources.ModelResource):
 #     class Meta:
 #         model = Entity

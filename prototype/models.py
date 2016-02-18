@@ -14,6 +14,7 @@ from protoExt.utils.utilsConvert import slugify2
 from django.conf import settings
 
 import reversion
+from protoLib.models.versions import VersionTitle, VersionHeader
 
 
 PROTO_PREFIX = settings.PROTO_PREFIX
@@ -48,6 +49,14 @@ PROTO_PREFIX = settings.PROTO_PREFIX
         General 
         Model ( dependen del modelo, no se requiere declararlas en el admin ) 
 """
+
+
+class ProtoVersionTitle(VersionTitle):
+    pass 
+
+class ProtoVersionHeader(VersionHeader):
+    pass 
+
    
 class Project(ProtoModelExt):
     
@@ -62,6 +71,9 @@ class Project(ProtoModelExt):
     dbPassword = models.CharField(blank=True, null=True, max_length=200)
     dbHost = models.CharField(blank=True, null=True, max_length=200)
     dbPort = models.CharField(blank=True, null=True, max_length=200)
+
+    """Versioning"""
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
 
     def __str__(self):
         return slugify2(self.code) 
@@ -124,6 +136,7 @@ class Model(ProtoModelExt):
     modelPrefix = models.CharField(blank=True, null=True, max_length=50)
     description = models.TextField(blank=True, null=True)
 
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
     smTags = TaggableManager( blank=True )
     
     class Meta:
@@ -179,6 +192,8 @@ class Entity(ProtoModelExt):
     
     dbName = models.CharField(blank=True, null=True, max_length=200)
     description = models.TextField(blank=True, null=True)
+
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
 
     # Propieadad para ordenar el __str__ 
     unicode_sort = ('model', 'code',)
@@ -293,6 +308,8 @@ class Property(ProtoModelExt):
     """solo para ordenar los campos en la entidad"""
     # secuence = models.IntegerField(blank = True, null = True,)
 
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
+
     def save(self, *args, **kwargs):
         if self.isPrimary: 
             self.isRequired = True
@@ -381,6 +398,8 @@ class PropertyEquivalence(ProtoModelExt):
 
     description = models.TextField(blank=True, null=True)
 
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
+
     def __str__(self):
         return slugify2(self.sourceProperty.code + ' - ' + self.targetProperty.code)   
 
@@ -430,8 +449,11 @@ class Prototype(ProtoModelBase):
     description = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
+
     metaDefinition = JSONField(blank=True, null=True)
     objects = ProtoJSONManager(json_fields=['metaDefinition'])
+
 
     def __str__(self):
         return slugify2(self.code)  
@@ -452,6 +474,8 @@ class ProtoTable(ProtoModelBase):
     """
     
     entity = models.ForeignKey(Entity, blank=False, null=False)
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
+
     info = JSONField(default={})
     objects = ProtoJSONManager(json_fields=['info'])
 
@@ -509,6 +533,7 @@ class Diagram(ProtoModelExt):
     """Show ForeignKeys"""
     showFKey  = models.BooleanField(default=False)
 
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
 
     # Propieadad para ordenar el __str__ 
     unicode_sort = ('project', 'code',)
@@ -541,6 +566,8 @@ class DiagramEntity(ProtoModelExt):
     """    
     diagram = models.ForeignKey('Diagram', blank=False, null=False)
     entity = models.ForeignKey(Entity, blank=False, null=False)
+
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)
 
     """Information graphique ( position, color, ... )  """
     info = JSONField(default={})
