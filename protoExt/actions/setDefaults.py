@@ -40,7 +40,7 @@ def actionSetDefaults(request, queryset , parameters):
     )[0]
 
     # Add Context Entity Values 
-    cBase.defTo = cBase.protoMeta.get( 'defaultTo' , [] )
+    cBase.defTo = cBase.protoMeta.get( 'contextTo' , [] )
     for detail in cBase.defTo: 
 
         ettName = detail.get( 'deftModel').strip()

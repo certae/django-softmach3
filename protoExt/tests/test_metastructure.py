@@ -26,7 +26,7 @@ class TestMetaStructure(TestCase):
             if type ( oMeta.get( x )) != type( {} ):
                 self.assertTrue( False, '%s not in meta' % ( x, ) )
             
-        for x in ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig", "defaultTo"]: 
+        for x in ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig", "contextTo"]: 
             if type ( oMeta.get( x )) != type( [] ):
                 self.assertTrue( False, '%s not in meta' % ( x, ) )
 

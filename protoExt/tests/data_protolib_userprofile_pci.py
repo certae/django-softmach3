@@ -163,7 +163,7 @@ DATA_PCI_protoLib_UserProfile =   {
         },
         'shortTitle': 'User Profile',
         'businessRules': {},
-        'defaultTo': [],
+        'contextTo': [],
         'description': 'User Profile',
         'exclude': [],
         'fieldsBase': []

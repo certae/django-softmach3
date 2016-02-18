@@ -15,7 +15,7 @@ META_OBJECTS = {
             ],
         "roProperties" : ["viewEntity", "idProperty", "updateTime", "metaVersion", "protoEntity", "protoEntityId"],
         "objects" : ["gridConfig", "gridSets", "formConfig", "custom", "businessRules"],
-        "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig", "defaultTo" ],
+        "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig", "contextTo" ],
     },
 
     "fields" : {
@@ -267,7 +267,7 @@ META_OBJECTS = {
         "allowAdd" : True
     },
 
-    "defaultTo" : {
+    "contextTo" : {
         "description" : "Context : Set default to [ model, field ] ",
         "listOf" : "defaultToDef",
         "allowAdd" : True

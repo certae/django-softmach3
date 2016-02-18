@@ -71,7 +71,7 @@ class Project(ProtoModelExt):
         # permissions = (( "read_domain", "Can read project"), )        
 
     protoExt = { 
-        "defaultTo": [{
+        "contextTo": [{
                 "deftModel": "prototype.model",
                 "deftField": "project_id",
                 "name": "prototype.model"
@@ -135,7 +135,7 @@ class Model(ProtoModelExt):
         return slugify2(self.code) 
     
     protoExt = { 
-        "defaultTo": [{
+        "contextTo": [{
                 "deftModel": "prototype.entity",
                 "deftField": "model_id",
                 "name": "prototype.entity"

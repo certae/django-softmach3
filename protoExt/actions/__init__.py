@@ -3,7 +3,7 @@
 from protoExt.utils.utilsBase import getReadableError, traceError
 
 
-def doSetDefaults(modeladmin, request, queryset, parameters):
+def doSetContext(modeladmin, request, queryset, parameters):
     """ 
     find and replace sobre la tabla actual 
     parameters   campo,  findText, replaceText 

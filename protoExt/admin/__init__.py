@@ -15,8 +15,8 @@ patch_admin(CustomDefinition)
 
 
 
-from protoExt.actions import doSetDefaults
-admin.site.add_action(doSetDefaults)
+from protoExt.actions import doSetContext
+admin.site.add_action(doSetContext)
 
 
 # -----------------------------------------   AddUser  

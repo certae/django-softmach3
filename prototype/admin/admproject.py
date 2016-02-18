@@ -8,5 +8,5 @@ class ProjectAdmin( admin.ModelAdmin ):
     actions = [ doImportSchema  ]
 
     # from prototype.actions import doImportSchema, doImportOMS
-    # actions = [ doSetDefaults, doImportSchema, doImportOMS  ]
+    # actions = [ doSetContext, doImportSchema, doImportOMS  ]
     # pass 
