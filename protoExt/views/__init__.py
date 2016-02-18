@@ -35,6 +35,9 @@ def validateRequest( request ):
         return cBase, JsonError('readOnly User')
 
     cBase.viewCode = request.POST.get('viewCode', '').strip() 
+    if len( cBase.viewCode ) == 0: 
+        return cBase, JsonError('no viewCode')
+    
     cBase.userProfile = getUserProfile( request.user ) 
 
     # Elimina un punto extrano q viene de js      
