@@ -8,15 +8,12 @@ from protoLib.models.protomanager import UserPermissionManager
 
 class ContextVar(ProtoModelBase):
 
-    modelCType = models.OneToOneField(ContentType, unique=True, blank=False, null=False)
+    modelCType = models.ForeignKey(ContentType, blank=False, null=False)
 
     # Default name for var      
-    propName = models.CharField(blank=False, null=False, max_length=500, default = '')
-    propDescription = models.TextField(blank=True, null=True)
+    propName = models.CharField(blank=False, null=False, max_length=500, default = 'id')
+    description = models.TextField(blank=True, null=True)
 
-    # Legacy ( all true ) 
-    isDefault = models.BooleanField(default=True) 
-    isFilter = models.BooleanField(default=True) 
 
     # Dont use Versioning      
     _useVersion = False 
@@ -27,10 +24,12 @@ class ContextVar(ProtoModelBase):
     
     protoExt = { 
         "gridConfig" : {
-            "listDisplay": ["__str__", "propName", "propDescription" ]      
+            "listDisplay": ["__str__", "propName", "description" ]      
         }
     } 
 
+    class Meta:
+        unique_together = ('modelCType', 'propName' )
 
 
 class ContextEntity(ProtoModelBase):
@@ -47,7 +46,7 @@ class ContextEntity(ProtoModelBase):
     
 
     def __str__(self):
-        return "%s %s" % ( self.modelCType.__str__(), self.entity.__str__() )   
+        return "%s %s" % ( self.contextVar.__str__(), self.entity.__str__() )   
     
     protoExt = { 
         "gridConfig" : {
@@ -65,7 +64,7 @@ class ContextUser(ProtoModelBase):
     contextVar = models.ForeignKey(ContextVar, blank=False, null=False)
 
     # Default name for var
-    propValue = models.CharField(blank=False, null=False, max_length=200)      
+    propValue = models.CharField(blank=True, null=True, max_length=200)      
     active = models.BooleanField(default=True) 
 
     # Dont use Versioning      
@@ -75,7 +74,7 @@ class ContextUser(ProtoModelBase):
     
 
     def __str__(self):
-        return "%s %s" % ( self.modelCType.__str__(), self.propValue )   
+        return "%s %s" % ( self.contextVar.__str__(), self.propValue )   
     
     protoExt = { 
         "gridConfig" : {

@@ -54,18 +54,6 @@ class VersionTitle(models.Model):
         super(VersionTitle, self).save(*args, **kwargs)
 
 
-class VersionHeaders(models.Model):
-    """
-    Entity list for include or exclude in versioning 
-    """
-
-    modelCType = models.ForeignKey(ContentType, blank=False, null=False)
-    exclude = models.BooleanField(default=False)
-
-    def __str__(self):
-        return "%s" % (self.modelCType.__str__())
-
-
 class VersionUser(models.Model):
     """
     Para poder buscar las entidades, hay q comenzar por los padres  
@@ -90,3 +78,16 @@ class VersionUser(models.Model):
             except:
                 pass
         super(VersionUser, self).save(*args, **kwargs)
+
+
+class VersionHeaders(models.Model):
+    """
+    Entity list for include or exclude in versioning 
+    """
+
+    modelCType = models.ForeignKey(ContentType, blank=False, null=False)
+    exclude = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "%s" % (self.modelCType.__str__())
+
