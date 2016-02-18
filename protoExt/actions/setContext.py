@@ -47,10 +47,11 @@ def actionSetContext(request, queryset , parameters):
         entity = ContentType.objects.get_by_natural_key( *ettName.split('.')) 
         detField =  detail.get( 'deftField' )
 
+        defValues = { 'propName' : detField }
         ContextEntity.objects.update_or_create(
            contextVar = cVar,
            entity = entity,  
-           propName = detField
+           defaults= defValues 
         )  
 
     # Add or delete filter 
@@ -59,9 +60,11 @@ def actionSetContext(request, queryset , parameters):
         vrDefault = queryset[0].id
 
     # Update UserContext 
+    defValues = { 'propValue' : vrDefault }
     ContextUser.smObjects.update_or_create(
         contextVar = cVar,
-        propValue = vrDefault
+        smOwningUser = cBase.userProfile.user,
+        defaults= defValues 
     )  
 
     return  {'success':True , 'message' :  'Ok' }

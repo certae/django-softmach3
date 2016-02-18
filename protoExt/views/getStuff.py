@@ -11,14 +11,14 @@ def getContextEntity( cBase ):
     """
     get context filter by entity 
     """
+
+    from django.contrib.contenttypes.models import ContentType
+    from protoLib.models.protoContext import ContextEntity, ContextUser
     
     cttArray = []
 
-    from protoExt.models import ContextEntity, ContextUser
-    modelCType = ContentType.objects.get_for_model( cBase.model ) 
-
     cEntities = ContextEntity.objects.filter(
-               contextVar__modelCType = modelCType, 
+               entity = ContentType.objects.get_for_model( cBase.model ) , 
                active = True 
            )
     
@@ -31,8 +31,8 @@ def getContextEntity( cBase ):
 
         for cVar in cVars:
             cttArray.append( {
-                'property' = cEnt.propName, 
-                'propValue' = cVar.propValue 
+                'property' : cEnt.propName, 
+                'propValue' : cVar.propValue 
                 })
 
 
@@ -48,7 +48,7 @@ def setContextDefaults( cBase ):
     cttArray = getContextEntity(cBase)
     if len( cttArray ) == 0: return 
 
-    cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
+    # cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
     for lField in cttArray:
 
