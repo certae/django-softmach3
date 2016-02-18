@@ -10,7 +10,6 @@ from django.conf import settings
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess
 from protoExt.utils.utilsBase import getReadableError
 from protoExt.utils.utilsBase import traceError
-from protoExt.views.getStuff import getCurrentVersion
 
 try:
     PROTO_PREFIX = settings.PROTO_PREFIX or "prototype.ProtoTable."
@@ -27,10 +26,6 @@ def isPrototypePci(cBase):
 
 
 def getPrototypePci(cBase):
-
-    getCurrentVersion( cBase )
-    if cBase.cVersion is None:
-        cBase.cVersion = '0' 
 
     try:
         prototypeView = cBase.viewCode.replace(PROTO_PREFIX, '')

@@ -7,108 +7,84 @@ Created on Jun 21, 2015
 from protoExt.utils.utilsBase import list2dict
 
 
-def getContext( cBase ):
+def getContextEntity( cBase ):
     """
-    Lee el contexto de customDefinition  
+    get context filter by entity 
     """
     
-    from protoExt.models import CustomDefinition
-    viewCode = '_context.%s' % cBase.viewEntity.lower()
+    cttArray = []
 
-    try: 
-        protoDef = CustomDefinition.objects.get(
-               code = viewCode, 
-               smOwningUser = cBase.userProfile.user  
+    from protoExt.models import ContextEntity, ContextUser
+    modelCType = ContentType.objects.get_for_model( cBase.model ) 
+
+    cEntities = ContextEntity.objects.filter(
+               contextVar__modelCType = modelCType, 
+               active = True 
+           )
+    
+    for cEnt in cEntities:
+        cVars = ContextUser.objects.filter(
+                    contextVar  = cEnt.contextVar, 
+                    smOwningUser = cBase.userProfile.user, 
+                    active = True 
                )
-    
-        return protoDef.metaDefinition 
 
-    except: 
-        return []
+        for cVar in cVars:
+            cttArray.append( {
+                'property' = cEnt.propName, 
+                'propValue' = cVar.propValue 
+                })
+
+
+    return cttArray
+
 
 
 def setContextDefaults( cBase ):
     """
-    Define los defaults sobre la meta   
+    set Meta context defaults  
     """
 
-    userContext = getContext(cBase)
-    if len( userContext ) == 0: return 
+    cttArray = getContextEntity(cBase)
+    if len( cttArray ) == 0: return 
 
     cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
-    for lField in userContext:
-        continue 
-        # if not lField[ 'isDefault' ]: continue 
+    for lField in cttArray:
+
+        # If parent property continue 
+        if  len( lField[ 'property' ].split('__')) > 0  : continue 
         
         lName = lField[ 'property' ]
         vFld = cBase.fieldsDict.get( lName ) 
         if not vFld: continue  
         
         vFld['prpDefault'] = lField.get( 'propValue' ) 
-        
-        if lName.endswith('_id'):
-            lName = lName[:-3]
-            vFld = cBase.fieldsDict.get( lName ) 
-            if not vFld: continue
-              
-            vFld['prpDefault'] = lField.get( 'propDescription' ) 
+
+        # If Fk, set _str__  
+        # if lName.endswith('_id'):
+        #     lName = lName[:-3]
+        #     vFld = cBase.fieldsDict.get( lName ) 
+        #     if not vFld: continue
+        #     vFld['prpDefault'] = lField.get( 'propDescription' ) 
             
 
 
 def setContextFilter( cBase ):
     """
-    Define los filtros contextuales 
+    set meta context filters 
     """
 
-    userContext = getContext(cBase)
-    if len( userContext ) == 0: return 
+    cttArray = getContextEntity(cBase)
+    if len( cttArray ) == 0: return 
 
-    for lField in userContext:
-        if not lField[ 'isFilter' ]: continue 
-
+    for lField in cttArray:
         cBase.contextFilter.append( { 
             'property': lField['property'], 
             'filterStmt' : '=%s' % lField.get( 'propValue' )   
         } )
 
-
-def getCurrentVersion( cBase ):
-    pass 
-
-    # DGT FIX Version Allow
-    # try:
-    #     cBase.model._meta.get_field('smVersion')
-    # except:
-    #     cBase.cVersion = None 
-    #     return 
-
-    # #  Active user version 
-    # try: 
-    #     cVersion = VersionUser.objects.get(
-    #            user = cBase.userProfile.user, 
-    #            active = True   
-    #            )
-    # except: 
-    #     cBase.cVersion = '0' 
-    #     return  
-
-
-    # cBase.cVersion = cVersion.version 
-
-
-
-def setVersionFilter( cBase ):
-#   DGT FIX    
-    pass 
-#     getCurrentVersion( cBase )
-#     if not cBase.cVersion is None: 
-# 
-#         cBase.contextFilter.append( { 
-#             'property': 'smVersion', 
-#             'filterStmt' : '=%s' % cBase.cVersion   
-#         } )
-        
+       
 
 
 def getParameter(paramKey, default):

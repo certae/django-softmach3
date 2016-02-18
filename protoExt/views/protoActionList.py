@@ -16,7 +16,7 @@ from . import validateRequest
 
 import json
 from protoExt.utils.utilsBase import traceError
-from protoExt.views.getStuff import setContextFilter, setVersionFilter
+from protoExt.views.getStuff import setContextFilter
 from protoExt.views.protoGetPci import getGenericPci
 from jsonfield2.utils import JSONEncoder
 
@@ -205,7 +205,6 @@ def getQSet( cBase ):
 
     setContextFilter( cBase )
     setZoomFilter( cBase )
-    setVersionFilter( cBase )
 
 #   Autentica '
     if not getModelPermission( cBase.userProfile.user, cBase.model, 'list'):
