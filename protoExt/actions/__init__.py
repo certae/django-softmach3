@@ -14,7 +14,7 @@ def doSetContext(modeladmin, request, queryset, parameters):
         return  {'success':False, 'message' : 'Single or null selection required'}
 
 
-    from protoExt.actions.setDefaults import actionSetContext
+    from protoExt.actions.setContext import actionSetContext
 
     try:
         result = actionSetContext(request, queryset, parameters)
