@@ -15,9 +15,6 @@ class ContextVar(ProtoModelBase):
     description = models.TextField(blank=True, null=True)
 
 
-    # Dont use Versioning      
-    _useVersion = False 
-
 
     def __str__(self):
         return "%s" % ( self.modelCType.__str__() )   
@@ -41,9 +38,6 @@ class ContextEntity(ProtoModelBase):
     propName = models.CharField(blank=True, null=True, max_length=200, default = '')
     active = models.BooleanField(default=True) 
 
-    # Dont use Versioning      
-    _useVersion = False 
-    
 
     def __str__(self):
         return "%s %s" % ( self.contextVar.__str__(), self.entity.__str__() )   
@@ -66,9 +60,6 @@ class ContextUser(ProtoModelBase):
     # Default name for var
     propValue = models.CharField(blank=True, null=True, max_length=200)      
     active = models.BooleanField(default=True) 
-
-    # Dont use Versioning      
-    _useVersion = False 
 
     objects = UserPermissionManager()
     

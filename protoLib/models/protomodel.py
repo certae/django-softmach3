@@ -42,15 +42,12 @@ class ProtoModelBase(models.Model):
 
     smUUID = models.UUIDField( default=uuid.uuid4, editable=False)
 
-    smVersion = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')
- 
     # Si la tabla no es manajada por teams,  debe cambiarse el manager 
     objects = TeamPermissionManager()
     smObjects = models.Manager()    
 
     # Security indicator used by control permissions
     _protoObj = True
-    _useVersion = True 
     
     # En los modelos q esto es falso NaturalCode debe manejarse directamente      
     _setNaturalCode = True

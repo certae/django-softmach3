@@ -6,8 +6,7 @@ from .smbase import TeamHierarchy, UserProfile, EntityMap
 from .protomodel import ProtoModelBase, ProtoModelExt
 from .protomanager import ProtoJSONManager
 from .protoContext import ContextVar, ContextEntity, ContextUser 
-from .versions import VersionTitle, VersionHeaders, VersionUser
-
+from .versions import VersionTitle, VersionHeader 
 
 # ---------  SIGNALS 
 
