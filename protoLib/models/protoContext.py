@@ -59,6 +59,8 @@ class ContextUser(ProtoModelBase):
 
     # Default name for var
     propValue = models.CharField(blank=True, null=True, max_length=200)      
+    description = models.TextField(blank=True, null=True)
+
     active = models.BooleanField(default=True) 
 
     objects = UserPermissionManager()

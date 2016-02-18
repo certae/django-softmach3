@@ -30,9 +30,12 @@ def getContextEntity( cBase ):
                )
 
         for cVar in cVars:
+            if not cVar.propValue: 
+                continue
             cttArray.append( {
                 'property' : cEnt.propName, 
-                'propValue' : cVar.propValue 
+                'propValue' : cVar.propValue, 
+                'description' : cVar.description 
                 })
 
 
@@ -48,12 +51,12 @@ def setContextDefaults( cBase ):
     cttArray = getContextEntity(cBase)
     if len( cttArray ) == 0: return 
 
-    # cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
+    cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
 
     for lField in cttArray:
 
         # If parent property continue 
-        if  len( lField[ 'property' ].split('__')) > 0  : continue 
+        if  len( lField[ 'property' ].split('__')) > 1  : continue 
         
         lName = lField[ 'property' ]
         vFld = cBase.fieldsDict.get( lName ) 
@@ -62,11 +65,11 @@ def setContextDefaults( cBase ):
         vFld['prpDefault'] = lField.get( 'propValue' ) 
 
         # If Fk, set _str__  
-        # if lName.endswith('_id'):
-        #     lName = lName[:-3]
-        #     vFld = cBase.fieldsDict.get( lName ) 
-        #     if not vFld: continue
-        #     vFld['prpDefault'] = lField.get( 'propDescription' ) 
+        if lName.endswith('_id'):
+            lName = lName[:-3]
+            vFld = cBase.fieldsDict.get( lName ) 
+            if not vFld: continue
+            vFld['prpDefault'] = lField.get( 'description' ) 
             
 
 

@@ -55,12 +55,18 @@ def actionSetContext(request, queryset , parameters):
         )  
 
     # Add or delete filter 
-    vrDefault =  None 
     if queryset: 
-        vrDefault = queryset[0].id
+        baseReg = queryset[0]
+        defValues = {
+            'propValue': baseReg.id , 
+            'description' : baseReg.__str__(), }
+    else: 
+        defValues = {
+            'propValue': None , 
+            'description' : '' }
+
 
     # Update UserContext 
-    defValues = { 'propValue' : vrDefault }
     ContextUser.smObjects.update_or_create(
         contextVar = cVar,
         smOwningUser = cBase.userProfile.user,
