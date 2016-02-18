@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from protoLib.models.versions import VersionHeaders
+from protoLib.models.versions import VersionHeader
 import uuid
 
 
@@ -137,10 +137,10 @@ def getdetailSet(modeladmin, request, queryset):
     detailSet = set()
 
 #   Get Version Headers
-    for entity in VersionHeaders.objects.filter( exclude = False ):
+    for entity in VersionHeader.objects.filter( exclude = False ):
         addDetailToVersionList(detailSet,  entity.modelCType.model_class(), False )
 
-    for entity in VersionHeaders.objects.filter( exclude = True ):
+    for entity in VersionHeader.objects.filter( exclude = True ):
         addDetailToVersionList(detailSet,  entity.modelCType.model_class(), True )
 
     return detailSet
