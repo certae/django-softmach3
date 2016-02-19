@@ -7,9 +7,11 @@ from prototype.protoRules import BASE_TYPES, CRUD_TYPES, docProperty2Field
 from protoExt.utils.utilsConvert import slugify2
 from jsonfield2.fields import JSONField
 from protoLib.models.protomanager import JSONAwareManager
+from protoLib.models.versions import VersionHeader, VersionTitle
 
 
-""" Los tipos de documentos son 'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
+""" 
+    Los tipos de documentos son 'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
 
     COMPOSITION podria corresponder a los arcos entre dos ARTEFACT, 
                 dependiendo el tipo de arco los campos podrian ser diferentes, 
@@ -21,7 +23,97 @@ from protoLib.models.protomanager import JSONAwareManager
 DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
 
 
-class DocType(ProtoModelBase):
+
+class RaiVersionTitle(VersionTitle):
+
+    versionHeaders = [ 
+        "ra01ref.artefact",
+        "ra01ref.artefactcapacity",
+        "ra01ref.artefactcomposition",
+        "ra01ref.artefactrequirement",
+        "ra01ref.artefactsource",
+        "ra01ref.capacity",
+        "ra01ref.docattribute",
+        "ra01ref.doctype",
+        "ra01ref.domain",
+        "ra01ref.projectartefact",
+        "ra01ref.projectcapacity",
+        "ra01ref.projectrequirement",
+        "ra01ref.requirement",
+        "ra01ref.source",
+         ]
+
+    versionExclude = [ 
+        "ra01ref.projet", 
+        ]
+
+
+    protoExt = {
+        "gridConfig": {
+            "listDisplay": ["__str__", "description", "smCreatedBy"]
+        }, 
+        "actions": [
+            { "name": "doCopyVersion", "selectionMode" : "single"}, 
+            { "name": "doDeleteVersion", "selectionMode" : "single"}, 
+        ],
+        "contextTo": [{
+            "deftModel": "ra01ref.domain",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.artefact",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.artefactcapacity",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.artefactcomposition",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.artefactrequirement",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.artefactsource",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.capacity",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.projectartefact",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.projectcapacity",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.projectrequirement",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.requirement",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.source",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.doctype",
+            "deftField": "smVersion_id",
+            }.{
+            "deftModel": "ra01ref.docattribute",
+            "deftField": "smVersion_id",
+        }],
+    }
+
+
+
+class ProtoModelRai(ProtoModelBase):
+    """ Versioning model """ 
+
+    smVersion = models.ForeignKey('RaiVersionTitle', blank=False, null=False, default=1)
+
+    class Meta:
+        app_label = 'rai01ref'
+        abstract = True
+
+
+class DocType(ProtoModelRai):
     """ 
     Definicion de los tipos segun las 3 categorias ( capacidades, artefactos, exigencias )
     DGT: 1504 El manejo jerarquico podria ser determinado en el tipo 
@@ -41,7 +133,7 @@ class DocType(ProtoModelBase):
 
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ('document', 'dtype')
+        unique_together = ('document', 'dtype','smVersion')
 
 
     protoExt = {
@@ -78,7 +170,7 @@ class DocType(ProtoModelBase):
 
 
 
-class DocAttribute(ProtoModelBase):
+class DocAttribute(ProtoModelRai):
     """ 
     Propiedades segun cada tipo de documento 
     DGT: 1504 Si manejara relaciones, podria encadenar diferentes tipos de artefacto 
@@ -112,12 +204,12 @@ class DocAttribute(ProtoModelBase):
 
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ('docType', 'code' )
+        unique_together = ('docType', 'code','smVersion' )
 
     def __str__(self):
         return slugify2( str( self.docType ) + '-' + self.code)      
 
-    unicode_sort = ('docType', 'code',)
+    unicode_sort = ('docType', 'code', )
 
     protoExt = {
         "gridConfig" : {
@@ -126,7 +218,7 @@ class DocAttribute(ProtoModelBase):
     }
 
 
-class Domain(ProtoModelBase):
+class Domain(ProtoModelRai):
     code = models.CharField(blank= False, null= False, max_length= 200)
     description = models.TextField(blank = True, null = True)
 
@@ -147,7 +239,7 @@ La llamada al menu se hara con el la tabla se hara con :type, este parametro ira
 a la seleccion de la tabla,  para la definicion del modelo se buscaran los campos q corresponden 
 a la definicion del tipo  
 """
-class DocModel(ProtoModelBase):
+class DocModel(ProtoModelRai):
 
     """El docType_id determina el grupo ( filtro y valor por defecto )"""
     docType = models.ForeignKey('DocType', blank=True, null=True, related_name = '+')
@@ -174,7 +266,7 @@ class DocModel(ProtoModelBase):
     class Meta:
         app_label = 'rai01ref'
         abstract = True
-        unique_together = ('docType','code' )
+        unique_together = ('docType','code','smVersion' )
 
     @staticmethod
     def getJfields( idType ):
