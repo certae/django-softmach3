@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from protoLib.models.versions import VersionHeader
+
 import uuid
+from protoExt.views import validateRequest
+from protoLib.getStuff import getDjangoModel
 
 
 def doDeleteVersion(modeladmin, request, queryset, parameters):
@@ -9,7 +11,7 @@ def doDeleteVersion(modeladmin, request, queryset, parameters):
     Borra los datos de una version existente
     """
 
-    result = getdetailSet(modeladmin, request, queryset)
+    result = getVersionDependency(modeladmin, request, queryset)
     if type(result) is not set:
         return result
 
@@ -28,12 +30,12 @@ def _doDelVersion(result, v1):
     return {'success': True, 'message':  'Ok'}
 
 
-def doCreateVersion(modeladmin, request, queryset, parameters):
+def doCopyVersion(modeladmin, request, queryset, parameters):
     """ 
     Clear una copia de la informacion bajo una nueva version 
     """
 
-    result = getdetailSet(modeladmin, request, queryset)
+    result = getVersionDependency(modeladmin, request, queryset)
     if type(result) is not set:
         return result
 
@@ -43,7 +45,7 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
 
 #   Get selected version
     v0 = queryset[0].versionBase
-    v1 = queryset[0].versionCode
+    v1 = queryset[0]
 
 
     _doDelVersion(result, v1)
@@ -128,19 +130,31 @@ def doCreateVersion(modeladmin, request, queryset, parameters):
     return {'success': True, 'message': 'Ok'}
 
 
-def getdetailSet(modeladmin, request, queryset):
+def getVersionDependency( modeladmin, request, queryset):
 
     #   El QSet viene con la lista de Ids
     if queryset.count() != 1:
         return {'success': False, 'message': 'One version needed !!'}
 
+
     detailSet = set()
 
+    cBase, message = validateRequest( request )
+    if message: return detailSet  
+    
+    # Get base model 
+    try:
+        VTitle = getDjangoModel(cBase.viewEntity)
+        VHeader = getDjangoModel( getattr(VTitle, 'versionHeader'))
+    except :
+        return detailSet
+
+
 #   Get Version Headers
-    for entity in VersionHeader.objects.filter( exclude = False ):
+    for entity in VHeader.objects.filter( exclude = False ):
         addDetailToVersionList(detailSet,  entity.modelCType.model_class(), False )
 
-    for entity in VersionHeader.objects.filter( exclude = True ):
+    for entity in VHeader.objects.filter( exclude = True ):
         addDetailToVersionList(detailSet,  entity.modelCType.model_class(), True )
 
     return detailSet
