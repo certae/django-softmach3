@@ -30,7 +30,7 @@ class VersionTitle(ProtoModelBase):
             "listDisplay": ["__str__", "description", "smCreatedBy"]
         }, 
         "actions": [
-            { "name": "doCreateVersion", "selectionMode" : "single"}, 
+            { "name": "doCopyVersion", "selectionMode" : "single"}, 
             { "name": "doDeleteVersion", "selectionMode" : "single"}, 
         ],
                 

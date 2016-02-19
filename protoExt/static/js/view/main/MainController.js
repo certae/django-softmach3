@@ -103,7 +103,7 @@ Ext.define('Softmachine.view.main.MainController', {
 
     }, 
 
-    doCreateVersion : function(reference){
+    doCopyVersion : function(reference){
 
     }, 
 

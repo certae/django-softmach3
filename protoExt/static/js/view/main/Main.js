@@ -165,7 +165,7 @@ Ext.define('Softmachine.view.main.Main', {
                                 text : 'Create Version',
                                 reference : 'createVersion', 
                                 listeners : {
-                                    click : 'doCreateVersion'
+                                    click : 'doCopyVersion'
                                 }, 
                             }, 
                         ]

@@ -52,12 +52,15 @@ PROTO_PREFIX = settings.PROTO_PREFIX
 
 
 class ProtoVersionTitle(VersionTitle):
+
+    versionHeader = 'prototype.ProtoVersionHeader'
+
     protoExt = {
         "gridConfig": {
             "listDisplay": ["__str__", "description", "smCreatedBy"]
         }, 
         "actions": [
-            { "name": "doCreateVersion", "selectionMode" : "single"}, 
+            { "name": "doCopyVersion", "selectionMode" : "single"}, 
             { "name": "doDeleteVersion", "selectionMode" : "single"}, 
         ],
         "contextTo": [{

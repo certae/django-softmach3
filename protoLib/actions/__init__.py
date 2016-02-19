@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .doVersioning import doCreateVersion, doDeleteVersion 
+from .doVersioning import doCopyVersion, doDeleteVersion 
 
 def doClearLog(modeladmin, request, queryset, parameters):
     """ 
