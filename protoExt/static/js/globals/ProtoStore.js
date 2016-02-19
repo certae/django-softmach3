@@ -514,6 +514,9 @@ _SM.DefineProtoModel = function(myMeta){
             // mField.dateFormat = 'H:i:s';
             break;
 
+        case 'bool':
+            mField.type = 'boolean';
+            break;
         }
 
         // Asigna el modelo y el diccionario
