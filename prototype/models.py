@@ -53,16 +53,21 @@ PROTO_PREFIX = settings.PROTO_PREFIX
 
 class ProtoVersionTitle(VersionTitle):
 
-    versionHeader = [
-        "deftModel": "prototype.project",
-        "deftModel": "prototype.model",
-        "deftModel": "prototype.entity",
-        "deftModel": "prototype.property",
-        "deftModel": "prototype.propertyequivalence",
-        "deftModel": "prototype.diagram",
-        "deftModel": "prototype.diagramentity",
+    versionHeaders = [
+        "prototype.project",
+        "prototype.model",
+        "prototype.entity",
+        "prototype.property",
+        "prototype.propertyequivalence",
+        "prototype.diagram",
+        "prototype.diagramentity",
     ]
 
+    versionExclude = [
+        "prototype.relationship" ,
+        "prototype.prototable",
+        "prototype.prototype",
+    ]
 
     protoExt = {
         "gridConfig": {
@@ -89,6 +94,9 @@ class ProtoVersionTitle(VersionTitle):
             "deftField": "smVersion_id",
         }, {
             "deftModel": "prototype.diagram",
+            "deftField": "smVersion_id",
+        }, {
+            "deftModel": "prototype.diagramentity",
             "deftField": "smVersion_id",
         }],
     }

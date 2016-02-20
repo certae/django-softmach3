@@ -11,20 +11,18 @@ def doDeleteVersion(modeladmin, request, queryset, parameters):
     Borra los datos de una version existente
     """
 
-    result = getVersionDependency(modeladmin, request, queryset)
-    if type(result) is not set:
-        return result
+    entitySet = getVersionDependency(modeladmin, request, queryset)
+    if type(entitySet) is not set:
+        return entitySet
 
-#   Get selected version
-    v1 = queryset[0].versionCode
-
-    return _doDelVersion(result, v1)
+#   Delete  selected version
+    return _doDelVersion(entitySet, queryset[0])
 
 
-def _doDelVersion(result, v1):
+def _doDelVersion(entitySet, v1):
 
     #  Delete old versions
-    for pEntity in result:
+    for pEntity in entitySet:
         pEntity.objects.filter(smVersion=v1).delete()
 
     return {'success': True, 'message':  'Ok'}
@@ -35,9 +33,9 @@ def doCopyVersion(modeladmin, request, queryset, parameters):
     Clear una copia de la informacion bajo una nueva version 
     """
 
-    result = getVersionDependency(modeladmin, request, queryset)
-    if type(result) is not set:
-        return result
+    entitySet = getVersionDependency(modeladmin, request, queryset)
+    if type(entitySet) is not set:
+        return entitySet
 
     # Se manejan uan estructuras por tabla con dos listas ordenadas {
     # 'entidad' : [ [], [] ] }
@@ -48,9 +46,9 @@ def doCopyVersion(modeladmin, request, queryset, parameters):
     v1 = queryset[0]
 
 
-    _doDelVersion(result, v1)
+    _doDelVersion(entitySet, v1)
 
-    for pEntity in result:
+    for pEntity in entitySet:
 
         entityName = pEntity._meta.db_table
 
@@ -92,7 +90,7 @@ def doCopyVersion(modeladmin, request, queryset, parameters):
         idEquiv[entityName] = [idList0, idList1]
 
     # Busca todas los foreignkey  por UUID y los actualiza
-    for pEntity in result:
+    for pEntity in entitySet:
 
         entityName = pEntity._meta.db_table
 
@@ -145,42 +143,27 @@ def getVersionDependency( modeladmin, request, queryset):
     # Get base model 
     try:
         VTitle = getDjangoModel(cBase.viewEntity)
-        VHeaders = getDjangoModel( getattr(VTitle, 'versionHeader'))
+        VHeaders = getattr(VTitle, 'versionHeaders', [])
     except :
         return detailSet
 
 
 #   Get Version Headers
-    for eName in VHeaders
-
-        .objects.filter( exclude = False ):
-        addDetailToVersionList(detailSet,  entity.modelCType.model_class(), False )
-
-
+    for entityName in VHeaders:
+        addDetailToVersionList(detailSet,  entityName  )
 
 
     return detailSet
 
 
-def addDetailToVersionList(detailSet, model, exclude ):
+def addDetailToVersionList(detailSet, entityName  ):
 
-    # Version Allow or exclude 
+    # Get base model 
     try:
-
-        if not exclude:
-            model._meta.get_field('smVersion')
-            detailSet.add(model)
-        else: 
-            detailSet.remove(model)
-
+        model = getDjangoModel(entityName)
+        model._meta.get_field('smVersion')
+        detailSet.add(model)
     except:
         return 
-
-
-    # Se podrian definir todos los detalles, para el debuger  
-    for detail in model._meta.get_all_related_objects():
-        addDetailToVersionList(detailSet, detail.related_model, exclude)
-
-
 
 
