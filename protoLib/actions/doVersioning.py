@@ -117,10 +117,15 @@ def doCopyVersion(modeladmin, request, queryset, parameters):
        
                 # get entity idsVersionTitle
                 idRef0 = getattr( reg , f.column)
+                if idRef0 is None: continue 
+                
                 idList0, idList1 = idEquiv.get(relName, [[], []])
 
-                ix = idList0.index(idRef0)
-                setattr( reg , f.column, idList1[ ix ])
+                try:
+                    ix = idList0.index(idRef0)
+                    setattr( reg , f.column, idList1[ ix ])
+                except: 
+                    pass  
 
             reg.save()
 
