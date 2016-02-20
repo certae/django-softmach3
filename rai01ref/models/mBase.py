@@ -27,24 +27,24 @@ DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
 class RaiVersionTitle(VersionTitle):
 
     versionHeaders = [ 
-        "ra01ref.artefact",
-        "ra01ref.artefactcapacity",
-        "ra01ref.artefactcomposition",
-        "ra01ref.artefactrequirement",
-        "ra01ref.artefactsource",
-        "ra01ref.capacity",
-        "ra01ref.docattribute",
-        "ra01ref.doctype",
-        "ra01ref.domain",
-        "ra01ref.projectartefact",
-        "ra01ref.projectcapacity",
-        "ra01ref.projectrequirement",
-        "ra01ref.requirement",
-        "ra01ref.source",
+        "rai01ref.artefact",
+        "rai01ref.artefactcapacity",
+        "rai01ref.artefactcomposition",
+        "rai01ref.artefactrequirement",
+        "rai01ref.artefactsource",
+        "rai01ref.capacity",
+        "rai01ref.docattribute",
+        "rai01ref.doctype",
+        "rai01ref.domain",
+        "rai01ref.projectartefact",
+        "rai01ref.projectcapacity",
+        "rai01ref.projectrequirement",
+        "rai01ref.requirement",
+        "rai01ref.source",
          ]
 
     versionExclude = [ 
-        "ra01ref.projet", 
+        "rai01ref.projet", 
         ]
 
 
@@ -57,46 +57,46 @@ class RaiVersionTitle(VersionTitle):
             { "name": "doDeleteVersion", "selectionMode" : "single"}, 
         ],
         "contextTo": [{
-            "deftModel": "ra01ref.domain",
+            "deftModel": "rai01ref.domain",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.artefact",
+            "deftModel": "rai01ref.artefact",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.artefactcapacity",
+            "deftModel": "rai01ref.artefactcapacity",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.artefactcomposition",
+            "deftModel": "rai01ref.artefactcomposition",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.artefactrequirement",
+            "deftModel": "rai01ref.artefactrequirement",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.artefactsource",
+            "deftModel": "rai01ref.artefactsource",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.capacity",
+            "deftModel": "rai01ref.capacity",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.projectartefact",
+            "deftModel": "rai01ref.projectartefact",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.projectcapacity",
+            "deftModel": "rai01ref.projectcapacity",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.projectrequirement",
+            "deftModel": "rai01ref.projectrequirement",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.requirement",
+            "deftModel": "rai01ref.requirement",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.source",
+            "deftModel": "rai01ref.source",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.doctype",
+            "deftModel": "rai01ref.doctype",
             "deftField": "smVersion_id",
             },{
-            "deftModel": "ra01ref.docattribute",
+            "deftModel": "rai01ref.docattribute",
             "deftField": "smVersion_id",
         }],
     }
@@ -224,12 +224,12 @@ class Domain(ProtoModelRai):
 
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ( 'code', )
+        unique_together = ( 'code', 'smVersion' )
 
     def __str__(self):
         return slugify2( self.code)      
 
-    unicode_sort = ('code',)
+    unicode_sort = ('code', )
 
 
 
