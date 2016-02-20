@@ -11,4 +11,5 @@ __all__ = [
 	'Artefact', 'Source', 'Requirement', 'Capacity', 
 	'ArtefactCapacity', 'ArtefactComposition', 'ArtefactRequirement', 'ArtefactSource', 
 	'Projet', 'ProjectArtefact', 'ProjectCapacity', 'ProjectRequirement', 
+	'RaiVersionTitle'
 ]

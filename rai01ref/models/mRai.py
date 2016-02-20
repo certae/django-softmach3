@@ -3,6 +3,7 @@
 from django.db import models
 from rai01ref.models.mBase import DocModel, Domain , ProtoModelRai
 from protoExt.utils.utilsConvert import slugify2
+from protoLib.models.protomodel import ProtoModelBase
 
 
 class Artefact(DocModel):
