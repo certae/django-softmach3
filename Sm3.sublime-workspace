@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"defaut",
+				"defaults"
+			],
+			[
+				"cEn",
+				"cEnt"
+			],
+			[
+				"model",
+				"modelCType"
+			],
+			[
+				"conte",
+				"contextVar"
+			],
+			[
+				"contex",
+				"ContextVar"
+			],
+			[
+				"c",
+				"cBase"
+			],
+			[
+				"Mode",
+				"ModelAdmin"
+			],
+			[
 				"idL",
 				"idList1"
 			],
@@ -28,36 +56,18 @@
 	"buffers":
 	[
 		{
-			"contents": "Searching 264 files for \"smVersion\"\n\n/home/dario/PyDev3/softmach3/protoExt/models.py:\n   82  \n   83      class Meta:\n   84:         unique_together = ('code', 'smOwningUser', 'smVersion' )\n   85  \n   86      protoExt = {\n\n/home/dario/PyDev3/softmach3/protoExt/migrations/0002_auto_20160201_2016.py:\n   14          migrations.AddField(\n   15              model_name='customdefinition',\n   16:             name='smVersion',\n   17              field=models.CharField(editable=False, max_length=50, blank=True, default='0', null=True),\n   18          ),\n   19          migrations.AddField(\n   20              model_name='parameters',\n   21:             name='smVersion',\n   22              field=models.CharField(editable=False, max_length=50, blank=True, default='0', null=True),\n   23          ),\n\n/home/dario/PyDev3/softmach3/protoExt/migrations/0003_auto_20160202_1451.py:\n   14          migrations.AlterUniqueTogether(\n   15              name='customdefinition',\n   16:             unique_together=set([('code', 'smOwningUser', 'smVersion')]),\n   17          ),\n   18      ]\n\n/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py:\n   86  \n   87      cBase.contextFilter.append( { \n   88:         'property': 'smVersion', \n   89          'filterStmt' : '=%s' % cVersion.get( 'versionCode' )   \n   90      } )\n\n/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py:\n   24      #  Delete old versions\n   25      for pEntity in result:\n   26:         pEntity.objects.filter(smVersion=v1).delete()\n   27  \n   28      return {'success': True, 'message':  'Ok'}\n   ..\n   67  \n   68          #  Hace la copia\n   69:         for reg in pEntity.objects.filter(smVersion=v0):\n   70  \n   71              # Excepcion para el manejode relaciones heredadas de propiedades ( relationship - property )\n   ..\n   78  \n   79              reg.smUUID = uuid.uuid4()\n   80:             reg.smVersion = v1\n   81  \n   82              # https://docs.djangoproject.com/en/1.9/topics/db/queries/#copying-model-instances             \n   ..\n  106              continue \n  107  \n  108:         for reg in pEntity.objects.filter(smVersion=v1):\n  109  \n  110              # Excepcion para el manejode relaciones heredadas de propiedades ( relationship - property )\n  ...\n  148      # Version Allow\n  149      try:\n  150:         model._meta.get_field('smVersion')\n  151      except:\n  152          return \n\n/home/dario/PyDev3/softmach3/protoLib/migrations/0002_usercontext_smversion.py:\n   14          migrations.AddField(\n   15              model_name='usercontext',\n   16:             name='smVersion',\n   17              field=models.CharField(default='0', editable=False, blank=True, max_length=50, null=True),\n   18          ),\n\n/home/dario/PyDev3/softmach3/protoLib/migrations/0003_versiontitle.py:\n   10      dependencies = [\n   11          migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n   12:         ('protoLib', '0002_usercontext_smversion'),\n   13      ]\n   14  \n\n/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py:\n   43      smUUID = models.UUIDField( default=uuid.uuid4, editable=False)\n   44  \n   45:     smVersion = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')\n   46   \n   47      # Si la tabla no es manajada por teams,  debe cambiarse el manager \n\n/home/dario/PyDev3/softmach3/prototype/models.py:\n   68  \n   69      class Meta:\n   70:         unique_together = ('code', 'smOwningTeam', 'smVersion')\n   71          # permissions = (( \"read_domain\", \"Can read project\"), )        \n   72  \n   ..\n  128      \n  129      class Meta:\n  130:         unique_together = ('project', 'code', 'smOwningTeam', 'smVersion')\n  131          \n  132      unicode_sort = ('project', 'code',)\n  ...\n  188  \n  189      class Meta:\n  190:         unique_together = ('model', 'code', 'smOwningTeam', 'smVersion')\n  191  \n  192      protoExt = { \n  ...\n  302  \n  303      class Meta:\n  304:         unique_together = ('entity', 'code', 'smOwningTeam', 'smVersion')\n  305  \n  306      def __str__(self):\n  ...\n  386  \n  387      class Meta:\n  388:         unique_together = ('sourceProperty', 'targetProperty', 'smOwningTeam', 'smVersion')\n  389  \n  390  #     def delete(self, *args, **kwargs):\n  ...\n  444  \n  445      class Meta:\n  446:         unique_together = ( 'entity', 'code', 'smOwningTeam', 'smVersion')\n  447  \n  448  \n  ...\n  525  \n  526      class Meta:\n  527:         unique_together = ('project', 'code', 'smOwningTeam', 'smVersion')\n  528  \n  529  \n  ...\n  554  \n  555      class Meta:\n  556:         unique_together = ('diagram', 'entity', 'smOwningTeam', 'smVersion')\n  557  \n  558  \n\n/home/dario/PyDev3/softmach3/prototype/migrations/0002_auto_20160201_2020.py:\n   14          migrations.AddField(\n   15              model_name='diagram',\n   16:             name='smVersion',\n   17              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   18          ),\n   19          migrations.AddField(\n   20              model_name='diagramentity',\n   21:             name='smVersion',\n   22              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   23          ),\n   24          migrations.AddField(\n   25              model_name='entity',\n   26:             name='smVersion',\n   27              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   28          ),\n   29          migrations.AddField(\n   30              model_name='model',\n   31:             name='smVersion',\n   32              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   33          ),\n   34          migrations.AddField(\n   35              model_name='project',\n   36:             name='smVersion',\n   37              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   38          ),\n   39          migrations.AddField(\n   40              model_name='property',\n   41:             name='smVersion',\n   42              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   43          ),\n   44          migrations.AddField(\n   45              model_name='propertyequivalence',\n   46:             name='smVersion',\n   47              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   48          ),\n   49          migrations.AddField(\n   50              model_name='prototable',\n   51:             name='smVersion',\n   52              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   53          ),\n   54          migrations.AddField(\n   55              model_name='prototype',\n   56:             name='smVersion',\n   57              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   58          ),\n\n/home/dario/PyDev3/softmach3/prototype/migrations/0003_auto_20160202_2012.py:\n   14          migrations.AlterUniqueTogether(\n   15              name='diagram',\n   16:             unique_together=set([('project', 'code', 'smOwningTeam', 'smVersion')]),\n   17          ),\n   18          migrations.AlterUniqueTogether(\n   19              name='diagramentity',\n   20:             unique_together=set([('diagram', 'entity', 'smOwningTeam', 'smVersion')]),\n   21          ),\n   22          migrations.AlterUniqueTogether(\n   23              name='entity',\n   24:             unique_together=set([('model', 'code', 'smOwningTeam', 'smVersion')]),\n   25          ),\n   26          migrations.AlterUniqueTogether(\n   27              name='model',\n   28:             unique_together=set([('project', 'code', 'smOwningTeam', 'smVersion')]),\n   29          ),\n   30          migrations.AlterUniqueTogether(\n   31              name='project',\n   32:             unique_together=set([('code', 'smOwningTeam', 'smVersion')]),\n   33          ),\n   34          migrations.AlterUniqueTogether(\n   35              name='property',\n   36:             unique_together=set([('entity', 'code', 'smOwningTeam', 'smVersion')]),\n   37          ),\n   38          migrations.AlterUniqueTogether(\n   39              name='propertyequivalence',\n   40:             unique_together=set([('sourceProperty', 'targetProperty', 'smOwningTeam', 'smVersion')]),\n   41          ),\n   42          migrations.AlterUniqueTogether(\n   43              name='prototype',\n   44:             unique_together=set([('entity', 'code', 'smOwningTeam', 'smVersion')]),\n   45          ),\n   46      ]\n\n/home/dario/PyDev3/softmach3/rai00base/migrations/0001_initial.py:\n   11      dependencies = [\n   12          migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n   13:         ('protoLib', '0002_usercontext_smversion'),\n   14      ]\n   15  \n   ..\n   25                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n   26                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n   27:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n   28              ],\n   29              options={\n   ..\n   42                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n   43                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n   44:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n   45                  ('id_domaine_affaires', models.CharField(max_length=200)),\n   46                  ('description', models.TextField(blank=True, null=True)),\n   ..\n   61                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n   62                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n   63:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n   64                  ('nom_element_donnee', models.CharField(max_length=200)),\n   65                  ('numero_elem_cn', models.CharField(max_length=200, blank=True, null=True)),\n   ..\n  115                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  116                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  117:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  118                  ('nom_entite', models.CharField(max_length=200)),\n  119                  ('description_entite', models.TextField(blank=True, null=True)),\n  ...\n  136                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  137                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  138:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  139                  ('nom_donnee', models.CharField(max_length=200)),\n  140                  ('definition_donnee', models.TextField(blank=True, null=True)),\n  ...\n  155                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  156                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  157:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  158                  ('nom_modele', models.CharField(max_length=200)),\n  159                  ('idModel', models.CharField(max_length=200, blank=True)),\n  ...\n  195                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  196                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  197:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  198                  ('nom_modele_raccordement', models.CharField(max_length=200, blank=True, null=True)),\n  199                  ('tmp_modrac1', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  223                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  224                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  225:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  226                  ('code_norme', models.CharField(max_length=200)),\n  227                  ('nom_norme', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  244                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  245                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  246:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  247                  ('eledon_portee', models.ForeignKey(to='rai00base.ElementDonnee', related_name='portee_regle_gestion_eledon_portee')),\n  248              ],\n  ...\n  258                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  259                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  260:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  261                  ('nom_projet', models.CharField(max_length=200)),\n  262                  ('description_projet', models.TextField(blank=True, null=True)),\n  ...\n  278                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  279                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  280:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  281                  ('no_raccordement', models.IntegerField()),\n  282                  ('tmp_rac1', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  307                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  308                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  309:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  310                  ('id_regles_gestion', models.CharField(max_length=200)),\n  311                  ('notes', models.TextField(blank=True, null=True)),\n  ...\n  327                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  328                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  329:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  330                  ('mod_regrou', models.ForeignKey(to='rai00base.Modele', related_name='regroupement_des_modeles_mod_regrou')),\n  331                  ('projet_regro', models.ForeignKey(to='rai00base.Projet', related_name='regroupement_des_modeles_projet_regro')),\n  ...\n  346                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  347                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  348:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  349                  ('dependance', models.BooleanField(default=False)),\n  350                  ('tmp_foreign', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  378                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  379                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  380:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  381                  ('nom_specification', models.CharField(max_length=200)),\n  382                  ('gabarit', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  404                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  405                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  406:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  407                  ('code_type_regle', models.CharField(max_length=200)),\n  408                  ('description_type', models.TextField(blank=True, null=True)),\n\n/home/dario/PyDev3/softmach3/rai01ref/migrations/0002_auto_20160201_2020.py:\n   14          migrations.AddField(\n   15              model_name='artefact',\n   16:             name='smVersion',\n   17              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   18          ),\n   19          migrations.AddField(\n   20              model_name='artefactcapacity',\n   21:             name='smVersion',\n   22              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   23          ),\n   24          migrations.AddField(\n   25              model_name='artefactcomposition',\n   26:             name='smVersion',\n   27              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   28          ),\n   29          migrations.AddField(\n   30              model_name='artefactrequirement',\n   31:             name='smVersion',\n   32              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   33          ),\n   34          migrations.AddField(\n   35              model_name='artefactsource',\n   36:             name='smVersion',\n   37              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   38          ),\n   39          migrations.AddField(\n   40              model_name='capacity',\n   41:             name='smVersion',\n   42              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   43          ),\n   44          migrations.AddField(\n   45              model_name='docattribute',\n   46:             name='smVersion',\n   47              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   48          ),\n   49          migrations.AddField(\n   50              model_name='doctype',\n   51:             name='smVersion',\n   52              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   53          ),\n   54          migrations.AddField(\n   55              model_name='domain',\n   56:             name='smVersion',\n   57              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   58          ),\n   59          migrations.AddField(\n   60              model_name='projectartefact',\n   61:             name='smVersion',\n   62              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   63          ),\n   64          migrations.AddField(\n   65              model_name='projectcapacity',\n   66:             name='smVersion',\n   67              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   68          ),\n   69          migrations.AddField(\n   70              model_name='projectrequirement',\n   71:             name='smVersion',\n   72              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   73          ),\n   74          migrations.AddField(\n   75              model_name='projet',\n   76:             name='smVersion',\n   77              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   78          ),\n   79          migrations.AddField(\n   80              model_name='requirement',\n   81:             name='smVersion',\n   82              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   83          ),\n   84          migrations.AddField(\n   85              model_name='source',\n   86:             name='smVersion',\n   87              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   88          ),\n\n70 matches across 13 files\n\n\nSearching 264 files for \"smVersion\"\n\n/home/dario/PyDev3/softmach3/protoExt/models.py:\n   82  \n   83      class Meta:\n   84:         unique_together = ('code', 'smOwningUser', 'smVersion' )\n   85  \n   86      protoExt = {\n\n/home/dario/PyDev3/softmach3/protoExt/migrations/0002_auto_20160201_2016.py:\n   14          migrations.AddField(\n   15              model_name='customdefinition',\n   16:             name='smVersion',\n   17              field=models.CharField(editable=False, max_length=50, blank=True, default='0', null=True),\n   18          ),\n   19          migrations.AddField(\n   20              model_name='parameters',\n   21:             name='smVersion',\n   22              field=models.CharField(editable=False, max_length=50, blank=True, default='0', null=True),\n   23          ),\n\n/home/dario/PyDev3/softmach3/protoExt/migrations/0003_auto_20160202_1451.py:\n   14          migrations.AlterUniqueTogether(\n   15              name='customdefinition',\n   16:             unique_together=set([('code', 'smOwningUser', 'smVersion')]),\n   17          ),\n   18      ]\n\n/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py:\n   86  \n   87      cBase.contextFilter.append( { \n   88:         'property': 'smVersion', \n   89          'filterStmt' : '=%s' % cVersion.get( 'versionCode' )   \n   90      } )\n\n/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py:\n   24      #  Delete old versions\n   25      for pEntity in result:\n   26:         pEntity.objects.filter(smVersion=v1).delete()\n   27  \n   28      return {'success': True, 'message':  'Ok'}\n   ..\n   67  \n   68          #  Hace la copia\n   69:         for reg in pEntity.objects.filter(smVersion=v0):\n   70  \n   71              # Excepcion para el manejode relaciones heredadas de propiedades ( relationship - property )\n   ..\n   78  \n   79              reg.smUUID = uuid.uuid4()\n   80:             reg.smVersion = v1\n   81  \n   82              # https://docs.djangoproject.com/en/1.9/topics/db/queries/#copying-model-instances             \n   ..\n  106              continue \n  107  \n  108:         for reg in pEntity.objects.filter(smVersion=v1):\n  109  \n  110              # Excepcion para el manejode relaciones heredadas de propiedades ( relationship - property )\n  ...\n  148      # Version Allow\n  149      try:\n  150:         model._meta.get_field('smVersion')\n  151      except:\n  152          return \n\n/home/dario/PyDev3/softmach3/protoLib/migrations/0002_usercontext_smversion.py:\n   14          migrations.AddField(\n   15              model_name='usercontext',\n   16:             name='smVersion',\n   17              field=models.CharField(default='0', editable=False, blank=True, max_length=50, null=True),\n   18          ),\n\n/home/dario/PyDev3/softmach3/protoLib/migrations/0003_versiontitle.py:\n   10      dependencies = [\n   11          migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n   12:         ('protoLib', '0002_usercontext_smversion'),\n   13      ]\n   14  \n\n/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py:\n   43      smUUID = models.UUIDField( default=uuid.uuid4, editable=False)\n   44  \n   45:     smVersion = models.CharField(max_length=50, null=True, blank=True, editable=False, default = '0')\n   46   \n   47      # Si la tabla no es manajada por teams,  debe cambiarse el manager \n\n/home/dario/PyDev3/softmach3/prototype/models.py:\n   68  \n   69      class Meta:\n   70:         unique_together = ('code', 'smOwningTeam', 'smVersion')\n   71          # permissions = (( \"read_domain\", \"Can read project\"), )        \n   72  \n   ..\n  128      \n  129      class Meta:\n  130:         unique_together = ('project', 'code', 'smOwningTeam', 'smVersion')\n  131          \n  132      unicode_sort = ('project', 'code',)\n  ...\n  188  \n  189      class Meta:\n  190:         unique_together = ('model', 'code', 'smOwningTeam', 'smVersion')\n  191  \n  192      protoExt = { \n  ...\n  302  \n  303      class Meta:\n  304:         unique_together = ('entity', 'code', 'smOwningTeam', 'smVersion')\n  305  \n  306      def __str__(self):\n  ...\n  386  \n  387      class Meta:\n  388:         unique_together = ('sourceProperty', 'targetProperty', 'smOwningTeam', 'smVersion')\n  389  \n  390  #     def delete(self, *args, **kwargs):\n  ...\n  444  \n  445      class Meta:\n  446:         unique_together = ( 'entity', 'code', 'smOwningTeam', 'smVersion')\n  447  \n  448  \n  ...\n  525  \n  526      class Meta:\n  527:         unique_together = ('project', 'code', 'smOwningTeam', 'smVersion')\n  528  \n  529  \n  ...\n  554  \n  555      class Meta:\n  556:         unique_together = ('diagram', 'entity', 'smOwningTeam', 'smVersion')\n  557  \n  558  \n\n/home/dario/PyDev3/softmach3/prototype/migrations/0002_auto_20160201_2020.py:\n   14          migrations.AddField(\n   15              model_name='diagram',\n   16:             name='smVersion',\n   17              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   18          ),\n   19          migrations.AddField(\n   20              model_name='diagramentity',\n   21:             name='smVersion',\n   22              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   23          ),\n   24          migrations.AddField(\n   25              model_name='entity',\n   26:             name='smVersion',\n   27              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   28          ),\n   29          migrations.AddField(\n   30              model_name='model',\n   31:             name='smVersion',\n   32              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   33          ),\n   34          migrations.AddField(\n   35              model_name='project',\n   36:             name='smVersion',\n   37              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   38          ),\n   39          migrations.AddField(\n   40              model_name='property',\n   41:             name='smVersion',\n   42              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   43          ),\n   44          migrations.AddField(\n   45              model_name='propertyequivalence',\n   46:             name='smVersion',\n   47              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   48          ),\n   49          migrations.AddField(\n   50              model_name='prototable',\n   51:             name='smVersion',\n   52              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   53          ),\n   54          migrations.AddField(\n   55              model_name='prototype',\n   56:             name='smVersion',\n   57              field=models.CharField(blank=True, null=True, default='0', editable=False, max_length=50),\n   58          ),\n\n/home/dario/PyDev3/softmach3/prototype/migrations/0003_auto_20160202_2012.py:\n   14          migrations.AlterUniqueTogether(\n   15              name='diagram',\n   16:             unique_together=set([('project', 'code', 'smOwningTeam', 'smVersion')]),\n   17          ),\n   18          migrations.AlterUniqueTogether(\n   19              name='diagramentity',\n   20:             unique_together=set([('diagram', 'entity', 'smOwningTeam', 'smVersion')]),\n   21          ),\n   22          migrations.AlterUniqueTogether(\n   23              name='entity',\n   24:             unique_together=set([('model', 'code', 'smOwningTeam', 'smVersion')]),\n   25          ),\n   26          migrations.AlterUniqueTogether(\n   27              name='model',\n   28:             unique_together=set([('project', 'code', 'smOwningTeam', 'smVersion')]),\n   29          ),\n   30          migrations.AlterUniqueTogether(\n   31              name='project',\n   32:             unique_together=set([('code', 'smOwningTeam', 'smVersion')]),\n   33          ),\n   34          migrations.AlterUniqueTogether(\n   35              name='property',\n   36:             unique_together=set([('entity', 'code', 'smOwningTeam', 'smVersion')]),\n   37          ),\n   38          migrations.AlterUniqueTogether(\n   39              name='propertyequivalence',\n   40:             unique_together=set([('sourceProperty', 'targetProperty', 'smOwningTeam', 'smVersion')]),\n   41          ),\n   42          migrations.AlterUniqueTogether(\n   43              name='prototype',\n   44:             unique_together=set([('entity', 'code', 'smOwningTeam', 'smVersion')]),\n   45          ),\n   46      ]\n\n/home/dario/PyDev3/softmach3/rai00base/migrations/0001_initial.py:\n   11      dependencies = [\n   12          migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n   13:         ('protoLib', '0002_usercontext_smversion'),\n   14      ]\n   15  \n   ..\n   25                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n   26                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n   27:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n   28              ],\n   29              options={\n   ..\n   42                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n   43                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n   44:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n   45                  ('id_domaine_affaires', models.CharField(max_length=200)),\n   46                  ('description', models.TextField(blank=True, null=True)),\n   ..\n   61                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n   62                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n   63:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n   64                  ('nom_element_donnee', models.CharField(max_length=200)),\n   65                  ('numero_elem_cn', models.CharField(max_length=200, blank=True, null=True)),\n   ..\n  115                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  116                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  117:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  118                  ('nom_entite', models.CharField(max_length=200)),\n  119                  ('description_entite', models.TextField(blank=True, null=True)),\n  ...\n  136                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  137                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  138:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  139                  ('nom_donnee', models.CharField(max_length=200)),\n  140                  ('definition_donnee', models.TextField(blank=True, null=True)),\n  ...\n  155                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  156                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  157:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  158                  ('nom_modele', models.CharField(max_length=200)),\n  159                  ('idModel', models.CharField(max_length=200, blank=True)),\n  ...\n  195                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  196                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  197:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  198                  ('nom_modele_raccordement', models.CharField(max_length=200, blank=True, null=True)),\n  199                  ('tmp_modrac1', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  223                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  224                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  225:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  226                  ('code_norme', models.CharField(max_length=200)),\n  227                  ('nom_norme', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  244                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  245                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  246:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  247                  ('eledon_portee', models.ForeignKey(to='rai00base.ElementDonnee', related_name='portee_regle_gestion_eledon_portee')),\n  248              ],\n  ...\n  258                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  259                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  260:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  261                  ('nom_projet', models.CharField(max_length=200)),\n  262                  ('description_projet', models.TextField(blank=True, null=True)),\n  ...\n  278                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  279                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  280:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  281                  ('no_raccordement', models.IntegerField()),\n  282                  ('tmp_rac1', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  307                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  308                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  309:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  310                  ('id_regles_gestion', models.CharField(max_length=200)),\n  311                  ('notes', models.TextField(blank=True, null=True)),\n  ...\n  327                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  328                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  329:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  330                  ('mod_regrou', models.ForeignKey(to='rai00base.Modele', related_name='regroupement_des_modeles_mod_regrou')),\n  331                  ('projet_regro', models.ForeignKey(to='rai00base.Projet', related_name='regroupement_des_modeles_projet_regro')),\n  ...\n  346                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  347                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  348:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  349                  ('dependance', models.BooleanField(default=False)),\n  350                  ('tmp_foreign', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  378                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  379                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  380:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  381                  ('nom_specification', models.CharField(max_length=200)),\n  382                  ('gabarit', models.CharField(max_length=200, blank=True, null=True)),\n  ...\n  404                  ('smModifiedOn', models.DateTimeField(auto_now=True, null=True)),\n  405                  ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),\n  406:                 ('smVersion', models.CharField(max_length=50, editable=False, default='0', blank=True, null=True)),\n  407                  ('code_type_regle', models.CharField(max_length=200)),\n  408                  ('description_type', models.TextField(blank=True, null=True)),\n\n/home/dario/PyDev3/softmach3/rai01ref/migrations/0002_auto_20160201_2020.py:\n   14          migrations.AddField(\n   15              model_name='artefact',\n   16:             name='smVersion',\n   17              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   18          ),\n   19          migrations.AddField(\n   20              model_name='artefactcapacity',\n   21:             name='smVersion',\n   22              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   23          ),\n   24          migrations.AddField(\n   25              model_name='artefactcomposition',\n   26:             name='smVersion',\n   27              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   28          ),\n   29          migrations.AddField(\n   30              model_name='artefactrequirement',\n   31:             name='smVersion',\n   32              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   33          ),\n   34          migrations.AddField(\n   35              model_name='artefactsource',\n   36:             name='smVersion',\n   37              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   38          ),\n   39          migrations.AddField(\n   40              model_name='capacity',\n   41:             name='smVersion',\n   42              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   43          ),\n   44          migrations.AddField(\n   45              model_name='docattribute',\n   46:             name='smVersion',\n   47              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   48          ),\n   49          migrations.AddField(\n   50              model_name='doctype',\n   51:             name='smVersion',\n   52              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   53          ),\n   54          migrations.AddField(\n   55              model_name='domain',\n   56:             name='smVersion',\n   57              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   58          ),\n   59          migrations.AddField(\n   60              model_name='projectartefact',\n   61:             name='smVersion',\n   62              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   63          ),\n   64          migrations.AddField(\n   65              model_name='projectcapacity',\n   66:             name='smVersion',\n   67              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   68          ),\n   69          migrations.AddField(\n   70              model_name='projectrequirement',\n   71:             name='smVersion',\n   72              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   73          ),\n   74          migrations.AddField(\n   75              model_name='projet',\n   76:             name='smVersion',\n   77              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   78          ),\n   79          migrations.AddField(\n   80              model_name='requirement',\n   81:             name='smVersion',\n   82              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   83          ),\n   84          migrations.AddField(\n   85              model_name='source',\n   86:             name='smVersion',\n   87              field=models.CharField(default='0', max_length=50, null=True, blank=True, editable=False),\n   88          ),\n\n70 matches across 13 files\n\n\nSearching 264 files for \"setContextFilter\"\n\n/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py:\n   57  \n   58  \n   59: def setContextFilter( cBase ):\n   60      \"\"\"\n   61      Define los filtros contextuales \n\n/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py:\n   17  import json\n   18  from protoExt.utils.utilsBase import traceError\n   19: from protoExt.views.getStuff import setContextFilter\n   20  from protoExt.views.protoGetPci import getGenericPci\n   21  from jsonfield2.utils import JSONEncoder\n   ..\n  205  \n  206  \n  207:     setContextFilter( cBase )\n  208      setZoomFilter( cBase )\n  209  \n\n3 matches across 2 files\n\n\nSearching 264 files for \"prepareListEnv\"\n\n/home/dario/PyDev3/softmach3/protoExt/views/protoActionExport.py:\n    8  from protoExt.utils.utilsConvert import slugify2\n    9  from protoExt.utils.utilsWeb import JsonError , JsonSuccess\n   10: from protoExt.views.protoActionList import prepareListEnv, getQSet, Q2Dict\n   11  \n   12  from import_export.formats import base_formats  \n   ..\n   28  def protoExport(request):\n   29  \n   30:     cBase, message = prepareListEnv( request )\n   31      if message: return message  \n   32  \n\n/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py:\n   26  \n   27      try:\n   28:         cBase, message = prepareListEnv( request )\n   29          if message: return message  \n   30  \n   ..\n   64  \n   65  \n   66: def prepareListEnv( request ):\n   67      \"\"\"\n   68      Preapar las variables para los llamados de tipo lista ( list, csv )\n\n/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py:\n    8  from protoExt.utils.utilsWeb import JsonError, JsonSuccess\n    9  \n   10: from protoExt.views.protoActionList import prepareListEnv\n   11  from protoExt.utils.utilsBase import traceError\n   12  from django.template import loader\n   ..\n   30  \n   31      try:\n   32:         cBase, message = prepareListEnv(request)\n   33          if message: return message\n   34  \n\n6 matches across 3 files\n",
+			"file": "prototype/models.py",
 			"settings":
 			{
-				"buffer_size": 42402,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "protoExt/views/protoActionWiki.py",
-			"settings":
-			{
-				"buffer_size": 4412,
+				"buffer_size": 20758,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "protoExt/views/protoActionList.py",
+			"file": "protoLib/models/versions.py",
 			"settings":
 			{
-				"buffer_size": 12334,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "protoExt/views/protoActionExport.py",
-			"settings":
-			{
-				"buffer_size": 2525,
+				"buffer_size": 1325,
 				"line_ending": "Unix"
 			}
 		}
@@ -101,20 +111,16 @@
 	[
 		"/home/dario/PyDev3/softmach3",
 		"/home/dario/PyDev3/softmach3/datascripts",
-		"/home/dario/PyDev3/softmach3/fixtures",
+		"/home/dario/PyDev3/softmach3/db",
+		"/home/dario/PyDev3/softmach3/output",
+		"/home/dario/PyDev3/softmach3/protoBase",
+		"/home/dario/PyDev3/softmach3/protoDesigner",
 		"/home/dario/PyDev3/softmach3/protoExt",
-		"/home/dario/PyDev3/softmach3/protoExt/static",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail",
+		"/home/dario/PyDev3/softmach3/protoExt/actions",
 		"/home/dario/PyDev3/softmach3/protoExt/views",
 		"/home/dario/PyDev3/softmach3/protoLib",
-		"/home/dario/PyDev3/softmach3/protoLib/actions",
-		"/home/dario/PyDev3/softmach3/protoLib/admin",
 		"/home/dario/PyDev3/softmach3/protoLib/models",
 		"/home/dario/PyDev3/softmach3/prototype",
-		"/home/dario/PyDev3/softmach3/prototype/actions",
 		"/home/dario/PyDev3/softmach3/prototype/admin",
 		"/home/dario/PyDev3/softmach3/rai01ref",
 		"/home/dario/PyDev3/softmach3/rai01ref/actions",
@@ -122,58 +128,94 @@
 	],
 	"file_history":
 	[
-		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionExport.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py",
 		"/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/signals.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetSenquence.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/protoContext.py",
-		"/home/dario/PyDev3/softmach3/protoExt/models.py",
+		"/home/dario/PyDev3/softmach3/protoLib/admin/admVersion.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/versions.py",
+		"/home/dario/PyDev3/softmach3/prototype/models.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
+		"/home/dario/PyDev3/softmach3/protoLib/actions/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/localisation/en.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/setContext.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
+		"/home/dario/PyDev3/softmach3/protoExt/models.py",
+		"/home/dario/PyDev3/softmach3/protoLib/getStuff.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionEdit.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/prototypeActions.py",
+		"/home/dario/PyDev3/softmach3/protoDesigner/protoDiagram.py",
+		"/home/dario/PyDev3/softmach3/protoDesigner/service/diagramJSONAssembler.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/meta/metaObjects.py",
+		"/home/dario/PyDev3/softmach3/protoExt/admin/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/meta/__init__.py",
+		"/home/dario/PyDev3/softmach3/prototype/admin/__init__.py",
+		"/home/dario/PyDev3/softmach3/prototype/admin/admproject.py",
+		"/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py",
+		"/home/dario/PyDev3/softmach3/db/db-160201.sql",
+		"/home/dario/PyDev3/softmach3/protoLib/admin/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/setDefaults.py",
+		"/home/dario/PyDev3/softmach3/protoExt/tests/data_protolib_userprofile_pci.py",
+		"/home/dario/PyDev3/softmach3/protoExt/tests/test_metastructure.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionAction.py",
+		"/home/dario/PyDev3/softmach3/protoLib/models/protomanager.py",
+		"/home/dario/PyDev3/softmach3/protoExt/signals.py",
+		"/home/dario/PyDev3/softmach3/protoExt/utils/logger.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoPropertiesTools.js",
+		"/home/dario/PyDev3/softmach3/protoExt/tests/dataSetup.py",
+		"/home/dario/PyDev3/softmach3/doMigrate.sh",
+		"/home/dario/PyDev3/softmach3/output/dario.gm_project.dot",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoForm.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGrid.js",
+		"/home/dario/zotero/storage/HPRM9Z47/.zotero-ft-cache",
+		"/home/dario/Dropbox/wikiDoc/wikiEscritos/Ref/K0/Kilian_al_2007.txt",
+		"/home/dario/Dropbox/wikiDoc/wikiEscritos/Ref/L0/Lang-al-2007.txt",
+		"/home/dario/PyDev3/softmach3/prototype/actions/reverseDb.py",
+		"/home/dario/PyDev3/softmach3/output/dario.gm_ref4.dot",
+		"/home/dario/PyDev3/softmach3/output/dario.gm_inspectdb.dot",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridController.js",
+		"/home/dario/PyDev3/softmach3/prototype/actions/__init__.py",
+		"/home/dario/PyDev3/django-master/README.rst",
+		"/home/dario/bin/zim2tag",
+		"/home/dario/Dropbox/install/zim/install-ZimQda.sh",
+		"/home/dario/Documents/savedrecs.ris",
+		"/home/dario/Downloads/ris_import.html",
+		"/home/dario/PyDev3/softmach3/protoBase/settings.py",
+		"/home/dario/PyDev3/softmach3/protoExt/tests/test_ModelsProtoDef_base.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/diagram/DBTypesStore.js",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPciDetailsTree.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPciFieldTree.py",
+		"/home/dario/history.txt",
+		"/home/dario/history.txt2",
+		"/home/dario/zotero/storage/TJKD5HSC/.zotero-ft-cache",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionExport.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py",
+		"/home/dario/.nixnote/db-1/dba/79.zim-new~",
+		"/home/dario/Downloads/PruebaNixNotes.txt",
+		"/home/dario/PyDev3/softmach3/protoExt/views/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/localisation/en.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDActionsController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/localisation/es.py",
 		"/home/dario/PyDev3/softmach3/protoExt/localisation/fr.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoPropertiesTools.js",
-		"/home/dario/PyDev3/softmach3/protoExt/tests/data_protolib_userprofile_pci.py",
-		"/home/dario/PyDev3/softmach3/protoExt/meta/metaObjects.py",
 		"/home/dario/PyDev3/softmach3/protoExt/meta/metaProperties.py",
-		"/home/dario/PyDev3/softmach3/prototype/models.py",
 		"/home/dario/PyDev3/softmach3/prototype/actions/import4json.py",
 		"/home/dario/PyDev3/softmach3/prototype/actions/entityActions.py",
 		"/home/dario/PyDev3/softmach3/datascripts/prototype.py",
 		"/home/dario/PyDev3/softmach3/datascripts/auth.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionEdit.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/setDefaults.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/prototype/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/prototype/admin/admmodel.py",
-		"/home/dario/PyDev3/softmach3/protoLib/admin/admVersion.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoGrid.py",
-		"/home/dario/PyDev3/softmach3/protoExt/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/smbase.py",
-		"/home/dario/PyDev3/softmach3/protoLib/admin/__init__.py",
-		"/home/dario/PyDev3/softmach3/prototype/admin/admproject.py",
-		"/home/dario/PyDev3/softmach3/protoExt/tests/dataSetup.py",
-		"/home/dario/PyDev3/softmach3/prototype/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPciDetailsTree.py",
 		"/home/dario/PyDev3/softmach3/protoExt/urls.py",
 		"/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoLib/actions/__init__.py",
 		"/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py",
-		"/home/dario/PyDev3/softmach3/doMigrate.sh",
 		"/home/dario/PyDev3/softmach3/protoLib/tests/dataImporter.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/signals.py",
 		"/home/dario/PyDev3/softmach3/protoDesigner/protoDiagramEntity.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/css/app.css",
 		"/home/dario/PyDev3/softmach3/protoLib/migrations/0001_initial.py",
-		"/home/dario/PyDev3/softmach3/db/db-160201.sql",
 		"/home/dario/PyDev3/softmach3/protoExt/tests/test_Models_base.py",
 		"/home/dario/PyDev3/softmach3/protoExt/templates/protoDebug.html",
 		"/tmp/RICARDO GOMEZ, Vuelo a BARRANQUILLA, COLOMBIA - YXAOPR.ics",
@@ -181,7 +223,6 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/AuthenticationModel.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Dialog.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/DashViewPController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/DashViewPMovel.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Authentication.js",
@@ -192,7 +233,6 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Dialog",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Viewport.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/Login.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/Application.js",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoLogin.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginBase.js",
@@ -215,41 +255,7 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDDetailsController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDLinkController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDPrintOptsController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetFiltersController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetSortersController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetTabsController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDTbSortByController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/TbMasterDetail.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/WinGridController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramContextMenuController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramMenuController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/PasswordManager.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/model/Diagram.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/model/EntityAttributesModel.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoDesigner.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoDetailSelector.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoFieldSelector.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoToolBar.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/DBTypesStore.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/DiagramModelStore.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/Diagrams.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/EntityAttributeStore.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/store/PortPositions.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/GridCheckColumn.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/GridHeaderToolTip.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/HtmlSet.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ParameterWin.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/Printer.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoList.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoProperty.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoSearchBG.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoZoom.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/StatusBar.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainModel.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ComboBoxPrompt.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/MenuTree.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ProtoForm.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ProtoGrid.js"
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetFiltersController.js"
 	],
 	"find":
 	{
@@ -260,6 +266,23 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"*.py, *.js",
+			"*.py",
+			"*.js",
+			"*.py",
+			"*.py, *.js",
+			"*.py",
+			"*.py, *.js",
+			"*.py",
+			"*.js",
+			"*.py, *.js",
+			"*.py",
+			"*.js",
+			"*.py",
+			"*.js",
+			"*.py",
+			"*.py, *.js",
+			"*.py",
 			"*.js, *.py",
 			"*.js",
 			"*.py",
@@ -292,137 +315,137 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
-			"prepareListEnv",
-			"setContextFilter",
-			"smVersion",
-			"setContextFilter",
-			"getQSet",
-			"setContextFilter",
-			"prepareListEnv",
-			"getQSet",
-			"prepareListEnv",
+			"getDjangoModel",
+			"VersionHeader",
+			"VersionTitle",
+			"getdetailSet",
+			"VersionTitle",
+			"doCopyVersion",
+			"doCreateVersion",
+			"doCopyVersion",
+			"VersionHeader",
+			"bool",
+			"propDescription",
+			"prpDescri",
+			"update_or_create",
+			"fieldsDict",
+			"update_or_create",
+			"fieldsDict",
+			"setVersionFilter",
+			"getCurrentVersion",
+			"userContext",
+			"cBase.us",
 			"cBase",
-			"setContextFilter",
+			"filter",
+			"ContentType",
+			"getContext",
+			"actionSetContext",
+			"actionSetDefaults",
+			"actionSetContext",
+			"actionSetDefaults",
+			"contextTo",
+			"Context",
+			"VersionAdm",
+			"adm",
+			"VersionTitle",
+			"doSetcon",
+			"\"",
+			"CREATE TABLE \"",
+			"smVersion = models.ForeignKey('ProtoVersionTitle', blank=True, null=True)",
+			"smVersion",
+			"VersionUser",
+			"_useVersion",
+			"CustomDefinition",
+			"VersionTitle",
+			"VersionHeader",
+			"VersionAdm",
+			"VersionTitle",
+			"VersionHeaders",
+			"defaultTo",
+			"contextTo",
+			"defaultTo",
+			"doSetDefaults",
+			"doSetContext",
+			"doSetDefaults",
+			"doSetContext",
+			"doSetDefaults",
+			"isDefault",
+			"ProtoJSONManager",
+			"smObjects",
+			"propDescription",
+			"getDjangoModel",
+			"actionSetDefaults",
+			"def",
+			"getstuf",
+			"getst",
+			"detModel",
+			"ContextUser",
+			"defaultTo",
+			"smVersion",
+			"Version",
+			"defaultTo",
+			"ContextEn",
+			"smModifie",
+			"ContextVar",
+			"versionHeade",
+			"versioHeade",
+			"!",
+			"objConv",
+			"bool",
+			"UserContext",
+			"ContextUser",
+			"UserContext",
 			"CustomDefinition",
 			"context2customdefinition",
 			"UserContext",
-			"context",
-			"unique_",
-			"VersionHeaders",
-			"VersionTitle",
-			"Msg_Confirm_Action_Operation",
-			"Title_Action_Confirm_Delete",
-			"Title_Msg_Confirm_Delete",
-			"doDelete",
-			"delete",
-			"actionParams",
-			"actionConfirm",
-			"actioConfirm",
-			"versioning",
-			"selectionMode",
-			"actioConfirm",
-			"selectionMode",
-			"actioConfirm",
-			"version",
-			"selectionMode",
-			"actionParams",
-			"actions",
-			"getattr",
-			"commandecde-clt",
-			"prototype_property_35",
-			"stock-pdt",
-			"rel",
-			"Relationship",
-			"relationship",
-			"relation",
-			"ptr",
-			"doDeleteVersion",
-			"smControlFields",
-			"smOwningUser",
-			"ProtoModelExt",
-			"Entity",
-			"Entit",
-			"DiagramEntity",
-			"detailList",
-			"detailNames",
-			"detailNames,",
-			"count",
-			"queryset, parameters",
-			"filter",
-			"hasa",
-			"queryset",
-			"unique_together",
-			"smOwningTeam\"",
-			"'smOwningTeam'",
-			"propertyequivalence",
-			"get_all_related_objects",
-			"type(",
-			"type",
-			"type(result)",
-			"actions",
-			"doDiagram",
-			"admin.site.register",
-			"VersionAdmin",
-			"admin.site.register",
-			"doModelPro",
-			"actions",
-			"modelCType",
-			"addDetailToList",
-			"detailChild",
-			"[]",
-			"getModelDetails",
-			"addDetailToList",
-			"modelCType",
-			"queryset.count",
-			"getEntities",
-			"queryset.count",
-			"list",
-			"getDetailList",
-			"Logger",
-			"protoGetDetailsTree",
-			"details",
-			"smWflowStatus",
-			"smMod",
-			"_uddObject",
-			"getJfields",
-			"ProtoModelBase",
-			"ProtoModelExt",
-			"EntityMap",
-			"map",
-			"_save",
-			"def save",
-			"models.bo",
-			"boo",
-			"useVersion",
-			"work",
-			"version",
-			"icon-version",
-			"icon-user",
-			"userConfig",
-			"UserProfile",
+			"ProtoUserManager",
+			"ProtoTeamManager",
+			"ProtoUserManager",
+			"isDefault",
+			"Protolib",
+			": booleanfield",
+			": textfield",
+			": charfield",
+			": textfield",
+			"responseText",
+			"_responseText",
+			"_reponseText",
+			"smVersion",
+			"\\.([0-9][0-9, ]+)",
+			"\\.[0-9][0-9, ]+",
+			"\\.[0-9]!%",
+			"]]",
+			"]], [",
+			"</sup>",
+			"<sup>",
+			"[javascript:void(0);|",
+			"<sup>",
+			"\n([0-9][0-9])\\.",
+			"\n([0-9])\\.",
+			"\n([0-9]).",
+			"\\.([0-9,–]+)",
+			"_responseText",
+			"myReponse.responseText",
+			"duplica",
+			"cpreg",
+			"copyre",
+			"masterRecord",
+			"modelName",
+			"data.model",
 			"model",
-			"userprofile",
-			"\" (\"id\" integer",
-			"(\"id\"",
-			"actionSetDefaults",
-			"doSetDefaults",
-			"CustomDefinition",
-			"setContextFilter",
-			"context",
-			"default",
-			"context",
-			"icon-config",
-			"save_all",
-			"save_al",
-			"css",
-			"important",
-			";=",
-			"ext",
-			"cdnjs",
-			"(Ext.cmd.derive"
+			"store",
+			"zoomMultiReturn",
+			"zoommu",
+			"protoDel",
+			"_doSyncMasterStore",
+			"protoform",
+			"Rai01Ref",
+			"table_def = []",
+			"refEntity",
+			"rai00"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -430,6 +453,34 @@
 		"regex": false,
 		"replace_history":
 		[
+			"getVersionDependency",
+			"doCopyVersion",
+			"cttArray",
+			"getContextEntity",
+			"actionSetContext",
+			" set smVersion_id = 1 ;",
+			"set smVersion_id = 1 ;",
+			"update ",
+			"smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)",
+			"    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default = 1)",
+			"VersionHeader",
+			"contextTo",
+			"doSetContext",
+			"description",
+			"ContextUser",
+			"UserPermissionManager",
+			"TeamPermissionManager",
+			"",
+			".[\\1] ",
+			".[\\1]",
+			"]",
+			",",
+			"",
+			"\n\\1-",
+			".[\\1]",
+			"",
+			"\n\\1  - ",
+			"",
 			"Msg_Action_Confirm",
 			"Title_Action_Confirm",
 			"detailSet",
@@ -529,668 +580,35 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 1,
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "prototype/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 42402,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										176,
-										185
-									],
-									[
-										410,
-										419
-									],
-									[
-										655,
-										664
-									],
-									[
-										1030,
-										1039
-									],
-									[
-										1212,
-										1221
-									],
-									[
-										1481,
-										1490
-									],
-									[
-										1661,
-										1670
-									],
-									[
-										1878,
-										1887
-									],
-									[
-										2108,
-										2117
-									],
-									[
-										2330,
-										2339
-									],
-									[
-										2571,
-										2580
-									],
-									[
-										2931,
-										2940
-									],
-									[
-										3119,
-										3128
-									],
-									[
-										3446,
-										3455
-									],
-									[
-										3657,
-										3666
-									],
-									[
-										3837,
-										3846
-									],
-									[
-										3988,
-										3997
-									],
-									[
-										4162,
-										4171
-									],
-									[
-										4337,
-										4346
-									],
-									[
-										4472,
-										4481
-									],
-									[
-										4609,
-										4618
-									],
-									[
-										4818,
-										4827
-									],
-									[
-										5066,
-										5075
-									],
-									[
-										5307,
-										5316
-									],
-									[
-										5547,
-										5556
-									],
-									[
-										5789,
-										5798
-									],
-									[
-										6032,
-										6041
-									],
-									[
-										6286,
-										6295
-									],
-									[
-										6531,
-										6540
-									],
-									[
-										6775,
-										6784
-									],
-									[
-										7153,
-										7162
-									],
-									[
-										7353,
-										7362
-									],
-									[
-										7542,
-										7551
-									],
-									[
-										7732,
-										7741
-									],
-									[
-										7913,
-										7922
-									],
-									[
-										8105,
-										8114
-									],
-									[
-										8326,
-										8335
-									],
-									[
-										8519,
-										8528
-									],
-									[
-										8781,
-										8790
-									],
-									[
-										9024,
-										9033
-									],
-									[
-										9382,
-										9391
-									],
-									[
-										9852,
-										9861
-									],
-									[
-										10340,
-										10349
-									],
-									[
-										10808,
-										10817
-									],
-									[
-										11275,
-										11284
-									],
-									[
-										11737,
-										11746
-									],
-									[
-										12250,
-										12259
-									],
-									[
-										12725,
-										12734
-									],
-									[
-										13196,
-										13205
-									],
-									[
-										13664,
-										13673
-									],
-									[
-										14132,
-										14141
-									],
-									[
-										14594,
-										14603
-									],
-									[
-										15171,
-										15180
-									],
-									[
-										15650,
-										15659
-									],
-									[
-										16130,
-										16139
-									],
-									[
-										16573,
-										16582
-									],
-									[
-										16824,
-										16833
-									],
-									[
-										17078,
-										17087
-									],
-									[
-										17332,
-										17341
-									],
-									[
-										17581,
-										17590
-									],
-									[
-										17824,
-										17833
-									],
-									[
-										18071,
-										18080
-									],
-									[
-										18313,
-										18322
-									],
-									[
-										18554,
-										18563
-									],
-									[
-										18804,
-										18813
-									],
-									[
-										19054,
-										19063
-									],
-									[
-										19307,
-										19316
-									],
-									[
-										19548,
-										19557
-									],
-									[
-										19794,
-										19803
-									],
-									[
-										20035,
-										20044
-									],
-									[
-										20381,
-										20390
-									],
-									[
-										20615,
-										20624
-									],
-									[
-										20860,
-										20869
-									],
-									[
-										21235,
-										21244
-									],
-									[
-										21417,
-										21426
-									],
-									[
-										21686,
-										21695
-									],
-									[
-										21866,
-										21875
-									],
-									[
-										22083,
-										22092
-									],
-									[
-										22313,
-										22322
-									],
-									[
-										22535,
-										22544
-									],
-									[
-										22776,
-										22785
-									],
-									[
-										23136,
-										23145
-									],
-									[
-										23324,
-										23333
-									],
-									[
-										23651,
-										23660
-									],
-									[
-										23862,
-										23871
-									],
-									[
-										24042,
-										24051
-									],
-									[
-										24193,
-										24202
-									],
-									[
-										24367,
-										24376
-									],
-									[
-										24542,
-										24551
-									],
-									[
-										24677,
-										24686
-									],
-									[
-										24814,
-										24823
-									],
-									[
-										25023,
-										25032
-									],
-									[
-										25271,
-										25280
-									],
-									[
-										25512,
-										25521
-									],
-									[
-										25752,
-										25761
-									],
-									[
-										25994,
-										26003
-									],
-									[
-										26237,
-										26246
-									],
-									[
-										26491,
-										26500
-									],
-									[
-										26736,
-										26745
-									],
-									[
-										26980,
-										26989
-									],
-									[
-										27358,
-										27367
-									],
-									[
-										27558,
-										27567
-									],
-									[
-										27747,
-										27756
-									],
-									[
-										27937,
-										27946
-									],
-									[
-										28118,
-										28127
-									],
-									[
-										28310,
-										28319
-									],
-									[
-										28531,
-										28540
-									],
-									[
-										28724,
-										28733
-									],
-									[
-										28986,
-										28995
-									],
-									[
-										29229,
-										29238
-									],
-									[
-										29587,
-										29596
-									],
-									[
-										30057,
-										30066
-									],
-									[
-										30545,
-										30554
-									],
-									[
-										31013,
-										31022
-									],
-									[
-										31480,
-										31489
-									],
-									[
-										31942,
-										31951
-									],
-									[
-										32455,
-										32464
-									],
-									[
-										32930,
-										32939
-									],
-									[
-										33401,
-										33410
-									],
-									[
-										33869,
-										33878
-									],
-									[
-										34337,
-										34346
-									],
-									[
-										34799,
-										34808
-									],
-									[
-										35376,
-										35385
-									],
-									[
-										35855,
-										35864
-									],
-									[
-										36335,
-										36344
-									],
-									[
-										36778,
-										36787
-									],
-									[
-										37029,
-										37038
-									],
-									[
-										37283,
-										37292
-									],
-									[
-										37537,
-										37546
-									],
-									[
-										37786,
-										37795
-									],
-									[
-										38029,
-										38038
-									],
-									[
-										38276,
-										38285
-									],
-									[
-										38518,
-										38527
-									],
-									[
-										38759,
-										38768
-									],
-									[
-										39009,
-										39018
-									],
-									[
-										39259,
-										39268
-									],
-									[
-										39512,
-										39521
-									],
-									[
-										39753,
-										39762
-									],
-									[
-										39999,
-										40008
-									],
-									[
-										40240,
-										40249
-									],
-									[
-										40538,
-										40554
-									],
-									[
-										40806,
-										40822
-									],
-									[
-										40964,
-										40980
-									],
-									[
-										41341,
-										41355
-									],
-									[
-										41512,
-										41526
-									],
-									[
-										41707,
-										41721
-									],
-									[
-										41818,
-										41832
-									],
-									[
-										42128,
-										42142
-									],
-									[
-										42302,
-										42316
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								42310,
-								42310
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 4,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 14433.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "protoExt/views/protoActionWiki.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4412,
+						"buffer_size": 20758,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								603,
-								603
+								1327,
+								1327
 							]
 						],
 						"settings":
@@ -1200,27 +618,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 74.0,
+						"translation.y": 304.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "protoExt/views/protoActionList.py",
+					"buffer": 1,
+					"file": "protoLib/models/versions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12334,
+						"buffer_size": 1325,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								775,
-								775
+								226,
+								226
 							]
 						],
 						"settings":
@@ -1230,47 +648,12 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 14.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "protoExt/views/protoActionExport.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2525,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								736,
-								736
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 40.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				}
-			]
-		},
-		{
-			"sheets":
-			[
 			]
 		}
 	],
@@ -1302,7 +685,7 @@
 		"cols":
 		[
 			0.0,
-			0.719560644308,
+			0.513361462729,
 			1.0
 		],
 		"rows":
@@ -1354,7 +737,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -1362,7 +745,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 264.0,
+	"side_bar_width": 258.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

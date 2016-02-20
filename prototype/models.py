@@ -53,7 +53,16 @@ PROTO_PREFIX = settings.PROTO_PREFIX
 
 class ProtoVersionTitle(VersionTitle):
 
-    versionHeader = 'prototype.ProtoVersionHeader'
+    versionHeader = [
+        "deftModel": "prototype.project",
+        "deftModel": "prototype.model",
+        "deftModel": "prototype.entity",
+        "deftModel": "prototype.property",
+        "deftModel": "prototype.propertyequivalence",
+        "deftModel": "prototype.diagram",
+        "deftModel": "prototype.diagramentity",
+    ]
+
 
     protoExt = {
         "gridConfig": {
@@ -84,9 +93,6 @@ class ProtoVersionTitle(VersionTitle):
         }],
     }
 
-
-class ProtoVersionHeader(VersionHeader):
-    pass
 
 
 class Project(ProtoModelExt):

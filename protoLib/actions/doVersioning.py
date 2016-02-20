@@ -145,17 +145,19 @@ def getVersionDependency( modeladmin, request, queryset):
     # Get base model 
     try:
         VTitle = getDjangoModel(cBase.viewEntity)
-        VHeader = getDjangoModel( getattr(VTitle, 'versionHeader'))
+        VHeaders = getDjangoModel( getattr(VTitle, 'versionHeader'))
     except :
         return detailSet
 
 
 #   Get Version Headers
-    for entity in VHeader.objects.filter( exclude = False ):
+    for eName in VHeaders
+
+        .objects.filter( exclude = False ):
         addDetailToVersionList(detailSet,  entity.modelCType.model_class(), False )
 
-    for entity in VHeader.objects.filter( exclude = True ):
-        addDetailToVersionList(detailSet,  entity.modelCType.model_class(), True )
+
+
 
     return detailSet
 
