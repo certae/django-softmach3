@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import DocAttribute, DocType, Domain, Artefact, Source, Requirement, Capacity
 from .models import Projet
+from reversion.helpers import patch_admin
 # from .models import ArtefactCapacity, ArtefactComposition, ArtefactRequirement, ArtefactSource 
 # from .models import ProjectArtefact, ProjectCapacity, ProjectRequirement 
 
@@ -36,3 +37,13 @@ class MyDocType( admin.ModelAdmin ):
     actions = [ doRaiMenu  ]
 
 admin.site.register( DocType, MyDocType )
+
+
+
+
+from rai01ref.models.mBase import RaiVersionTitle
+from protoLib.admin.admVersion import VersionAdm
+  
+admin.site.register( RaiVersionTitle, VersionAdm  )
+patch_admin(RaiVersionTitle)
+
