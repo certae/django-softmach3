@@ -5,98 +5,97 @@ from protoLib.getStuff import getUserProfile
 from protoExt.models import CustomDefinition, ViewDefinition
 
 
-DOCUMENTS = ( 'ARTEFACT', 'CAPACITY', 'REQUIREMENT' ) 
+DOCUMENTS = ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')
 
 
-def doBuildRaiMenu( request, queryset ):
+def doBuildRaiMenu(request, queryset):
     """ 
-    Genera el menu de rai00base 
+    Build Rai Menu  
     """
 
     currentUser = request.user
-    userProfile = getUserProfile(currentUser) 
+    userProfile = getUserProfile(currentUser)
     viewIcon = 'icon-1'
 
-#-- Generacion de menu 
+#-- Generacion de menu
 
     lMenu = {}
     Ix = 0
     for document in DOCUMENTS:
-        lMenu[ document ] = {
-            'text': document.lower()  ,
-            'expanded': True ,
+        lMenu[document] = {
+            'text': document.lower(),
+            'expanded': True,
             'index':  Ix,
-            'iconCls': 'rai_{}'.format( document[:3].lower())  ,
-            'leaf': False, 
+            'iconCls': 'rai_{}'.format(document[:3].lower()),
+            'leaf': False,
             'children': [],
         }
-        Ix +=1 
+        Ix += 1
 
     for pDoc in queryset:
 
-        viewCode = 'rai01ref.{0}.{1}'.format( pDoc.document , str( pDoc.pk ) ).lower()
+        viewCode = 'rai01ref.{0}.{1}'.format(
+            pDoc.document, str(pDoc.pk)).lower()
         model_dict = {
-            'viewCode': viewCode, 
-            'text': pDoc.dtype ,
-            'index': Ix ,
-            'iconCls': viewIcon ,
+            'viewCode': viewCode,
+            'text': pDoc.dtype,
+            'index': Ix,
+            'iconCls': viewIcon,
             'leaf': True,
         }
-        Ix +=1 
+        Ix += 1
 
-        lMenu[ pDoc.document ]['children'].append( model_dict  )  
+        lMenu[pDoc.document]['children'].append(model_dict)
+
+        # Borra la anterior definicion
+        ViewDefinition.objects.filter(code=viewCode).delete()
 
 
-        # Borra la anterior definicion  
-        ViewDefinition.objects.filter( code=viewCode ).delete()
-
-
-#-- Lectura de la Db ------------------------------------------------------------- 
+#-- Lectura de la Db -----------------------------------------------------
 
     viewCode = '__menu'
     protoDef = CustomDefinition.objects.get_or_create(
-           code=viewCode, smOwningTeam=userProfile.userTeam,
-           defaults={'active': False, 'code' : viewCode, 'smOwningTeam' : userProfile.userTeam }
-           )[0]
+        code=viewCode, smOwningTeam=userProfile.userTeam,
+        defaults={'active': False, 'code': viewCode,
+                  'smOwningTeam': userProfile.userTeam}
+    )[0]
 
     # El default solo parece funcionar al insertar en la Db
-    if not protoDef.active :  
-        return  {'success':False, 'message' : 'Menu not found' }
+    if not protoDef.active:
+        return {'success': False, 'message': 'Menu not found'}
 
-    menuData = protoDef.metaDefinition 
+    menuData = protoDef.metaDefinition
 
 
-#-- Update de la Db ------------------------------------------------------------- 
+#-- Update de la Db ------------------------------------------------------
 
     try:
         raiMenu = menuData[0]
-        if str( raiMenu['text'] ) == str( 'RAI MENU' ): 
+        if str(raiMenu['text']) == str('RAI MENU'):
             raiMenu = menuData.pop(0)
-    except : pass 
-
+    except:
+        pass
 
     raiMenu = {
-            'text': 'RAI MENU'  ,
-            'expanded': False ,
-            'index':  0,
-            'leaf': False, 
-            'children': [],
-        }
+        'text': 'RAI MENU',
+        'expanded': False,
+        'index':  0,
+        'leaf': False,
+        'children': [],
+    }
 
-    # Python 2 et 3      
+    # Python 2 et 3
     try:
         values = lMenu.itervalues()
     except AttributeError:
         values = lMenu.values()
 
     for raiDoc in values:
-        raiMenu['children'].append( raiDoc )
+        raiMenu['children'].append(raiDoc)
 
-    menuData.insert( 0, raiMenu)
+    menuData.insert(0, raiMenu)
 
-    protoDef.metaDefinition = json.dumps( menuData )
+    protoDef.metaDefinition = json.dumps(menuData)
     protoDef.save()
 
-
-    return  {'success':False, 'message' : 'Menu not found' }
-
+    return {'success': False, 'message': 'Menu not found'}
