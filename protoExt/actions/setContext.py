@@ -8,70 +8,66 @@ from protoExt.utils.utilsWeb import JsonError
 from protoLib.getStuff import getDjangoModel
 
 
-
-def actionSetContext(request, queryset , parameters):
+def actionSetContext(request, queryset, parameters):
     """
     Genera los defaults en la tabla  ContextUser 
     """
 
-    cBase, message = validateRequest( request )
-    if message: return message  
-    
-    # Lee la pci      
+    cBase, message = validateRequest(request)
+    if message:
+        return message
+
+    # Lee la pci
     try:
-        protoDef = ViewDefinition.objects.get( code = cBase.viewCode )
+        protoDef = ViewDefinition.objects.get(code=cBase.viewCode)
         cBase.protoMeta = protoDef.metaDefinition
-    except Exception :
-        return JsonError('ViewDefinition not found: {0}'.format( cBase.viewCode  )) 
+    except Exception:
+        return JsonError('ViewDefinition not found: {0}'.format(cBase.viewCode))
 
-
-
-    # Get base model 
+    # Get base model
     try:
         cBase.model = getDjangoModel(cBase.viewEntity)
-    except :
-        return JsonError( 'Model notFound')
+    except:
+        return JsonError('Model notFound')
 
-    # Get ContextVar 
-    modelCType = ContentType.objects.get_for_model( cBase.model ) 
+    # Get ContextVar
+    modelCType = ContentType.objects.get_for_model(cBase.model)
     cVar = ContextVar.objects.update_or_create(
-       modelCType = modelCType,
-       propName = 'id',
+        modelCType=modelCType,
+        propName='id',
     )[0]
 
-    # Add Context Entity Values 
-    cBase.defTo = cBase.protoMeta.get( 'contextTo' , [] )
-    for detail in cBase.defTo: 
+    # Add Context Entity Values
+    cBase.defTo = cBase.protoMeta.get('contextTo', [])
+    for detail in cBase.defTo:
 
-        ettName = detail.get( 'deftModel').strip()
-        entity = ContentType.objects.get_by_natural_key( *ettName.split('.')) 
-        detField =  detail.get( 'deftField' )
+        ettName = detail.get('deftModel').strip()
+        entity = ContentType.objects.get_by_natural_key(*ettName.split('.'))
+        detField = detail.get('deftField')
 
-        defValues = { 'propName' : detField }
+        defValues = {'propName': detField}
         ContextEntity.objects.update_or_create(
-           contextVar = cVar,
-           entity = entity,  
-           defaults= defValues 
-        )  
+            contextVar=cVar,
+            entity=entity,
+            defaults=defValues
+        )
 
-    # Add or delete filter 
-    if queryset: 
+    # Add or delete filter
+    if queryset:
         baseReg = queryset[0]
         defValues = {
-            'propValue': baseReg.id , 
-            'description' : baseReg.__str__(), }
-    else: 
+            'propValue': baseReg.id,
+            'description': baseReg.__str__(), }
+    else:
         defValues = {
-            'propValue': None , 
-            'description' : '' }
+            'propValue': None,
+            'description': ''}
 
-
-    # Update UserContext 
+    # Update UserContext
     ContextUser.smObjects.update_or_create(
-        contextVar = cVar,
-        smOwningUser = cBase.userProfile.user,
-        defaults= defValues 
-    )  
+        contextVar=cVar,
+        smOwningUser=cBase.userProfile.user,
+        defaults=defValues
+    )
 
-    return  {'success':True , 'message' :  'Ok' }
-
+    return {'success': True, 'message':  'Ok'}
