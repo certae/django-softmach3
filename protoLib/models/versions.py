@@ -36,19 +36,3 @@ class VersionTitle(ProtoModelBase):
                 
     }
 
-
-
-class VersionHeader(ProtoModelBase):
-    """
-    Entity list for include or exclude in versioning 
-    """
-
-    modelCType = models.ForeignKey(ContentType, blank=False, null=False)
-    exclude = models.BooleanField(default=False)
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return "%s" % (self.modelCType.__str__())
-

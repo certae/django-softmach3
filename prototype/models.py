@@ -14,7 +14,7 @@ from protoExt.utils.utilsConvert import slugify2
 from django.conf import settings
 
 import reversion
-from protoLib.models.versions import VersionTitle, VersionHeader
+from protoLib.models.versions import VersionTitle
 
 
 PROTO_PREFIX = settings.PROTO_PREFIX
