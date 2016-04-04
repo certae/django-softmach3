@@ -6,13 +6,13 @@ from django.utils.encoding import smart_str
 
 from protoExt.utils.utilsBase import verifyList, list2dict, getReadableError
 
-from .protoQbe import getFieldValue, getQbeFilter 
-from protoLib.getStuff import  getModelPermission, getRowById
+from .protoQbe import getFieldValue, getQbeFilter
+from protoLib.getStuff import getModelPermission, getRowById
 
 
 from protoLib.getStuff import getDjangoModel
-from protoExt.utils.utilsWeb import JsonError 
-from . import validateRequest 
+from protoExt.utils.utilsWeb import JsonError
+from . import validateRequest
 
 import json
 from protoExt.utils.utilsBase import traceError
@@ -22,16 +22,17 @@ from jsonfield2.utils import JSONEncoder
 
 
 def protoList(request):
-#   Vista simple para cargar la informacion,
+    #   Vista simple para cargar la informacion,
 
     try:
-        cBase, message = prepareListEnv( request )
-        if message: return message  
+        cBase, message = prepareListEnv(request)
+        if message:
+            return message
 
     except Exception as e:
         traceError()
         message = getReadableError(e)
-        return JsonError( message ) 
+        return JsonError(message)
 
     # Fix: Cuando esta en la pagina el filtro continua en la pagina 2 y no muestra nada.
     # if ( ( cBase.page -1 ) *cBase.limit >= pRowsCount ): cBase.page = 1
@@ -39,99 +40,98 @@ def protoList(request):
 #   Prepara las cols del Query
     try:
         # Obtiene las filas del cBase.modelo
-        Qs = getQSet( cBase )
-        cBase.totalCount = len( Qs )
-        pRows = Qs[ cBase.start: cBase.page * cBase.limit ]
-        pList = Q2Dict(cBase , pRows  )
+        Qs = getQSet(cBase)
+        cBase.totalCount = len(Qs)
+        pRows = Qs[cBase.start: cBase.page * cBase.limit]
+        pList = Q2Dict(cBase, pRows)
         bResult = True
- 
+
     except Exception as e:
         traceError()
         message = getReadableError(e)
-        return JsonError( message ) 
-
+        return JsonError(message)
 
     context = json.dumps({
-            'success': bResult,
-            'message': message,
-            'totalCount': cBase.totalCount,
-            'filter': cBase.protoFilter,
-            'rows': pList,
-        }, cls=JSONEncoder)
-
+        'success': bResult,
+        'message': message,
+        'totalCount': cBase.totalCount,
+        'filter': cBase.protoFilter,
+        'rows': pList,
+    }, cls=JSONEncoder)
 
     return HttpResponse(context, content_type="application/json")
 
 
-def prepareListEnv( request ):
+def prepareListEnv(request):
     """
     Preapar las variables para los llamados de tipo lista ( list, csv )
     """
     PAGESIZE = 50
 
-    cBase, message = validateRequest( request )
-    if message: return None, message  
-    
+    cBase, message = validateRequest(request)
+    if message:
+        return None, message
 
-    msgReturn = getGenericPci( cBase, True  )
-    if msgReturn: return msgReturn  
-    
+    msgReturn = getGenericPci(cBase, True)
+    if msgReturn:
+        return msgReturn
 
-    cBase.fieldsDict = list2dict(cBase.protoMeta[ 'fields' ], 'name')
+    cBase.fieldsDict = list2dict(cBase.protoMeta['fields'], 'name')
 
-#   Parametros de la consulta 
-    cBase.protoFilter = verifyList( request.POST.get('protoFilter', []))
-    cBase.baseFilter = verifyList( request.POST.get('baseFilter', [] )) 
-    cBase.sort = verifyList( request.POST.get('sort', []))
+#   Parametros de la consulta
+    cBase.protoFilter = verifyList(request.POST.get('protoFilter', []))
+    cBase.baseFilter = verifyList(request.POST.get('baseFilter', []))
+    cBase.sort = verifyList(request.POST.get('sort', []))
 
-#   zoomFilter 
+#   zoomFilter
     cBase.zoomParams = request.POST.get('zoomParams', '')
-    if len( cBase.zoomParams ): 
-        cBase.zoomParams = json.loads( cBase.zoomParams )
+    if len(cBase.zoomParams):
+        cBase.zoomParams = json.loads(cBase.zoomParams)
 
     cBase.start = int(request.POST.get('start', 0))
     cBase.page = int(request.POST.get('page', 1))
     cBase.limit = int(request.POST.get('limit', PAGESIZE))
 
-    cBase.jsonLookups = [] 
-    cBase.jsonSorters = [] 
-    cBase.qsLookups = [] 
-    cBase.contextFilter = [] 
+    cBase.jsonLookups = []
+    cBase.jsonSorters = []
+    cBase.qsLookups = []
+    cBase.contextFilter = []
 
-    return cBase, message 
+    return cBase, message
 
 
-def getSortOrder( cBase ):
-    
-#   Order by
+def getSortOrder(cBase):
+
+    #   Order by
     localSort = cBase.protoMeta.get('localSort', False)
-    if not localSort :
+    if not localSort:
         for sField in cBase.sort:
 
             sName = sField['property']
             if cBase.isProtoModel:
 
-                # Permite el ordenamiento sobre la funcion de presentacion 
-                if sName == '__str__': 
+                # Permite el ordenamiento sobre la funcion de presentacion
+                if sName == '__str__':
                     sName = 'smNaturalCode'
-                
-                # Permite el ordenamiento sobre maestros e impide sobre jsofield 
-                elif sName.split('__')[0] in ['smInfo', cBase.jsonField] : 
-                    cBase.jsonSorters.append( sField )
-                    continue  
 
-            # __str__ is not sortable 
-            if sName == '__str__': continue
-    
+                # Permite el ordenamiento sobre maestros e impide sobre
+                # jsofield
+                elif sName.split('__')[0] in ['smInfo', cBase.jsonField]:
+                    cBase.jsonSorters.append(sField)
+                    continue
 
-            if sField['direction'] == 'DESC': sName = '-' + sName
+            # __str__ is not sortable
+            if sName == '__str__':
+                continue
+
+            if sField['direction'] == 'DESC':
+                sName = '-' + sName
             cBase.orderBy.append(sName)
 
     cBase.orderBy = tuple(cBase.orderBy)
-    
 
 
-def setZoomFilter( cBase ):
+def setZoomFilter(cBase):
     """
     cBase.zoomParams [  
         zoomFilter : contenido del zoomFilter , 
@@ -151,38 +151,40 @@ def setZoomFilter( cBase ):
     """
 
     if not cBase.zoomParams:
-        return  
+        return
 
-    # Separar los filtros y hacer el loop 
-    for lFilter in  cBase.zoomParams.get( 'zoomFilter' ).replace(' ','').split(';'): 
-        if len( lFilter ) == 0: continue 
-        sFilter = _getZoomFilter( lFilter, cBase  )
+    # Separar los filtros y hacer el loop
+    for lFilter in cBase.zoomParams.get('zoomFilter').replace(' ', '').split(';'):
+        if len(lFilter) == 0:
+            continue
+        sFilter = _getZoomFilter(lFilter, cBase)
 
-        if not sFilter: continue
-        cBase.contextFilter.append( sFilter  )
+        if not sFilter:
+            continue
+        cBase.contextFilter.append(sFilter)
 
 
-
-def _getZoomFilter( zoomFilter , cBase ): 
+def _getZoomFilter(zoomFilter, cBase):
     """ 
     Genera el objeto filterStmt 
     """
 
-    # FUTURO: podria manejar diferentes nombres de funciones 
+    # FUTURO: podria manejar diferentes nombres de funciones
     # zoomFilter.match(/[^[\]]+(?=])/g)
     # zoomFilter.match(/\(([^()]+)\)/g)
 
-    if zoomFilter.find(',') < 0: return  
+    if zoomFilter.find(',') < 0:
+        return
 
     nBase, nFilter = zoomFilter.split(',')
-    vFilter = cBase.zoomParams.get( 'baseRow' ).get( nBase )  
-    if not (  vFilter or nFilter )  : return 
+    vFilter = cBase.zoomParams.get('baseRow').get(nBase)
+    if not (vFilter or nFilter):
+        return
 
-    return  { 'property' : nFilter, 'filterStmt' : vFilter };   
+    return {'property': nFilter, 'filterStmt': vFilter}
 
 
-
-def getQSet( cBase ):
+def getQSet(cBase):
     """
     Get QuerySet
 
@@ -193,46 +195,46 @@ def getQSet( cBase ):
     cBase.viewEntity = cBase.protoMeta.get('viewEntity', '')
     cBase.model = getDjangoModel(cBase.viewEntity)
 
-    cBase.isProtoModel = hasattr( cBase.model , '_protoObj')
-    cBase.isPJsonModel = hasattr(cBase.model , '_protoJson')
+    cBase.isProtoModel = hasattr(cBase.model, '_protoObj')
+    cBase.isPJsonModel = hasattr(cBase.model, '_protoJson')
     cBase.jsonField = cBase.protoMeta.get('jsonField', '')
-    if cBase.isPJsonModel: cBase.jsonField = 'smInfo' 
-    
-    cBase.fakeId = hasattr(cBase.model , '_fakeId')
+    if cBase.isPJsonModel:
+        cBase.jsonField = 'smInfo'
+
+    cBase.fakeId = hasattr(cBase.model, '_fakeId')
     cBase.orderBy = []
     # pStyle = cBase.protoMeta.get( 'pciStyle', '')
 
-
-    setContextFilter( cBase )
-    setZoomFilter( cBase )
+    setContextFilter(cBase)
+    setZoomFilter(cBase)
 
 #   Autentica '
-    if not getModelPermission( cBase.userProfile.user, cBase.model, 'list'):
+    if not getModelPermission(cBase.userProfile.user, cBase.model, 'list'):
         return cBase.model.objects.none()
 
-#   Separa los filtros 
-    for sFilter in cBase.baseFilter + cBase.protoFilter + cBase.contextFilter :
+#   Separa los filtros
+    for sFilter in cBase.baseFilter + cBase.protoFilter + cBase.contextFilter:
         fieldName = sFilter['property']
         if fieldName.startswith(cBase.jsonField + '__'):
-            cBase.jsonLookups.append( sFilter ) 
-        else: cBase.qsLookups.append( sFilter ) 
+            cBase.jsonLookups.append(sFilter)
+        else:
+            cBase.qsLookups.append(sFilter)
 
- 
-    getSortOrder(cBase )
-    QStmt = getQbeFilter(cBase, cBase.qsLookups )
+    getSortOrder(cBase)
+    QStmt = getQbeFilter(cBase, cBase.qsLookups)
 
-    Qs = cBase.model.objects.filter( QStmt ).order_by(*cBase.orderBy)
-    
-    if cBase.jsonLookups: 
-        QStmt = getQbeFilter(cBase, cBase.jsonLookups )
-        # se require para el jsonField, debe ir en **kwargs 
-        QTmp = dict((x, y) for x, y in QStmt.children)   
-        Qs = Qs.filter( **QTmp)
+    Qs = cBase.model.objects.filter(QStmt).order_by(*cBase.orderBy)
+
+    if cBase.jsonLookups:
+        QStmt = getQbeFilter(cBase, cBase.jsonLookups)
+        # se require para el jsonField, debe ir en **kwargs
+        QTmp = dict((x, y) for x, y in QStmt.children)
+        Qs = Qs.filter(**QTmp)
 
     return Qs
 
 
-def Q2Dict ( cBase, pRows, userNodes=[]):
+def Q2Dict(cBase, pRows, userNodes=[]):
     """
     return the row list from given queryset
     """
@@ -240,41 +242,41 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
     rows = []
     relModels = {}      # Tablas de zoom para absorcion de campos
 
-    # cBase.udpFields = [] 
+    # cBase.udpFields = []
 
-    # Alimenta la coleccion de zooms, por cada campo pues hay q hacer un select para esto
-    for lField  in cBase.protoMeta['fields']:
+    # Alimenta la coleccion de zooms, por cada campo pues hay q hacer un
+    # select para esto
+    for lField in cBase.protoMeta['fields']:
         fName = lField['name']
         myZoomModel = lField.get('zoomModel', '')
         if (len(myZoomModel) > 0) and (myZoomModel != cBase.protoMeta['viewEntity']):
-            relModels[ fName ] = { 'zoomModel' : myZoomModel, 'fkId' : lField.get('fkId', '') , 'loaded' : False }
-
+            relModels[fName] = {
+                'zoomModel': myZoomModel, 'fkId': lField.get('fkId', ''), 'loaded': False}
 
     # Verifica si existen reemplazos por hacer ( cpFromField )
     # 1.  Marca los zooms q estan referenciados
     bCopyFromFld = False
-    for lField  in cBase.protoMeta['fields']:
+    for lField in cBase.protoMeta['fields']:
         fName = lField['name']
-        if (lField.get('cpFromField') is None or lField.get('cpFromZoom') is None): continue
+        if (lField.get('cpFromField') is None or lField.get('cpFromZoom') is None):
+            continue
 
         bCopyFromFld = True
-        lField[ 'isAbsorbed' ] = True
+        lField['isAbsorbed'] = True
 
         # Marca el zoom
         try:
-            relModel = relModels[ lField.get('cpFromZoom') ]
-            relModel[ 'loaded'] = True
-        except: 
+            relModel = relModels[lField.get('cpFromZoom')]
+            relModel['loaded'] = True
+        except:
             pass
 
-
     # 2.  borra los q no tienen marca
-    lAux = list( relModels.keys() )
+    lAux = list(relModels.keys())
     for relName in lAux:
-        relModel = relModels[ relName ]
-        if not relModel[ 'loaded']: 
-            del relModels[ relName ]
-
+        relModel = relModels[relName]
+        if not relModel['loaded']:
+            del relModels[relName]
 
     #   Esta forma permite agregar las funciones entre ellas el __unicode__
     rowId = 0
@@ -284,59 +286,60 @@ def Q2Dict ( cBase, pRows, userNodes=[]):
 
         # limpia los datos de tablas relacionadas
         for relName in relModels:
-            relModel = relModels[ relName ]
-            relModel[ 'rowData'] = {}
-            relModel[ 'loaded'] = False
+            relModel = relModels[relName]
+            relModel['rowData'] = {}
+            relModel['loaded'] = False
 
         # recorre los campos para obtener su valor
-        for lField  in cBase.protoMeta['fields']:
+        for lField in cBase.protoMeta['fields']:
             fName = lField['name']
             pName = lField.get('physicalName', fName)
 
-            if lField.get('crudType') == "screenOnly" : 
+            if lField.get('crudType') == "screenOnly":
                 continue
 
-            elif (lField.get( 'type', 'none')  in ['protoN2N', 'none']):
+            elif (lField.get('type', 'none') in ['protoN2N', 'none']):
                 continue
 
-            # Si el campo es absorbido ( bCopyFromFld es un shortcut para evitar la evulacion en caso de q no haya ningun cpFromField )
-            elif bCopyFromFld and (lField.get('isAbsorbed', False)) :
+            # Si el campo es absorbido ( bCopyFromFld es un shortcut para
+            # evitar la evulacion en caso de q no haya ningun cpFromField )
+            elif bCopyFromFld and (lField.get('isAbsorbed', False)):
                 continue
 
-            rowdict[ fName ] = getFieldValue(pName, lField.get( 'type', 'string'), rowData, cBase )
-
-
+            rowdict[fName] = getFieldValue(
+                pName, lField.get('type', 'string'), rowData, cBase)
 
         # Realiza la absorcion de datos provenientes de un zoom
         if bCopyFromFld:
-            rowdict = copyValuesFromFields(cBase , rowdict, relModels )
+            rowdict = copyValuesFromFields(cBase, rowdict, relModels)
 
-        # Dont delete  ( Dgt ) 
+        # Dont delete  ( Dgt )
         # if pStyle == 'tree':
         #    rowdict[ 'viewEntity' ] = cBase.protoMeta.get('viewEntity', '')
         #    rowdict[ 'leaf' ] = False; rowdict[ 'children' ] = []
 
-        # Agrega el Id Siempre como idInterno ( no representa una col, idProperty )
-        rowdict[ 'id'] = rowData.pk
-        if cBase.fakeId: rowdict[ 'id'] = rowId
-
+        # Agrega el Id Siempre como idInterno ( no representa una col,
+        # idProperty )
+        rowdict['id'] = rowData.pk
+        if cBase.fakeId:
+            rowdict['id'] = rowId
 
         # Agrega la fila al diccionario
         rows.append(rowdict)
 
-
     return rows
 
 
-def copyValuesFromFields( cBase, rowdict, relModels ):
+def copyValuesFromFields(cBase, rowdict, relModels):
     """
     Permite copiar campos q vienen de los zooms,
     En el caso de prototipos hace un select a la instancia relacionada
     """
 
-    for lField  in cBase.protoMeta['fields']:
+    for lField in cBase.protoMeta['fields']:
         cpFromField = lField.get('cpFromField')
-        if not cpFromField: continue
+        if not cpFromField:
+            continue
 
         fName = smart_str(lField['name'])
         cpFromField = smart_str(cpFromField)
@@ -344,16 +347,17 @@ def copyValuesFromFields( cBase, rowdict, relModels ):
         if not lField.get('isAbsorbed', False):
             # Es un copy q puede ser resuelto a partir del cBase.modelo objeto
             # esta es la situacion normal cuando no se idetifica un cBase.modelo y se cargan los datos por jerarquia
-            # por ahora requiere q el campo este tambien en el cBase.modelo ( se puede cambiar si hay la necesidad )
+            # por ahora requiere q el campo este tambien en el cBase.modelo (
+            # se puede cambiar si hay la necesidad )
 
             # Se uso para copiar cosas de discretas,  debia poner por defecto el vr en el campo
             # Si ya contiene algun valor, sale, solo copia cuando es nulo.
             val = rowdict.get(fName, None)
-            if (val) and smart_str(val).__len__() > 0: 
+            if (val) and smart_str(val).__len__() > 0:
                 continue
 
-            val = rowdict.get(cpFromField , None)
-            if (val is None) : 
+            val = rowdict.get(cpFromField, None)
+            if (val is None):
                 val = ''
 
         else:
@@ -363,30 +367,30 @@ def copyValuesFromFields( cBase, rowdict, relModels ):
             cpFromZoom = lField.get('cpFromZoom')
 
             try:
-                relModel = relModels[ cpFromZoom ]
+                relModel = relModels[cpFromZoom]
             except:
-                # para envitar volverlo a leer, si son varios campos del mismo registro
-                relModel = { 'loaded': True, 'rowData' : None   }
+                # para envitar volverlo a leer, si son varios campos del mismo
+                # registro
+                relModel = {'loaded': True, 'rowData': None}
 
             if not relModel['loaded']:
                 # Obtiene el id
-                rowId = rowdict[ relModel['fkId'] ]
+                rowId = rowdict[relModel['fkId']]
                 if rowId:
-                    relModel['rowData'] = getRowById(relModel['zoomModel'], rowId)
+                    relModel['rowData'] = getRowById(
+                        relModel['zoomModel'], rowId)
                 else:
                     relModel['rowData'] = None
                 relModel['loaded'] = True
 
             rowData = relModel['rowData']
-            if rowData is not None  :
+            if rowData is not None:
                 # interpreta los datos del registro
-                val = getFieldValue(cpFromField, lField[ 'type'], rowData  , cBase )
-            else: 
+                val = getFieldValue(
+                    cpFromField, lField['type'], rowData, cBase)
+            else:
                 val = ''
 
-        rowdict[ fName ] = val
+        rowdict[fName] = val
 
     return rowdict
-
-
-

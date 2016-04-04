@@ -17,8 +17,7 @@ def doBuildRaiMenu(request, queryset):
     userProfile = getUserProfile(currentUser)
     viewIcon = 'icon-1'
 
-#-- Generacion de menu
-
+#-- RAI Auto Menu ( documents and selected documents  )
     lMenu = {}
     Ix = 0
     for document in DOCUMENTS:
@@ -46,11 +45,11 @@ def doBuildRaiMenu(request, queryset):
 
         lMenu[pDoc.document]['children'].append(model_dict)
 
-        # Borra la anterior definicion
+        # Delete previous definition
         ViewDefinition.objects.filter(code=viewCode).delete()
 
 
-#-- Lectura de la Db -----------------------------------------------------
+#-- Update Menu in customDefinition -----------------------------------------------------
 
     viewCode = '__menu'
     protoDef = CustomDefinition.objects.get_or_create(
@@ -66,7 +65,7 @@ def doBuildRaiMenu(request, queryset):
     menuData = protoDef.metaDefinition
 
 
-#-- Update de la Db ------------------------------------------------------
+#-- Update  Db ------------------------------------------------------
 
     try:
         raiMenu = menuData[0]

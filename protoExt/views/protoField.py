@@ -158,10 +158,11 @@ def setFieldProperty(pField, pProperty, pDefault, field, fProperty, fpDefault):
 
 def isAdmField(fName):
 
-    # Los campos de seguridad
+    # Framework internals soft smVersion that is a contextual field  
     return  (fName in [ \
         'smOwningUser', 'smCreatedBy', 'smModifiedBy', \
         'smCreatedOn', 'smOwningTeam', 'smModifiedOn', \
         'smWflowStatus', 'smRegStatus', \
-        'smUUID', 'smNaturalCode', 'smVersion' ])
+        'smUUID', 'smNaturalCode' ])
+
 

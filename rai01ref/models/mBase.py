@@ -11,13 +11,7 @@ from protoLib.models.versions import VersionTitle
 
 
 """ 
-    Los tipos de documentos son 'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
-
-    COMPOSITION podria corresponder a los arcos entre dos ARTEFACT, 
-                dependiendo el tipo de arco los campos podrian ser diferentes, 
-                luego el tipo de artefacto determinaria el tipo de arcos q pueda manejar 
-                en un proceso pueden ser conexiones, en un modelo relacional puede ser la cardinalidad 
-
+    The document type are :  'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
 """
 
 DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
@@ -233,12 +227,14 @@ class Domain(ProtoModelRai):
 
 
 
-""" Tabla de base para los diferentes tipos de documentos de rai00base,  las instancias 
+""" 
+Tabla de base para los diferentes tipos de documentos de rai00base,  las instancias 
 tendran cada una su propia tabla q heredara de esta, 
 La llamada al menu se hara con el la tabla se hara con :type, este parametro ira 
 a la seleccion de la tabla,  para la definicion del modelo se buscaran los campos q corresponden 
 a la definicion del tipo  
 """
+
 class DocModel(ProtoModelRai):
 
     """El docType_id determina el grupo ( filtro y valor por defecto )"""

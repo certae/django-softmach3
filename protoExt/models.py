@@ -26,14 +26,9 @@ class Parameters(ProtoModelExt):
 
 class ViewDefinition(models.Model):
     """
-    Esta tabla guarda las definiciones de las pcls y del menu,
-    es un contenedor generico para manejar documentos json modificados de lo q
-    en principio es la definicion de base de los modelos 
-    
-    Por lo tanto no debe depender del usuario ( team ) ya que es la definicion 
-    de la aplicacion. 
-    
-    Es importante mantener las diferentes versions, **usar reversion en el admin** 
+    This table stores the definitions of pcls, is a generic container to handle the definition of views.
+    Therefore it should not depend on the user (team) because it is the definition of the application. 
+    It is important to keep the different versions, use ** ** reversion in admin
     """
 
     code = models.CharField(unique=True, blank=False, null=False, max_length=200)
@@ -61,10 +56,8 @@ class ViewDefinition(models.Model):
 
 class CustomDefinition(ProtoModelBase):
     """
-    maneja las definiciones por usuarios
-    aqui se guardan los menus personalizados, y las customOptions
-    
-    La diferencia con el userProfile es q aqui existen varios registros por codigo 
+    custom menus  and CustomOptions
+    The difference vs userProfile  is that here there are several records by key
     """
 
     code = models.CharField(blank=False, null=False, max_length=200)

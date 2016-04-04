@@ -391,7 +391,7 @@ def createProtoMeta( cBase, grid ):
             # return False 
 
 
-        # TODO : Los hijos deben ser del mismo tipo, o deben eliminarse 
+        # the enregistrements must be the same type 
         if len( dBase ) > 0 and len( idType ) > 0:
 
             docFields, shortTitle  = cBase.model.getJfields( idType )
