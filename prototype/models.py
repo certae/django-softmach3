@@ -61,12 +61,12 @@ class ProtoVersionTitle(VersionTitle):
         "prototype.propertyequivalence",
         "prototype.diagram",
         "prototype.diagramentity",
+        "prototype.prototype",
     ]
 
     versionExclude = [
         "prototype.relationship" ,
         "prototype.prototable",
-        "prototype.prototype",
     ]
 
     protoExt = {
@@ -97,6 +97,9 @@ class ProtoVersionTitle(VersionTitle):
             "deftField": "smVersion_id",
         }, {
             "deftModel": "prototype.diagramentity",
+            "deftField": "smVersion_id",
+        }, {
+            "deftModel": "prototype.prototype",
             "deftField": "smVersion_id",
         }],
     }
@@ -508,11 +511,10 @@ class Prototype(ProtoModelBase):
 
 class ProtoTable(ProtoModelBase):
     """
-    Esta es el store de los prototipos   
+    prototype store 
     """
 
     entity = models.ForeignKey(Entity, blank=False, null=False)
-    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default=1)
 
     info = JSONField(default={})
     objects = ProtoJSONManager(json_fields=['info'])
