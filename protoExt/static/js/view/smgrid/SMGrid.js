@@ -129,10 +129,10 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
         createColDictionary();
 
-        // gridColumns: Es un subconjuto para poder manejar diferentes conf de columnas
-        // tiene en cuenta siel usuario definio su vist por defecto la carga
+        // gridColumns: array of columns defined by current view 
         var gridColumns, tabConfig;
 
+        // tabConfig :  name : str,  listDisplay : [ cols ... ]
         tabConfig = _SM.defineTabConfig(myMeta.gridConfig);
         if (myMeta.custom.listDisplay.length > 0) {
             tabConfig.listDisplay = myMeta.custom.listDisplay;
@@ -167,110 +167,113 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         }
 
         // Definie el grid
-        var grid;
+        var grid, gridObject = 'Ext.grid.Panel' ;
         if (myMeta.pciStyle == 'tree') {
-            // me.store = _SM.getTreeStoreDefinition( storeDefinition )
-            // grid = Ext.create('Ext.tree.Panel',
-            // {border:false,region:'center',flex:1,layout:'fit',minSize:50,stripeRows:true,tools:[],useArrows:true,rootVisible:false,multiSelect:false,singleExpand:true,stripeRows:true,rowLines:true,store:me.store,columns:[{xtype:'treecolumn',text:myMeta.shortTitle,flex:3,dataIndex:'__str__'},{text:'model',dataIndex:'model'},{text:'id',dataIndex:'id'}]});
+            gridObject = 'Ext.tree.Panel'; 
+            me.store = _SM.getTreeStoreDefinition( storeDefinition )
         } else {
-
             me.store = _SM.getStoreDefinition(storeDefinition);
+        }
 
-            grid = Ext.create('Ext.grid.Panel', {
-                border: false,
-                region: 'center',
-                flex: 1,
-                layout: 'fit',
-                minSize: 50,
+        grid = Ext.create( gridObject , {
+            border: false,
+            region: 'center',
+            flex: 1,
+            layout: 'fit',
+            minSize: 50,
 
-                plugins: [
-                    // 'headertooltip'
-                  // this.rowEditing
+            plugins: [
+            // 'headertooltip'
+            // this.rowEditing
+            ],
 
-                ],
+            // Tree features 
+            // rootVisible : false,
+            // useArrows : true,
+            // singleExpand : true,
+            rowLines : true,
 
-                features: lFeatures,
+            // Basic features 
+            features: lFeatures,
+            selModel: this.selModel,
+            columns: gridColumns,
+            store: this.store,
+            stripeRows: true,
 
-                selModel: this.selModel,
-                columns: gridColumns,
-                store: this.store,
-                stripeRows: true,
-
-                // Tools ( necesario para AddTools )
-                tools: [],
+            // Tools ( necesario para AddTools )
+            tools: [],
 
 
-                viewConfig: {
-                    // Manejo de rows y cells
+            viewConfig: {
+                // Manejo de rows y cells
 
-                    listeners: {
+                listeners: {
 
-                        cellclick: function(view, cell, cellIndex, record, row, rowIndex, e) {
-                            // Esto maneja los vinculos en los campos
-                            var linkClicked = (e.target.tagName == 'A');
-                            var clickedDataIndex = view.panel.headerCt.getHeaderAtIndex(cellIndex).dataIndex;
-                            if (linkClicked && clickedDataIndex) {
+                    cellclick: function(view, cell, cellIndex, record, row, rowIndex, e) {
+                        // Esto maneja los vinculos en los campos
+                        var linkClicked = (e.target.tagName == 'A');
+                        var clickedDataIndex = view.panel.headerCt.getHeaderAtIndex(cellIndex).dataIndex;
+                        if (linkClicked && clickedDataIndex) {
 
-                                var myZField = me.myFieldDict[clickedDataIndex];
-                                if (!myZField) {
-                                    return;
-                                }
-                                if (myZField.zoomModel && myZField.fkId) {
+                            var myZField = me.myFieldDict[clickedDataIndex];
+                            if (!myZField) {
+                                return;
+                            }
+                            if (myZField.zoomModel && myZField.fkId) {
 
-                                    if ((myZField.zoomModel == me.myMeta.viewEntity ) && (myZField.fkId = me.myMeta.idProperty )) {
-                                        // Si es el mismo registro lo llama como un upd
-                                        // xxx.call Redefine el scope
-                                        var formController = Ext.create('Softmachine.view.smform.FormController', {
-                                            myMeta: me.myMeta
-                                        });
+                                if ((myZField.zoomModel == me.myMeta.viewEntity ) && (myZField.fkId = me.myMeta.idProperty )) {
+                                    // Si es el mismo registro lo llama como un upd
+                                    // xxx.call Redefine el scope
+                                    var formController = Ext.create('Softmachine.view.smform.FormController', {
+                                        myMeta: me.myMeta
+                                    });
 
-                                        // if (_SM.validaSelected( me )) {
-                                        formController.openLinkedForm.call(formController, record, !me.editable);
-
-                                    } else {
-                                        // es un vinculo a otro objeto
-                                        var formController = Ext.create('Softmachine.view.smform.FormController', {});
-                                        formController.openProtoForm.call(formController, myZField.zoomModel, record.get(myZField.fkId), false);
-                                    }
-
-                                } else if (myZField.zoomModel == '@cellValue') {
-                                    // Podria usarse con @FieldName para indicar de donde tomar el
-                                    // modelo o la funcion
-
-                                    var pModel = record.get(myZField.name);
-                                    _SM.vp_Main.controller.loadPciFromMenu(pModel);
+                                    // if (_SM.validaSelected( me )) {
+                                    formController.openLinkedForm.call(formController, record, !me.editable);
 
                                 } else {
-                                    _SM.errorMessage('LinkedForm definition error : ' + clickedDataIndex, 'zoomModel : ' + myZField.zoomModel + '<br>' + 'fkId : ' + myZField.fkId);
+                                    // es un vinculo a otro objeto
+                                    var formController = Ext.create('Softmachine.view.smform.FormController', {});
+                                    formController.openProtoForm.call(formController, myZField.zoomModel, record.get(myZField.fkId), false);
                                 }
-                            }
-                        }, 
 
+                            } else if (myZField.zoomModel == '@cellValue') {
+                                // Podria usarse con @FieldName para indicar de donde tomar el
+                                // modelo o la funcion
 
-                    },
+                                var pModel = record.get(myZField.name);
+                                _SM.vp_Main.controller.loadPciFromMenu(pModel);
 
-                    getRowClass: function(record, rowIndex, rowParams, store) {
-                        // Esto permite marcar los registros despues de la actualizacion
-                        var stRec = record.get('_ptStatus');
-                        if (stRec) {
-                            if (stRec === _SM._ROW_ST.NEWROW) {
-                                return stRec;
-                            } else if (stRec === _SM._ROW_ST.REFONLY) {
-                                // No cambia el color
-                                return '';
                             } else {
-                                return _SM._ROW_ST.ERROR;
+                                _SM.errorMessage('LinkedForm definition error : ' + clickedDataIndex, 'zoomModel : ' + myZField.zoomModel + '<br>' + 'fkId : ' + myZField.fkId);
                             }
-                        } else {
-                            return '';
                         }
-                    }
+                    }, 
 
+
+                },
+
+                getRowClass: function(record, rowIndex, rowParams, store) {
+                    // Esto permite marcar los registros despues de la actualizacion
+                    var stRec = record.get('_ptStatus');
+                    if (stRec) {
+                        if (stRec === _SM._ROW_ST.NEWROW) {
+                            return stRec;
+                        } else if (stRec === _SM._ROW_ST.REFONLY) {
+                            // No cambia el color
+                            return '';
+                        } else {
+                            return _SM._ROW_ST.ERROR;
+                        }
+                    } else {
+                        return '';
+                    }
                 }
 
-            });
+            }
 
-        }
+        });
+
 
         // grid.on({
         //     sortchange : function (  ct,  column,  direction,  eOpts ) {
@@ -482,9 +485,6 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                     delete gCol['editor'];
                 }
 
-                // DGT: No se necesita, la definicion viene automatica
-                // if (( myMeta.pciStyle == 'tree' ) && ( gCol.dataIndex == '__str__' )) {
-                // gCol.xtype = 'treecolumn' };
                 me.colDictDefinition[gCol.dataIndex] = gCol;
 
             }
@@ -566,14 +566,38 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
 
         var gCol, dataIndex, ixV;
 
-        // Adding RowNumberer
-        if (!tabConfig.hideRowNumbers) {
+        // Adding RowNumberer or treeColumn  ( excluents )
+        if ( this.myMeta.pciStyle == 'tree' ) {
+
+            //  need treecolumn definition  __str__  
+            dataIndex = '__str__'; 
+            gCol = this.colDictDefinition[dataIndex];
+            if ( ! gCol) {
+                gCol = {
+                    xtype : 'treecolumn',
+                    text : myMeta.shortTitle,
+                    flex : 3,
+                    dataIndex : dataIndex
+                }
+            } else { 
+                gCol.xtype = 'treecolumn'; 
+            }
+            this.colSetDefinition.push(gCol);
+
+        } else if (!tabConfig.hideRowNumbers) {
             gCol = this.colDictDefinition['___numberCol'];
             this.colSetDefinition.push(gCol);
         }
 
+
         for (ixV in tabConfig.listDisplay  ) {
             dataIndex = tabConfig.listDisplay[ixV];
+
+            // __str__ already added in tree style 
+            if ( this.myMeta.pciStyle == 'tree' && dataIndex == '__str__' ) {
+                continue; 
+            }
+
             gCol = this.colDictDefinition[dataIndex];
             if (gCol) {
                 this.colSetDefinition.push(gCol);
