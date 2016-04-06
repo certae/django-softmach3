@@ -10,7 +10,7 @@ from protoLib.getStuff import getDjangoModel
 
 def actionSetContext(request, queryset, parameters):
     """
-    Genera los defaults en la tabla  ContextUser 
+    load defaults from ContextUser 
     """
 
     cBase, message = validateRequest(request)

@@ -83,6 +83,9 @@ def prepareListEnv(request):
     cBase.baseFilter = verifyList(request.POST.get('baseFilter', []))
     cBase.sort = verifyList(request.POST.get('sort', []))
 
+#   Tree Grid 
+    cBase.node = request.POST.get('node', '')
+
 #   zoomFilter
     cBase.zoomParams = request.POST.get('zoomParams', '')
     if len(cBase.zoomParams):
@@ -203,7 +206,25 @@ def getQSet(cBase):
 
     cBase.fakeId = hasattr(cBase.model, '_fakeId')
     cBase.orderBy = []
-    # pStyle = cBase.protoMeta.get( 'pciStyle', '')
+
+#   Pci Style ( grid, tree )   
+    cBase.pciStyle = cBase.protoMeta.get( 'pciStyle', 'grid')
+
+#   Tree Grid Filter
+#   El manejo de arboles en la grilla maneja un filtro para expandir lo nodos 
+#   Si no hay filtro por pk solo leerse los de primer nivel ( autoreferncia == None ) 
+    if cBase.pciStyle == 'tree':
+        treeRefField = cBase.protoMeta.get( 'treeRefField', 'pk')  
+        if cBase.node == 'root' :
+            cBase.baseFilter.append ( {'filterStmt': '=', 'property': treeRefField  } )
+        else:
+            cBase.baseFilter.append ( {'filterStmt': cBase.node, 'property': treeRefField  } )
+
+#         Node properties 
+#         rowdict[ 'viewEntity' ] = cBase.protoMeta.get('viewEntity', '')
+#         rowdict[ 'leaf' ] = False; 
+#         rowdict[ 'children' ] = []
+
 
     setContextFilter(cBase)
     setZoomFilter(cBase)
@@ -313,10 +334,6 @@ def Q2Dict(cBase, pRows, userNodes=[]):
         if bCopyFromFld:
             rowdict = copyValuesFromFields(cBase, rowdict, relModels)
 
-        # Dont delete  ( Dgt )
-        # if pStyle == 'tree':
-        #    rowdict[ 'viewEntity' ] = cBase.protoMeta.get('viewEntity', '')
-        #    rowdict[ 'leaf' ] = False; rowdict[ 'children' ] = []
 
         # Agrega el Id Siempre como idInterno ( no representa una col,
         # idProperty )

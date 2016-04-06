@@ -11,7 +11,7 @@ META_OBJECTS = {
             "localSort", "pageSize", 
             "sheetSelector", "pciStyle", "helpPath", "idProperty", 
             "jsonField", "returnField", "updateTime", 
-            "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciType"
+            "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciStyle", "treeRefField"
             ],
         "roProperties" : ["viewEntity", "idProperty", "updateTime", "metaVersion", "protoEntity", "protoEntityId"],
         "objects" : ["gridConfig", "gridSets", "formConfig", "custom", "businessRules"],

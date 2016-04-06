@@ -133,7 +133,7 @@ def getQbeStmt(fieldName , sQBE, sType):
             Qobj = { "{0}__istartswith".format(fieldName) :  sQBE[1:]  }
 
         elif sQBE == '=' :
-            Qobj = { "{0}__isnnull".format(fieldName) : True }
+            Qobj = { "{0}__isnull".format(fieldName) : True }
 
         elif sQBE.startswith('='):
             Qobj = { "{0}__iexact".format(fieldName) :  sQBE[1:]  }
@@ -196,8 +196,6 @@ def getQbeStmt(fieldName , sQBE, sType):
 
 def getQbeFilter( cBase,  lFilter  ):
     """
-    Retorna oun objeto QStmt q se construye en forma independiente 
-
     QResult = Q()
 
     QResult.add(Q(), Q.AND)
@@ -205,7 +203,6 @@ def getQbeFilter( cBase,  lFilter  ):
 
     QResult = QResult & Qtmp
     QResult = QResult | Qtmp
-
     """
 
     QBase = models.Q()
@@ -243,6 +240,7 @@ def addQbeFilterStmt( sFilter, cBase ):
 #   Para permitir filtros a diferentes niveles  context
     if fieldName.endswith('_id') or fieldName.endswith('_pk'): 
         QStmt = getQbeStmt(fieldName , sFilter['filterStmt'], 'int')
+
     else:   
         fAux = cBase.fieldsDict.get(fieldName, {})
         sType = fAux.get('type', '') 

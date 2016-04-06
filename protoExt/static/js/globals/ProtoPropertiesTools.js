@@ -239,6 +239,8 @@ _SM._MetaProperties =  {
     "pciStyle.help" : "Presentation mode [ form,  grid, tree]", 
     "pciStyle.choices": ["grid", "form", "tree"],
 
+    "treeRefField.help": "AutoRef field",
+
     "gridSelectionMode.choices": ["multi", "simple", "single" ], 
     "gridSelectionMode.help":  "multi*: multiple selection with check; simple: selection on/off ; single: Last selected", 
 
@@ -463,7 +465,7 @@ _SM._MetaObjects = {
                 "localSort", "pageSize", 
                 "sheetSelector", "pciStyle", "helpPath", "idProperty", 
                 "jsonField", "returnField", "updateTime", 
-                "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciType"
+                "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciStyle", "treeRefField"
                 ],
         "objects" : ["gridConfig", "gridSets", "formConfig", "usrDefProps", "custom", "businessRules"],
         "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig"],

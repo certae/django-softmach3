@@ -103,8 +103,10 @@ META_PROPERTIES = {
     "protoEntity.help": "Corresponde a la entidadBase en los prototipos ( prototype.protoTable.xxx ) acompana a protoEntityId",
 
     "pciStyle": "grid",
-    "pciStyle.help": "Presentacion de la pci [ form,  grid, tree]",
+    "pciStyle.help": "Presentation style [ form,  grid, tree]",
     "pciStyle.choices": ["grid", "form", "tree"],
+
+    "treeRefField.help": "AutoRef field",
 
     "gridSelectionMode.choices": ["multi", "simple", "single" ],
     "gridSelectionMode.help":  "multi*: multiple selection con check o control; simple: selection on/off ; single: solo ultimo seleccionado",

@@ -63,6 +63,12 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         this.myMeta.idSMGrid = this.id;
         this.myFieldDict = _SM.getFieldDict(myMeta);
 
+
+        // add tree initial filter "treeRefField__isnull" 
+        // if ( this.myMeta.pciStyle == 'tree' ) {
+        //     if ( myMeta.gridConfig.initialFilter.length == 0 ) {myMeta.gridConfig.initialFilter  = [{'property' : myMeta.treeRefField, 'filterStmt' : '='}]; }
+        // }
+
         // VErifica si el store viene como parametro ( Detail )
         var baseFilter = [], myFilter = [], storeDefinition;
 
@@ -188,10 +194,10 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
             ],
 
             // Tree features 
-            // rootVisible : false,
-            // useArrows : true,
-            // singleExpand : true,
+            rootVisible : false,
+            useArrows : true,
             rowLines : true,
+            // singleExpand : true,
 
             // Basic features 
             features: lFeatures,

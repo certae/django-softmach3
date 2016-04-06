@@ -334,8 +334,7 @@ _SM.getSafeMeta = function (myMeta) {
         "localSort" :  myMeta.localSort || false,
         "protoEntityId": myMeta.protoEntityId,
         "jsonField"    : myMeta.jsonField || ''  ,
-        // "pciStyle"     : myMeta.pciStyle,
-        // "sql"          : myMeta.sql,
+        "pciStyle"     : myMeta.pciStyle,
         "idProperty"   : myMeta.idProperty,
         "gridConfig"   : {
             "searchFields": _SM.clone( myMeta.gridConfig.searchFields  )
