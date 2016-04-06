@@ -56,18 +56,44 @@
 	"buffers":
 	[
 		{
-			"file": "prototype/models.py",
+			"contents": "Searching 196 files for \"capacity\"\n\n/home/dario/PyDev3/softmach3/rai01ref/admin.py:\n    1  from django.contrib import admin\n    2  \n    3: from .models import DocAttribute, DocType, Domain, Artefact, Source, Requirement, Capacity\n    4  from .models import Projet\n    5  from reversion.helpers import patch_admin\n    6: # from .models import ArtefactCapacity, ArtefactComposition, ArtefactRequirement, ArtefactSource \n    7: # from .models import ProjectArtefact, ProjectCapacity, ProjectRequirement \n    8  \n    9  \n   ..\n   12  \n   13  admin.site.register( Requirement )\n   14: admin.site.register( Capacity )\n   15  admin.site.register( Source )\n   16  \n   17: # admin.site.register( ArtefactCapacity )\n   18  # admin.site.register( ArtefactComposition )\n   19  # admin.site.register( ArtefactRequirement )\n   ..\n   22  admin.site.register( Projet )\n   23  # admin.site.register( ProjectArtefact )\n   24: # admin.site.register( ProjectCapacity )\n   25  # admin.site.register( ProjectRequirement  )\n   26  \n\n/home/dario/PyDev3/softmach3/rai01ref/actions/buildRaiMenu.py:\n    6  \n    7  \n    8: DOCUMENTS = ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')\n    9  \n   10  \n\n/home/dario/PyDev3/softmach3/rai01ref/migrations/0001_initial.py:\n   36          ),\n   37          migrations.CreateModel(\n   38:             name='ArtefactCapacity',\n   39              fields=[\n   40                  ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),\n   ..\n  111          ),\n  112          migrations.CreateModel(\n  113:             name='Capacity',\n  114              fields=[\n  115                  ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),\n  ...\n  164                  ('smUUID', models.UUIDField(default=uuid.uuid4, editable=False)),\n  165                  ('smVersion', models.CharField(default='0', editable=False, max_length=50, null=True, blank=True)),\n  166:                 ('document', models.CharField(choices=[('ARTEFACT', 'ARTEFACT'), ('CAPACITY', 'CAPACITY'), ('REQUIREMENT', 'REQUIREMENT')], max_length=11)),\n  167                  ('dtype', models.CharField(max_length=200)),\n  168                  ('category', models.CharField(blank=True, max_length=50, null=True)),\n  ...\n  211          ),\n  212          migrations.CreateModel(\n  213:             name='ProjectCapacity',\n  214              fields=[\n  215                  ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),\n  ...\n  223                  ('notes', models.TextField(blank=True, null=True)),\n  224                  ('description', models.TextField(blank=True, null=True)),\n  225:                 ('capacity', models.ForeignKey(to='rai01ref.Capacity')),\n  226              ],\n  227          ),\n  ...\n  340          ),\n  341          migrations.AddField(\n  342:             model_name='projectcapacity',\n  343              name='projet',\n  344              field=models.ForeignKey(to='rai01ref.Projet'),\n  345          ),\n  346          migrations.AddField(\n  347:             model_name='projectcapacity',\n  348              name='smCreatedBy',\n  349              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  350          ),\n  351          migrations.AddField(\n  352:             model_name='projectcapacity',\n  353              name='smModifiedBy',\n  354              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  355          ),\n  356          migrations.AddField(\n  357:             model_name='projectcapacity',\n  358              name='smOwningTeam',\n  359              field=models.ForeignKey(editable=False, blank=True, related_name='+', to='protoLib.TeamHierarchy', null=True),\n  360          ),\n  361          migrations.AddField(\n  362:             model_name='projectcapacity',\n  363              name='smOwningUser',\n  364              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  ...\n  415          ),\n  416          migrations.AddField(\n  417:             model_name='capacity',\n  418              name='docType',\n  419              field=models.ForeignKey(blank=True, related_name='+', to='rai01ref.DocType', null=True),\n  420          ),\n  421          migrations.AddField(\n  422:             model_name='capacity',\n  423              name='domain',\n  424              field=models.ForeignKey(blank=True, related_name='+', to='rai01ref.Domain', null=True),\n  425          ),\n  426          migrations.AddField(\n  427:             model_name='capacity',\n  428:             name='refCapacity',\n  429:             field=models.ForeignKey(blank=True, related_name='+', to='rai01ref.Capacity', null=True),\n  430          ),\n  431          migrations.AddField(\n  432:             model_name='capacity',\n  433              name='smCreatedBy',\n  434              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  435          ),\n  436          migrations.AddField(\n  437:             model_name='capacity',\n  438              name='smModifiedBy',\n  439              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  440          ),\n  441          migrations.AddField(\n  442:             model_name='capacity',\n  443              name='smOwningTeam',\n  444              field=models.ForeignKey(editable=False, blank=True, related_name='+', to='protoLib.TeamHierarchy', null=True),\n  445          ),\n  446          migrations.AddField(\n  447:             model_name='capacity',\n  448              name='smOwningUser',\n  449              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  ...\n  480          ),\n  481          migrations.AddField(\n  482:             model_name='artefactcapacity',\n  483:             name='capacity',\n  484:             field=models.ForeignKey(to='rai01ref.Capacity'),\n  485          ),\n  486          migrations.AddField(\n  487:             model_name='artefactcapacity',\n  488              name='smCreatedBy',\n  489              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  490          ),\n  491          migrations.AddField(\n  492:             model_name='artefactcapacity',\n  493              name='smModifiedBy',\n  494              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  495          ),\n  496          migrations.AddField(\n  497:             model_name='artefactcapacity',\n  498              name='smOwningTeam',\n  499              field=models.ForeignKey(editable=False, blank=True, related_name='+', to='protoLib.TeamHierarchy', null=True),\n  500          ),\n  501          migrations.AddField(\n  502:             model_name='artefactcapacity',\n  503              name='smOwningUser',\n  504              field=models.ForeignKey(editable=False, blank=True, related_name='+', to=settings.AUTH_USER_MODEL, null=True),\n  ...\n  556          ),\n  557          migrations.AlterUniqueTogether(\n  558:             name='projectcapacity',\n  559:             unique_together=set([('projet', 'capacity')]),\n  560          ),\n  561          migrations.AlterUniqueTogether(\n  ...\n  576          ),\n  577          migrations.AlterUniqueTogether(\n  578:             name='capacity',\n  579              unique_together=set([('docType', 'code')]),\n  580          ),\n  ...\n  588          ),\n  589          migrations.AlterUniqueTogether(\n  590:             name='artefactcapacity',\n  591:             unique_together=set([('artefact', 'capacity')]),\n  592          ),\n  593          migrations.AlterUniqueTogether(\n\n/home/dario/PyDev3/softmach3/rai01ref/migrations/0002_auto_20160218_0934.py:\n   17          ),\n   18          migrations.RemoveField(\n   19:             model_name='artefactcapacity',\n   20              name='smVersion',\n   21          ),\n   ..\n   33          ),\n   34          migrations.RemoveField(\n   35:             model_name='capacity',\n   36              name='smVersion',\n   37          ),\n   ..\n   53          ),\n   54          migrations.RemoveField(\n   55:             model_name='projectcapacity',\n   56              name='smVersion',\n   57          ),\n\n/home/dario/PyDev3/softmach3/rai01ref/migrations/0003_auto_20160219_1707.py:\n   67          ),\n   68          migrations.AddField(\n   69:             model_name='artefactcapacity',\n   70              name='smVersion',\n   71              field=models.ForeignKey(default=1, to='rai01ref.RaiVersionTitle'),\n   ..\n   87          ),\n   88          migrations.AddField(\n   89:             model_name='capacity',\n   90              name='smVersion',\n   91              field=models.ForeignKey(default=1, to='rai01ref.RaiVersionTitle'),\n   ..\n  112          ),\n  113          migrations.AddField(\n  114:             model_name='projectcapacity',\n  115              name='smVersion',\n  116              field=models.ForeignKey(default=1, to='rai01ref.RaiVersionTitle'),\n\n/home/dario/PyDev3/softmach3/rai01ref/migrations/0004_auto_20160220_1638.py:\n   41          ),\n   42          migrations.AlterUniqueTogether(\n   43:             name='artefactcapacity',\n   44:             unique_together=set([('artefact', 'capacity', 'smVersion')]),\n   45          ),\n   46          migrations.AlterUniqueTogether(\n   ..\n   53          ),\n   54          migrations.AlterUniqueTogether(\n   55:             name='capacity',\n   56              unique_together=set([('docType', 'code', 'smVersion')]),\n   57          ),\n   ..\n   69          ),\n   70          migrations.AlterUniqueTogether(\n   71:             name='projectcapacity',\n   72:             unique_together=set([('projet', 'capacity', 'smVersion')]),\n   73          ),\n   74          migrations.AlterUniqueTogether(\n\n/home/dario/PyDev3/softmach3/rai01ref/models/__init__.py:\n    9  __all__ = [\n   10  	'DocModel', 'DocAttribute', 'DocType', 'Domain',\n   11: 	'Artefact', 'Source', 'Requirement', 'Capacity', \n   12: 	'ArtefactCapacity', 'ArtefactComposition', 'ArtefactRequirement', 'ArtefactSource', \n   13: 	'Projet', 'ProjectArtefact', 'ProjectCapacity', 'ProjectRequirement', \n   14  	'RaiVersionTitle'\n   15  ]\n\n/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py:\n   12  \n   13  \"\"\" \n   14:     Los tipos de documentos son 'ARTEFACT', 'CAPACITY', 'REQUIREMENT'\n   15  \n   16      COMPOSITION podria corresponder a los arcos entre dos ARTEFACT, \n   ..\n   21  \"\"\"\n   22  \n   23: DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]\n   24  \n   25  \n   ..\n   29      versionHeaders = [ \n   30          \"rai01ref.artefact\",\n   31:         \"rai01ref.artefactcapacity\",\n   32          \"rai01ref.artefactcomposition\",\n   33          \"rai01ref.artefactrequirement\",\n   34          \"rai01ref.artefactsource\",\n   35:         \"rai01ref.capacity\",\n   36          \"rai01ref.docattribute\",\n   37          \"rai01ref.doctype\",\n   38          \"rai01ref.domain\",\n   39          \"rai01ref.projectartefact\",\n   40:         \"rai01ref.projectcapacity\",\n   41          \"rai01ref.projectrequirement\",\n   42          \"rai01ref.requirement\",\n   ..\n   64              \"deftField\": \"smVersion_id\",\n   65              },{\n   66:             \"deftModel\": \"rai01ref.artefactcapacity\",\n   67              \"deftField\": \"smVersion_id\",\n   68              },{\n   ..\n   76              \"deftField\": \"smVersion_id\",\n   77              },{\n   78:             \"deftModel\": \"rai01ref.capacity\",\n   79              \"deftField\": \"smVersion_id\",\n   80              },{\n   ..\n   82              \"deftField\": \"smVersion_id\",\n   83              },{\n   84:             \"deftModel\": \"rai01ref.projectcapacity\",\n   85              \"deftField\": \"smVersion_id\",\n   86              },{\n   ..\n  155                      \"customFilter\": [{\n  156                          \"property\": \"document\",\n  157:                         \"filterStmt\": \"^CAPACITY\"\n  158                      }]\n  159                  },{\n\n/home/dario/PyDev3/softmach3/rai01ref/models/mRai.py:\n   25  \n   26  \n   27: class Capacity(DocModel):\n   28:     refCapacity = models.ForeignKey('Capacity', blank= True, null= True, related_name='+' )\n   29  \n   30:     _jDefValueDoc  = 'CAPACITY'\n   31  \n   32      protoExt = { \n   ..\n  116  \n  117  \n  118: class ArtefactCapacity(ProtoModelRai):\n  119      artefact = models.ForeignKey('Artefact', blank= False, null= False)\n  120:     capacity = models.ForeignKey('Capacity', blank= False, null= False)\n  121  \n  122      notes = models.TextField(blank = True, null = True)\n  ...\n  124  \n  125      def __str__(self):\n  126:         return slugify2(str( self.artefact) +  '-' + str( self.capacity))\n  127  \n  128      class Meta:\n  129:         unique_together = ('artefact','capacity','smVersion')\n  130          app_label = 'rai01ref'\n  131  \n  ...\n  164  \n  165  \n  166: class ProjectCapacity(ProtoModelRai):\n  167  \n  168      projet = models.ForeignKey('Projet', blank= False, null= False)\n  169:     capacity = models.ForeignKey('Capacity', blank= False, null= False)\n  170  \n  171      notes = models.TextField(blank = True, null = True)\n  ...\n  173  \n  174      def __str__(self):\n  175:         return slugify2(str( self.projet) +  '-' + str( self.capacity))\n  176  \n  177      class Meta:\n  178:         unique_together = ('projet','capacity','smVersion')\n  179          app_label = 'rai01ref'\n  180  \n\n77 matches across 9 files\n\n\nSearching 196 files for \"doBPD\"\n\n/home/dario/PyDev3/softmach3/rai01ref/admin.py:\n   26  \n   27  \n   28: from .actions import doBPD\n   29  class MyArtefac( admin.ModelAdmin ):\n   30:     actions = [ doBPD  ]\n   31  \n   32  admin.site.register( Artefact, MyArtefac  )\n\n/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py:\n    9  \n   10  \n   11: def doBPD(modeladmin, request, queryset, parameters):\n   12      \"\"\" \n   13      Business Process Diagram  ( Artefact Based )\n\n/home/dario/PyDev3/softmach3/rai01ref/models/mRai.py:\n   17          \"jsonField\" : \"info\", \n   18          \"actions\": [\n   19:             { \"name\": \"doBPD\" , \"selectionMode\" : \"sinlge\" },\n   20          ],\n   21          \"gridConfig\" : {\n\n4 matches across 3 files\n",
 			"settings":
 			{
-				"buffer_size": 20758,
+				"buffer_size": 14363,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "rai01ref/actions/__init__.py",
+			"settings":
+			{
+				"buffer_size": 1927,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "protoLib/models/versions.py",
+			"file": "rai01ref/models/mRai.py",
 			"settings":
 			{
-				"buffer_size": 1325,
+				"buffer_size": 6153,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/documents.txt",
+			"settings":
+			{
+				"buffer_size": 2022,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -111,36 +137,48 @@
 	[
 		"/home/dario/PyDev3/softmach3",
 		"/home/dario/PyDev3/softmach3/datascripts",
-		"/home/dario/PyDev3/softmach3/db",
 		"/home/dario/PyDev3/softmach3/output",
-		"/home/dario/PyDev3/softmach3/protoBase",
-		"/home/dario/PyDev3/softmach3/protoDesigner",
-		"/home/dario/PyDev3/softmach3/protoExt",
-		"/home/dario/PyDev3/softmach3/protoExt/actions",
-		"/home/dario/PyDev3/softmach3/protoExt/views",
 		"/home/dario/PyDev3/softmach3/protoLib",
 		"/home/dario/PyDev3/softmach3/protoLib/models",
-		"/home/dario/PyDev3/softmach3/prototype",
-		"/home/dario/PyDev3/softmach3/prototype/admin",
 		"/home/dario/PyDev3/softmach3/rai01ref",
 		"/home/dario/PyDev3/softmach3/rai01ref/actions",
-		"/home/dario/PyDev3/softmach3/rai01ref/models"
+		"/home/dario/PyDev3/softmach3/rai01ref/models",
+		"/home/dario/PyDev3/softmach3/tmp"
 	],
 	"file_history":
 	[
-		"/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetSenquence.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/mRai.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/buildRaiMenu.py",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protolib.txt",
+		"/home/dario/PyDev3/softmach3/output/dario.gm_rai.dot",
+		"/home/dario/PyDev3/softmach3/output/dario.gm_prototype.dot",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals.txt",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai.txt",
+		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/protoContext.py",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protoLib/Versioning/doSetActiveVersion.txt",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/setContext.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoLib/admin/admVersion.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/versions.py",
+		"/home/dario/PyDev3/softmach3/prototype/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/prototype/models.py",
+		"/home/dario/PyDev3/softmach3/protoExt/meta/metaObjects.py",
+		"/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py",
+		"/home/dario/PyDev3/softmach3/protoLib/models/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoLib/models/versions.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/admin.py",
+		"/home/dario/PyDev3/softmach3/protoBase/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/__init__.py",
+		"/home/dario/Downloads/Deadpool 2016 CAM x264 - DeLUXAS/Deadpool 2016 HD-TS x264-CPG.srt",
+		"/home/dario/Downloads/Deadpool 2016 CAM x264 - DeLUXAS/Deadpool - Red Band Trailer [HD] - 20th Century FOX.srt",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetSenquence.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
 		"/home/dario/PyDev3/softmach3/protoLib/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/setContext.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
 		"/home/dario/PyDev3/softmach3/protoExt/models.py",
 		"/home/dario/PyDev3/softmach3/protoLib/getStuff.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionEdit.py",
@@ -148,11 +186,7 @@
 		"/home/dario/PyDev3/softmach3/protoExt/views/prototypeActions.py",
 		"/home/dario/PyDev3/softmach3/protoDesigner/protoDiagram.py",
 		"/home/dario/PyDev3/softmach3/protoDesigner/service/diagramJSONAssembler.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/meta/metaObjects.py",
-		"/home/dario/PyDev3/softmach3/protoExt/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoExt/meta/__init__.py",
-		"/home/dario/PyDev3/softmach3/prototype/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/prototype/admin/admproject.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py",
 		"/home/dario/PyDev3/softmach3/db/db-160201.sql",
@@ -209,8 +243,6 @@
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoGrid.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/smbase.py",
 		"/home/dario/PyDev3/softmach3/protoExt/urls.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py",
 		"/home/dario/PyDev3/softmach3/protoLib/tests/dataImporter.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/signals.py",
 		"/home/dario/PyDev3/softmach3/protoDesigner/protoDiagramEntity.py",
@@ -242,20 +274,7 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/FormController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDActionsController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/controller/DiagramController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/app.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/variables.js",
-		"/home/dario/DevExtJs6/ZVarios/sencha_extjs6_codigo/app01/app.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/Tools.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/configProperties.js",
-		"/home/dario/DevExtJs6/appsm/bootstrap.js",
-		"/home/dario/DevExtJs6/ZVarios/SM-Integra/Core/Apps/1/ROLADM/app.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/ConfigController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/GridSheetController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDDetailsController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDLinkController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDPrintOptsController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/UI/MDSetFiltersController.js"
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/app.js"
 	],
 	"find":
 	{
@@ -266,6 +285,9 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"*.py",
+			"*.py, *.js",
+			"*.py",
 			"*.py, *.js",
 			"*.py",
 			"*.js",
@@ -315,9 +337,54 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"doBPD",
+			"class",
+			"capacity",
+			"doctype",
+			"doBuildRaiMenu",
+			"doraimenu",
+			"doraimenu\nclass ",
+			"\nclass ",
+			"Prototype",
+			"Rai01Ref",
+			"ContextEntity",
+			"ContextVar",
+			"ContextUser",
+			"setContext",
+			"doSetContext",
+			"VersionAdm",
+			"ProtoVersionTitle",
+			"contextTo",
+			"VersionHeader",
+			"versionTitle",
+			"versionTitle ",
+			"versionBase",
+			"Version",
+			"doBuildRaiMenu",
+			"dorai",
+			"TODO",
+			"DGT",
+			"TODO",
+			"unicode",
+			"ra01ref",
+			"patch_admin",
+			"RaiVersionTitle",
+			"doCopyVersion",
+			"result",
+			"return _doDelVersion(result, queryset[0])",
+			"for entityName in VHeaders",
+			"}.{",
+			"\"deftModel\": \"prototype.project\"",
+			"prototype_",
+			"VersionTitle",
+			"VersionHeader",
+			"ProtoModelBase",
+			"ProtoVersion",
+			"        app_label = 'rai01ref'\n",
+			"property",
 			"getDjangoModel",
 			"VersionHeader",
 			"VersionTitle",
@@ -400,52 +467,7 @@
 			"UserContext",
 			"CustomDefinition",
 			"context2customdefinition",
-			"UserContext",
-			"ProtoUserManager",
-			"ProtoTeamManager",
-			"ProtoUserManager",
-			"isDefault",
-			"Protolib",
-			": booleanfield",
-			": textfield",
-			": charfield",
-			": textfield",
-			"responseText",
-			"_responseText",
-			"_reponseText",
-			"smVersion",
-			"\\.([0-9][0-9, ]+)",
-			"\\.[0-9][0-9, ]+",
-			"\\.[0-9]!%",
-			"]]",
-			"]], [",
-			"</sup>",
-			"<sup>",
-			"[javascript:void(0);|",
-			"<sup>",
-			"\n([0-9][0-9])\\.",
-			"\n([0-9])\\.",
-			"\n([0-9]).",
-			"\\.([0-9,–]+)",
-			"_responseText",
-			"myReponse.responseText",
-			"duplica",
-			"cpreg",
-			"copyre",
-			"masterRecord",
-			"modelName",
-			"data.model",
-			"model",
-			"store",
-			"zoomMultiReturn",
-			"zoommu",
-			"protoDel",
-			"_doSyncMasterStore",
-			"protoform",
-			"Rai01Ref",
-			"table_def = []",
-			"refEntity",
-			"rai00"
+			"UserContext"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -453,6 +475,18 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\n===== ",
+			"\n===== class ",
+			"",
+			"rai01ref",
+			"rai01ref.artefact",
+			"entitySet",
+			"},{",
+			"prototype.",
+			"prototype,",
+			"ProtoModelRai",
+			"RaiVersion",
+			"",
 			"getVersionDependency",
 			"doCopyVersion",
 			"cttArray",
@@ -568,82 +602,466 @@
 			"\\1 ",
 			" ",
 			"* \\1-",
-			"\n== QUESTION:",
-			"",
-			"\n* ",
-			"\" 		~/tmp",
-			"cp \"",
-			"\n== Q",
-			"\\1- ",
-			""
+			"\n== QUESTION:"
 		],
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"sheets":
-			[
-			]
-		},
-		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "prototype/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20758,
+						"buffer_size": 14363,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										221,
+										229
+									],
+									[
+										350,
+										358
+									],
+									[
+										471,
+										479
+									],
+									[
+										601,
+										609
+									],
+									[
+										695,
+										703
+									],
+									[
+										938,
+										946
+									],
+									[
+										1122,
+										1130
+									],
+									[
+										1321,
+										1329
+									],
+									[
+										1570,
+										1578
+									],
+									[
+										2039,
+										2047
+									],
+									[
+										2051,
+										2059
+									],
+									[
+										2369,
+										2377
+									],
+									[
+										2717,
+										2725
+									],
+									[
+										2759,
+										2767
+									],
+									[
+										2910,
+										2918
+									],
+									[
+										3113,
+										3121
+									],
+									[
+										3385,
+										3393
+									],
+									[
+										3658,
+										3666
+									],
+									[
+										3931,
+										3939
+									],
+									[
+										4203,
+										4211
+									],
+									[
+										4442,
+										4450
+									],
+									[
+										4679,
+										4687
+									],
+									[
+										4718,
+										4726
+									],
+									[
+										4815,
+										4823
+									],
+									[
+										4923,
+										4931
+									],
+									[
+										5188,
+										5196
+									],
+									[
+										5454,
+										5462
+									],
+									[
+										5720,
+										5728
+									],
+									[
+										6000,
+										6008
+									],
+									[
+										6036,
+										6044
+									],
+									[
+										6103,
+										6111
+									],
+									[
+										6208,
+										6216
+									],
+									[
+										6481,
+										6489
+									],
+									[
+										6755,
+										6763
+									],
+									[
+										7029,
+										7037
+									],
+									[
+										7313,
+										7321
+									],
+									[
+										7376,
+										7384
+									],
+									[
+										7551,
+										7559
+									],
+									[
+										7747,
+										7755
+									],
+									[
+										7812,
+										7820
+									],
+									[
+										8065,
+										8073
+									],
+									[
+										8225,
+										8233
+									],
+									[
+										8392,
+										8400
+									],
+									[
+										8629,
+										8637
+									],
+									[
+										8854,
+										8862
+									],
+									[
+										9086,
+										9094
+									],
+									[
+										9396,
+										9404
+									],
+									[
+										9461,
+										9469
+									],
+									[
+										9649,
+										9657
+									],
+									[
+										9857,
+										9865
+									],
+									[
+										9920,
+										9928
+									],
+									[
+										10193,
+										10201
+									],
+									[
+										10222,
+										10230
+									],
+									[
+										10343,
+										10351
+									],
+									[
+										10540,
+										10548
+									],
+									[
+										10724,
+										10732
+									],
+									[
+										10873,
+										10881
+									],
+									[
+										11045,
+										11053
+									],
+									[
+										11240,
+										11248
+									],
+									[
+										11463,
+										11471
+									],
+									[
+										11664,
+										11672
+									],
+									[
+										11872,
+										11880
+									],
+									[
+										12108,
+										12116
+									],
+									[
+										12259,
+										12267
+									],
+									[
+										12293,
+										12301
+									],
+									[
+										12323,
+										12331
+									],
+									[
+										12415,
+										12423
+									],
+									[
+										12501,
+										12509
+									],
+									[
+										12616,
+										12624
+									],
+									[
+										12646,
+										12654
+									],
+									[
+										12869,
+										12877
+									],
+									[
+										12957,
+										12965
+									],
+									[
+										13068,
+										13076
+									],
+									[
+										13187,
+										13195
+									],
+									[
+										13217,
+										13225
+									],
+									[
+										13438,
+										13446
+									],
+									[
+										13524,
+										13532
+									],
+									[
+										13747,
+										13752
+									],
+									[
+										13820,
+										13825
+									],
+									[
+										13975,
+										13980
+									],
+									[
+										14248,
+										14253
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								13978,
+								13978
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ 	].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 6156.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "rai01ref/actions/__init__.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1927,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1327,
-								1327
+								352,
+								352
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage",
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 432.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "rai01ref/models/mRai.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 6153,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 304.0,
+						"translation.y": 3402.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "protoLib/models/versions.py",
+					"buffer": 3,
+					"file": "/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/documents.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1325,
+						"buffer_size": 2022,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								226,
-								226
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -651,7 +1069,43 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -685,7 +1139,7 @@
 		"cols":
 		[
 			0.0,
-			0.513361462729,
+			0.855075223284,
 			1.0
 		],
 		"rows":
@@ -707,7 +1161,7 @@
 	"project": "Sm3.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 98.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -737,7 +1191,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
