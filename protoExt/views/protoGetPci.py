@@ -135,6 +135,11 @@ def getBasePci(cBase, readOnly = False  ):
         cBase.protoMeta = protoDef.metaDefinition
         cBase.protoMeta['viewCode'] = cBase.viewCode  
 
+
+#   Pci Style ( grid, tree )   
+    cBase.pciStyle = cBase.protoMeta.get( 'pciStyle', 'grid')
+
+
     return 
 
 

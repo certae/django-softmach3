@@ -207,8 +207,6 @@ def getQSet(cBase):
     cBase.fakeId = hasattr(cBase.model, '_fakeId')
     cBase.orderBy = []
 
-#   Pci Style ( grid, tree )   
-    cBase.pciStyle = cBase.protoMeta.get( 'pciStyle', 'grid')
 
 #   Tree Grid Filter
 #   El manejo de arboles en la grilla maneja un filtro para expandir lo nodos 
