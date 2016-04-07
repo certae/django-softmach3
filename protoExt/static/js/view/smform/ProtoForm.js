@@ -518,6 +518,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     onSave : function(){
 
+// DGT  
         var me = this, tmpAutoSync, form, lProduct, lBase, lRec, lZRet, ix, iz, ib;
         var modelName = _SM.getModelName(me.myMeta.viewCode)
 
@@ -541,6 +542,12 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
         // Si es nuevo
         if (me.myFormController.newForm) {
+
+
+            // DGT  TreeRecord 
+            // var rootNode = monPretree.getRootNode();
+            // rootNode.insertChild(4,task); 
+
 
             if (!me.zoomMultiReturn) {
                 me.store.add(me.masterRecord);
