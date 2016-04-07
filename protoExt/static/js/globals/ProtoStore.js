@@ -25,7 +25,7 @@ _SM = _SM || {};
 _SM.getStoreDefinition = function(stDef){
 
     var myStore = Ext.create(
-                    'Ext.data.Store',
+    'Ext.data.Store',  
                     {
                         viewCode : stDef.viewCode,
 
@@ -178,7 +178,7 @@ _SM.getStoreDefinition = function(stDef){
                                             }
 
                                         }
-                                        // En Delete
+                                        // End Delete
 
                                     }
 
@@ -290,25 +290,25 @@ _SM.getTreeStoreDefinition = function(stDef){
         autoSync : true,
 
         root : {
-            // text:'details',
             expanded : true
-        }
+        }, 
 
-    // listeners: {
-    // // Fires before a request is made for a new data object. ...
-    // beforeload: function( store, operation, eOpts ) {
-    // _SM.vp_StatusBar.showBusy( 'loading ..' + store.viewCode, 'beforeLoad' );
-    // },
-    // // Fired before a call to sync is executed. Return false from any listener to cancel the sync
-    // beforesync: function ( options, eOpts ) {
-    // _SM.vp_StatusBar.showBusy( 'sync ..' + this.viewCode, 'beforeSync' );
-    // },
-    // // Fires whenever the records in the Store have changed in some way - this could include
-    // adding or removing records, or ...
-    // datachanged: function( store, eOpts ) {
-    // _SM.vp_Main.controller.clearStatus( store.viewCode , 'dataChanged' );
-    // }
-    // }
+        listeners: {
+            // Fires before a request is made for a new data object. ...
+            beforeload: function( store, operation, eOpts ) {
+                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Loading + store.viewCode, 'beforeLoad');
+            },
+            // Fired before a call to sync is executed. Return false from any listener to cancel the sync
+            beforesync: function ( options, eOpts ) {
+                _SM.vp_StatusBar.showBusy(_SM.__language.StatusBar_Message_Sync + this.viewCode, 'beforeSync');
+            },
+
+            // Fires whenever the records in the Store have changed in some way - this could include adding or removing records, or ...
+            datachanged: function( store, eOpts ) {
+                _SM.vp_Main.controller.clearMainStatus(store.viewCode, 'dataChanged');
+
+            }
+        }
 
     });
 

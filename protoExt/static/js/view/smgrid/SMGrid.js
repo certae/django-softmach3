@@ -730,10 +730,19 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         }
         // if ( this.rowEditing ) { this.rowEditing.cancelEdit(); }
 
-        var rowIndex = this.getRowIndex();
-
+        var rowIndex = this.getRowIndex(), ix ;
         var sm = this._extGrid.getSelectionModel();
-        this.store.remove(sm.getSelection());
+        var records = sm.getSelection()
+
+        if ( this.myMeta.pciStyle == 'tree' ) {
+            for (ix in records  ) {
+                record = records[ix];
+                // record.remove(true);
+                record.parentNode.removeChild(record);
+            }
+        } 
+
+        this.store.remove( records );
 
         // this.grid.store.indexOf( this.selections.itemAt(0) );
         if (this.store.getCount() <= rowIndex)
