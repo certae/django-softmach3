@@ -108,6 +108,10 @@ def _protoEdit(request, myAction):
                 if key in ['id', '_ptStatus', '_ptId', '__str__']:
                     continue
 
+#               Tree Specific vars   
+                if key in ['leaf', 'parentId']:
+                    continue
+
                 vFld = fieldsDict[key]
                 if vFld.get('crudType') in ["screenOnly", "linked"]:
                     continue
