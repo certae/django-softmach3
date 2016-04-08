@@ -358,8 +358,8 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     setReadOnlyFields : function(bReadOnly, readOnlyFields){
         /*
-         * @bReadOnly indica q toda la forma es readOnly, podria servir para prender y apagar el
-         * readOnly FIX: Una mascara seria mejor
+         * @bReadOnly Toogle T/F 
+         * readOnly FIX: mask ? 
          */
 
         // var readOnlyCls = 'protofield-readonly'
@@ -549,7 +549,24 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
             // rootNode.insertChild(4,task); 
 
 
-            if (!me.zoomMultiReturn) {
+            if ( me.store.treeRef ) {
+                // TreeGrid 
+                var pNode; 
+
+                if ( me.myFormController.parentNode ) {
+
+                    pNode = me.myFormController.parentNode; 
+
+                } else {
+
+                    pNode = me.store.getRoot(); 
+
+                }
+
+                pNode.appendChild( me.masterRecord )
+
+
+            } else if (!me.zoomMultiReturn) {
                 me.store.add(me.masterRecord);
 
             } else {

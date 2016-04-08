@@ -128,6 +128,12 @@ Ext.define('Softmachine.view.smform.FormController', {
         me.newWindowLoad.call(me, me);
         me.myWin.show();
         me.myForm.setDetailsTilte();
+
+        if (  me.myStore &&  me.myStore.treeRef ) {
+            // TreeGrid 
+            me.myForm.setReadOnlyFields( true, [  me.myStore.treeRef.treeRefField ] )    
+        }
+
     },
 
     newProtoForm : function() {
@@ -215,17 +221,15 @@ Ext.define('Softmachine.view.smform.FormController', {
 
         var myRecord = _SM.getNewRecord(this.myMeta, myStore);
 
-        if ( this.myGrid.store.treeRef ) {
-            var treeRef = this.myGrid.store.treeRef; 
+        if ( myStore.treeRef ) {
+            var treeRef = myStore.treeRef; 
+            this.parentNode = treeRef.parentNode
 
-            // Parent Title 
-            var fld = myRecord[ treeRef.treeRefField ] 
-            fld['prpDefault'] = treeRef.parentNode[ '__str__' ];
-            fld['readOnly'] = true;
+            if ( treeRef.parentNode ) {
+                myRecord.data[ treeRef.treeRefField ] = treeRef.parentNode.data[ '__str__' ];
+                myRecord.data[ treeRef.treeRefField + '_id' ] = treeRef.parentNode.data[ 'id' ];
+            }
 
-            // Parent Title 
-            var fld = myRecord[ treeRef.treeRefField + '_id'] 
-            fld['prpDefault'] = treeRef.parentNode[ 'id' ];
         }
 
 

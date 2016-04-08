@@ -308,7 +308,27 @@ _SM.getTreeStoreDefinition = function(stDef){
                 _SM.vp_Main.controller.clearMainStatus(store.viewCode, 'dataChanged');
 
             }
-        }
+        }, 
+
+        myLoadData : function(myFilter, mySorter, myMasterId){
+            // Centraliza los llamados para refrescar la grilla
+
+            // Para la navegacion md
+            if (myMasterId) {
+                this.protoMasterId = myMasterId;
+            }
+
+            if (myFilter) {
+                this.clearFilter();
+                this.getProxy().extraParams.protoFilter = _SM.obj2tx(myFilter);
+                this.load();
+
+            } else if (mySorter) {
+                this.sort(mySorter);
+            }
+
+        },
+
 
     });
 

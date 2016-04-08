@@ -262,18 +262,26 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
             // DGT 1604  TreeEdition requires currentRecord Default ( addChild )
             if ( this.myMeta.pciStyle == 'tree' ) {
                 this.myGrid.store.treeRef =  null 
+                var pNode; 
 
                 // Selected reg 
                 if ( this.myGrid.rowData ) {
 
                     // TreeRef 
-                    var pNode = this.myGrid.rowData; 
-                    var treeRef = { 
-                        'treeRefField' :this.myMeta.treeRefField, 
-                        'parentNode' : pNode 
+                    var sm = this.myGrid._extGrid.getSelectionModel();
+                    pNode = sm.getSelection()[0]; 
+
+                    if ( ! pNode.isExpanded() ) {
+                        pNode.expand()
                     }
-                    this.myGrid.store.treeRef = treeRef;
+
                 }
+
+                var treeRef = { 
+                    'treeRefField' :this.myMeta.treeRefField, 
+                    'parentNode' : pNode 
+                }
+                this.myGrid.store.treeRef = treeRef;
 
             }
 
