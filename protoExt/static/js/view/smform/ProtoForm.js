@@ -468,7 +468,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
             }
         }
 
-        // activa los botones
+        // active buttons 
         if (me.idMaster >= 0 && (!me.isReadOnly)) {
             for (ixDet in me.cllBtDetails) {
                 lObj = me.cllBtDetails[ixDet];
@@ -518,7 +518,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
     onSave : function(){
 
-// DGT  
+// DGT 1604
         var me = this, tmpAutoSync, form, lProduct, lBase, lRec, lZRet, ix, iz, ib;
         var modelName = _SM.getModelName(me.myMeta.viewCode)
 

@@ -737,12 +737,15 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         if ( this.myMeta.pciStyle == 'tree' ) {
             for (ix in records  ) {
                 record = records[ix];
-                // record.remove(true);
                 record.parentNode.removeChild(record);
             }
-        } 
+    
+        } else {
 
-        this.store.remove( records );
+            this.store.remove( records );
+
+        }
+
 
         // this.grid.store.indexOf( this.selections.itemAt(0) );
         if (this.store.getCount() <= rowIndex)

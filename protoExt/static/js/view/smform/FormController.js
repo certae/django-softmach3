@@ -214,6 +214,21 @@ Ext.define('Softmachine.view.smform.FormController', {
         this.myStore = myStore;
 
         var myRecord = _SM.getNewRecord(this.myMeta, myStore);
+
+        if ( this.myGrid.store.treeRef ) {
+            var treeRef = this.myGrid.store.treeRef; 
+
+            // Parent Title 
+            var fld = myRecord[ treeRef.treeRefField ] 
+            fld['prpDefault'] = treeRef.parentNode[ '__str__' ];
+            fld['readOnly'] = true;
+
+            // Parent Title 
+            var fld = myRecord[ treeRef.treeRefField + '_id'] 
+            fld['prpDefault'] = treeRef.parentNode[ 'id' ];
+        }
+
+
         this.openForm(myRecord);
     },
 

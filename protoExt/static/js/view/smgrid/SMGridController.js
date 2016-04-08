@@ -258,6 +258,25 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
             // delayedTask.delay(1, null, null, [{form: this.formController, store:
             // this.myGrid.store}]);
 
+
+            // DGT 1604  TreeEdition requires currentRecord Default ( addChild )
+            if ( this.myMeta.pciStyle == 'tree' ) {
+                this.myGrid.store.treeRef =  null 
+
+                // Selected reg 
+                if ( this.myGrid.rowData ) {
+
+                    // TreeRef 
+                    var pNode = this.myGrid.rowData; 
+                    var treeRef = { 
+                        'treeRefField' :this.myMeta.treeRefField, 
+                        'parentNode' : pNode 
+                    }
+                    this.myGrid.store.treeRef = treeRef;
+                }
+
+            }
+
             this.formController.openNewForm(this.myGrid.store);
             break;
 
