@@ -6,7 +6,6 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
     extend : 'Ext.Toolbar',
     alias : 'widget.mainToolBar',
 
-
     requires : [
         'Softmachine.view.toolbar.SearchToolBar',
         'Softmachine.view.toolbar.MainToolBarController'
@@ -298,6 +297,11 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
     },
 
     addActions : function(){
+
+        if (this.__MasterDetail.myMeta.pciStyle == 'tree') {
+            var bt = this.getComponent('searchToolBar-id');
+            bt.hide() 
+        }
 
         // Permite agregar las acciones despues de haber configurado el MD
         // bt.protoEnable indica si el boton es valido en esta instancia
