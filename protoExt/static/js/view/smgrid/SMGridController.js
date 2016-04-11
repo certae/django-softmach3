@@ -134,24 +134,16 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
                 width : 20,
                 scope : this,
                 handler : this.onEditAction
-            // },{
-            // itemId: 'toolRowAdd',
-            // tooltip: _SM.__language.GridBtn_Ttip_Add_Row,
-            // type: 'rowAdd',
-            // hidden: true,
-            // width : 20,
-            // scope: this,
-            // handler: this.onEditAction
             },
-            {
-                itemId : 'toolRowCopy',
-                tooltip : _SM.__language.GridBtn_Ttip_Copy_Row,
-                type : 'rowCopy',
-                hidden : hideTool,
-                width : 20,
-                scope : this,
-                handler : this.onEditAction
-            },
+            // {
+            //     itemId : 'toolRowCopy',
+            //     tooltip : _SM.__language.GridBtn_Ttip_Copy_Row,
+            //     type : 'rowCopy',
+            //     hidden : hideTool,
+            //     width : 20,
+            //     scope : this,
+            //     handler : this.onEditAction
+            // },
             {
                 itemId : 'toolDiagramEdit',
                 tooltip : _SM.__language.GridBtn_Ttip_Edit_Diagram,
@@ -209,7 +201,7 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
 
         var me = this;
 
-        me.setToolMode('#toolRowCopy', bEdit && perms['add']);
+        // me.setToolMode('#toolRowCopy', bEdit && perms['add']);
         me.setToolMode('#toolFormAdd', bEdit && perms['add']);
         me.setToolMode('#toolFormUpd', bRef && perms['change']);
 
@@ -222,7 +214,6 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
         }
 
         // Dont Delete
-        // setToolMode ( myExtGrid, '#toolRowAdd', bEdit && perms['add'])
         // setToolMode ( myExtGrid, '#toolMetaConfig', !bEdit );
         // me.setToolMode('#toolFormView', !(bRef && perms['change'] ));
 
@@ -246,7 +237,7 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
 
         this.myGrid.fireStartEdition(btn.itemId);
 
-        // 'toolFormAdd', 'toolFormUpd', 'toolFormView', 'toolRowAdd', 'toolRowCopy', 'toolRowDel',
+        // 'toolFormAdd', 'toolFormUpd', 'toolFormView', 'toolRowCopy', 'toolRowDel',
         switch (btn.itemId) {
         case 'toolFormAdd':
 
@@ -320,9 +311,9 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
                 });
             }
             break;
-        case 'toolRowCopy':
-            this.myGrid.duplicateRecord();
-            break;
+        // case 'toolRowCopy':
+        //     this.myGrid.duplicateRecord();
+        //     break;
 
         case 'toolRowDel':
             var me = this;
