@@ -143,34 +143,32 @@ Ext.define('Softmachine.view.main.Main', {
                 },
                 '-',
 
-
-                {
-
-                    xtype : 'splitbutton',
-                    text : 'Versions',
-                    iconCls : 'icon-version',
-                    menu : new Ext.menu.Menu({
-                        items : [
-                            {
-                                text : 'Current Version',
-                            }, 
-                            {
-                                text : 'Change Version',
-                                reference : 'changeVersion', 
-                                listeners : {
-                                    click : 'doChangeVersion'
-                                }, 
-                            }, 
-                            {
-                                text : 'Create Version',
-                                reference : 'createVersion', 
-                                listeners : {
-                                    click : 'doCopyVersion'
-                                }, 
-                            }, 
-                        ]
-                    })
-                }, 
+                // {
+                //     xtype : 'splitbutton',
+                //     text : 'Versions',
+                //     iconCls : 'icon-version',
+                //     menu : new Ext.menu.Menu({
+                //         items : [
+                //             {
+                //                 text : 'Current Version',
+                //             }, 
+                //             {
+                //                 text : 'Change Version',
+                //                 reference : 'changeVersion', 
+                //                 listeners : {
+                //                     click : 'doChangeVersion'
+                //                 }, 
+                //             }, 
+                //             {
+                //                 text : 'Create Version',
+                //                 reference : 'createVersion', 
+                //                 listeners : {
+                //                     click : 'doCopyVersion'
+                //                 }, 
+                //             }, 
+                //         ]
+                //     })
+                // }, 
                 {
 
                     xtype : 'splitbutton',
