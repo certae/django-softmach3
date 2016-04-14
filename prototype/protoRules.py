@@ -10,7 +10,6 @@ ONDELETE_TYPES = (
     ) 
 
 
-
 BASE_TYPES = ( ( 'string', 'string' ),
                ( 'text', 'text' ),  
                ( 'bool', 'bool' ), 
@@ -24,11 +23,14 @@ BASE_TYPES = ( ( 'string', 'string' ),
                ( 'time', 'time' )
               ) 
 
+# crudType 
 CRUD_TYPES = (  
-                ('storeOnly', 'No se presentan nunca (los id, jsonTypes, etc )' ),  
-                ('readOnly',  'No se guarda nunca (usado por reglas de gestion)' ), 
-                ('insertOnly','No se actualiza (un campo absorbido al momento de la creacion, ej:direccion de envio'),
-                ('updateOnly','Al insertar nulo o VrDefault, (estado inicial fijo)'),  
+                ('editable', 'Default behavior' ),  
+                ('readOnly',  'Never saved (rules, functions, linked, ...)' ), 
+                ('insertOnly','Never updated (absorbed at the time of the creation field, eg shipping address'),
+                ('updateOnly','Adding null or VrDefault, (fixed initial state)'),  
+                ('storeOnly', 'Never show on screen (id, json Types, etc)' ),  
+                ('screenOnly', 'Calculated on the frontend' ),  
               ) 
 
 DB_ENGINE = (  

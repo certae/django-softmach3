@@ -113,7 +113,7 @@ def _protoEdit(request, myAction):
                     continue
 
                 vFld = fieldsDict[key]
-                if vFld.get('crudType') in ["screenOnly", "linked"]:
+                if vFld.get('crudType') in ["screenOnly", "readOnly" ]:
                     continue
 
                 #  Los campos de seguridad se manejan a nivel registro

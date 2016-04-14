@@ -268,11 +268,11 @@ META_PROPERTIES = {
     "paramType.help": "Tipo de dato del parametro",
     "paramType.choices": [ "", "string", "bool", "number"],
 
-    "cpFromField.help": "Copia el contenido de un campo en otro, en el caso de zooms o valores por defecto",
-    "cpFromZoom.help": "Campo q apunta al modelo referenciado ( no apunta al zoom pues varios campos pueden usar el mismo zoom )",
+    "cpFromField.help": "Copy the contents of a field in another, in the case of default or zooms",
+    "cpFromZoom.help": "Field pointing to the referenced model (no points to zoom as several fields can use the same zoom)",
 
-    "crudType.help": "Comportamiento del campo con la edicion en  Db",
-    "crudType.choices": [ "", "editable", "screenOnly", "storeOnly", "insertOnly", "updateOnly", "linked", "copied" ],
+    "crudType.help": "Field Behavior editing in Db",
+    "crudType.choices": [ "", "editable", "readOnly", "insertOnly", "updateOnly", "screenOnly", "storeOnly" ],
 
     "selectionMode.help": "En las acciones determina el tipo de seleccion en la grilla",
     "selectionMode.choices": [ "none", "single", "multiple" ], 
