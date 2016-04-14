@@ -516,6 +516,8 @@ class ProtoTable(ProtoModelBase):
 
     entity = models.ForeignKey(Entity, blank=False, null=False)
 
+    smVersion = models.ForeignKey('ProtoVersionTitle', blank=False, null=False, default=1)
+
     info = JSONField(default={})
     objects = ProtoJSONManager(json_fields=['info'])
 
