@@ -2,16 +2,17 @@
 
 META_OBJECTS = {
     
-    "versionMeta" : '14.0201', 
+    "versionMeta" : '16.0401', 
 
     "pcl" : {
         "description" : "Meta definition",
         "properties" : [
-            "viewCode", "viewEntity", "viewIcon", "description", "shortTitle", 
+            "pciStyle", "viewCode", "viewEntity", "viewIcon", "description", "shortTitle", 
             "localSort", "pageSize", 
-            "sheetSelector", "pciStyle", "helpPath", "idProperty", 
+            "sheetSelector", "helpPath", "idProperty", 
             "jsonField", "returnField", "updateTime", 
-            "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciStyle", "treeRefField"
+            "metaVersion", "userVersion", "protoEntity", "protoEntityId", "treeRefField", 
+            "denyCopyRow"
             ],
         "roProperties" : ["viewEntity", "idProperty", "updateTime", "metaVersion", "protoEntity", "protoEntityId"],
         "objects" : ["gridConfig", "gridSets", "formConfig", "custom", "businessRules"],

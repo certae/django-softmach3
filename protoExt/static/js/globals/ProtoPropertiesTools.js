@@ -461,11 +461,11 @@ _SM._MetaObjects = {
     "pcl" : {
         "description" : "Meta definition",
         "properties" : [
-                "viewCode", "viewEntity", "viewIcon", "description", "shortTitle", 
+                "pciStyle", "viewCode", "viewEntity", "viewIcon", "description", "shortTitle", 
                 "localSort", "pageSize", 
-                "sheetSelector", "pciStyle", "helpPath", "idProperty", 
+                "sheetSelector", "helpPath", "idProperty", 
                 "jsonField", "returnField", "updateTime", 
-                "metaVersion", "userVersion", "protoEntity", "protoEntityId", "pciStyle", "treeRefField"
+                "metaVersion", "userVersion", "protoEntity", "protoEntityId", "treeRefField"
                 ],
         "objects" : ["gridConfig", "gridSets", "formConfig", "usrDefProps", "custom", "businessRules"],
         "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig"],

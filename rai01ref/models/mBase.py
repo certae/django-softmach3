@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 from django.db import models
 from protoLib.models import ProtoModelBase
 from prototype.protoRules import BASE_TYPES, CRUD_TYPES, docProperty2Field

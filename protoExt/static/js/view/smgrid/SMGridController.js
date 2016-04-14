@@ -135,15 +135,15 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
                 scope : this,
                 handler : this.onEditAction
             },
-            // {
-            //     itemId : 'toolRowCopy',
-            //     tooltip : _SM.__language.GridBtn_Ttip_Copy_Row,
-            //     type : 'rowCopy',
-            //     hidden : hideTool,
-            //     width : 20,
-            //     scope : this,
-            //     handler : this.onEditAction
-            // },
+            {
+                itemId : 'toolRowCopy',
+                tooltip : _SM.__language.GridBtn_Ttip_Copy_Row,
+                type : 'rowCopy',
+                hidden : hideTool,
+                width : 20,
+                scope : this,
+                handler : this.onEditAction
+            },
             {
                 itemId : 'toolDiagramEdit',
                 tooltip : _SM.__language.GridBtn_Ttip_Edit_Diagram,
@@ -201,22 +201,22 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
 
         var me = this;
 
-        // me.setToolMode('#toolRowCopy', bEdit && perms['add']);
         me.setToolMode('#toolFormAdd', bEdit && perms['add']);
         me.setToolMode('#toolFormUpd', bRef && perms['change']);
 
         me.setToolMode('#toolRowDel', bRef && perms['delete']);
 
-        if (me.myMeta.viewCode === "prototype.Project"
-                || me.myMeta.viewCode === "prototype.Diagram")
-        {
+        if (me.myMeta.viewCode === "prototype.Project" || me.myMeta.viewCode === "prototype.Diagram") {
             me.setToolMode('#toolDiagramEdit', bRef && perms['add']);
         }
 
-        // Dont Delete
-        // setToolMode ( myExtGrid, '#toolMetaConfig', !bEdit );
-        // me.setToolMode('#toolFormView', !(bRef && perms['change'] ));
+        // DGT 
+        var allowCopyRow = ( ! me.myMeta.denyCopyRow  ) && perms['add'] && bEdit; 
+        me.setToolMode('#toolRowCopy', allowCopyRow );
 
+        // Dont Delete
+        // me.setToolMode('#toolMetaConfig', myExtGrid,  !bEdit );
+        // me.setToolMode('#toolFormView', !(bRef && perms['change'] ));
     },
 
     // --------------------------------------------------------------------------
@@ -311,9 +311,15 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
                 });
             }
             break;
-        // case 'toolRowCopy':
-        //     this.myGrid.duplicateRecord();
-        //     break;
+
+        case 'toolRowCopy':
+            if ( this.myMeta.pciStyle == 'tree' ) {
+                this.copyTreeRecord();    
+            } else {
+                this.myGrid.duplicateRecord();
+            }
+            
+            break;
 
         case 'toolRowDel':
             var me = this;
@@ -332,6 +338,12 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
         // Ext.Ajax.on('requestcomplete',Ext.getBody().unmask ,Ext.getBody());
         // Ext.Ajax.on('requestexception', Ext.getBody().unmask , Ext.getBody());
         // }
+    },
+
+    copyTreeRecord : function(){
+        // [] configura y abre el zoom
+        // [] crea la copia del registro, se asegura de marcar la proveniencia 
+        var a =0; 
     },
 
 });
