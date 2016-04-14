@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import DocAttribute, DocType, Domain, Artefact, Source, Requirement, Capacity
+from .models import DocAttribute, DocType, Artefact, Source, Requirement, Capacity
 from .models import Projet
 from reversion.helpers import patch_admin
 # from .models import ArtefactCapacity, ArtefactComposition, ArtefactRequirement, ArtefactSource 
@@ -8,8 +8,6 @@ from reversion.helpers import patch_admin
 
 
 admin.site.register( DocAttribute )
-admin.site.register( Domain )
-
 admin.site.register( Requirement )
 admin.site.register( Capacity )
 admin.site.register( Source )
@@ -38,12 +36,4 @@ class MyDocType( admin.ModelAdmin ):
 
 admin.site.register( DocType, MyDocType )
 
-
-
-
-from rai01ref.models.mBase import RaiVersionTitle
-from protoLib.admin.admVersion import VersionAdm
-  
-admin.site.register( RaiVersionTitle, VersionAdm  )
-patch_admin(RaiVersionTitle)
 

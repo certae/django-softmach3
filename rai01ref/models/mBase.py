@@ -7,15 +7,13 @@ from prototype.protoRules import BASE_TYPES, CRUD_TYPES, docProperty2Field
 from protoExt.utils.utilsConvert import slugify2
 from jsonfield2.fields import JSONField
 from protoLib.models.protomanager import JSONAwareManager
-from protoLib.models.versions import VersionTitle
 
 
 """ 
-    The document type are :  'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
+The document type are :  'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
 """
 
 DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
-
 
 
 
