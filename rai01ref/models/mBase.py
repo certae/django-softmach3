@@ -165,10 +165,19 @@ class DocModel(ProtoModelBase):
 
     @staticmethod
     def getJfields( idType ):
-        """ Busca los campos y el titulo para completar el modelo 
+        """ 
+        Necessary for buid pci after doRaiMenu
+        Search fields and the title to complete the model
         """ 
 
-        fDict = {}
+        fDict = {
+            'fullPath': {
+                'name': 'fullPath', 
+                'type': 'string', 
+                'readOnly': True, 
+                'crudType': 'readOnly'
+            }        
+        }
 
         try: 
             docType = DocType.objects.get( pk = idType )
@@ -183,5 +192,5 @@ class DocModel(ProtoModelBase):
             fCode =  slugify2( pProperty.code ) 
             fDict[ 'info__' + fCode  ] = docProperty2Field( fCode, pProperty.__dict__ , 'info'  )
 
-        """Retorna los campos y el titulo"""
+
         return fDict, docType.dtype 
