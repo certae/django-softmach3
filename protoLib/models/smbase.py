@@ -16,8 +16,8 @@ class TeamHierarchy(models.Model):
     """
     code = models.CharField(unique=True, blank=False, null=False, max_length=200)
     description = models.TextField(verbose_name=u'Descriptions', blank=True, null=True)
-    parentNode = models.ForeignKey('TeamHierarchy', blank=True, null=True , related_name='downHierachy')
     site = models.IntegerField(blank=True, null=True)
+    parentNode = models.ForeignKey('TeamHierarchy', blank=True, null=True , related_name='downHierachy')
 
     @property
     def fullPath(self):

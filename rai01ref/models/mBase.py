@@ -18,98 +18,10 @@ DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
 
 
 
-class RaiVersionTitle(VersionTitle):
 
-    versionHeaders = [ 
-        "rai01ref.artefact",
-        "rai01ref.artefactcapacity",
-        "rai01ref.artefactcomposition",
-        "rai01ref.artefactrequirement",
-        "rai01ref.artefactsource",
-        "rai01ref.capacity",
-        "rai01ref.docattribute",
-        "rai01ref.doctype",
-        "rai01ref.domain",
-        "rai01ref.projectartefact",
-        "rai01ref.projectcapacity",
-        "rai01ref.projectrequirement",
-        "rai01ref.requirement",
-        "rai01ref.source",
-         ]
-
-    versionExclude = [ 
-        "rai01ref.projet", 
-        ]
-
-
-    protoExt = {
-        "gridConfig": {
-            "listDisplay": ["__str__", "description", "smCreatedBy"]
-        }, 
-        "actions": [
-            { "name": "doCopyVersion", "selectionMode" : "single"}, 
-            { "name": "doDeleteVersion", "selectionMode" : "single"}, 
-        ],
-        "contextTo": [{
-            "deftModel": "rai01ref.domain",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.artefact",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.artefactcapacity",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.artefactcomposition",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.artefactrequirement",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.artefactsource",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.capacity",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.projectartefact",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.projectcapacity",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.projectrequirement",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.requirement",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.source",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.doctype",
-            "deftField": "smVersion_id",
-            },{
-            "deftModel": "rai01ref.docattribute",
-            "deftField": "smVersion_id",
-        }],
-    }
-
-
-
-class ProtoModelRai(ProtoModelBase):
-    """ Versioning model """ 
-
-    smVersion = models.ForeignKey('RaiVersionTitle', blank=False, null=False, default=1)
-
-    class Meta:
-        app_label = 'rai01ref'
-        abstract = True
-
-
-class DocType(ProtoModelRai):
+class DocType(ProtoModelBase):
     """ 
-    Definicion de los tipos segun las 3 categorias ( capacidades, artefactos, exigencias )
+    Type definition for 3 categories : capacities, artefacts, requiremtns 
     DGT: 1504 El manejo jerarquico podria ser determinado en el tipo 
         - allowHierarchy,  
         - childTypes  [ lista de tipos permitidos en los hijos ] 
@@ -127,7 +39,7 @@ class DocType(ProtoModelRai):
 
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ('document', 'dtype','smVersion')
+        unique_together = ('document', 'dtype')
 
 
     protoExt = {
@@ -164,7 +76,7 @@ class DocType(ProtoModelRai):
 
 
 
-class DocAttribute(ProtoModelRai):
+class DocAttribute(ProtoModelBase):
     """ 
     Propiedades segun cada tipo de documento 
     DGT: 1504 Si manejara relaciones, podria encadenar diferentes tipos de artefacto 
@@ -198,7 +110,7 @@ class DocAttribute(ProtoModelRai):
 
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ('docType', 'code','smVersion' )
+        unique_together = ('docType', 'code' )
 
     def __str__(self):
         return slugify2( str( self.docType ) + '-' + self.code)      
@@ -212,42 +124,33 @@ class DocAttribute(ProtoModelRai):
     }
 
 
-class Domain(ProtoModelRai):
-    code = models.CharField(blank= False, null= False, max_length= 200)
-    description = models.TextField(blank = True, null = True)
-
-    class Meta:
-        app_label = 'rai01ref'
-        unique_together = ( 'code', 'smVersion' )
-
-    def __str__(self):
-        return slugify2( self.code)      
-
-    unicode_sort = ('code', )
 
 
 
-""" 
-Tabla de base para los diferentes tipos de documentos de rai00base,  las instancias 
-tendran cada una su propia tabla q heredara de esta, 
-La llamada al menu se hara con el la tabla se hara con :type, este parametro ira 
-a la seleccion de la tabla,  para la definicion del modelo se buscaran los campos q corresponden 
-a la definicion del tipo  
-"""
+class DocModel(ProtoModelBase):
+    """ 
+    Base table for different types of documents rai00base, instances will each have their own table to inherit this,
+    Calling the menu will be made in the table will be made with: type, this parameter will serve to the selection table for the definition of the model fields that correspond to the definition of the type be sought
 
-class DocModel(ProtoModelRai):
+    Tabla de base para los diferentes tipos de documentos de rai00base,  las instancias tendran cada una su propia tabla q heredara de esta,
+    La llamada al menu se hara con el la tabla se hara con :type, este parametro ira a la seleccion de la tabla,  para la definicion del modelo se buscaran los campos q corresponden a la definicion del tipo
+    """
 
     """El docType_id determina el grupo ( filtro y valor por defecto )"""
     docType = models.ForeignKey('DocType', blank=True, null=True, related_name = '+')
 
     code = models.CharField( max_length=200, null=False, blank=False)
-    domain  = models.ForeignKey('Domain', blank= True, null= True, related_name = '+') 
-
     description = models.TextField(blank = True, null = True)
 
-    """ Guarda la definicion de campos leida de RaiAttribute """
+
+    """ UDP Implementation """
     info = JSONField(default={})
     objects = JSONAwareManager(json_fields=['info'])
+
+
+    @property
+    def iconCls(self):
+        return 'rai_{}'.format( self.docType ) 
 
 
     # User Defined Document 
@@ -256,13 +159,11 @@ class DocModel(ProtoModelRai):
 
 
     def __str__(self):
-        return slugify2( self.docType.dtype + '-' + self.code )  
-
+        return slugify2( self.code )  
 
     class Meta:
         app_label = 'rai01ref'
         abstract = True
-        unique_together = ('docType','code','smVersion' )
 
     @staticmethod
     def getJfields( idType ):
