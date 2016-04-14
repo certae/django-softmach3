@@ -69,8 +69,8 @@ def protoWiki(request):
 
 def _doWikiFile(cBase, cRep,  reg ):
     """
-    nameSpace     prefix, Campo ; prefix, Campo  
-    pageExpr      prefix, Campo
+    nameSpace     prefix, Field ; prefix, Field  
+    pageExpr      prefix, Field
     """
     
     myPath = cRep.wikiPath
@@ -112,7 +112,7 @@ def _joinNSpace(nSpace, preFix):
 
 def _getRelNameSpace( relPath, reg ):
     """ 
-    Construye el relPath basado en un prefijo y el vr de un campo
+    Construye el relPath basado en un prefijo y el vr de un Field
     """
     preFix, preVar =  relPath.replace(' ','').split( ',' )
     if len( preVar ):

@@ -1,4 +1,5 @@
-{% load prototags %}{% block content %}
+{% load prototags %}
+{% block content %}
 ======= entity : {{ entity.code|capfirst }} =======
 {{ entity.description|default:".. description" }}
 
