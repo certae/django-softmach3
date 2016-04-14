@@ -74,7 +74,8 @@ Ext.define('ProtoUL.proto.view.ProtoFieldSelector', {
                         return;
                     }
                     elemTree.addUdpField({
-                        'name' : 'smInfo__' + pName,
+                        // 'name' : 'smInfo__' + pName,
+                        'name' :  pName,
                         'checked' : false
                     });
 

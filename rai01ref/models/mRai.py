@@ -3,7 +3,8 @@
 from django.db import models
 from protoExt.utils.utilsConvert import slugify2
 from protoLib.models.protomodel import ProtoModelBase
-from rai01ref.models.mBase import DocModel, Domain , ProtoModelRai
+from rai01ref.models.mBase import DocModel
+from protoLib.models.smbase import getNodeHierarchy
 
 
 class Artefact(DocModel):
@@ -12,7 +13,7 @@ class Artefact(DocModel):
 
     @property
     def fullPath(self):
-        return getNodeHierarchy(self , 'refArtefact', 'id', 'fullPath')
+        return getNodeHierarchy(self , 'refArtefact', 'code', 'fullPath')
 
     # siempre sera un filtro de dos niveles, documento y tipo, 
     # la tabla de documento define el valor del documento, el tipo viene en el menu 
@@ -38,7 +39,7 @@ class Capacity(DocModel):
 
     @property
     def fullPath(self):
-        return getNodeHierarchy(self , 'refCapacity', 'id', 'fullPath')
+        return getNodeHierarchy(self , 'refCapacity', 'code', 'fullPath')
 
 
     _jDefValueDoc  = 'CAPACITY'
@@ -59,7 +60,7 @@ class Requirement(DocModel):
 
     @property
     def fullPath(self):
-        return getNodeHierarchy(self , 'refRequirement', 'id', 'fullPath')
+        return getNodeHierarchy(self , 'refRequirement', 'code', 'fullPath')
 
 
     _jDefValueDoc  = 'REQUIREMENT'
@@ -201,7 +202,6 @@ class Source(ProtoModelBase):
 
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ('code')
 
 
 class ArtefactSource(ProtoModelBase):
