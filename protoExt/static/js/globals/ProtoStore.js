@@ -387,6 +387,47 @@ _SM.smFields = _SM.objConv([
     'smInfo'
 ])
 
+
+_SM.copyFromRecord = function(myMeta, myStore, recBase ){
+    // Copia los campos no adminitrativos de un registro 
+
+    function copyFields(){
+
+        var vDefault = {}, ix, vFld;
+
+        for (ix in myMeta.fields) {
+            vFld = myMeta.fields[ix];
+
+            // jsonField copy 
+            if (myMeta.jsonField == vFld.name) {
+                vDefault[vFld.name] = recBase.data[vFld.name];
+                continue; 
+            }
+
+            // copyFrom 
+            if (vFld.name == 'copyFrom_id') {
+                vDefault[vFld.name] = recBase.data['id'];
+                continue; 
+            }
+
+            if (vFld.name in _SM.smFields) {
+                continue; 
+            }
+
+            vDefault[vFld.name] = recBase.data[vFld.name];
+        }
+        return vDefault;
+    }
+
+    var myRecord = new myStore.model(copyFields());
+
+    // Lo asocia al store
+    myRecord.store = myStore;
+    return myRecord;
+
+};
+
+
 _SM.IsAdmField = function(vFld, myMeta){
 
     // Oculta las llaves de zooms
@@ -399,7 +440,7 @@ _SM.IsAdmField = function(vFld, myMeta){
         return true;
     }
 
-    // 'smOwningUser','smOwningTeam', 'smModifiedOn',
+    // 'smOwningUser','smOwningTeam', 'smModifiedOn', ...
     if (vFld.name in _SM.smFields) {
         return true;
     }
@@ -1235,3 +1276,26 @@ _SM.getDetailDefinition = function(myMeta, viewCode){
     return {};
 
 };
+
+_SM._doSyncMasterStore = function( store ){
+
+    store.sync({
+        success : function(result, request){
+            var myResult, myReponse = result.operations[0].response; 
+
+            // fix _responseText some times ??
+            if ( myReponse && myReponse.responseText ) { myResult = myReponse.responseText }
+            if ( myReponse && myReponse._responseText ) { myResult = myReponse._responseText }
+
+            if ( myResult ) {
+                myResult = Ext.decode( myResult );
+                _SM.errorMessage(_SM.__language.Msg_Error_Save_Form, myResult.message);
+            }
+            // else { me.fireEvent('close', me );}
+        },
+        failure : function(result, request){
+            _SM.errorMessage(_SM.__language.Msg_Error_Save_Form, _SM.__language.Msg_Failed_Operation);
+        }
+
+    });
+}; 

@@ -477,28 +477,6 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         }
     },
 
-    _doSyncMasterStore : function(){
-        this.store.sync({
-            success : function(result, request){
-                var myResult, myReponse = result.operations[0].response; 
-
-                // fix _responseText some times ??
-                if ( myReponse && myReponse.responseText ) { myResult = myReponse.responseText }
-                if ( myReponse && myReponse._responseText ) { myResult = myReponse._responseText }
-
-                if ( myResult ) {
-                    myResult = Ext.decode( myResult );
-                    _SM.errorMessage(_SM.__language.Msg_Error_Save_Form, myResult.message);
-                }
-                // else { me.fireEvent('close', me );}
-            },
-            failure : function(result, request){
-                _SM.errorMessage(_SM.__language.Msg_Error_Save_Form,
-                        _SM.__language.Msg_Failed_Operation);
-            }
-
-        });
-    },
 
     onSaveDet : function(){
         /*
@@ -607,7 +585,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
         // DGT: Esto deberia ser parametrizado; la version actual maneja autosync = true
         if (me.store.autoSync !== true) {
-            me._doSyncMasterStore();
+            _SM._doSyncMasterStore( me.store );
         }
 
         // me.store.resumeEvents();

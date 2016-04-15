@@ -239,6 +239,13 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
 
         // 'toolFormAdd', 'toolFormUpd', 'toolFormView', 'toolRowCopy', 'toolRowDel',
         switch (btn.itemId) {
+
+        case 'toolRowDel':
+            var me = this;
+            Ext.MessageBox.confirm(_SM.__language.Title_Msg_Confirm_Delete,
+                    _SM.__language.Msg_Confirm_Delete_Operation, doDelete);
+            break;
+
         case 'toolFormAdd':
 
             // TODO: FIX: Add Mask to form load ( is not the right place )
@@ -317,15 +324,10 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
                 this.copyTreeRecord();    
             } else {
                 this.myGrid.duplicateRecord();
-            }
+            }; 
             
             break;
 
-        case 'toolRowDel':
-            var me = this;
-            Ext.MessageBox.confirm(_SM.__language.Title_Msg_Confirm_Delete,
-                    _SM.__language.Msg_Confirm_Delete_Operation, doDelete);
-            break;
         }
 
         // Dont delete mask load ( form preview with mask?? )

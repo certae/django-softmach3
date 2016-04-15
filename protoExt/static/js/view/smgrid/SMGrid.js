@@ -682,12 +682,25 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         me._extGrid.setTitle(gridTitle);
     },
 
-    addNewRecord: function(zoomForm) {
-        if (!(this.editable || zoomForm )) {
-            return;
-        }
-        this.insertNewRecord(_SM.getNewRecord(this.myMeta, this.store));
-    },
+    // addNewRecord: function(zoomForm) {
+    //     if (!(this.editable || zoomForm )) {
+    //         return;
+    //     }
+    //     this.insertNewRecord(_SM.getNewRecord(this.myMeta, this.store));
+    // },
+
+    // insertNewRecord: function(rec) {
+
+    //     rec.data._ptStatus = _SM._ROW_ST.NEWROW;
+    //     rec.data._ptId = rec.get('id');
+    //     rec.data.id = undefined;
+    //     rec.phantom = true;
+    //     this.store.insert(0, rec);
+
+    //     // Selecciona el registro adicionado
+    //     var sm = this._extGrid.getSelectionModel();
+    //     sm.select(0);
+    // },
 
     duplicateRecord: function() {
         if ((!this._extGrid ) || (!this.editable )) {
@@ -695,22 +708,15 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
         }
 
         var rec = this.selected;
-        if (rec) {
-            this.insertNewRecord(rec.copy());
+        var nRec = _SM.copyFromRecord(this.myMeta, this.store, rec ); 
+
+        this.store.add( nRec );
+
+        if ( ! this.store.autoSync  ) {
+            _SM._doSyncMasterStore( this.store );
         }
-    },
 
-    insertNewRecord: function(rec) {
 
-        rec.data._ptStatus = _SM._ROW_ST.NEWROW;
-        rec.data._ptId = rec.get('id');
-        rec.data.id = undefined;
-        rec.phantom = true;
-        this.store.insert(0, rec);
-
-        // Selecciona el registro adicionado
-        var sm = this._extGrid.getSelectionModel();
-        sm.select(0);
     },
 
     getRowIndex: function() {
