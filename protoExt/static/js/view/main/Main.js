@@ -162,9 +162,8 @@ Ext.define('Softmachine.view.main.Main', {
 
                 // Zoom generico para lanzar en copia treeGrid 
                 {
-                    itemId : 'tbZoom',
-                    name : 'viewCode',
-                    xtype : "protoZoom",
+                    xtype : 'protoZoom',
+                    id : 'toolZoom',
                     hidden : true,
                 }, 
 
