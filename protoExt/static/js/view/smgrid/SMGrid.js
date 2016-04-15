@@ -702,22 +702,6 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
     //     sm.select(0);
     // },
 
-    duplicateRecord: function() {
-        if ((!this._extGrid ) || (!this.editable )) {
-            return;
-        }
-
-        var rec = this.selected;
-        var nRec = _SM.copyFromRecord(this.myMeta, this.store, rec ); 
-
-        this.store.add( nRec );
-
-        if ( ! this.store.autoSync  ) {
-            _SM._doSyncMasterStore( this.store );
-        }
-
-
-    },
 
     getRowIndex: function() {
 

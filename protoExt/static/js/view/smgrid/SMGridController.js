@@ -259,27 +259,30 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
 
             // DGT 1604  TreeEdition requires currentRecord Default ( addChild )
             if ( this.myMeta.pciStyle == 'tree' ) {
-                this.myGrid.store.treeRef =  null 
-                var pNode; 
+                this.setTreeRef(); 
 
-                // Selected reg 
-                if ( this.myGrid.rowData ) {
+                // [] Borrar despues de probar 
+                // this.myGrid.store.treeRef =  null 
+                // var pNode; 
 
-                    // TreeRef 
-                    var sm = this.myGrid._extGrid.getSelectionModel();
-                    pNode = sm.getSelection()[0]; 
+                // // Selected reg 
+                // if ( this.myGrid.rowData ) {
 
-                    if ( ! pNode.isExpanded() ) {
-                        pNode.expand()
-                    }
+                //     // TreeRef 
+                //     var sm = this.myGrid._extGrid.getSelectionModel();
+                //     pNode = sm.getSelection()[0]; 
 
-                }
+                //     if ( ! pNode.isExpanded() ) {
+                //         pNode.expand()
+                //     }
 
-                var treeRef = { 
-                    'treeRefField' :this.myMeta.treeRefField, 
-                    'parentNode' : pNode 
-                }
-                this.myGrid.store.treeRef = treeRef;
+                // }
+
+                // var treeRef = { 
+                //     'treeRefField' :this.myMeta.treeRefField, 
+                //     'parentNode' : pNode 
+                // }
+                // this.myGrid.store.treeRef = treeRef;
 
             }
 
@@ -320,10 +323,14 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
             break;
 
         case 'toolRowCopy':
+            if ((!this.myGrid._extGrid ) || (!this.myGrid.editable )) {
+                return;
+            }
+
             if ( this.myMeta.pciStyle == 'tree' ) {
                 this.copyTreeRecord();    
             } else {
-                this.myGrid.duplicateRecord();
+                this.duplicateRecord();
             }; 
             
             break;
@@ -342,10 +349,54 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
         // }
     },
 
+    setTreeRef : function(){
+        // Guarda en el store la informacion del nodo padre
+
+        this.myGrid.store.treeRef =  null 
+        var pNode; 
+
+        // Selected reg 
+        if ( this.myGrid.rowData ) {
+
+            // TreeRef 
+            var sm = this.myGrid._extGrid.getSelectionModel();
+            pNode = sm.getSelection()[0]; 
+
+            if ( ! pNode.isExpanded() ) {
+                pNode.expand()
+            }
+
+        }
+
+        var treeRef = { 
+            'treeRefField' :this.myMeta.treeRefField, 
+            'parentNode' : pNode 
+        }
+        this.myGrid.store.treeRef = treeRef;
+
+
+    },
+
     copyTreeRecord : function(){
-        // [] configura y abre el zoom
-        // [] crea la copia del registro, se asegura de marcar la proveniencia 
-        var a =0; 
+
+        if ( this.myMeta.pciStyle == 'tree' ) {
+
+        }
+
+
+    },
+
+    duplicateRecord: function() {
+
+        var rec = this.myGrid.selected;
+        var nRec = _SM.copyFromRecord(this.myMeta, this.myGrid.store, rec ); 
+
+        this.myGrid.store.add( nRec );
+
+        if ( ! this.myGrid.store.autoSync  ) {
+            _SM._doSyncMasterStore( this.myGrid.store );
+        }
+
     },
 
 });
