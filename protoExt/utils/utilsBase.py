@@ -109,7 +109,8 @@ def random_string_generator(size=6, chars=None):
     return ''.join(random.choice(chars) for x in range(size))  # @UnusedVariable
 
 
-def verifyList(obj, defList = []):
+def verifyList(obj, defList = None):
+#   obj [ list, str, tuple ] 
 #   Los objetos del admin son en su mayoria del tipo tuple,
 #   Es necesario convertirlos a listas por facilidad de trabajo
     if isinstance( obj , six.string_types ):
@@ -120,13 +121,13 @@ def verifyList(obj, defList = []):
     elif isinstance( obj, tuple  ):
         obj = list( obj )
 
-    if isinstance( obj, list ):
-        if  len( obj ) == 0 :
-            obj  = defList
-        return obj
+    if not isinstance( obj, list ):
+        obj = []
 
-    else:
-        return []
+    if defList is not None and len( obj ) == 0 :
+        return defList
+
+    return obj 
 
 def verifyStr( vrBase , vrDefault ):
     sAux = vrBase or vrDefault
