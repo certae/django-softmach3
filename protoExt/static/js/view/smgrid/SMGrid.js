@@ -234,7 +234,7 @@ Ext.define('Softmachine.view.smgrid.SMGrid', {
                                         myMeta: me.myMeta
                                     });
 
-                                    // if (_SM.validaSelected( me )) {
+                                    if ( ! record.store ) { record.store = me.store } 
                                     formController.openLinkedForm.call(formController, record, !me.editable);
 
                                 } else {

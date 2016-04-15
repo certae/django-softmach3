@@ -291,13 +291,17 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
 
         case 'toolFormUpd':
             if (_SM.validaSelected(this.myGrid)) {
-                this.formController.openLinkedForm(this.myGrid.selected);
+                var record = this.myGrid.selected; 
+                if ( ! record.store ) { record.store = this.myGrid.store } 
+                this.formController.openLinkedForm( record );
             }
             break;
 
         case 'toolFormView':
             if (_SM.validaSelected(this.myGrid)) {
-                this.formController.openLinkedForm(this.myGrid.selected, true);
+                var record = this.myGrid.selected; 
+                if ( ! record.store ) { record.store = this.myGrid.store } 
+                this.formController.openLinkedForm(record, true);
             }
             break;
 
@@ -379,9 +383,10 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
 
     copyTreeRecord : function(){
 
-        if ( this.myMeta.pciStyle == 'tree' ) {
+        // Obtiene y configura el zoom 
+        var zoom = Ext.getCmp( 'toolZoom'); 
 
-        }
+        var myZoomMeta = _SM.getAutoTreeGridZoom( this.myMeta )
 
 
     },
