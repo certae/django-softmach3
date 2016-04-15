@@ -336,6 +336,11 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
             } else {
                 this.duplicateRecord();
             }; 
+
+            // Do sync ( if needed  )
+            if ( ! this.myGrid.store.autoSync  ) {
+                _SM._doSyncMasterStore( this.myGrid.store );
+            }
             
             break;
 
@@ -356,46 +361,57 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
     setTreeRef : function(){
         // Guarda en el store la informacion del nodo padre
 
-        this.myGrid.store.treeRef =  null 
-        var pNode; 
-
-        // Selected reg 
-        if ( this.myGrid.rowData ) {
-
-            // TreeRef 
-            var sm = this.myGrid._extGrid.getSelectionModel();
-            pNode = sm.getSelection()[0]; 
-
-            if ( ! pNode.isExpanded() ) {
-                pNode.expand()
-            }
-
-        }
-
         var treeRef = { 
             'treeRefField' :this.myMeta.treeRefField, 
-            'parentNode' : pNode 
+            'hasParent' : false, 
         }
-        this.myGrid.store.treeRef = treeRef;
 
+        // Select current or root 
+        if ( this.myGrid.rowData ) {
+            var sm = this.myGrid._extGrid.getSelectionModel();
+            treeRef.parentNode = sm.getSelection()[0]; 
+            treeRef.hasParent = true; 
+            treeRef.parentNode.expand(); 
+            // if ( ! pNode.isExpanded() ) {pNode.expand() }
+        } else {
+            treeRef.parentNode = this.myGrid.store.getRoot(); 
+        }
+
+        // safe copy for treeRef 
+        this.myGrid.store.treeRef = treeRef;
+        return treeRef; 
 
     },
 
     copyTreeRecord : function(){
 
+        // Set parent 
+        this.treeRef = this.setTreeRef()
+
         // Obtiene y configura el zoom 
         var zoomModel  = _SM.getAutoTreeGridZoom( this.myMeta )
         var zoom = Ext.getCmp( 'toolZoom'); 
 
-        zoom.initZoom( zoomModel )
+        zoom.initZoom( zoomModel, this, this.doCopyTreeRecord  )
         zoom.onZoomTriggerClick.call( zoom  ) 
 
     },
 
-    doCopyTreeRecord : function( zoom, opts  ){
+    doCopyTreeRecord : function( zoom   ){
 
-        // Marca el registo padre 
-        var a = 1; 
+        // Copia el registro seleccionado 
+        var nRec = _SM.copyFromRecord(this.myMeta, this.myGrid.store, zoom.zoomRecord  ); 
+
+        // Set parent node 
+        var pNode = this.treeRef.parentNode
+
+        if ( this.treeRef.hasParent ) {
+            nRec.data[ this.treeRef.treeRefField ] = pNode.data[ '__str__' ];
+            nRec.data[ this.treeRef.treeRefField + '_id' ] = pNode.data[ 'id' ];
+        }
+
+        // Add to parentNode 
+        pNode.appendChild( nRec )
 
     },
 
@@ -406,11 +422,6 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
         var nRec = _SM.copyFromRecord(this.myMeta, this.myGrid.store, rec ); 
 
         this.myGrid.store.add( nRec );
-
-        if ( ! this.myGrid.store.autoSync  ) {
-            _SM._doSyncMasterStore( this.myGrid.store );
-        }
-
     },
 
 });

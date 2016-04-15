@@ -130,7 +130,7 @@ Ext.define('Softmachine.view.smform.FormController', {
         me.myForm.setDetailsTilte();
 
         if (  me.myStore &&  me.myStore.treeRef ) {
-            // TreeGrid 
+            // TreeGrid refField is readOnly 
             me.myForm.setReadOnlyFields( true, [  me.myStore.treeRef.treeRefField ] )    
         }
 
@@ -223,15 +223,13 @@ Ext.define('Softmachine.view.smform.FormController', {
 
         if ( myStore.treeRef ) {
             var treeRef = myStore.treeRef; 
-            this.parentNode = treeRef.parentNode
 
-            if ( treeRef.parentNode ) {
+            if ( treeRef.hasParent ) {
                 myRecord.data[ treeRef.treeRefField ] = treeRef.parentNode.data[ '__str__' ];
                 myRecord.data[ treeRef.treeRefField + '_id' ] = treeRef.parentNode.data[ 'id' ];
             }
 
         }
-
 
         this.openForm(myRecord);
     },

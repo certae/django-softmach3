@@ -528,19 +528,9 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
 
 
             if ( me.store.treeRef ) {
+
                 // TreeGrid 
-                var pNode; 
-
-                if ( me.myFormController.parentNode ) {
-
-                    pNode = me.myFormController.parentNode; 
-
-                } else {
-
-                    pNode = me.store.getRoot(); 
-
-                }
-
+                var pNode = me.store.treeRef.parentNode;  
                 pNode.appendChild( me.masterRecord )
 
 

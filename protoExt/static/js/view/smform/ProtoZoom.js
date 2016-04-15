@@ -95,7 +95,7 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
         }, this);
     },
 
-    initZoom : function( zoomModel ){
+    initZoom : function( zoomModel, callBackContext, callBackfunction  ){
         // Only need in external fire 
 
         Ext.apply ( this, { 
@@ -106,6 +106,8 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
 
             zoomRecords : null,
             zoomMultiple : false,
+            callBackfunction : callBackfunction, 
+            callBackContext : callBackContext, 
         }) 
 
     },
@@ -361,8 +363,7 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
                 'recId' : record.get('id'),
                 'recStr' : recStr
             };
-        }
-        ;
+        };
 
         if (me.zoomMultiple && me.newForm && selModel) {
             me.zoomRecords = [];
@@ -399,9 +400,14 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
         // Asigna el returnField al text de base
         this.setValue(this.retField);
         this.win.hide();
+
+        if ( this.callBackfunction  ) { 
+            this.callBackfunction.call( this.callBackContext, this  ); 
+        }
     },
 
     resetZoom : function(){
+        // Empty selection no row data 
         this.setSelected();
     },
 
