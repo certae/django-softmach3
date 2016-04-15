@@ -516,26 +516,92 @@ _SM.Product  = function (list) {
     }
 };
 
-_SM.getAutoTreeGridZoom = function(){
+_SM.getAutoTreeGridZoom = function( myMeta ){
+    // [] podria cambiarse el prefijo tree x zoom 
+    var zoomCode = myMeta.viewCode + '.zoom'
+    var myZoomMeta = _SM._cllPCI[ zoomCode ]
 
-        var zoomCode = this.viewCode + '.zoom'
-        var myZoomMeta = _SM._cllPCI[this.zoomCode]
+    // if found, retunr 
+    if ( myZoomMeta ) {
+        return zoomCode; 
+    }
 
-        // if found, retunr 
-        if ( myZoomMeta ) {
-            return zoomCode; 
+    // Build zoomMeta 
+    myZoomMeta = _SM.clone( myMeta );
+    Ext.apply( myZoomMeta , {
+        'viewCode' : this.zoomCode, 
+        'pciStyle' : 'grid', 
+        "fields": [{
+            "name": "__str__",
+            "header": myMeta.shortTitle,
+            "flex": 1,
+        }, {
+            "type": "string",
+            "required": false,
+            "name": "fullPath",
+            "flex": 1,
+            "header": "fullPath"
+        }, {
+            "type": "autofield",
+            "hidden": true,
+            "header": "ID",
+            "name": "id",
+            "readOnly": true,
+        }],
+        "gridConfig": {
+            "hiddenFields": ["id"],
+            "listDisplay": ["__str__", "fullPath"],
+            "initialSort": [],
+            "baseFilter" : [] 
+        },
+        "sheetConfig": [],
+        "actions": [],
+        "gridSets": {}
+    }) 
+
+    _SM.savePclCache(zoomCode, myZoomMeta);
+    _SM._UserInfo.perms[zoomCode] = {"list": true, }
+
+    return zoomCode 
+};
+
+
+_SM.copyFromRecord = function(myMeta, myStore, recBase ){
+    // Copia los campos no adminitrativos de un registro 
+
+    function copyFields(){
+
+        var vDefault = {}, ix, vFld;
+
+        for (ix in myMeta.fields) {
+            vFld = myMeta.fields[ix];
+
+            // jsonField copy 
+            if (myMeta.jsonField == vFld.name) {
+                vDefault[vFld.name] = recBase.data[vFld.name];
+                continue; 
+            }
+
+            // copyFrom 
+            if (vFld.name == 'copyFrom_id') {
+                vDefault[vFld.name] = recBase.data['id'];
+                continue; 
+            }
+
+            if (vFld.name in _SM.smFields) {
+                continue; 
+            }
+
+            vDefault[vFld.name] = recBase.data[vFld.name];
         }
+        return vDefault;
+    }
 
-        // Build zoomMeta 
-        myZoomMeta = _SM.clone( this.myMeta );
+    var myRecord = new myStore.model(copyFields());
 
-        myZoomMeta = Ext.apply({
-            'viewCode' : this.zoomCode, 
-            'pciStyle' : 'grid'
-        }) 
+    // Lo asocia al store
+    myRecord.store = myStore;
+    return myRecord;
 
-        _SM._cllPCI[ zoomCode]  = myZoomMeta ; 
-
-        return zoomCode 
 };
 

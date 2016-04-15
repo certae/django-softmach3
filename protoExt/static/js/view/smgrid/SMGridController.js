@@ -384,12 +384,21 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
     copyTreeRecord : function(){
 
         // Obtiene y configura el zoom 
+        var zoomModel  = _SM.getAutoTreeGridZoom( this.myMeta )
         var zoom = Ext.getCmp( 'toolZoom'); 
 
-        var myZoomMeta = _SM.getAutoTreeGridZoom( this.myMeta )
-
+        zoom.initZoom( zoomModel )
+        zoom.onZoomTriggerClick.call( zoom  ) 
 
     },
+
+    doCopyTreeRecord : function( zoom, opts  ){
+
+        // Marca el registo padre 
+        var a = 1; 
+
+    },
+
 
     duplicateRecord: function() {
 

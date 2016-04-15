@@ -95,6 +95,21 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
         }, this);
     },
 
+    initZoom : function( zoomModel ){
+        // Only need in external fire 
+
+        Ext.apply ( this, { 
+            zoomModel : zoomModel,
+            isLoaded : false, 
+            zoomGrid : null,
+            zoomRecord : null,
+
+            zoomRecords : null,
+            zoomMultiple : false,
+        }) 
+
+    },
+
     listeners : {
         'render' : function(cmp1){
             cmp1.getEl().on('click', this.onClickLink, this);

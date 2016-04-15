@@ -388,45 +388,6 @@ _SM.smFields = _SM.objConv([
 ])
 
 
-_SM.copyFromRecord = function(myMeta, myStore, recBase ){
-    // Copia los campos no adminitrativos de un registro 
-
-    function copyFields(){
-
-        var vDefault = {}, ix, vFld;
-
-        for (ix in myMeta.fields) {
-            vFld = myMeta.fields[ix];
-
-            // jsonField copy 
-            if (myMeta.jsonField == vFld.name) {
-                vDefault[vFld.name] = recBase.data[vFld.name];
-                continue; 
-            }
-
-            // copyFrom 
-            if (vFld.name == 'copyFrom_id') {
-                vDefault[vFld.name] = recBase.data['id'];
-                continue; 
-            }
-
-            if (vFld.name in _SM.smFields) {
-                continue; 
-            }
-
-            vDefault[vFld.name] = recBase.data[vFld.name];
-        }
-        return vDefault;
-    }
-
-    var myRecord = new myStore.model(copyFields());
-
-    // Lo asocia al store
-    myRecord.store = myStore;
-    return myRecord;
-
-};
-
 
 _SM.IsAdmField = function(vFld, myMeta){
 
