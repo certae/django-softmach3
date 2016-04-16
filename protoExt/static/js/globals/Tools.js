@@ -551,12 +551,15 @@ _SM.getAutoTreeGridZoom = function( myMeta ){
         "gridConfig": {
             "hiddenFields": ["id"],
             "listDisplay": ["__str__", "fullPath"],
+            "baseFilter" : [], 
+            "initialFilter": [], 
             "initialSort": [],
-            "baseFilter" : [] 
         },
         "sheetConfig": [],
         "actions": [],
-        "gridSets": {}
+        "gridSets": {}, 
+        "formConfig": {},
+        "detailsConfig": [],
     }) 
 
     _SM.savePclCache(zoomCode, myZoomMeta);
