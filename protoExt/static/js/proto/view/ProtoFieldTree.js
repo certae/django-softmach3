@@ -146,7 +146,6 @@ Ext.define('ProtoUL.proto.view.ProtoFieldTree', {
 
         // No lo encontro, lo agrega 
         var sname = vFld.name; 
-        // if (  sname.indexOf( 'smInfo__') ==  0  ) { sname = sname.substring(8) }
 
         tNode = {
             'id'         : vFld.name,

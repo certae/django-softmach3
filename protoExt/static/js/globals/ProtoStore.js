@@ -369,24 +369,22 @@ _SM.getRecordByDataIx = function(myStore, fieldName, value){
 };
 
 _SM.smFields = _SM.objConv([
+    'id',
+    'smUUID',
     'smOwningUser',
-    'smOwningTeam',
     'smOwningUser_id',
+    'smOwningTeam',
     'smOwningTeam_id',
     'smCreatedBy',
-    'smModifiedBy',
     'smCreatedBy_id',
+    'smModifiedBy',
     'smModifiedBy_id',
     'smCreatedOn',
     'smModifiedOn',
     'smWflowStatus',
     'smRegStatus',
     'smNaturalCode',
-    'smUUID',
-    'id',
-    'smInfo'
 ])
-
 
 
 _SM.IsAdmField = function(vFld, myMeta){
@@ -603,11 +601,10 @@ _SM.getFieldDict = function(myMeta){
 
 _SM.getColDefinition = function(vFld){
 
+
+    // obtiene el nombre del campo en la jerarqiua a__b__x 
     if (!vFld.header) {
-        vFld.header = vFld.name;
-        if (vFld.header.indexOf('smInfo__') == 0) {
-            vFld.header = vFld.header.substring(8)
-        }
+        vFld.header = vFld.name.split('__').slice(-1)
     }
 
     var colDefinition, lstProps, editor;
