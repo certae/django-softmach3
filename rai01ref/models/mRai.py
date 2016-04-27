@@ -39,7 +39,8 @@ class Capacity(DocModel):
 
     @property
     def fullPath(self):
-        return getNodeHierarchy(self , 'refCapacity', 'code', 'fullPath')
+        sAux = getNodeHierarchy(self , 'refCapacity', 'code', 'fullPath')
+        return sAux 
 
 
     _jDefValueDoc  = 'CAPACITY'
