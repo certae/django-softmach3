@@ -604,7 +604,7 @@ _SM.getColDefinition = function(vFld){
 
     // obtiene el nombre del campo en la jerarqiua a__b__x 
     if (!vFld.header) {
-        vFld.header = vFld.name.split('__').slice(-1)
+        vFld.header = vFld.name.split('__').slice(-1)[0]
     }
 
     var colDefinition, lstProps, editor;
