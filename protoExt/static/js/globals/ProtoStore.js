@@ -956,7 +956,15 @@ _SM.getFormFieldDefinition = function(vFld){
     }
     formEditor.fieldLabel = Ext.util.Format.capitalize(formEditor.fieldLabel);
 
-    // Casos especiales
+
+    // Special cases : description 
+    if (vFld.name == 'description' ) {
+        vFld.type = 'string';
+        formEditor.xtype = 'textfield'
+        formEditor.prpLength = vFld.prpLength || '1' 
+    }
+
+    // Special cases : Text, HTML, file 
     switch (vFld.type) {
     case 'text':
         formEditor.xtype = 'textarea';

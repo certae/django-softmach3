@@ -10,6 +10,13 @@ from protoExt.views.protoQbe import getSearcheableFields
 PROTOVERSION = '150625'
 
 
+smControlFormFields = [
+    'smOwningUser', 'smOwningTeam', 'smOwningUser_id', 'smOwningTeam_id', 
+    'smCreatedBy',  'smModifiedBy', 'smCreatedBy_id',  'smModifiedBy_id', 
+    'smCreatedOn', 'smModifiedOn', 
+ ]
+
+
 class ProtoGridFactory(object):
     """ Construye la definicion por defecto de la interface 
     """
@@ -136,7 +143,11 @@ class ProtoGridFactory(object):
                         continue
 
                     if key in smControlFields :
-                        prAdmin.append({ 'name' : key  , '__ptType' : 'formField'})
+                        if key in smControlFormFields:
+                            prAdmin.append({ 'name' : key  , '__ptType' : 'formField'})
+
+                    elif key == 'description' :
+                        prItems.append({ 'name' : key  , '__ptType' : 'formField', 'prpLength' : '1'})
 
                     elif (fType == 'text') :
                         prTexts.append({ 'name' : key  , '__ptType' : 'formField'})
