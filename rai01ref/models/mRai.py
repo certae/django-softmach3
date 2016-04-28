@@ -7,9 +7,54 @@ from rai01ref.models.mBase import DocModel
 from protoLib.models.smbase import getNodeHierarchy
 
 
+
+class Capacity(DocModel):
+    refCapacity = models.ForeignKey('Capacity', blank= True, null= True, related_name= 'ref_set' )
+    copyFrom = models.ForeignKey('Capacity', blank= True, null= True, related_name= 'copy_set'  )
+
+    @property
+    def fullPath(self):
+        sAux = getNodeHierarchy(self , 'refCapacity', 'code', 'fullPath')
+        return sAux 
+
+
+    _jDefValueDoc  = 'CAPACITY'
+
+    protoExt = { 
+        "jsonField" : "info", 
+        "gridConfig" : {
+            "listDisplay": [ "code", "description", ],
+        },
+        "fields" : {
+          "fullPath": {"readOnly" : True},
+         }    
+    } 
+
+class Requirement(DocModel):
+    refRequirement = models.ForeignKey('Requirement', blank= True, null= True, related_name= 'ref_set'  )
+    copyFrom = models.ForeignKey('Requirement', blank= True, null= True, related_name= 'copy_set' )
+
+    @property
+    def fullPath(self):
+        return getNodeHierarchy(self , 'refRequirement', 'code', 'fullPath')
+
+
+    _jDefValueDoc  = 'REQUIREMENT'
+
+    protoExt = { 
+        "jsonField" : "info", 
+        "gridConfig" : {
+            "listDisplay": [ "code", "description", ],
+        },
+    } 
+
+
 class Artefact(DocModel):
-    refArtefact = models.ForeignKey('Artefact', blank= True, null= True, related_name='+' )
-    copyFrom = models.ForeignKey('Artefact', blank= True, null= True, related_name='+' )
+    refArtefact = models.ForeignKey('Artefact', blank= True, null= True, related_name= 'ref_set'  )
+    copyFrom = models.ForeignKey('Artefact', blank= True, null= True, related_name= 'copy_set'  )
+
+    capacity = models.ForeignKey('Capacity', blank= True, null= True )
+    requirement = models.ForeignKey('Requirement', blank= True, null= True)
 
     @property
     def fullPath(self):
@@ -33,49 +78,9 @@ class Artefact(DocModel):
      } 
 
 
-class Capacity(DocModel):
-    refCapacity = models.ForeignKey('Capacity', blank= True, null= True, related_name='+' )
-    copyFrom = models.ForeignKey('Capacity', blank= True, null= True, related_name='+' )
-
-    @property
-    def fullPath(self):
-        sAux = getNodeHierarchy(self , 'refCapacity', 'code', 'fullPath')
-        return sAux 
-
-
-    _jDefValueDoc  = 'CAPACITY'
-
-    protoExt = { 
-        "jsonField" : "info", 
-        "gridConfig" : {
-            "listDisplay": [ "code", "description", ],
-        },
-        "fields" : {
-          "fullPath": {"readOnly" : True},
-         }    
-    } 
-
-class Requirement(DocModel):
-    refRequirement = models.ForeignKey('Requirement', blank= True, null= True, related_name='+' )
-    copyFrom = models.ForeignKey('Requirement', blank= True, null= True, related_name='+' )
-
-    @property
-    def fullPath(self):
-        return getNodeHierarchy(self , 'refRequirement', 'code', 'fullPath')
-
-
-    _jDefValueDoc  = 'REQUIREMENT'
-
-    protoExt = { 
-        "jsonField" : "info", 
-        "gridConfig" : {
-            "listDisplay": [ "code", "description", ],
-        },
-    } 
-
 
 class ArtefactComposition(ProtoModelBase):
-    """ Manejo de arcos, pe. las transiciones en procesos 
+    """ Arcs ( relations ) in processus 
     """    
     containerArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='artefactcomposition_set')
     inputArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='+')
@@ -103,6 +108,9 @@ class ArtefactRequirement(ProtoModelBase):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
+    # Mapped main relation in Arterfact 
+    isMain =models.BooleanField(default=False)
+
     def __str__(self):
         return slugify2(str( self.artefact) +  '-' + str( self.requirement))
 
@@ -117,6 +125,9 @@ class ArtefactCapacity(ProtoModelBase):
 
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
+
+    # Mapped main relation in Arterfact 
+    isMain =models.BooleanField(default=False)
 
     def __str__(self):
         return slugify2(str( self.artefact) +  '-' + str( self.capacity))
