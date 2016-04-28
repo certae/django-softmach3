@@ -362,6 +362,7 @@ Ext.define('Softmachine.view.smform.FormController', {
         function defineProtoFormItem(me, parent, protoObj, protoIx) {
 
             var myFld, prLayout, template, __ptType, sDataType = _SM.typeOf(protoObj);
+            var sAux, ix;
 
             if (sDataType === "object") {
 
@@ -409,6 +410,17 @@ Ext.define('Softmachine.view.smform.FormController', {
 
 
                         prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);
+
+                        // columnWidth : prpLength
+                        sAux = prLayout['prpLength']; 
+                        if (sAux  == '1') {
+                            prLayout.columnWidth = 1;
+                        } else if (sAux == "2") {
+                            prLayout.columnWidth = 0.5;
+                        } else if (sAux == "3") {
+                            prLayout.columnWidth = 0.33;
+                        }
+
 
                         // ReadOnlyCls
                         if (prLayout['xtype'] === 'protoZoom') {
@@ -508,7 +520,6 @@ Ext.define('Softmachine.view.smform.FormController', {
                 }
 
                 // Establece el layout ( Columns )
-                var sAux, ix;
                 sAux = prLayout['fsLayout'];
                 if (sAux) {
 

@@ -377,6 +377,8 @@ _SM._MetaProperties =  {
     "flex.type": "number", 
     "flex.help": "Flex width eqivalence", 
 
+    "prpLength.help" : "Proportional width /1 /2 /3", 
+
     "readOnly": false,
     "readOnly.help": "ReadOnly field?",
     "title.help": "Title",
