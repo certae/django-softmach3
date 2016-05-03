@@ -128,7 +128,7 @@ def getQbeStmt(fieldName , sQBE, sType):
 
 
     # String:  \iexact, \icontains, \istartswith, isnull, search, FUTURO: \iendswith, \iregex
-    if sType in ([ 'string', 'text' ]) :
+    if sType in ([ 'string', 'text', 'combo' ]) :
         if sQBE.startswith('^'):
             Qobj = { "{0}__istartswith".format(fieldName) :  sQBE[1:]  }
 

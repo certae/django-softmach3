@@ -156,7 +156,7 @@ def setZoomFilter(cBase):
     if not cBase.zoomParams:
         return
 
-    # Separar los filtros y hacer el loop
+    # ; permiter separar los filtros 
     for lFilter in cBase.zoomParams.get('zoomFilter').replace(' ', '').split(';'):
         if len(lFilter) == 0:
             continue
@@ -172,19 +172,25 @@ def _getZoomFilter(zoomFilter, cBase):
     Genera el objeto filterStmt 
     """
 
-    # FUTURO: podria manejar diferentes nombres de funciones
-    # zoomFilter.match(/[^[\]]+(?=])/g)
-    # zoomFilter.match(/\(([^()]+)\)/g)
+    # Debe contener al menos una "," para separar property, filterStmt
+    # El filtro siempre sera  property = filterStmt
+        # document, CAPACITY  produce {'property': 'document', 'filterStmt': 'CAPACITY'}
 
+    # filterStmt puede ser un valor en la fila base para ello se decora con @ 
+        # document, @document  produce {'property': 'document', 'filterStmt': 'contenido de la prop document en la fila '}
+    
     if zoomFilter.find(',') < 0:
         return
 
-    nBase, nFilter = zoomFilter.split(',')
-    vFilter = cBase.zoomParams.get('baseRow').get(nBase)
-    if not (vFilter or nFilter):
-        return
+    nProp, nFilter = zoomFilter.split(',')
 
-    return {'property': nFilter, 'filterStmt': vFilter}
+    # Fixed filter 
+    if nFilter[0] != '@': 
+        vFilter = nFilter 
+    else: 
+        vFilter = cBase.zoomParams.get('baseRow').get(nFilter[1:])
+
+    return {'property': nProp, 'filterStmt': vFilter}
 
 
 def getQSet(cBase):

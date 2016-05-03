@@ -90,6 +90,7 @@ Ext.define('Softmachine.view.smform.FormController', {
     },
 
     _waitForDetails : function(me, detCode) {
+        // Wait for detail pcl load 
 
         if (detCode) {
             me.myMetaDict[detCode] = true;

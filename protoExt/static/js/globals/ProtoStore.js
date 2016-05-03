@@ -69,11 +69,9 @@ _SM.getStoreDefinition = function(stDef){
                         },
 
                         zoomFilterParams : function(zoomParams){
-                            // Desde el zoom, para agregar el zoomFilter que debe ser parte de la
-                            // base
+                            // Desde el zoom, para agregar el zoomFilter que debe ser parte de la base
                             // pues no debe modeficarse con el filtro de usuario
-                            // recibe el filtro y lo mezcla con el baseFilter ( por ejemplo un
-                            // estado )
+                            // recibe el filtro y lo mezcla con el baseFilter ( por ejemplo un estado )
 
                             this.clearFilter();
                             this.getProxy().extraParams.protoFilter = _SM.obj2tx([]);
@@ -668,7 +666,7 @@ _SM.getColDefinition = function(vFld){
         // @fkId : Llave correspondiente al zoom
         'fkId',
 
-        // @zoomFilter : Filtro de base fijo para el zoom ( puede venir definido en zoomView )
+        // @zoomFilter : Filtro de base fijo para el zoom, (ej :     )
         'zoomFilter',
 
         // @fromField : Campos q sera heredados a la entidad base
