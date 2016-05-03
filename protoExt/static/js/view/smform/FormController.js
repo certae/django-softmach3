@@ -219,7 +219,7 @@ Ext.define('Softmachine.view.smform.FormController', {
         this.newForm = true;
         this.myStore = myStore;
 
-        var myRecord = _SM.getNewRecord(this.myMeta, myStore);
+        var myRecord = _SM.getNewRecord( this.myMeta, myStore );
 
         if ( myStore.treeRef ) {
             var treeRef = myStore.treeRef; 
@@ -227,6 +227,10 @@ Ext.define('Softmachine.view.smform.FormController', {
             if ( treeRef.hasParent ) {
                 myRecord.data[ treeRef.treeRefField ] = treeRef.parentNode.data[ '__str__' ];
                 myRecord.data[ treeRef.treeRefField + '_id' ] = treeRef.parentNode.data[ 'id' ];
+
+                // DocType heritage 
+                myRecord.data[ 'docType' ] = treeRef.parentNode.data[ 'docType' ];
+                myRecord.data[ 'docType_id' ] = treeRef.parentNode.data[ 'docType_id' ];
             }
 
         }

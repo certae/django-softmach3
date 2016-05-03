@@ -261,32 +261,9 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
             if ( this.myMeta.pciStyle == 'tree' ) {
                 this.setTreeRef(); 
 
-                // [] Borrar despues de probar 
-                // this.myGrid.store.treeRef =  null 
-                // var pNode; 
-
-                // // Selected reg 
-                // if ( this.myGrid.rowData ) {
-
-                //     // TreeRef 
-                //     var sm = this.myGrid._extGrid.getSelectionModel();
-                //     pNode = sm.getSelection()[0]; 
-
-                //     if ( ! pNode.isExpanded() ) {
-                //         pNode.expand()
-                //     }
-
-                // }
-
-                // var treeRef = { 
-                //     'treeRefField' :this.myMeta.treeRefField, 
-                //     'parentNode' : pNode 
-                // }
-                // this.myGrid.store.treeRef = treeRef;
-
             }
 
-            this.formController.openNewForm(this.myGrid.store);
+            this.formController.openNewForm( this.myGrid.store );
             break;
 
         case 'toolFormUpd':
@@ -359,8 +336,8 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
     },
 
     setTreeRef : function(){
-        // Guarda en el store la informacion del nodo padre
 
+        // Guarda en el store la informacion del nodo padre
         var treeRef = { 
             'treeRefField' :this.myMeta.treeRefField, 
             'hasParent' : false, 
@@ -371,8 +348,8 @@ Ext.define('Softmachine.view.smgrid.SMGridController', {
             var sm = this.myGrid._extGrid.getSelectionModel();
             treeRef.parentNode = sm.getSelection()[0]; 
             treeRef.hasParent = true; 
+            // if ( ! pNode.isExpanded() ) 
             treeRef.parentNode.expand(); 
-            // if ( ! pNode.isExpanded() ) {pNode.expand() }
         } else {
             treeRef.parentNode = this.myGrid.store.getRoot(); 
         }
