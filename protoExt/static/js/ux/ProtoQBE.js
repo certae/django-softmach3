@@ -1,4 +1,6 @@
-﻿Ext.define('Ext.ux.protoQBE', {
+﻿//  QBE 
+
+Ext.define('Ext.ux.protoQBE', {
     extend: 'Ext.window.Window',
     alias: 'widget.protoqbe',
     iconCls: 'icon-filter',

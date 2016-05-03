@@ -221,8 +221,13 @@ _SM._MetaProperties =  {
 
 //  Types
     "required.type" : "boolean", 
-    "readOnly.type"  : "boolean",
+    "required.help": "Is required field",
+
+    "readOnly.type" : "boolean",
+    "readOnly.help": "Is read Only field",
+
     "primary.type" : "boolean", 
+    "primary.help": "Is primary key field",
 
     
 // PCI
@@ -294,8 +299,6 @@ _SM._MetaProperties =  {
 
 //  Fields
     "physicalName.help" : "phisical name or function  @str( f1,f2 )", 
-    "required": false,
-    "required.help": "Required field",
     "allowDecimals.help": "Dont use!!! : allow decimal (internal use)",
     "autoscroll": true,
     "autoscroll.help": "t/f",
@@ -379,8 +382,6 @@ _SM._MetaProperties =  {
 
     "prpLength.help" : "Proportional width /1 /2 /3", 
 
-    "readOnly": false,
-    "readOnly.help": "ReadOnly field?",
     "title.help": "Title",
     "tooltip.help": "Microhelp",
  
