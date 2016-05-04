@@ -344,7 +344,7 @@ Ext.define('Softmachine.view.smform.FormController', {
             }
         }
 
-        function defineProtoFormItem(me, parent, protoObj, protoIx) {
+        function defineProtoFormItem(myFieldDict, parent, protoObj, protoIx) {
 
             var myFld, prLayout, template, __ptType, sDataType = _SM.typeOf(protoObj);
             var sAux, ix;
@@ -370,7 +370,7 @@ Ext.define('Softmachine.view.smform.FormController', {
                     // protoIx es el field Name, si no viene debe buscarlo en __ptConfig [ name ]
                     protoIx = protoObj.name || protoObj.__ptConfig.name;
 
-                    myFld = me.myFieldDict[protoIx];
+                    myFld = myFieldDict[protoIx];
                     if (myFld) {
                         template = _SM.getTemplate(__ptType, true, myFld);
 
@@ -495,7 +495,7 @@ Ext.define('Softmachine.view.smform.FormController', {
                         }
 
                         prVar = prItems[ix];
-                        prFld = defineProtoFormItem(me, protoObj, prVar, ix);
+                        prFld = defineProtoFormItem(myFieldDict, protoObj, prVar, ix);
                         if (prFld) {
                             prLayout.items.push(prFld);
                         }
@@ -563,7 +563,7 @@ Ext.define('Softmachine.view.smform.FormController', {
                     prVar = protoObj[ix];
 
                     // Si es un array el padre es ../..
-                    prFld = defineProtoFormItem(me, parent, prVar, ix);
+                    prFld = defineProtoFormItem(myFieldDict, parent, prVar, ix);
                     if (prFld) {
                         prLayout.push(prFld);
                     }
@@ -573,38 +573,46 @@ Ext.define('Softmachine.view.smform.FormController', {
 
             return prLayout;
 
+        }; 
+
+        function getFormFromPci(me, viewCode) {
+            // La pci especifica del selector viene cargada de loadLazyPci
+
+            var ixV, lObj, prItem;
+            var myMeta = _SM._cllPCI[viewCode];
+
+            var myFormDefinition = _SM.clone( myMeta.formConfig );
+            var myFieldDict = _SM.getFieldDict( myMeta )
+
+            var myFormLayout = [];
+
+            for (ixV in myFormDefinition.items) {
+                lObj = myFormDefinition.items[ixV];
+
+                // Envia el contenedor y el objeto
+                prItem = defineProtoFormItem( myFieldDict , {
+                    __ptType : 'panel'
+                }, lObj);
+                myFormLayout.push(prItem);
+            }
+
+            me.prFormLayout = myFormLayout; 
+
         }
 
-        // @formatter:off
-        var me = this, myFormDefinition, myMeta, ixV, lObj, prItem;
-        // @formatter:on
+        var me = this, formCode, formSelector; 
 
 
         // Verifica si la meta tiene un campo q indica la conf de la forma 
-        if (  this.myMeta.useDocType ) {
+        if (  me.myMeta.formSelector ) {
+            var formSelector = me.myRecordBase.data[ me.myMeta.formSelector ] ; 
+            if ( formSelector ) {
+                formCode = me.myMeta.viewEntity + '.' +  formSelector
+            }
+        } 
 
-            var formCode = this.myMeta.viewEntity + '.' 
-            
-            _SM.loadLazyPci(me, formCode, '' );
-
-        }
-
-        myFormDefinition = _SM.clone(this.myMeta.formConfig);
-        myMeta = this.myMeta;
-
-        var myFormLayout = [];
-
-        for (ixV in myFormDefinition.items) {
-            lObj = myFormDefinition.items[ixV];
-
-            // Envia el contenedor y el objeto
-            prItem = defineProtoFormItem(me, {
-                __ptType : 'panel'
-            }, lObj);
-            myFormLayout.push(prItem);
-        }
-
-        me.prFormLayout = myFormLayout; 
+        _SM.loadLazyPci(me, formCode || me.myMeta.viewCode , getFormFromPci );
 
     }
+    
 });
