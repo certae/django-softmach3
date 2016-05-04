@@ -33,26 +33,6 @@ Ext.define('Softmachine.view.smform.FormController', {
         this.myMetaDict = {};
     },
 
-    loadDetailDefinition : function (me, detCode) {
-
-        // Opciones del llamado AJAX para precargar los detalles
-        var options = {
-            scope : me,
-            success : function(obj, result, request) {
-                me._waitForDetails(me, detCode);
-            },
-            failure : function(obj, result, request) {
-                me._waitForDetails(me, detCode);
-                _SM.errorMessage('ViewDefinition Error :', detCode + ': viewDefinition not found');
-            }
-        };
-
-        // PreCarga los detalles
-        if (_SM.loadPci(detCode, true, options)) {
-            me._waitForDetails(me, detCode);
-        }
-
-    }, 
 
     _loadFormDefinition : function() {
         // antes de cargar la forma, requiere la carga de detalles
@@ -78,7 +58,7 @@ Ext.define('Softmachine.view.smform.FormController', {
             if ( detCode in _SM._cllPCI) {
                 me.myMetaDict[detCode] = true;
             } else {
-                me.loadDetailDefinition(me, detCode);
+                _SM.loadLazyPci(me, detCode, _waitForDetails );
             }
         }
 
@@ -599,10 +579,20 @@ Ext.define('Softmachine.view.smform.FormController', {
         var me = this, myFormDefinition, myMeta, ixV, lObj, prItem;
         // @formatter:on
 
+
+        // Verifica si la meta tiene un campo q indica la conf de la forma 
+        if (  this.myMeta.useDocType ) {
+
+            var formCode = this.myMeta.viewEntity + '.' 
+            
+            _SM.loadLazyPci(me, formCode, '' );
+
+        }
+
         myFormDefinition = _SM.clone(this.myMeta.formConfig);
         myMeta = this.myMeta;
 
-        me.prFormLayout = [];
+        var myFormLayout = [];
 
         for (ixV in myFormDefinition.items) {
             lObj = myFormDefinition.items[ixV];
@@ -611,8 +601,10 @@ Ext.define('Softmachine.view.smform.FormController', {
             prItem = defineProtoFormItem(me, {
                 __ptType : 'panel'
             }, lObj);
-            me.prFormLayout.push(prItem);
+            myFormLayout.push(prItem);
         }
+
+        me.prFormLayout = myFormLayout; 
 
     }
 });

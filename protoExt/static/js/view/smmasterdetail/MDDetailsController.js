@@ -38,7 +38,7 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
             });
 
             myDetails.push(myAction);
-            loadDetailDefinition(myAction.initialConfig, myAction);
+            loadLazyPanel(myAction.initialConfig, myAction);
 
         }
 
@@ -66,7 +66,7 @@ Ext.define('Softmachine.view.smmasterdetail.MDDetailsController', {
 
         }
 
-        function loadDetailDefinition(item, myAction){
+        function loadLazyPanel(item, myAction){
 
             // Opciones del llamado AJAX para precargar los detalles
             var options = {
