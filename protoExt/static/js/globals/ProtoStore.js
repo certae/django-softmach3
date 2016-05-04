@@ -1065,17 +1065,15 @@ _SM.loadLazyPci = function (me, viewCode, okFunction, failFunction ) {
     // Opciones del llamado AJAX para precargar los detalles
     // y luego llamar a la funcion q continua la ejecucion 
 
-    if ( ! failFunction ) {
-        failFunction = okFunction
-    }
-
     var options = {
         scope : me,
         success : function(obj, result, request) {
             okFunction.call(me, me, viewCode);
         },
         failure : function(obj, result, request) {
-            failFunction.call(me, me, viewCode);
+            if ( failFunction ) {
+                failFunction.call(me, me, viewCode);
+            } 
             _SM.errorMessage('ViewDefinition Error :', viewCode + ': viewDefinition not found');
         }
     };
