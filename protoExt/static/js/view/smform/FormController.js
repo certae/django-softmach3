@@ -52,13 +52,23 @@ Ext.define('Softmachine.view.smform.FormController', {
             this.myMetaDict[pDetail.conceptDetail] = false;
         }
 
+        // Carga el form selector 
+        // Verifica si la meta tiene un campo q indica la conf de la forma 
+        if (  me.myMeta.formSelector ) {
+            var formSelector = me.myRecordBase.data[ me.myMeta.formSelector ] ; 
+            if ( formSelector ) {
+                detCode = me.myMeta.viewEntity + '.' +  formSelector
+                this.myMetaDict[ detCode ] = false;
+            }
+        } 
+
         // ahora carga las definiciones
         me.loaded = false;
         for (detCode in me.myMetaDict  ) {
             if ( detCode in _SM._cllPCI) {
                 me.myMetaDict[detCode] = true;
             } else {
-                _SM.loadLazyPci(me, detCode, _waitForDetails );
+                _SM.loadLazyPci(me, detCode, me._waitForDetails );
             }
         }
 
@@ -66,7 +76,7 @@ Ext.define('Softmachine.view.smform.FormController', {
         if (!me.loaded) {
             me._waitForDetails(me);
         }
-      Ext.resumeLayouts(true);
+
     },
 
     _waitForDetails : function(me, detCode) {
@@ -114,6 +124,8 @@ Ext.define('Softmachine.view.smform.FormController', {
             // TreeGrid refField is readOnly 
             me.myForm.setReadOnlyFields( true, [  me.myStore.treeRef.treeRefField ] )    
         }
+
+        Ext.resumeLayouts(true);
 
     },
 
@@ -598,21 +610,27 @@ Ext.define('Softmachine.view.smform.FormController', {
 
             me.prFormLayout = myFormLayout; 
 
-        }
+        }; 
 
         var me = this, formCode, formSelector; 
-
+        var viewCode = me.myMeta.viewCode; 
 
         // Verifica si la meta tiene un campo q indica la conf de la forma 
         if (  me.myMeta.formSelector ) {
-            var formSelector = me.myRecordBase.data[ me.myMeta.formSelector ] ; 
+            formSelector = me.myRecordBase.data[ me.myMeta.formSelector ] ; 
             if ( formSelector ) {
                 formCode = me.myMeta.viewEntity + '.' +  formSelector
             }
         } 
 
-        _SM.loadLazyPci(me, formCode || me.myMeta.viewCode , getFormFromPci );
+        // Normaliza el viewCode 
+        if ( viewCode.substring(0, me.myMeta.viewEntity.length ) !== me.myMeta.viewEntity ) {
+            viewCode =  me.myMeta.viewEntity + '.' + me.myMeta.viewCode;
+        }
+
+        getFormFromPci(me, formCode || viewCode  );
 
     }
-    
+
 });
+
