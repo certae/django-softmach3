@@ -277,7 +277,8 @@ _SM._MetaProperties =  {
     "udpTable.help" : "udp concept name , <strong>** if direct link then related_name, normaly udpTable</strong>", 
 
 // sheets
-    "sheetSelector.help": "field sheet selecto, null for DEFAULT sheet",
+    "sheetSelector.help": "sheet selector field, null for DEFAULT sheet",
+    "formSelector.help": "form selector field, null for DEFAULT form",
     "template.help": "template definition", 
 
     "templateFp.help": "Templante FirstPage", 
@@ -468,7 +469,8 @@ _SM._MetaObjects = {
                 "localSort", "pageSize", 
                 "sheetSelector", "helpPath", "idProperty", 
                 "jsonField", "returnField", "updateTime", 
-                "metaVersion", "userVersion", "protoEntity", "protoEntityId", "treeRefField"
+                "metaVersion", "userVersion", "protoEntity", "protoEntityId", "treeRefField", 
+                "formSelector"
                 ],
         "objects" : ["gridConfig", "gridSets", "formConfig", "usrDefProps", "custom", "businessRules"],
         "lists" : ["fields", "fieldsBase", "fieldsAdm", "actions", "detailsConfig", "sheetConfig"],
