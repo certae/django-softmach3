@@ -81,13 +81,13 @@ Ext.define('Softmachine.view.main.MainTabController', {
             this.view.remove(xTab, true);
         }
 
-        Ext.destroy(Ext.ComponentQuery.query('protoZoom'));
-        Ext.destroy(Ext.ComponentQuery.query('protoForm'));
-        Ext.destroy(Ext.ComponentQuery.query('smGrid'));
-        Ext.destroy(Ext.ComponentQuery.query('tabMasterDetail'));
+        // Ext.destroy(Ext.ComponentQuery.query('protoZoom'));
+        // Ext.destroy(Ext.ComponentQuery.query('protoForm'));
+        // Ext.destroy(Ext.ComponentQuery.query('smGrid'));
+        // Ext.destroy(Ext.ComponentQuery.query('tabMasterDetail'));
 
-        Ext.destroy(Ext.ComponentQuery.query('protoLogin'));
-        Ext.destroy(Ext.ComponentQuery.query('searchTB'));
+        // Ext.destroy(Ext.ComponentQuery.query('protoLogin'));
+        // Ext.destroy(Ext.ComponentQuery.query('searchTB'));
 
     }
     

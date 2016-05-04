@@ -569,12 +569,9 @@ _SM.DefineProtoModel = function(myMeta){
         // TODO: Validation, Validaciones
         // validations: [{ type: 'length', field: 'name', min: 1 }]
         });
-    } else {
 
-        Ext.define(modelName, {
-            override : modelName,
-            fields : myModelFields
-        });
+    // } else {
+        // must not pass through here,  must RELOAD 
     }
 
     // Adiciona las dos colecciones
@@ -1083,6 +1080,7 @@ _SM.savePci = function(protoMeta, options){
     var sMeta = Ext.encode(protoMeta);
     _SM.saveProtoObj(viewCode, sMeta, options);
 
+
 };
 
 _SM.saveProtoObj = function(viewCode, sMeta, options){
@@ -1110,11 +1108,19 @@ _SM.saveProtoObj = function(viewCode, sMeta, options){
                 options.failure.call(options.scope, result, request);
                 _SM.errorMessage(_SM.__language.Message_Error_SaveProtoObj, myResult.message);
             }
+
+            // Reload 
+            location.reload(true);
+
         },
         failure : function(result, request){
             _SM.errorMessage(_SM.__language.Message_Error_SaveProtoObj, result.status + ' '
                     + result.statusText);
             options.failure.call(options.scope, result, request);
+
+            // Reload 
+            location.reload(true);
+
         },
         scope : this,
         timeout : 30000

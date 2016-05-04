@@ -71,7 +71,7 @@ Ext.define('Softmachine.view.main.MainController', {
         this.tooltip = '';
         this.clearMainStatus();
         _SM.vp_TabContainer.controller.closeAllTabs();
-        _SM._cllPCI = {};
+        // _SM._cllPCI = {};
     },
 
     clearMainStatus : function(text, origin){
