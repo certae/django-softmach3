@@ -22,7 +22,7 @@ def doBuildRaiMenu(request, queryset):
     Ix = 0
     for document in DOCUMENTS:
         lMenu[document] = {
-            'text': document.lower(),
+            'text': document,
             'expanded': True,
             'index':  Ix,
             'iconCls': 'rai_{}'.format(document[:3].lower()),
@@ -33,7 +33,7 @@ def doBuildRaiMenu(request, queryset):
 
     for pDoc in queryset:
 
-        viewCode = 'rai01ref.{0}{1}.{2}'.format( pDoc.document , str(pDoc.pk))
+        viewCode = 'rai01ref.{0}.{1}'.format( pDoc.document , str(pDoc.pk))
         model_dict = {
             'viewCode': viewCode,
             'text': pDoc.dtype,

@@ -22,6 +22,9 @@ class Capacity(DocModel):
 
     protoExt = { 
         "jsonField" : "info", 
+        "actions": [
+            { "name": "doUpdateMeta" , "selectionMode" : "none" },
+        ],
         "gridConfig" : {
             "listDisplay": [ "code", "description", ],
         },
@@ -29,6 +32,7 @@ class Capacity(DocModel):
           "fullPath": {"readOnly" : True},
          }    
     } 
+
 
 class Requirement(DocModel):
     refRequirement = models.ForeignKey('Requirement', blank= True, null= True, related_name= 'ref_set'  )
@@ -43,9 +47,15 @@ class Requirement(DocModel):
 
     protoExt = { 
         "jsonField" : "info", 
+        "actions": [
+            { "name": "doUpdateMeta" , "selectionMode" : "none" },
+        ],
         "gridConfig" : {
             "listDisplay": [ "code", "description", ],
         },
+        "fields" : {
+          "fullPath": {"readOnly" : True},
+        }    
     } 
 
 
@@ -68,6 +78,7 @@ class Artefact(DocModel):
         "jsonField" : "info", 
         "actions": [
             { "name": "doBPD" , "selectionMode" : "sinlge" },
+            { "name": "doUpdateMeta" , "selectionMode" : "none" },
         ],
         "gridConfig" : {
             "listDisplay": [ "code", "description", ],

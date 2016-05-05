@@ -163,7 +163,7 @@ class DocModel(ProtoModelBase):
         abstract = True
 
     @staticmethod
-    def getJfields( idType = None  ):
+    def getJfields( idType = None , tDoc = None  ):
         """ 
         Necessary for buid pci after doRaiMenu
         Search fields and the title to complete the model
@@ -187,8 +187,8 @@ class DocModel(ProtoModelBase):
     
             jFields = DocAttribute.objects.filter( docType = idType )
 
-        else: 
-            jFields = DocAttribute.objects.all()
+        elif tDoc is not None : 
+            jFields = DocAttribute.objects.filter( docType__document = tDoc )
             docType = 'Documents'
             
 

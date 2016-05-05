@@ -391,7 +391,7 @@ def createProtoMeta( cBase, grid ):
     shortTitle = cBase.protoMeta.get('shortTitle', grid.title)
 
 
-    # Manejo de documentos rai00base          
+    # Manejo de documentos rai00base / rai01ref      
     if getattr(cBase.model, '_uddObject', False ):
         dBase = getattr(cBase.model, '_jDefValueDoc', False )    
         idType = ''
@@ -405,6 +405,7 @@ def createProtoMeta( cBase, grid ):
         # the enregistrements must be the same type 
         if len( dBase ) > 0 and len( idType ) > 0:
 
+            # Get Dopcument fields from instance definition rai01ref              
             docFields, shortTitle  = cBase.model.getJfields( idType )
 
             gridConfig['baseFilter'].append( { 'property':'docType', 'filterStmt' : '=' + idType  } )

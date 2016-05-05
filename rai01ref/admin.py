@@ -8,9 +8,7 @@ from reversion.helpers import patch_admin
 
 
 admin.site.register( DocAttribute )
-admin.site.register( Requirement )
-admin.site.register( Capacity )
-admin.site.register( Source )
+
 
 # admin.site.register( ArtefactCapacity )
 # admin.site.register( ArtefactComposition )
@@ -21,13 +19,10 @@ admin.site.register( Projet )
 # admin.site.register( ProjectArtefact )
 # admin.site.register( ProjectCapacity )
 # admin.site.register( ProjectRequirement  )
+admin.site.register( Source )
 
 
-from .actions import doBPD
-class MyArtefac( admin.ModelAdmin ):
-    actions = [ doBPD  ]
 
-admin.site.register( Artefact, MyArtefac  )
 
 
 from .actions import doRaiMenu
@@ -37,3 +32,16 @@ class MyDocType( admin.ModelAdmin ):
 admin.site.register( DocType, MyDocType )
 
 
+# Documents 
+from .actions import doUpdateMeta
+class MyDocument( admin.ModelAdmin ):
+    actions = [ doUpdateMeta  ]
+
+admin.site.register( Requirement, MyDocument )
+admin.site.register( Capacity, MyDocument )
+
+from .actions import doBPD
+class MyArtefac( admin.ModelAdmin ):
+    actions = [ doBPD, doUpdateMeta  ]
+
+admin.site.register( Artefact, MyArtefac  )

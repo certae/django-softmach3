@@ -22,6 +22,7 @@ TypeEquivalence = {
         'JSONField'         :'jsonfield',
     }
 
+
 def setFieldDict(protoFields , field):
 
     # Verifico si existe en el diccionario
