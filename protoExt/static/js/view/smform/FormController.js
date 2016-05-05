@@ -54,7 +54,7 @@ Ext.define('Softmachine.view.smform.FormController', {
 
         // Carga el form selector 
         // Verifica si la meta tiene un campo q indica la conf de la forma 
-        if (  me.myMeta.formSelector ) {
+        if (  me.myMeta.formSelector && me.myRecordBase ) {
             var formSelector = me.myRecordBase.data[ me.myMeta.formSelector ] ; 
             if ( formSelector ) {
                 detCode = me.myMeta.viewEntity + '.' +  formSelector
@@ -158,15 +158,15 @@ Ext.define('Softmachine.view.smform.FormController', {
         // Fix : same position ??
         // _SM.updateWinPosition(me.myWidth, me.myHeight);
 
-        var strEditing = '';
+        var strEditing = me.myMeta.formTitle || me.myMeta.shortTitle ;
         if (me.newForm) {
-            strEditing = ' *';
+            strEditing += ' *';
         }
 
         me.myForm.setZoomEditMode(me.myForm);
 
         me.myWin = Ext.widget('window', {
-            title : me.myMeta.viewCode + strEditing,
+            title : strEditing,
             closeAction : 'hide',
             width : me.myWidth,
             height : me.myHeight,
@@ -608,6 +608,11 @@ Ext.define('Softmachine.view.smform.FormController', {
                 myFormLayout.push(prItem);
             }
 
+            // form Title 
+            if ( me.myMeta.viewCode != viewCode ) { 
+                me.myMeta.formTitle = myMeta.shortTitle; 
+            }
+
             me.prFormLayout = myFormLayout; 
 
         }; 
@@ -616,7 +621,7 @@ Ext.define('Softmachine.view.smform.FormController', {
         var viewCode = me.myMeta.viewCode; 
 
         // Verifica si la meta tiene un campo q indica la conf de la forma 
-        if (  me.myMeta.formSelector ) {
+        if (  me.myMeta.formSelector && me.myRecordBase) {
             formSelector = me.myRecordBase.data[ me.myMeta.formSelector ] ; 
             if ( formSelector ) {
                 formCode = me.myMeta.viewEntity + '.' +  formSelector
