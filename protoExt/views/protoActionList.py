@@ -174,7 +174,7 @@ def _getZoomFilter(zoomFilter, cBase):
 
     # Debe contener al menos una "," para separar property, filterStmt
     # El filtro siempre sera  property = filterStmt
-        # document, CAPACITY  produce {'property': 'document', 'filterStmt': 'CAPACITY'}
+        # document, Capacity  produce {'property': 'document', 'filterStmt': 'Capacity'}
 
     # filterStmt puede ser un valor en la fila base para ello se decora con @ 
         # document, @document  produce {'property': 'document', 'filterStmt': 'contenido de la prop document en la fila '}

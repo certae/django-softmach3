@@ -18,7 +18,7 @@ class Capacity(DocModel):
         return sAux 
 
 
-    _jDefValueDoc  = 'CAPACITY'
+    _jDefValueDoc  = 'Capacity'
 
     protoExt = { 
         "jsonField" : "info", 
@@ -39,7 +39,7 @@ class Requirement(DocModel):
         return getNodeHierarchy(self , 'refRequirement', 'code', 'fullPath')
 
 
-    _jDefValueDoc  = 'REQUIREMENT'
+    _jDefValueDoc  = 'Requirement'
 
     protoExt = { 
         "jsonField" : "info", 
@@ -62,7 +62,7 @@ class Artefact(DocModel):
 
     # siempre sera un filtro de dos niveles, documento y tipo, 
     # la tabla de documento define el valor del documento, el tipo viene en el menu 
-    _jDefValueDoc  = 'ARTEFACT'
+    _jDefValueDoc  = 'Artefact'
 
     protoExt = { 
         "jsonField" : "info", 

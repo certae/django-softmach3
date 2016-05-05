@@ -157,7 +157,7 @@ class Migration(migrations.Migration):
                 ('smCreatedOn', models.DateTimeField(auto_now_add=True, null=True)),
                 ('smModifiedOn', models.DateTimeField(null=True, auto_now=True)),
                 ('smUUID', models.UUIDField(editable=False, default=uuid.uuid4)),
-                ('document', models.CharField(choices=[('ARTEFACT', 'ARTEFACT'), ('CAPACITY', 'CAPACITY'), ('REQUIREMENT', 'REQUIREMENT')], max_length=11)),
+                ('document', models.CharField(choices=[('Artefact', 'Artefact'), ('Capacity', 'Capacity'), ('Requirement', 'Requirement')], max_length=11)),
                 ('dtype', models.CharField(max_length=200)),
                 ('category', models.CharField(null=True, blank=True, max_length=50)),
                 ('notes', models.TextField(null=True, blank=True)),

@@ -9,10 +9,10 @@ from protoLib.models.protomanager import JSONAwareManager
 
 
 """ 
-The document type are :  'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
+The document type are :  'Artefact', 'Capacity', 'Requirement'
 """
 
-DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
+DOCUMENTS = [(s, s) for s in ('Artefact', 'Capacity', 'Requirement')]
 
 
 
@@ -57,13 +57,13 @@ class DocType(ProtoModelBase):
                     "name": "Capacities",
                     "customFilter": [{
                         "property": "document",
-                        "filterStmt": "^CAPACITY"
+                        "filterStmt": "^Capacity"
                     }]
                 },{
                     "name": "Requirements",
                     "customFilter": [{
                         "property": "document",
-                        "filterStmt": "^REQUIREMENT"
+                        "filterStmt": "^Requirement"
                     }]
                 }
                 ],

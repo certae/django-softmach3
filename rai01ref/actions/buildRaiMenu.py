@@ -5,7 +5,7 @@ from protoLib.getStuff import getUserProfile
 from protoExt.models import CustomDefinition, ViewDefinition
 
 
-DOCUMENTS = ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')
+DOCUMENTS = ('Artefact', 'Capacity', 'Requirement')
 
 
 def doBuildRaiMenu(request, queryset):
