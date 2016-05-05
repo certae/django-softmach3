@@ -158,7 +158,7 @@ Ext.define('Softmachine.view.smform.FormController', {
         // Fix : same position ??
         // _SM.updateWinPosition(me.myWidth, me.myHeight);
 
-        var strEditing = me.myMeta.formTitle || me.myMeta.shortTitle ;
+        var strEditing = me.formTitle || me.myMeta.shortTitle ;
         if (me.newForm) {
             strEditing += ' *';
         }
@@ -609,10 +609,7 @@ Ext.define('Softmachine.view.smform.FormController', {
             }
 
             // form Title 
-            if ( me.myMeta.viewCode != viewCode ) { 
-                me.myMeta.formTitle = myMeta.shortTitle; 
-            }
-
+            me.formTitle = myMeta.shortTitle; 
             me.prFormLayout = myFormLayout; 
 
         }; 
