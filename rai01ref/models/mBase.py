@@ -156,7 +156,7 @@ class DocModel(ProtoModelBase):
 
 
     def __str__(self):
-        return slugify2( self.code )  
+        return slugify2( self.code + '-' + self.description)
 
     class Meta:
         app_label = 'rai01ref'
