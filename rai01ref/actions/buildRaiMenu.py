@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import json
-from protoLib.getStuff import getUserProfile
 from protoExt.models import CustomDefinition, ViewDefinition
+from protoExt.views import validateRequest
+from protoExt.utils.utilsWeb import JsonError
+from protoExt.views.protoGetPci import getBasePci
+from protoLib.getStuff import getDjangoModel
+from protoExt.utils.utilsBase import list2dict
 
 
 DOCUMENTS = ('Artefact', 'Capacity', 'Requirement')
@@ -13,88 +17,77 @@ def doBuildRaiConfig(request, queryset):
     Build Rai Config 
     """
 
+    cBase, msgReturn = validateRequest(request)
+    if msgReturn:
+        return msgReturn
 
-    cBase, msgReturn = validateRequest( request )
-    if msgReturn: return msgReturn  
-    
+    #  Do Menu
+    retSt, msgReturn = doBuildRaiMenu(cBase, queryset)
+    if not retSt:
+        return JsonError(msgReturn)
 
-    #  Do Menu 
-    retSt, msgReturn =  doBuildRaiMenu( cBase , queryset) 
-    if not retSt: 
-        return JsonError( msgReturn ) 
-
-
-    #  Do Pci's 
-    retSt, msgReturn =  doBuildRaiMeta( cBase , queryset) 
-    if not retSt: 
-        return JsonError( msgReturn ) 
+    #  Do Pci's
+    retSt, msgReturn = doBuildRaiMeta(cBase, queryset)
+    if not retSt:
+        return JsonError(msgReturn)
 
 
-
-        msgReturn = getGenericPci( cBase, False  )
-        if msgReturn: return msgReturn  
-
-
-
-def doBuildRaiMeta( cBase , queryset):
+def doBuildRaiMeta(cBase, queryset):
 
     for pDoc in queryset:
 
         idType = str(pDoc.pk)
-        cBase.viewEntity = 'rai01ref.{0}.{1}'.format( pDoc.document , idType)
+        cBase.viewEntity = 'rai01ref.{0}.{1}'.format(pDoc.document, idType)
 
-        try: 
+        try:
             cBase.model = getDjangoModel(cBase.viewEntity)
-            msgReturn = getBasePci( cBase, False  )
-        except :
-            return False, 'model not found: {0}'.format( cBase.viewEntity )
+            getBasePci(cBase, False, True )
+        except:
+            return False, 'model not found: {0}'.format(cBase.viewEntity)
 
-
-        # Get Dopcument fields from instance definition rai01ref              
-        docFields, shortTitle  = cBase.model.getJfields( idType )
-
-        docFields['docType_id']['prpDefault'] = idType 
-        docFields['docType']['prpDefault'] = shortTitle 
-        docFields['docType']['readOnly'] = True
-        docFields['docType']['hidden'] = True
-
-        #  Add fields 
+        # Get Dopcument info fields from instance definition rai01ref
+        docFields, shortTitle = cBase.model.getJfields(idType)
         for lKey in docFields.keys():
-            grid.fields.append( docFields[ lKey ] )
+            cBase.protoMeta['fields'].append(docFields[lKey])
 
-        cBase.protoMeta['jsonField']  = "info"
-        cBase.protoMeta['description']  = '{0}: {1}'.format( dBase, shortTitle )
-        cBase.protoMeta['gridConfig']['baseFilter'].append( { 'property':'docType', 'filterStmt' : '=' + idType  } )
+        # DocType conf          
+        docFields = list2dict(cBase.protoMeta[ 'fields' ], 'name')
+        docFields['docType_id']['prpDefault'] = idType
+        docFields['docType']['prpDefault'] = shortTitle
+        cBase.protoMeta['gridConfig']['baseFilter'].append({'property': 'docType', 'filterStmt': '=' + idType})
+
+        # varias           
+        cBase.protoMeta['jsonField'] = "info"
+        cBase.protoMeta['description'] = '{0}: {1}'.format(pDoc.document, shortTitle)
+
+        # Update definition
+        cBase.protoDef.metaDefinition = cBase.protoMeta
+        cBase.protoDef.description = cBase.protoMeta['description']
+        cBase.protoDef.save()
+
+    return True, ''
 
 
-        # Update definition 
-        protoDef.metaDefinition = cBase.protoMeta
-        protoDef.description = cBase.protoMeta['description'] 
-        protoDef.save()    
+def doBuildRaiMenu(cBase, queryset):
 
-
-
-def doBuildRaiMenu( cBase , queryset):
-
-
-#-- RAI Auto Menu ( documents and selected documents  )
+    #-- RAI Auto Menu ( documents and selected documents  )
     lMenu = {}
     Ix = 0
 
-    # Trees 
+    # Trees
     viewIcon = 'icon-tree'
     for document in DOCUMENTS:
-        viewCode = 'rai01ref.{0}.{1}'.format( pDoc.document , 'tree')
-        lMenu[ viewCode ] = {
+        viewCode = 'rai01ref.{0}.{1}'.format(document, 'tree')
+        lMenu[viewCode] = {
             'viewCode': viewCode,
-            'text': pDoc.dtype,
+            'text': document,
             'index': Ix,
             'iconCls': viewIcon,
             'leaf': True,
         }
         Ix += 1
 
-    # Documents config 
+    # Documents config
     for document in DOCUMENTS:
         viewIcon = 'rai_{}'.format(document[:3].lower())
         lMenu[document] = {
@@ -108,8 +101,8 @@ def doBuildRaiMenu( cBase , queryset):
         Ix += 1
 
     for pDoc in queryset:
-        viewCode = 'rai01ref.{0}.{1}'.format( pDoc.document , str(pDoc.pk))
-        viewIcon = 'rai_{}'.format( pDoc.__str__() )
+        viewCode = 'rai01ref.{0}.{1}'.format(pDoc.document, str(pDoc.pk))
+        viewIcon = 'rai_{}'.format(pDoc.__str__())
         model_dict = {
             'viewCode': viewCode,
             'text': pDoc.dtype,
@@ -125,16 +118,16 @@ def doBuildRaiMenu( cBase , queryset):
         ViewDefinition.objects.filter(code=viewCode).delete()
 
 
-#-- Update Menu in customDefinition -----------------------------------------------------
+#-- Update Menu in customDefinition --------------------------------------
     viewCode = '__menu'
     protoDef = CustomDefinition.objects.get_or_create(
-        code=viewCode, smOwningTeam=userProfile.userTeam,
-        defaults={'active': False, 'code': viewCode, 'smOwningTeam': userProfile.userTeam}
+        code=viewCode, smOwningTeam=cBase.userProfile.userTeam,
+        defaults={'active': False, 'code': viewCode, 'smOwningTeam': cBase.userProfile.userTeam}
     )[0]
 
     # El default solo parece funcionar al insertar en la Db
     if not protoDef.active:
-        return  False, 'Menu not found'
+        return False, 'Menu not found'
 
     menuData = protoDef.metaDefinition
 
@@ -155,13 +148,12 @@ def doBuildRaiMenu( cBase , queryset):
         'children': [],
     }
 
-
-    for lKey in lMenu.keys() :
-        raiMenu['children'].append( lMenu[ lKey ] )
+    for lKey in lMenu.keys():
+        raiMenu['children'].append(lMenu[lKey])
 
     menuData.insert(0, raiMenu)
 
     protoDef.metaDefinition = json.dumps(menuData)
     protoDef.save()
 
-    return True 
+    return True, ''
