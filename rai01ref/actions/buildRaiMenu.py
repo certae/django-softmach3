@@ -26,13 +26,54 @@ def doBuildRaiConfig(request, queryset):
     if not retSt:
         return JsonError(msgReturn)
 
-    #  Do Pci's
-    retSt, msgReturn = doBuildRaiMeta(cBase, queryset)
+    #  Do single documents Pci's
+    retSt, msgReturn = doSingleDocsMeta(cBase, queryset)
+    if not retSt:
+        return JsonError(msgReturn)
+
+    #  Do tree documents Pci's
+    retSt, msgReturn = doTreeDocsMeta(cBase)
     if not retSt:
         return JsonError(msgReturn)
 
 
-def doBuildRaiMeta(cBase, queryset):
+def doSingleDocsMeta(cBase):
+
+    viewIcon = 'icon-tree'
+    for document in DOCUMENTS:
+        cBase.viewEntity = 'rai01ref.{0}'.format(document, 'tree')
+
+        try:
+            cBase.model = getDjangoModel(cBase.viewEntity)
+            getBasePci(cBase, False, True )
+        except:
+            return False, 'model not found: {0}'.format(cBase.viewEntity)
+
+        # Get Dopcument info fields from document definition rai01ref
+        docFields, shortTitle = cBase.model.getJfields(None, document)
+        for lKey in docFields.keys():
+            cBase.protoMeta['fields'].append(docFields[lKey])
+
+        # Tree Config and Form selector
+        cBase.protoMeta.update( {
+            "pciStyle": "tree",
+            "treeRefField": "refCapacity",
+            "formSelector": "docType_id",
+            "jsonField": "info",
+            "description": 'Tree {0}'.format(document),
+            } )
+
+
+        # Update definition
+        cBase.protoDef.metaDefinition = cBase.protoMeta
+        cBase.protoDef.description = cBase.protoMeta['description']
+        cBase.protoDef.save()
+
+    return True, ''
+
+
+
+def doSingleDocsMeta(cBase, queryset):
 
     for pDoc in queryset:
 
