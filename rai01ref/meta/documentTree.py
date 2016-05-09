@@ -1,8 +1,8 @@
 
 DocumentTreeDefition =  {
 
-    "viewCode": "rai01ref.Capacity.tree",
-    "viewEntity": "rai01ref.Capacity",
+    # "viewCode": "rai01ref.Capacity.tree",
+    # "viewEntity": "rai01ref.Capacity",
     "description": "Capacity",
     "shortTitle": "Capacity Tree",
     "jsonField": "info",

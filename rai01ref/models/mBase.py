@@ -193,7 +193,6 @@ class DocModel(ProtoModelBase):
             
 
         for pProperty in jFields:
-
             fCode =  slugify2( pProperty.code ) 
             fDict[ 'info__' + fCode  ] = docProperty2Field( fCode, pProperty.__dict__ , 'info'  )
 
