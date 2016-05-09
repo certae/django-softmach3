@@ -95,7 +95,7 @@ def isFieldDefined(pFields , fName):
 
 
 
-def getBasePci(cBase, readOnly = False  ):
+def getBasePci(cBase, readOnly = False , forceBuild = False  ):
 
     # protoDef : PCI leida de la DB ; created : El objeto es nuevo
     try:
@@ -117,6 +117,7 @@ def getBasePci(cBase, readOnly = False  ):
 
     # Si la directiva es reescribirlo es como si fuera nuevo cada vez y si es nuevo lee Django
     if protoDef.overWrite : created = True
+    if forceBuild : created = True 
     if created and ( not readOnly )   :
         cBase.model_admin, cBase.protoMeta = getProtoAdmin(cBase.model)
 
