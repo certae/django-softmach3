@@ -105,6 +105,7 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
             zoomRecord : null,
 
             zoomRecords : null,
+
             zoomFilter : null,
             zoomMultiple : false,
             callBackfunction : callBackfunction, 

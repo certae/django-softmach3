@@ -72,7 +72,7 @@ def doTreeDocsMeta(cBase):
         docFields['docType']['zoomFilter'] = "document, ={0}".format( document )
 
         # Get Dopcument info fields from document definition rai01ref
-        docFields, shortTitle = cBase.model.getJfields(None, document)
+        docFields = cBase.model.getJfields(None, document)[0]
         for lKey in docFields.keys():
             cBase.protoMeta['fields'].append(docFields[lKey])
 
@@ -120,8 +120,8 @@ def doSingleDocsMeta(cBase, queryset):
 
         # varias
         cBase.protoMeta['jsonField'] = "info"
-        cBase.protoMeta['description'] = '{0}: {1}'.format(
-            pDoc.document, shortTitle)
+        cBase.protoMeta['shortTitle'] =  shortTitle
+        cBase.protoMeta['description'] = '{0}: {1}'.format(pDoc.document, shortTitle)
 
         # Get Dopcument info fields from instance definition rai01ref
         docFields = cBase.model.getJfields(idType)[0]

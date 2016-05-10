@@ -46,6 +46,12 @@ DocumentTreeDefition =  {
         "type": "string",
         "crudType": "readOnly",
 
+    # Dynamic path hierarchy ( Parent : treeRefField )
+    }, {
+        "name": "fullPath", 
+        "type": "string",
+        "crudType": "readOnly",
+
     # Hierarchy ( Parent : treeRefField )
     }, {
         "name": "refCapacity",
@@ -60,12 +66,6 @@ DocumentTreeDefition =  {
         "fkField": "refCapacity",
         "readOnly": True
 
-
-    # Dynamic path hierarchy ( Parent : treeRefField )
-    }, {
-        "name": "fullPath", 
-        "type": "string",
-        "crudType": "readOnly",
 
     # Document Type 
     }, {
