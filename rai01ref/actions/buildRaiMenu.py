@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+__updated__="2016-05-10"
 
 import json
 from protoExt.models import CustomDefinition, ViewDefinition
 from protoExt.views import validateRequest
-from protoExt.utils.utilsWeb import JsonError
+from protoExt.utils.utilsWeb import JsonError, JsonOk
 from protoExt.views.protoGetPci import getBasePci
 from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsBase import list2dict
@@ -36,18 +37,21 @@ def doBuildRaiConfig(request, queryset):
     if not retSt:
         return JsonError(msgReturn)
 
+    return {'success': True, 'message': 'Ok'}
+
 
 def doTreeDocsMeta(cBase):
 
     viewIcon = 'icon-tree'
     for document in DOCUMENTS:
-        cBase.viewEntity = 'rai01ref.{0}'.format(document, 'tree')
+        cBase.viewCode = 'rai01ref.{0}.tree'.format(document)
+        cBase.viewEntity = 'rai01ref.{0}'.format(document)
 
         try:
-            cBase.model = getDjangoModel(cBase.viewEntity)
+            cBase.model = getDjangoModel(cBase.viewCode)
             getBasePci(cBase, False, True)
         except:
-            return False, 'model not found: {0}'.format(cBase.viewEntity)
+            return False, 'model not found: {0}'.format(cBase.viewCode)
 
         # Get Dopcument info fields from document definition rai01ref
         docFields, shortTitle = cBase.model.getJfields(None, document)
@@ -57,7 +61,7 @@ def doTreeDocsMeta(cBase):
         # Tree Config and Form selector
         cBase.protoMeta.update({
             "pciStyle": "tree",
-            "treeRefField": "refCapacity",
+            "treeRefField": "ref{0}".format(document),
             "formSelector": "docType_id",
             "jsonField": "info",
             "description": 'Tree {0}'.format(document),
@@ -88,7 +92,7 @@ def doFormConf(cBase, document, docFields):
 
     udfs = []
     for lKey in docFields.keys():
-        udfs.append(docFields[lKey])
+        udfs.append( {"name": lKey} )
 
     cBase.protoMeta["formConfig"] = {
         "items": [
@@ -98,14 +102,13 @@ def doFormConf(cBase, document, docFields):
                     {"name": "code"},
                     {"name": "docType", "fieldLabel": "DocType", },
                     {"name": "description", "prpLength": "1", },
-                    {"name": "refCapacity"},
+                    {"name": "ref()".format(document)},
                     {"name": "copyFrom"}
                 ],
             },
             {
                 "items": udfs,
                 "fsLayout": "2col",
-                "title": "Document"
             },
             {
                 "collapsible": True,
@@ -130,14 +133,15 @@ def doSingleDocsMeta(cBase, queryset):
     for pDoc in queryset:
 
         idType = str(pDoc.pk)
-        cBase.viewEntity = 'rai01ref.{0}.{1}'.format(pDoc.document, idType)
+        cBase.viewCode = 'rai01ref.{0}.{1}'.format(pDoc.document, idType)
+        cBase.viewEntity = 'rai01ref.{0}'.format(pDoc.document)
         shortTitle = pDoc.dtype
 
         try:
-            cBase.model = getDjangoModel(cBase.viewEntity)
+            cBase.model = getDjangoModel(cBase.viewCode)
             getBasePci(cBase, False, True)
         except:
-            return False, 'model not found: {0}'.format(cBase.viewEntity)
+            return False, 'model not found: {0}'.format(cBase.viewCode)
 
         # DocType conf
         docFields = list2dict(cBase.protoMeta['fields'], 'name')
