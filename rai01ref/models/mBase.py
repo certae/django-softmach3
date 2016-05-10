@@ -24,7 +24,7 @@ class DocType(ProtoModelBase):
         - childTypes  [ lista de tipos permitidos en los hijos ] 
     """
     document = models.CharField(blank= False, null= False, max_length= 11, choices= DOCUMENTS )
-    dtype = models.CharField(blank= False, null= False, max_length= 200)
+    dtype = models.CharField("DocType", blank= False, null= False, max_length= 200)
 
     category = models.CharField(max_length=50, blank=True, null=True)
 

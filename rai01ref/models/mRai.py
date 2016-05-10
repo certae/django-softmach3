@@ -9,7 +9,7 @@ from protoLib.models.smbase import getNodeHierarchy
 
 
 class Capacity(DocModel):
-    refCapacity = models.ForeignKey('Capacity', blank= True, null= True, related_name= 'ref_set' )
+    refCapacity = models.ForeignKey('Capacity', blank= True, null= True, related_name= 'ref_set', verbose_name='Parent' )
     copyFrom = models.ForeignKey('Capacity', blank= True, null= True, related_name= 'copy_set'  )
 
     @property
@@ -35,7 +35,7 @@ class Capacity(DocModel):
 
 
 class Requirement(DocModel):
-    refRequirement = models.ForeignKey('Requirement', blank= True, null= True, related_name= 'ref_set'  )
+    refRequirement = models.ForeignKey('Requirement', blank= True, null= True, related_name= 'ref_set', verbose_name='Parent'  )
     copyFrom = models.ForeignKey('Requirement', blank= True, null= True, related_name= 'copy_set' )
 
     @property
@@ -60,7 +60,7 @@ class Requirement(DocModel):
 
 
 class Artefact(DocModel):
-    refArtefact = models.ForeignKey('Artefact', blank= True, null= True, related_name= 'ref_set'  )
+    refArtefact = models.ForeignKey('Artefact', blank= True, null= True, related_name= 'ref_set', verbose_name='Parent'  )
     copyFrom = models.ForeignKey('Artefact', blank= True, null= True, related_name= 'copy_set'  )
 
     capacity = models.ForeignKey('Capacity', blank= True, null= True )
@@ -93,9 +93,9 @@ class Artefact(DocModel):
 class ArtefactComposition(ProtoModelBase):
     """ Arcs ( relations ) in processus 
     """    
-    containerArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='artefactcomposition_set')
-    inputArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='+')
-    outputArt = models.ForeignKey('Artefact', blank= True, null= True, related_name='+')
+    containerArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='artefactcomposition_set', verbose_name="Artefact")
+    inputArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='+', verbose_name="in")
+    outputArt = models.ForeignKey('Artefact', blank= True, null= True, related_name='+', verbose_name="out")
 
     condition  = models.TextField(blank = True, null = True)
 
