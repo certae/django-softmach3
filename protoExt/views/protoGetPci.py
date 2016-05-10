@@ -50,7 +50,6 @@ def protoGetPCI(request):
 #   ==============  Lee el contexto 
     try:
 
-
         # retorna meta y tNode, toma solo la meta 
         cBase.protoMeta = verifyMeta( cBase.protoMeta , 'pcl')[0]
 

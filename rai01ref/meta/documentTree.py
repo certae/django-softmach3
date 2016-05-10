@@ -422,52 +422,7 @@ DocServices = {
       "description"
     ]
   },
-  "formConfig": {
-   "items": [
-      {
-       "items": [
-          {"name": "code"},
-          {"name": "docType", "fieldLabel": "DocType", }, 
-          {"name": "description", "prpLength": "1", }, 
-          {"name": "refCapacity"},
-          {"name": "copyFrom"}
-        ],
-        "fsLayout": "2col"
-      },
-      {
-       "items": [
-        ],
-        "fsLayout": "2col",
-        "title": "Document Config"
-      },
-      {
-        "collapsible": True,
-        "items": [
-          {
-            "name": "smOwningTeam"
-          },
-          {
-            "name": "smOwningUser"
-          },
-          {
-            "name": "smCreatedBy"
-          },
-          {
-            "name": "smModifiedOn"
-          },
-          {
-            "name": "smModifiedBy"
-          },
-          {
-            "name": "smCreatedOn"
-          }
-        ],
-        "collapsed": True,
-        "title": "Admin",
-       "fsLayout": "2col"
-      }
-    ]
-  }
+
 }
 
 Artefact = {
@@ -538,27 +493,22 @@ Artefact = {
             "__ptType": "fieldset",
             "items": [{
                 "name": "code",
-                "__ptType": "formField"
             }]
         }, {
             "fsLayout": "2col",
             "__ptType": "fieldset",
             "items": [{
                 "name": "copyFrom",
-                "__ptType": "formField"
             }, {
                 "name": "refArtefact",
-                "__ptType": "formField"
             }, {
                 "name": "docType",
-                "__ptType": "formField"
             }]
         }, {
             "fsLayout": "1col",
             "__ptType": "fieldset",
             "items": [{
                 "name": "description",
-                "__ptType": "formField"
             }]
         }, {
             "collapsed": True,
@@ -566,34 +516,24 @@ Artefact = {
             "title": "Admin",
             "items": [{
                 "name": "smOwningUser",
-                "__ptType": "formField"
             }, {
                 "name": "smCreatedOn",
-                "__ptType": "formField"
             }, {
                 "name": "smRegStatus",
-                "__ptType": "formField"
             }, {
                 "name": "smNaturalCode",
-                "__ptType": "formField"
             }, {
                 "name": "smModifiedBy",
-                "__ptType": "formField"
             }, {
                 "name": "smWflowStatus",
-                "__ptType": "formField"
             }, {
                 "name": "smOwningTeam",
-                "__ptType": "formField"
             }, {
                 "name": "smModifiedOn",
-                "__ptType": "formField"
             }, {
                 "name": "smUUID",
-                "__ptType": "formField"
             }, {
                 "name": "smCreatedBy",
-                "__ptType": "formField"
             }],
             "collapsible": True,
             "__ptType": "fieldset"

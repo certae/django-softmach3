@@ -63,9 +63,8 @@ def doRaiMenu(modeladmin, request, queryset, parameters):
         return {'success': False, 'message': 'No record selected'}
 
     from .buildRaiMenu import doBuildRaiConfig
-    retMsg =  doBuildRaiConfig(request, queryset)
 
-    return retMsg
+    return doBuildRaiConfig(request, queryset)
 
 
 def doUpdateMeta(modeladmin, request, queryset, parameters):

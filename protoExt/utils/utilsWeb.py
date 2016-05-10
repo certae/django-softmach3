@@ -22,9 +22,12 @@ def JsonResponse(contents, status=200):
     return HttpResponse(contents, content_type='application/json', status=status)
 
 def JsonSuccess(params = {}):
-    d = {"success":True}
+    d = {"success":True, "message" : "Ok"}
     d.update(params)
     return JsonResponse(JSONserialise(d))
+
+def JsonOk( message = "" ):
+    return JsonSuccess( { "message" : message })
    
 def JsonError(error = ''):
     return JsonResponse('{"success":false, "message":"%s"}' % JSONserialise(error))
