@@ -134,6 +134,7 @@ Ext.define('ProtoUL.proto.view.ProtoFieldSelector', {
                 cpFromField :  rec.get( 'cpFromField' ),
 
                 zoomModel :  rec.get( 'zoomModel' ),
+                zoomFilter :  rec.get( 'zoomFilter' ),
                 fkField :  rec.get( 'fkField' ),
                 fkId :  rec.get( 'fkId' ),
                 vType :  rec.get( 'vType' ),

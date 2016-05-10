@@ -660,11 +660,11 @@ _SM.getColDefinition = function(vFld){
         'zoomModel',
         'zoomMultiple',
 
-        // @fkId : Llave correspondiente al zoom
-        'fkId',
-
         // @zoomFilter : Filtro de base fijo para el zoom, (ej :     )
         'zoomFilter',
+
+        // @fkId : Llave correspondiente al zoom
+        'fkId',
 
         // @fromField : Campos q sera heredados a la entidad base
         'cpFromField',

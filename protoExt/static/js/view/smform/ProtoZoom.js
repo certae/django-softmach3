@@ -105,6 +105,7 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
             zoomRecord : null,
 
             zoomRecords : null,
+            zoomFilter : null,
             zoomMultiple : false,
             callBackfunction : callBackfunction, 
             callBackContext : callBackContext, 
@@ -325,12 +326,9 @@ Ext.define('Softmachine.view.smform.ProtoZoom', {
             if (!me.zoomFilter) {
                 return {};
             }
-            if (!me.idSMGrid) {
-                return {};
-            }
 
-            // Esto trae la grilla activa, es correcto en la edicion, pero no en la creacion, debe
-            // existir un nuevo registro
+            // if (!me.idSMGrid) {return {}; }
+            // Esto trae la grilla activa, es correcto en la edicion, pero no en la creacion, debe existir un nuevo registro
             // var myGridBase = Ext.getCmp( me.idSMGrid );
             var rowData = me.up('form').tmpRegister
             var myFilter = {
