@@ -6,7 +6,7 @@ from protoExt.utils.utilsConvert import slugify2
 from protoExt.utils.utilsBase import getReadableError
 
 
-def doBPD(modeladmin, request, queryset, parameters):
+def doBusinessProcessDiagram(modeladmin, request, queryset, parameters):
     """ 
     Business Process Diagram  ( Artefact Based )
     """

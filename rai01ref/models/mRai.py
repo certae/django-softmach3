@@ -77,7 +77,7 @@ class Artefact(DocModel):
     protoExt = { 
         "jsonField" : "info", 
         "actions": [
-            { "name": "doBPD" , "selectionMode" : "sinlge" },
+            { "name": "doBusinessProcessDiagram" , "selectionMode" : "sinlge" },
             { "name": "doUpdateMeta" , "selectionMode" : "none" },
         ],
         "gridConfig" : {

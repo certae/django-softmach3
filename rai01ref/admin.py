@@ -40,8 +40,8 @@ class MyDocument( admin.ModelAdmin ):
 admin.site.register( Requirement, MyDocument )
 admin.site.register( Capacity, MyDocument )
 
-from .actions import doBPD
+from .actions import doBusinessProcessDiagram
 class MyArtefac( admin.ModelAdmin ):
-    actions = [ doBPD, doUpdateMeta  ]
+    actions = [ doBusinessProcessDiagram, doUpdateMeta  ]
 
 admin.site.register( Artefact, MyArtefac  )
