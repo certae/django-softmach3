@@ -37,7 +37,7 @@ def doBuildRaiConfig(request, queryset):
         return JsonError(msgReturn)
 
 
-def doSingleDocsMeta(cBase):
+def doTreeDocsMeta(cBase):
 
     viewIcon = 'icon-tree'
     for document in DOCUMENTS:
@@ -45,7 +45,7 @@ def doSingleDocsMeta(cBase):
 
         try:
             cBase.model = getDjangoModel(cBase.viewEntity)
-            getBasePci(cBase, False, True )
+            getBasePci(cBase, False, True)
         except:
             return False, 'model not found: {0}'.format(cBase.viewEntity)
 
@@ -55,13 +55,14 @@ def doSingleDocsMeta(cBase):
             cBase.protoMeta['fields'].append(docFields[lKey])
 
         # Tree Config and Form selector
-        cBase.protoMeta.update( {
+        cBase.protoMeta.update({
             "pciStyle": "tree",
             "treeRefField": "refCapacity",
             "formSelector": "docType_id",
             "jsonField": "info",
             "description": 'Tree {0}'.format(document),
-            } )
+            "viewIcon": viewIcon,
+        })
 
 
         # Update definition
@@ -71,6 +72,89 @@ def doSingleDocsMeta(cBase):
 
     return True, ''
 
+
+def doDetailsConf( cBase, document ): 
+
+    if document == 'Capacity': 
+        cBase.protoMeta[ "detailsConfig" ] = [{
+            "detailName": "artefactcapacity", 
+            "menuText": "Artefacts",
+            "masterField": "pk",
+            "detailField": "capacity__pk",
+            "conceptDetail": "rai01ref.ArtefactCapacity",
+        }, {
+            "detailName": "projectcapacity", 
+            "menuText": "Projects",
+            "masterField": "pk",
+            "detailField": "capacity__pk",
+            "conceptDetail": "rai01ref.ProjectCapacity",
+        }, {
+            "detailName": "copyto", 
+            "menuText": "Copies",
+            "masterField": "pk",
+            "detailField": "copyFrom_id",
+            "conceptDetail": "rai01ref.Capacity",
+        }]
+
+    elif document == 'Requirement': 
+        cBase.protoMeta[ "detailsConfig" ] = [{
+            "menuText": "Artefacts",
+            "detailName": "artefactrequirement", 
+            "masterField": "pk",
+            "detailField": "requirement__pk",
+            "conceptDetail": "rai01ref.ArtefactRequirement",
+        }, {
+            "menuText": "Projects",
+            "detailName": "projectrequirement", 
+            "masterField": "pk",
+            "detailField": "requirement__pk",
+            "conceptDetail": "rai01ref.ProjectRequirement",
+        }, {
+            "menuText": "Copies",
+            "detailName": "copyto", 
+            "masterField": "pk",
+            "detailField": "copyFrom_id",
+            "conceptDetail": "rai01ref.Requirement",
+        }]
+
+    elif document == 'Artefact': 
+        cBase.protoMeta[ "detailsConfig" ] =    [{
+            "menuText": "Composition",
+            "detailField": "containerArt__pk",
+            "conceptDetail": "rai01ref.ArtefactComposition",
+            "masterField": "pk",
+            "detailName": "artefactcomposition.containerArt",
+        }, {
+            "menuText": "Requirements",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ArtefactRequirement",
+            "masterField": "pk",
+            "detailName": "artefactrequirement.artefact",
+        }, {
+            "menuText": "Capacities",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ArtefactCapacity",
+            "masterField": "pk",
+            "detailName": "artefactcapacity.artefact",
+        }, {
+            "menuText": "Projects",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ProjectArtefact",
+            "masterField": "pk",
+            "detailName": "projectartefact.artefact",
+        }, {
+            "menuText": "Sources",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ArtefactSource",
+            "masterField": "pk",
+            "detailName": "artefactsource.artefact",
+        }, {
+            "menuText": "Copies",
+            "detailName": "copyto", 
+            "masterField": "pk",
+            "detailField": "copyFrom_id",
+            "conceptDetail": "rai01ref.Artefact",
+        }]
 
 
 def doSingleDocsMeta(cBase, queryset):
@@ -82,7 +166,7 @@ def doSingleDocsMeta(cBase, queryset):
 
         try:
             cBase.model = getDjangoModel(cBase.viewEntity)
-            getBasePci(cBase, False, True )
+            getBasePci(cBase, False, True)
         except:
             return False, 'model not found: {0}'.format(cBase.viewEntity)
 
@@ -91,15 +175,17 @@ def doSingleDocsMeta(cBase, queryset):
         for lKey in docFields.keys():
             cBase.protoMeta['fields'].append(docFields[lKey])
 
-        # DocType conf          
-        docFields = list2dict(cBase.protoMeta[ 'fields' ], 'name')
+        # DocType conf
+        docFields = list2dict(cBase.protoMeta['fields'], 'name')
         docFields['docType_id']['prpDefault'] = idType
         docFields['docType']['prpDefault'] = shortTitle
-        cBase.protoMeta['gridConfig']['baseFilter'].append({'property': 'docType', 'filterStmt': '=' + idType})
+        cBase.protoMeta['gridConfig']['baseFilter'].append(
+            {'property': 'docType', 'filterStmt': '=' + idType})
 
-        # varias           
+        # varias
         cBase.protoMeta['jsonField'] = "info"
-        cBase.protoMeta['description'] = '{0}: {1}'.format(pDoc.document, shortTitle)
+        cBase.protoMeta['description'] = '{0}: {1}'.format(
+            pDoc.document, shortTitle)
 
         # Update definition
         cBase.protoDef.metaDefinition = cBase.protoMeta
@@ -163,7 +249,8 @@ def doBuildRaiMenu(cBase, queryset):
     viewCode = '__menu'
     protoDef = CustomDefinition.objects.get_or_create(
         code=viewCode, smOwningTeam=cBase.userProfile.userTeam,
-        defaults={'active': False, 'code': viewCode, 'smOwningTeam': cBase.userProfile.userTeam}
+        defaults={'active': False, 'code': viewCode,
+                  'smOwningTeam': cBase.userProfile.userTeam}
     )[0]
 
     # El default solo parece funcionar al insertar en la Db

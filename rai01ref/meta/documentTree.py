@@ -381,20 +381,6 @@ DocServices = {
   ],
   "detailsConfig": [
     {
-      "conceptDetail": "rai01ref.Capacity",
-      "detailName": "capacity.refCapacity",
-      "detailField": "refCapacity__pk",
-      "menuText": "Capacity.refCapacity",
-      "masterField": "pk"
-    },
-    {
-      "conceptDetail": "rai01ref.Capacity",
-      "detailName": "capacity.copyFrom",
-      "detailField": "copyFrom__pk",
-      "menuText": "Capacity.copyFrom",
-      "masterField": "pk"
-    },
-    {
       "conceptDetail": "rai01ref.Artefact",
       "detailName": "artefact.capacity",
       "detailField": "capacity__pk",
@@ -502,4 +488,323 @@ DocServices = {
       }
     ]
   }
+}
+
+Artefact = {
+    "detailsConfig": [{
+        "menuText": "Artefactcomposition.containerArt",
+        "detailField": "containerArt__pk",
+        "conceptDetail": "rai01ref.ArtefactComposition",
+        "masterField": "pk",
+        "detailName": "artefactcomposition.containerArt",
+        "__ptType": "detailDef"
+    }, {
+        "menuText": "Artefactrequirement.artefact",
+        "detailField": "artefact__pk",
+        "conceptDetail": "rai01ref.ArtefactRequirement",
+        "masterField": "pk",
+        "detailName": "artefactrequirement.artefact",
+        "__ptType": "detailDef"
+    }, {
+        "menuText": "Artefactcapacity.artefact",
+        "detailField": "artefact__pk",
+        "conceptDetail": "rai01ref.ArtefactCapacity",
+        "masterField": "pk",
+        "detailName": "artefactcapacity.artefact",
+        "__ptType": "detailDef"
+    }, {
+        "menuText": "Projectartefact.artefact",
+        "detailField": "artefact__pk",
+        "conceptDetail": "rai01ref.ProjectArtefact",
+        "masterField": "pk",
+        "detailName": "projectartefact.artefact",
+        "__ptType": "detailDef"
+    }, {
+        "menuText": "Artefactsource.artefact",
+        "detailField": "artefact__pk",
+        "conceptDetail": "rai01ref.ArtefactSource",
+        "masterField": "pk",
+        "detailName": "artefactsource.artefact",
+        "__ptType": "detailDef"
+    }],
+    "metaVersion": "150625",
+    "viewIcon": "icon-1",
+    "viewCode": "rai01ref.Artefact",
+    "idProperty": "id",
+    "description": "Artefact",
+    "jsonField": "info",
+    "gridConfig": {
+        "searchFields": ["smNaturalCode", "smRegStatus", "smWflowStatus", "code", "description", "info"],
+        "listDisplay": ["code", "description"],
+        "baseFilter": [],
+        "sortFields": ["smNaturalCode", "smRegStatus", "smWflowStatus", "code", "description", "info"],
+        "initialFilter": [],
+        "initialSort": [],
+        "readOnlyFields": [],
+        "hiddenFields": ["id"],
+        "__ptType": "gridConfig"
+    },
+    "actions": [{
+        "menuText": "doBPD",
+        "__ptType": "actionDef",
+        "name": "doBPD",
+        "actionParams": [],
+        "selectionMode": "sinlge"
+    }],
+    "formConfig": {
+        "__ptType": "formConfig",
+        "items": [{
+            "fsLayout": "2col",
+            "__ptType": "fieldset",
+            "items": [{
+                "name": "code",
+                "__ptType": "formField"
+            }]
+        }, {
+            "fsLayout": "2col",
+            "__ptType": "fieldset",
+            "items": [{
+                "name": "copyFrom",
+                "__ptType": "formField"
+            }, {
+                "name": "refArtefact",
+                "__ptType": "formField"
+            }, {
+                "name": "docType",
+                "__ptType": "formField"
+            }]
+        }, {
+            "fsLayout": "1col",
+            "__ptType": "fieldset",
+            "items": [{
+                "name": "description",
+                "__ptType": "formField"
+            }]
+        }, {
+            "collapsed": True,
+            "fsLayout": "2col",
+            "title": "Admin",
+            "items": [{
+                "name": "smOwningUser",
+                "__ptType": "formField"
+            }, {
+                "name": "smCreatedOn",
+                "__ptType": "formField"
+            }, {
+                "name": "smRegStatus",
+                "__ptType": "formField"
+            }, {
+                "name": "smNaturalCode",
+                "__ptType": "formField"
+            }, {
+                "name": "smModifiedBy",
+                "__ptType": "formField"
+            }, {
+                "name": "smWflowStatus",
+                "__ptType": "formField"
+            }, {
+                "name": "smOwningTeam",
+                "__ptType": "formField"
+            }, {
+                "name": "smModifiedOn",
+                "__ptType": "formField"
+            }, {
+                "name": "smUUID",
+                "__ptType": "formField"
+            }, {
+                "name": "smCreatedBy",
+                "__ptType": "formField"
+            }],
+            "collapsible": True,
+            "__ptType": "fieldset"
+        }]
+    },
+    "gridSets": {
+        "listDisplaySet": [],
+        "filtersSet": [],
+        "sortersSet": [],
+        "__ptType": "gridSets"
+    },
+    "fields": [{
+        "type": "string",
+        "zoomModel": "rai01ref.Artefact",
+        "name": "__str__",
+        "__ptType": "field",
+        "cellLink": True,
+        "fkId": "id",
+        "sortable": True,
+        "header": "Artefact",
+        "flex": 1,
+        "readOnly": True
+    }, {
+        "type": "string",
+        "required": True,
+        "name": "code",
+        "sortable": True,
+        "header": "code",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "foreigntext",
+        "zoomModel": "rai01ref.Artefact",
+        "name": "copyFrom",
+        "fkId": "copyFrom_id",
+        "sortable": True,
+        "header": "copyFrom",
+        "__ptType": "field"
+    }, {
+        "type": "text",
+        "vType": "plainText",
+        "name": "description",
+        "sortable": True,
+        "header": "description",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "foreigntext",
+        "zoomModel": "rai01ref.DocType",
+        "name": "docType",
+        "fkId": "docType_id",
+        "sortable": True,
+        "header": "docType",
+        "__ptType": "field"
+    }, {
+        "type": "foreigntext",
+        "zoomModel": "rai01ref.Artefact",
+        "name": "refArtefact",
+        "fkId": "refArtefact_id",
+        "sortable": True,
+        "header": "refArtefact",
+        "__ptType": "field"
+    }, {
+        "type": "foreignid",
+        "hidden": True,
+        "name": "copyFrom_id",
+        "fkField": "copyFrom",
+        "readOnly": True,
+        "__ptType": "field"
+    }, {
+        "type": "foreignid",
+        "hidden": True,
+        "name": "docType_id",
+        "fkField": "docType",
+        "readOnly": True,
+        "__ptType": "field"
+    }, {
+        "type": "autofield",
+        "hidden": True,
+        "name": "id",
+        "readOnly": True,
+        "header": "ID",
+        "__ptType": "field"
+    }, {
+        "type": "text",
+        "required": True,
+        "name": "info",
+        "__ptType": "field",
+        "sortable": True,
+        "header": "info",
+        "crudType": "storeOnly",
+        "searchable": True,
+        "readOnly": True
+    }, {
+        "type": "foreignid",
+        "hidden": True,
+        "name": "refArtefact_id",
+        "fkField": "refArtefact",
+        "readOnly": True,
+        "__ptType": "field"
+    }, {
+        "type": "foreigntext",
+        "name": "smCreatedBy",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smCreatedBy",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "datetime",
+        "name": "smCreatedOn",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smCreatedOn",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "foreigntext",
+        "name": "smModifiedBy",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smModifiedBy",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "datetime",
+        "name": "smModifiedOn",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smModifiedOn",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "string",
+        "name": "smNaturalCode",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smNaturalCode",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "foreigntext",
+        "name": "smOwningTeam",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smOwningTeam",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "foreigntext",
+        "name": "smOwningUser",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smOwningUser",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "string",
+        "name": "smRegStatus",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smRegStatus",
+        "searchable": True,
+        "__ptType": "field"
+    }, {
+        "type": "string",
+        "required": True,
+        "name": "smUUID",
+        "__ptType": "field",
+        "sortable": True,
+        "header": "smUUID",
+        "searchable": True,
+        "readOnly": True
+    }, {
+        "type": "string",
+        "name": "smWflowStatus",
+        "sortable": True,
+        "readOnly": True,
+        "header": "smWflowStatus",
+        "searchable": True,
+        "__ptType": "field"
+    }],
+    "usrDefProps": {
+        "__ptType": "usrDefProps"
+    },
+    "shortTitle": "Artefact",
+    "updateTime": "2016-05-09 20:03:20",
+    "__ptType": "pcl",
+    "businessRules": {
+        "__ptType": "businessRules"
+    },
+    "sheetConfig": [],
+    "viewEntity": "rai01ref.Artefact"
 }
