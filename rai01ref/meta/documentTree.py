@@ -426,36 +426,16 @@ DocServices = {
    "items": [
       {
        "items": [
-          {
-            "name": "code"
-          },
-          {
-            "fieldLabel": "DocType",
-            "xtype": "textfield",
-            "name": "docType",
-            "readOnly": True
-          },
-          {
-            "prpLength": "1",
-            "name": "description"
-          },
-          {
-            "name": "info__catergory"
-          },
-          {
-            "name": "info__responsable"
-          }
+          {"name": "code"},
+          {"name": "docType", "fieldLabel": "DocType", }, 
+          {"name": "description", "prpLength": "1", }, 
+          {"name": "refCapacity"},
+          {"name": "copyFrom"}
         ],
         "fsLayout": "2col"
       },
       {
        "items": [
-          {
-            "name": "refCapacity"
-          },
-          {
-            "name": "copyFrom"
-          }
         ],
         "fsLayout": "2col",
         "title": "Document Config"

@@ -64,97 +64,65 @@ def doTreeDocsMeta(cBase):
             "viewIcon": viewIcon,
         })
 
-
-        # Update definition
-        cBase.protoDef.metaDefinition = cBase.protoMeta
-        cBase.protoDef.description = cBase.protoMeta['description']
-        cBase.protoDef.save()
+        # do User interface and save
+        doFinalDetails(cBase, document, {})
 
     return True, ''
 
 
-def doDetailsConf( cBase, document ): 
+def doFinalDetails(cBase, document, docFields):
 
-    if document == 'Capacity': 
-        cBase.protoMeta[ "detailsConfig" ] = [{
-            "detailName": "artefactcapacity", 
-            "menuText": "Artefacts",
-            "masterField": "pk",
-            "detailField": "capacity__pk",
-            "conceptDetail": "rai01ref.ArtefactCapacity",
-        }, {
-            "detailName": "projectcapacity", 
-            "menuText": "Projects",
-            "masterField": "pk",
-            "detailField": "capacity__pk",
-            "conceptDetail": "rai01ref.ProjectCapacity",
-        }, {
-            "detailName": "copyto", 
-            "menuText": "Copies",
-            "masterField": "pk",
-            "detailField": "copyFrom_id",
-            "conceptDetail": "rai01ref.Capacity",
-        }]
+    # Details config
+    doDetailsConf(cBase, document)
 
-    elif document == 'Requirement': 
-        cBase.protoMeta[ "detailsConfig" ] = [{
-            "menuText": "Artefacts",
-            "detailName": "artefactrequirement", 
-            "masterField": "pk",
-            "detailField": "requirement__pk",
-            "conceptDetail": "rai01ref.ArtefactRequirement",
-        }, {
-            "menuText": "Projects",
-            "detailName": "projectrequirement", 
-            "masterField": "pk",
-            "detailField": "requirement__pk",
-            "conceptDetail": "rai01ref.ProjectRequirement",
-        }, {
-            "menuText": "Copies",
-            "detailName": "copyto", 
-            "masterField": "pk",
-            "detailField": "copyFrom_id",
-            "conceptDetail": "rai01ref.Requirement",
-        }]
+    # Form config
+    doFormConf(cBase, document, docFields)
 
-    elif document == 'Artefact': 
-        cBase.protoMeta[ "detailsConfig" ] =    [{
-            "menuText": "Composition",
-            "detailField": "containerArt__pk",
-            "conceptDetail": "rai01ref.ArtefactComposition",
-            "masterField": "pk",
-            "detailName": "artefactcomposition.containerArt",
-        }, {
-            "menuText": "Requirements",
-            "detailField": "artefact__pk",
-            "conceptDetail": "rai01ref.ArtefactRequirement",
-            "masterField": "pk",
-            "detailName": "artefactrequirement.artefact",
-        }, {
-            "menuText": "Capacities",
-            "detailField": "artefact__pk",
-            "conceptDetail": "rai01ref.ArtefactCapacity",
-            "masterField": "pk",
-            "detailName": "artefactcapacity.artefact",
-        }, {
-            "menuText": "Projects",
-            "detailField": "artefact__pk",
-            "conceptDetail": "rai01ref.ProjectArtefact",
-            "masterField": "pk",
-            "detailName": "projectartefact.artefact",
-        }, {
-            "menuText": "Sources",
-            "detailField": "artefact__pk",
-            "conceptDetail": "rai01ref.ArtefactSource",
-            "masterField": "pk",
-            "detailName": "artefactsource.artefact",
-        }, {
-            "menuText": "Copies",
-            "detailName": "copyto", 
-            "masterField": "pk",
-            "detailField": "copyFrom_id",
-            "conceptDetail": "rai01ref.Artefact",
-        }]
+    # Update definition
+    cBase.protoDef.metaDefinition = cBase.protoMeta
+    cBase.protoDef.description = cBase.protoMeta['description']
+    cBase.protoDef.save()
+
+
+def doFormConf(cBase, document, docFields):
+
+    udfs = []
+    for lKey in docFields.keys():
+        udfs.append(docFields[lKey])
+
+    cBase.protoMeta["formConfig"] = {
+        "items": [
+            {
+                "fsLayout": "2col",
+                "items": [
+                    {"name": "code"},
+                    {"name": "docType", "fieldLabel": "DocType", },
+                    {"name": "description", "prpLength": "1", },
+                    {"name": "refCapacity"},
+                    {"name": "copyFrom"}
+                ],
+            },
+            {
+                "items": udfs,
+                "fsLayout": "2col",
+                "title": "Document"
+            },
+            {
+                "collapsible": True,
+                "collapsed": True,
+                "title": "Admin",
+                "fsLayout": "2col",
+                "items": [
+                    {"name": "smOwningTeam"},
+                    {"name": "smOwningUser"},
+                    {"name": "smCreatedBy"},
+                    {"name": "smModifiedOn"},
+                    {"name": "smModifiedBy"},
+                    {"name": "smCreatedOn"}
+                ],
+            }
+        ]
+    }
 
 
 def doSingleDocsMeta(cBase, queryset):
@@ -163,17 +131,13 @@ def doSingleDocsMeta(cBase, queryset):
 
         idType = str(pDoc.pk)
         cBase.viewEntity = 'rai01ref.{0}.{1}'.format(pDoc.document, idType)
+        shortTitle = pDoc.dtype
 
         try:
             cBase.model = getDjangoModel(cBase.viewEntity)
             getBasePci(cBase, False, True)
         except:
             return False, 'model not found: {0}'.format(cBase.viewEntity)
-
-        # Get Dopcument info fields from instance definition rai01ref
-        docFields, shortTitle = cBase.model.getJfields(idType)
-        for lKey in docFields.keys():
-            cBase.protoMeta['fields'].append(docFields[lKey])
 
         # DocType conf
         docFields = list2dict(cBase.protoMeta['fields'], 'name')
@@ -187,10 +151,13 @@ def doSingleDocsMeta(cBase, queryset):
         cBase.protoMeta['description'] = '{0}: {1}'.format(
             pDoc.document, shortTitle)
 
-        # Update definition
-        cBase.protoDef.metaDefinition = cBase.protoMeta
-        cBase.protoDef.description = cBase.protoMeta['description']
-        cBase.protoDef.save()
+        # Get Dopcument info fields from instance definition rai01ref
+        docFields = cBase.model.getJfields(idType)[0]
+        for lKey in docFields.keys():
+            cBase.protoMeta['fields'].append(docFields[lKey])
+
+        # do User interface and save
+        doFinalDetails(cBase, pDoc.document, docFields)
 
     return True, ''
 
@@ -285,3 +252,87 @@ def doBuildRaiMenu(cBase, queryset):
     protoDef.save()
 
     return True, ''
+
+
+def doDetailsConf(cBase, document):
+
+    if document == 'Capacity':
+        cBase.protoMeta["detailsConfig"] = [{
+            "detailName": "artefactcapacity",
+            "menuText": "Artefacts",
+            "masterField": "pk",
+            "detailField": "capacity__pk",
+            "conceptDetail": "rai01ref.ArtefactCapacity",
+        }, {
+            "detailName": "projectcapacity",
+            "menuText": "Projects",
+            "masterField": "pk",
+            "detailField": "capacity__pk",
+            "conceptDetail": "rai01ref.ProjectCapacity",
+        }, {
+            "detailName": "copyto",
+            "menuText": "Copies",
+            "masterField": "pk",
+            "detailField": "copyFrom_id",
+            "conceptDetail": "rai01ref.Capacity",
+        }]
+
+    elif document == 'Requirement':
+        cBase.protoMeta["detailsConfig"] = [{
+            "menuText": "Artefacts",
+            "detailName": "artefactrequirement",
+            "masterField": "pk",
+            "detailField": "requirement__pk",
+            "conceptDetail": "rai01ref.ArtefactRequirement",
+        }, {
+            "menuText": "Projects",
+            "detailName": "projectrequirement",
+            "masterField": "pk",
+            "detailField": "requirement__pk",
+            "conceptDetail": "rai01ref.ProjectRequirement",
+        }, {
+            "menuText": "Copies",
+            "detailName": "copyto",
+            "masterField": "pk",
+            "detailField": "copyFrom_id",
+            "conceptDetail": "rai01ref.Requirement",
+        }]
+
+    elif document == 'Artefact':
+        cBase.protoMeta["detailsConfig"] = [{
+            "menuText": "Composition",
+            "detailField": "containerArt__pk",
+            "conceptDetail": "rai01ref.ArtefactComposition",
+            "masterField": "pk",
+            "detailName": "artefactcomposition.containerArt",
+        }, {
+            "menuText": "Requirements",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ArtefactRequirement",
+            "masterField": "pk",
+            "detailName": "artefactrequirement.artefact",
+        }, {
+            "menuText": "Capacities",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ArtefactCapacity",
+            "masterField": "pk",
+            "detailName": "artefactcapacity.artefact",
+        }, {
+            "menuText": "Projects",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ProjectArtefact",
+            "masterField": "pk",
+            "detailName": "projectartefact.artefact",
+        }, {
+            "menuText": "Sources",
+            "detailField": "artefact__pk",
+            "conceptDetail": "rai01ref.ArtefactSource",
+            "masterField": "pk",
+            "detailName": "artefactsource.artefact",
+        }, {
+            "menuText": "Copies",
+            "detailName": "copyto",
+            "masterField": "pk",
+            "detailField": "copyFrom_id",
+            "conceptDetail": "rai01ref.Artefact",
+        }]
