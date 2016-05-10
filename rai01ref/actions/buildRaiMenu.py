@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__updated__="2016-05-10"
+__updated__ = "2016-05-10"
 
 import json
 from protoExt.models import CustomDefinition, ViewDefinition
@@ -72,8 +72,9 @@ def doTreeDocsMeta(cBase):
         for lKey in docFields.keys():
             cBase.protoMeta['fields'].append(docFields[lKey])
 
-        # Add IconField 
-        cBase.protoMeta['fields'].append( {"name": "iconCls", "crudType": "readOnly",})
+        # Add IconField
+        cBase.protoMeta['fields'].append(
+            {"name": "iconCls", "crudType": "readOnly", })
 
         # Tree Config and Form selector
         cBase.protoMeta.update({
@@ -89,7 +90,6 @@ def doTreeDocsMeta(cBase):
         doFinalDetails(cBase, document, {})
 
     return True, ''
-
 
 
 def doSingleDocsMeta(cBase, queryset):
@@ -111,7 +111,8 @@ def doSingleDocsMeta(cBase, queryset):
         docFields = list2dict(cBase.protoMeta['fields'], 'name')
         docFields['docType_id']['prpDefault'] = idType
         docFields['docType']['prpDefault'] = shortTitle
-        cBase.protoMeta['gridConfig']['baseFilter'].append({'property': 'docType', 'filterStmt': '=' + idType})
+        cBase.protoMeta['gridConfig']['baseFilter'].append(
+            {'property': 'docType', 'filterStmt': '=' + idType})
 
         # varias
         cBase.protoMeta['jsonField'] = "info"
@@ -309,36 +310,41 @@ def doFormConf(cBase, document, docFields):
 
     udfs = []
     for lKey in docFields.keys():
-        udfs.append( {"name": lKey} )
+        udfs.append({'__ptType': 'formField', "name": lKey})
 
     cBase.protoMeta["formConfig"] = {
         "items": [
             {
+                '__ptType': 'fieldset',
                 "fsLayout": "2col",
                 "items": [
-                    {"name": "code"},
-                    {"name": "docType", "fieldLabel": "DocType", },
-                    {"name": "description", "prpLength": "1", },
-                    {"name": "ref()".format(document)},
-                    {"name": "copyFrom"}
+                    {'__ptType': 'formField', "name": "code"},
+                    {'__ptType': 'formField', "name": "docType"},
+                    {'__ptType': 'formField',
+                        "name": "description", "prpLength": "1", },
+                    {'__ptType': 'formField',
+                        "name": "ref{0}".format(document)},
+                    {'__ptType': 'formField', "name": "copyFrom"}
                 ],
             },
             {
-                "items": udfs,
+                '__ptType': 'fieldset',
                 "fsLayout": "2col",
+                "items": udfs,
             },
             {
+                '__ptType': 'fieldset',
+                "fsLayout": "2col",
+                "title": "Admin",
                 "collapsible": True,
                 "collapsed": True,
-                "title": "Admin",
-                "fsLayout": "2col",
                 "items": [
-                    {"name": "smOwningTeam"},
-                    {"name": "smOwningUser"},
-                    {"name": "smCreatedBy"},
-                    {"name": "smModifiedOn"},
-                    {"name": "smModifiedBy"},
-                    {"name": "smCreatedOn"}
+                    {'__ptType': 'formField', "name": "smOwningTeam"},
+                    {'__ptType': 'formField', "name": "smOwningUser"},
+                    {'__ptType': 'formField', "name": "smCreatedBy"},
+                    {'__ptType': 'formField', "name": "smModifiedOn"},
+                    {'__ptType': 'formField', "name": "smModifiedBy"},
+                    {'__ptType': 'formField', "name": "smCreatedOn"}
                 ],
             }
         ]
