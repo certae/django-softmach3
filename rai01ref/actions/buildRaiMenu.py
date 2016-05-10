@@ -4,7 +4,7 @@ __updated__ = "2016-05-10"
 import json
 from protoExt.models import CustomDefinition, ViewDefinition
 from protoExt.views import validateRequest
-from protoExt.utils.utilsWeb import JsonError, JsonOk
+from protoExt.utils.utilsWeb import JsonError
 from protoExt.views.protoGetPci import getBasePci
 from protoLib.getStuff import getDjangoModel
 from protoExt.utils.utilsBase import list2dict
@@ -67,14 +67,17 @@ def doTreeDocsMeta(cBase):
         except:
             return False, 'model not found: {0}'.format(cBase.viewCode)
 
+        # DocType conf
+        docFields = list2dict(cBase.protoMeta['fields'], 'name')
+        docFields['docType']['zoomFilter'] = "document, ={0}".format( document )
+
         # Get Dopcument info fields from document definition rai01ref
         docFields, shortTitle = cBase.model.getJfields(None, document)
         for lKey in docFields.keys():
             cBase.protoMeta['fields'].append(docFields[lKey])
 
         # Add IconField
-        cBase.protoMeta['fields'].append(
-            {"name": "iconCls", "crudType": "readOnly", })
+        cBase.protoMeta['fields'].append({"name": "iconCls", "crudType": "readOnly", })
 
         # Tree Config and Form selector
         cBase.protoMeta.update({
@@ -111,8 +114,9 @@ def doSingleDocsMeta(cBase, queryset):
         docFields = list2dict(cBase.protoMeta['fields'], 'name')
         docFields['docType_id']['prpDefault'] = idType
         docFields['docType']['prpDefault'] = shortTitle
-        cBase.protoMeta['gridConfig']['baseFilter'].append(
-            {'property': 'docType', 'filterStmt': '=' + idType})
+        docFields['docType']['zoomFilter'] = "document, ={0}".format( pDoc.document )
+
+        cBase.protoMeta['gridConfig']['baseFilter'].append({'property': 'docType', 'filterStmt': '=' + idType})
 
         # varias
         cBase.protoMeta['jsonField'] = "info"
