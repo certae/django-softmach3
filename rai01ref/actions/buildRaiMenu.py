@@ -40,6 +40,20 @@ def doBuildRaiConfig(request, queryset):
     return {'success': True, 'message': 'Ok'}
 
 
+def doFinalDetails(cBase, document, docFields):
+
+    # Details config
+    doDetailsConf(cBase, document)
+
+    # Form config
+    doFormConf(cBase, document, docFields)
+
+    # Update definition
+    cBase.protoDef.metaDefinition = cBase.protoMeta
+    cBase.protoDef.description = cBase.protoMeta['description']
+    cBase.protoDef.save()
+
+
 def doTreeDocsMeta(cBase):
 
     viewIcon = 'icon-tree'
@@ -58,6 +72,9 @@ def doTreeDocsMeta(cBase):
         for lKey in docFields.keys():
             cBase.protoMeta['fields'].append(docFields[lKey])
 
+        # Add IconField 
+        cBase.protoMeta['fields'].append( {"name": "iconCls", "crudType": "readOnly",})
+
         # Tree Config and Form selector
         cBase.protoMeta.update({
             "pciStyle": "tree",
@@ -73,59 +90,6 @@ def doTreeDocsMeta(cBase):
 
     return True, ''
 
-
-def doFinalDetails(cBase, document, docFields):
-
-    # Details config
-    doDetailsConf(cBase, document)
-
-    # Form config
-    doFormConf(cBase, document, docFields)
-
-    # Update definition
-    cBase.protoDef.metaDefinition = cBase.protoMeta
-    cBase.protoDef.description = cBase.protoMeta['description']
-    cBase.protoDef.save()
-
-
-def doFormConf(cBase, document, docFields):
-
-    udfs = []
-    for lKey in docFields.keys():
-        udfs.append( {"name": lKey} )
-
-    cBase.protoMeta["formConfig"] = {
-        "items": [
-            {
-                "fsLayout": "2col",
-                "items": [
-                    {"name": "code"},
-                    {"name": "docType", "fieldLabel": "DocType", },
-                    {"name": "description", "prpLength": "1", },
-                    {"name": "ref()".format(document)},
-                    {"name": "copyFrom"}
-                ],
-            },
-            {
-                "items": udfs,
-                "fsLayout": "2col",
-            },
-            {
-                "collapsible": True,
-                "collapsed": True,
-                "title": "Admin",
-                "fsLayout": "2col",
-                "items": [
-                    {"name": "smOwningTeam"},
-                    {"name": "smOwningUser"},
-                    {"name": "smCreatedBy"},
-                    {"name": "smModifiedOn"},
-                    {"name": "smModifiedBy"},
-                    {"name": "smCreatedOn"}
-                ],
-            }
-        ]
-    }
 
 
 def doSingleDocsMeta(cBase, queryset):
@@ -147,8 +111,7 @@ def doSingleDocsMeta(cBase, queryset):
         docFields = list2dict(cBase.protoMeta['fields'], 'name')
         docFields['docType_id']['prpDefault'] = idType
         docFields['docType']['prpDefault'] = shortTitle
-        cBase.protoMeta['gridConfig']['baseFilter'].append(
-            {'property': 'docType', 'filterStmt': '=' + idType})
+        cBase.protoMeta['gridConfig']['baseFilter'].append({'property': 'docType', 'filterStmt': '=' + idType})
 
         # varias
         cBase.protoMeta['jsonField'] = "info"
@@ -340,3 +303,43 @@ def doDetailsConf(cBase, document):
             "detailField": "copyFrom_id",
             "conceptDetail": "rai01ref.Artefact",
         }]
+
+
+def doFormConf(cBase, document, docFields):
+
+    udfs = []
+    for lKey in docFields.keys():
+        udfs.append( {"name": lKey} )
+
+    cBase.protoMeta["formConfig"] = {
+        "items": [
+            {
+                "fsLayout": "2col",
+                "items": [
+                    {"name": "code"},
+                    {"name": "docType", "fieldLabel": "DocType", },
+                    {"name": "description", "prpLength": "1", },
+                    {"name": "ref()".format(document)},
+                    {"name": "copyFrom"}
+                ],
+            },
+            {
+                "items": udfs,
+                "fsLayout": "2col",
+            },
+            {
+                "collapsible": True,
+                "collapsed": True,
+                "title": "Admin",
+                "fsLayout": "2col",
+                "items": [
+                    {"name": "smOwningTeam"},
+                    {"name": "smOwningUser"},
+                    {"name": "smCreatedBy"},
+                    {"name": "smModifiedOn"},
+                    {"name": "smModifiedBy"},
+                    {"name": "smCreatedOn"}
+                ],
+            }
+        ]
+    }
