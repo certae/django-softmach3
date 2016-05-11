@@ -349,12 +349,12 @@ def doFormConf(cBase, document, docFields):
                 "collapsible": True,
                 "collapsed": True,
                 "items": [
-                    {'__ptType': 'formField', "name": "smOwningTeam"},
                     {'__ptType': 'formField', "name": "smOwningUser"},
+                    {'__ptType': 'formField', "name": "smOwningTeam"},
                     {'__ptType': 'formField', "name": "smCreatedBy"},
                     {'__ptType': 'formField', "name": "smModifiedOn"},
-                    {'__ptType': 'formField', "name": "smModifiedBy"},
                     {'__ptType': 'formField', "name": "smCreatedOn"}
+                    {'__ptType': 'formField', "name": "smModifiedBy"},
                 ],
             }
         ]
