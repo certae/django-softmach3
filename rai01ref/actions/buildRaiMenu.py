@@ -313,8 +313,15 @@ def doDetailsConf(cBase, document):
 def doFormConf(cBase, document, docFields):
 
     udfs = []
+
+    if document == 'Artefact': 
+        udfs.append({'__ptType': 'formField', "name": "capacity"})
+        udfs.append({'__ptType': 'formField', "name": "requirement"})
+
+
     for lKey in docFields.keys():
         udfs.append({'__ptType': 'formField', "name": lKey})
+
 
     cBase.protoMeta["formConfig"] = {
         "items": [
@@ -326,8 +333,7 @@ def doFormConf(cBase, document, docFields):
                     {'__ptType': 'formField', "name": "docType"},
                     {'__ptType': 'formField',
                         "name": "description", "prpLength": "1", },
-                    {'__ptType': 'formField',
-                        "name": "ref{0}".format(document)},
+                    {'__ptType': 'formField', "name": "ref{0}".format(document)},
                     {'__ptType': 'formField', "name": "copyFrom"}
                 ],
             },
