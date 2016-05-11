@@ -74,7 +74,7 @@ def prepareListEnv(request):
 
     msgReturn = getGenericPci(cBase, True)
     if msgReturn:
-        return msgReturn
+        return None, msgReturn
 
     cBase.fieldsDict = list2dict(cBase.protoMeta['fields'], 'name')
 
