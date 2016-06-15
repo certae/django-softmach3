@@ -5,6 +5,11 @@
 Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
     extend: 'Ext.Base',
     myMeta: null,
+
+    requires : [
+        'ProtoUL.ux.ParameterWin'
+    ], 
+
     constructor: function(config) {
         Ext.apply(this, config || {});
         this.getProtoActionsBar();
@@ -136,7 +141,7 @@ Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
 
                 	};
 
-                    myWin = Ext.create('ProtoUL.ux.parameterWin', {
+                    myWin = Ext.create('ProtoUL.ux.ParameterWin', {
                         parameters: pAction.actionParams,
                         title: btn.actionName,
                         requestparams : {

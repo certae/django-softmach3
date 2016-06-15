@@ -6,7 +6,7 @@
 /*global Ext */
 /*global _SM */
 
-Ext.define('ProtoUL.ux.parameterWin', {
+Ext.define('ProtoUL.ux.ParameterWin', {
     extend: 'Ext.window.Window',
     alias: 'widget.parameterWin',
 
