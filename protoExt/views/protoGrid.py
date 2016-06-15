@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from protoExt.utils.utilsBase import verifyList,  list2dict
+from protoExt.utils.utilsBase import verifyList,  list2dict, traceError
 from protoLib.models.protomodel import smControlFields 
 from protoExt.views.protoField import setFieldDict
 from protoExt.views.protoQbe import getSearcheableFields
@@ -241,29 +241,43 @@ class ProtoGridFactory(object):
 
 def getModelDetails(model, lowLevel = False):
 
-    details = []
-    baseMeta = model._meta
+    try: 
 
-    for detail in baseMeta.get_all_related_objects():
-        detMeta = detail.related_model._meta
+        details = []
+    
+        get_all_related_objects = [
+            f for f in model._meta.get_fields(include_hidden=True)
+            if (f.one_to_many or f.many_to_many) and f.auto_created
+        ]
+    
+    
+        for detail in get_all_related_objects:
+            detMeta = detail.related_model._meta
+    
+            if not lowLevel:
+                details.append({
+                "menuText"      : detMeta.object_name.capitalize() + '.' + detail.field.name,
+                "conceptDetail" : detMeta.app_label + '.' + detMeta.object_name,
+                "detailName"    : detMeta.model_name + '.' + detail.field.name,
+                "detailField"   : detail.field.name + '__pk',
+                "masterField"   : 'pk',
+                })
+            else: 
+                details.append({
+                "detailModel"   : detail.related_model,
+                "detailField"   : detail.field.name + '_id',
+                "detailName"    : detMeta.model_name + '.' + detail.field.name,
+                })
 
-        if not lowLevel:
-            details.append({
-            "menuText"      : detMeta.object_name.capitalize() + '.' + detail.field.name,
-            "conceptDetail" : detMeta.app_label + '.' + detMeta.object_name,
-            "detailName"    : detMeta.model_name + '.' + detail.field.name,
-            "detailField"   : detail.field.name + '__pk',
-            "masterField"   : 'pk',
-            })
-        else: 
-            details.append({
-            "detailModel"   : detail.related_model,
-            "detailField"   : detail.field.name + '_id',
-            "detailName"    : detMeta.model_name + '.' + detail.field.name,
-            })
+    except: 
+        traceError()
+
+    # before Django 1.8 getFields 
+    # baseMeta = model._meta
+    # for detail in baseMeta.get_all_related_objects():
 
 
-# FUTURE: Tabla intermedia referenciada en N2N ( desde la tabla base )
+    # FUTURE: Tabla intermedia referenciada en N2N ( desde la tabla base )
 #     for detail in baseMeta.get_all_related_many_to_many_objects():
 #         detMeta = detail.field.rel.through._meta
 #         if not detMeta.auto_created:
