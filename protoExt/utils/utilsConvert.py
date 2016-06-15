@@ -6,6 +6,8 @@ from decimal import Decimal
 from django.utils.encoding import smart_str
 from django.template.defaultfilters import slugify
 
+import dateutil.parser
+
 def setString( sval ):
     """
     Force string and set None to asignations 
@@ -133,30 +135,32 @@ def toDateTime(sVal, iDefault=None):
     if sVal is None:
         return iDefault
     try:
-        if sVal.count("T") > 0:
-            # IsoFormat DateTime
-            (date, time) = sVal.split("T")
-            (an, mois, jour) = date.split('-')
-            (h, m, s) = time.split(':')
-            return datetime.datetime(int(an), int(mois), int(jour), int(h), int(m), int(s))
 
-        elif sVal.count("-") == 2:
-            # IsoFormat Date
-            (an, mois, jour) = sVal.split('-')
-            return datetime.date(int(an), int(mois), int(jour))
+        return dateutil.parser.parse( sVal )
 
-        elif sVal.count("/") == 2:
-            if sVal.count(' ') > 0:
-                (date, time) = sVal.split(" ")
-                (jour, mois, an) = date.split('/')
-                (h, m, s) = time.split(':')
-                return datetime.datetime(int(an), int(mois), int(jour), int(h), int(m), int(s))
-            else:
-                (jour, mois, an) = date.split('/')
-                return datetime.date(int(an), int(mois), int(jour))
+#         if sVal.count("T") > 0:
+#             # IsoFormat DateTime
+#             (date, time) = sVal.split("T")
+#             (an, mois, jour) = date.split('-')
+#             (h, m, s) = time.split(':')
+#             return datetime.datetime(int(an), int(mois), int(jour), int(h), int(m), int(s))
+# 
+#         elif sVal.count("-") == 2:
+#             # IsoFormat Date
+#             (an, mois, jour) = sVal.split('-')
+#             return datetime.date(int(an), int(mois), int(jour))
+# 
+#         elif sVal.count("/") == 2:
+#             if sVal.count(' ') > 0:
+#                 (date, time) = sVal.split(" ")
+#                 (jour, mois, an) = date.split('/')
+#                 (h, m, s) = time.split(':')
+#                 return datetime.datetime(int(an), int(mois), int(jour), int(h), int(m), int(s))
+#             else:
+#                 (jour, mois, an) = date.split('/')
+#                 return datetime.date(int(an), int(mois), int(jour))
     except:
         return iDefault
-
 
 
 def toDate__(sVal):
