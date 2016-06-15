@@ -204,7 +204,7 @@ def setRegister(cBase, rec, key, data):
 
     try:
 
-        if cName == 'CharField' or cName == 'TextField':
+        if cName == 'CharField' or cName == 'TextField' or cName == 'EmailField':
             setattr(rec, key, value)
             return
 
@@ -237,7 +237,7 @@ def setRegister(cBase, rec, key, data):
                 value = {}
 
         else: 
-            value = None 
+            value = str( value ) 
              
         setattr(rec, key, value)
 
