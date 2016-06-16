@@ -279,8 +279,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
             'beforedrop' : {
                 fn : function(node, data, overModel, dropPosition, dropHandler, eOpts){
 
-                    // Verifica q el objeto sea valido ( no puede copiar las categorias ni los items
-                    // )
+                    // Can not copy items or categories
                     if (data.view.id != this.formTreeViewId) {
                         rec = data.records[0];
                         ptType = rec.get('text');
@@ -299,7 +298,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
                         ]))
                         {
 
-                            // Obtiene el padre y el ix
+                            // FIX store null : Obtiene el padre y el ix  
                             nParent = overModel.store.getById(overModel.data.parentId);
                             nIndex = overModel.data.index;
 
