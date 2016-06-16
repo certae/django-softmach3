@@ -217,6 +217,10 @@ def getQSet(cBase):
 #   Tree Grid Filter
 #   El manejo de arboles en la grilla maneja un filtro para expandir lo nodos 
 #   Si no hay filtro por pk solo leerse los de primer nivel ( autoreferncia == None ) 
+    if not hasattr ( cBase, 'pciStyle' ): 
+        cBase.pciStyle = 'grid'  
+
+
     if cBase.pciStyle == 'tree':
         treeRefField = cBase.protoMeta.get( 'treeRefField', 'pk')  
         if cBase.node == 'root' :
