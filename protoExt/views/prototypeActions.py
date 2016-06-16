@@ -27,6 +27,9 @@ def isPrototypePci(cBase):
 
 def getPrototypePci(cBase):
 
+    if not hasattr ( cBase, 'cVersion' ): 
+        cBase.cVersion = 1 
+
     try:
         prototypeView = cBase.viewCode.replace(PROTO_PREFIX, '')
         protoDef = Prototype.objects.get(
