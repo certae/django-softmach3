@@ -281,10 +281,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
                 fn : function(node, data, overModel, dropPosition, dropHandler, eOpts){
 
                     // Can not copy items or categories
-                    if ( ! overModel.data.allowDrop ) {
-                        dropHandler.cancelDrop();
-                    }
-                    else if (data.view.id != this.formTreeViewId) {
+                    if (data.view.id != this.formTreeViewId) {
                         rec = data.records[0];
                         ptType = rec.get('text');
                         if (ptType in _SM.objConv([
@@ -304,8 +301,12 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
 
                             // FIX store null 
                             // try {nParent = overModel.store.getById(overModel.data.parentId);
-                            // } catch (e) {}
                             // if (!nParent) {nParent = overModel; }
+
+                            if ( ! overModel.data.allowDrop ) {
+                                dropHandler.cancelDrop();
+                                return false 
+                            }
                             
                             nParent = overModel;
                             nIndex = overModel.data.index;
