@@ -237,6 +237,13 @@ _SM.Tree2Meta = function(tNode){
 
     // Obtiene la informacion base del nodo
     var nodeConf = _SM._MetaObjects[myObj.__ptType];
+
+    if ( ! nodeConf ) { 
+        console.log( 'Nodo sin configuracion ', tNode )
+        return;
+    }
+
+
     if (nodeConf.listOf) {
         mData = [];
         getChilds(myObj.tChilds, mData, 'array');
