@@ -74,6 +74,7 @@ _SM.Meta2Tree = function(oData, pName, ptType){
                     t2Data = _SM.getNodeBase(__ptConfig.name, ptType, __ptConfig);
                 }
                 t2Data['leaf'] = true;
+                t2Data['allowDrop'] = false;
                 tItems.push(t2Data);
 
                 // } else {

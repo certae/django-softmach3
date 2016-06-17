@@ -164,6 +164,7 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
                 "qtip" : vFld.cellToolTip,
                 "__ptType" : "formField",
                 "leaf" : true,
+                "allowDrop" : false, 
                 "__ptConfig" : ptConfig
             };
             treeNodAux.children.push(treeNodAuxData);
@@ -280,7 +281,10 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
                 fn : function(node, data, overModel, dropPosition, dropHandler, eOpts){
 
                     // Can not copy items or categories
-                    if (data.view.id != this.formTreeViewId) {
+                    if ( ! overModel.data.allowDrop ) {
+                        dropHandler.cancelDrop();
+                    }
+                    else if (data.view.id != this.formTreeViewId) {
                         rec = data.records[0];
                         ptType = rec.get('text');
                         if (ptType in _SM.objConv([
@@ -298,13 +302,13 @@ Ext.define('ProtoUL.proto.view.ProtoDesigner', {
                         ]))
                         {
 
-                            // FIX store null : Obtiene el padre y el ix  
-                            nParent = overModel.store.getById(overModel.data.parentId);
+                            // FIX store null 
+                            // try {nParent = overModel.store.getById(overModel.data.parentId);
+                            // } catch (e) {}
+                            // if (!nParent) {nParent = overModel; }
+                            
+                            nParent = overModel;
                             nIndex = overModel.data.index;
-
-                            if (!nParent) {
-                                nParent = overModel;
-                            }
 
                             if (dropPosition == 'after') {
                                 nIndex += 1;
