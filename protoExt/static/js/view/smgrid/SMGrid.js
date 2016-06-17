@@ -4,8 +4,8 @@
 
 Ext.define('Softmachine.view.smgrid.SMGrid', {
     extend: 'Ext.Panel',
-    alias : 'widget.smgrid',
-    xtype : 'smgrid',
+    alias : 'widget.smGrid',
+    xtype : 'smGrid',
 
     requires : [
         'Ext.selection.CheckboxModel', 

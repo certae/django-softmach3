@@ -786,7 +786,7 @@ _SM._MetaObjects = {
         ]
     },
 
-    "protoGrid" : {
+    "smGrid" : {
         "description" : "A detail grid",
         "properties" : ["viewCode", "menuText", "height", "maxHeight", "minHeight", "minWidth"
         // ,"width", "maxWidth"

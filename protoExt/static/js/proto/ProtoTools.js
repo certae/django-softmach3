@@ -231,7 +231,9 @@ _SM.Tree2Meta = function(tNode){
     var tData, mData, myObj = getNodeInfo(tNode);
 
     if (!myObj.__ptConfig) {
-        // console.log( 'Nodo sin configuracion ', tNode )
+        // console.log( 'tNode? ', tNode )
+        // Object { __ptType: "protoGrid", menuText: "Model.project", viewCode: "prototype.Model"}    
+        // Object { __ptType: "smGrid", menuText: "e2", viewCode: "prototype.ProtoTable.m-test-e2", }    
         return;
     }
 
