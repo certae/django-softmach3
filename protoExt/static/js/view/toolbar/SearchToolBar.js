@@ -11,7 +11,7 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
      * @private MetaData initialization
      */
     myMeta : null,
-    protoEnable : true, 
+    protoEnable : true,
     /**
      * @private Component initialization override: ToolBar setup
      */
@@ -28,10 +28,10 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
         });
 
         var QBEBtn = new Ext.button.Button({
-            tooltip: _SM.__language.Text_Toolbar_Advanced_Filter,
-            iconCls: 'icon-filterqbe',
-            handler: onClickViewQBE, 
-            scope : me 
+            tooltip : _SM.__language.Text_Toolbar_Advanced_Filter,
+            iconCls : 'icon-filterqbe',
+            handler : onClickViewQBE,
+            scope : me
         });
 
         var clearBtn = new Ext.button.Button({
@@ -53,8 +53,6 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
                 }
             }
         });
-
-
 
         Ext.apply(me, {
             border : false,
@@ -94,45 +92,77 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
 
         function onClickViewQBE(item){
 
-            var qbeParams = [ "name", "tooltip", "fieldLabel" ]
+            var qbeParams = [
+                "name",
+                "tooltip",
+                "fieldLabel"
+            ]
             var qbeField, pAction = {};
-            
-            pAction.viewCode = me.myMeta.viewCode; 
-            pAction.actionName = 'Qbe search' 
-            pAction.parameters = []
 
+            pAction.viewCode = me.myMeta.viewCode;
+            pAction.actionName = 'Qbe search'
+            pAction.parameters = []
 
             for ( var ix in me.myMeta.fields) {
                 var vFld = me.myMeta.fields[ix];
 
-                if ( vFld.QbeField || vFld.searchable  ) {
-                    qbeField = _SM.clone( vFld, 0, [], qbeParams )
-                    qbeField.type = 'string' 
+                if (vFld.QbeField || vFld.searchable) {
+                    qbeField = _SM.clone(vFld, 0, [], qbeParams)
+                    qbeField.type = 'string'
 
-                    if ( vFld.type in _SM.objConv(['string', 'text', 'combo', 'foreigntext'])) {
-                        qbeField.tooltip = 'wildchar selection *';                        
-                    } else if ( vFld.type in _SM.objConv(['int', 'decimal', 'money'])) {
-                        qbeField.tooltip = 'wildchar selection *';                        
+                    if (vFld.type in _SM.objConv([
+                        'date',
+                        'datetime',
+                        'time'
+                    ]))
+                    {
+                        // Todo : QBe Date
+                        continue;
+                    } else if (vFld.type in _SM.objConv([
+                        'string',
+                        'text',
+                        'combo',
+                        'foreigntext'
+                    ]))
+                    {
+                        qbeField.tooltip = '*x*, ^, = (null), ; (or)';
+                    } else if (vFld.type in _SM.objConv([
+                        'int',
+                        'decimal',
+                        'money'
+                    ]))
+                    {
+                        // Todo : Qbe range
+                        qbeField.tooltip = '>,>=,<,<=,<>, ;';
                     }
-                    pAction.parameters.push( qbeField ) 
+                    pAction.parameters.push(qbeField)
                 }
 
-            } 
+            }
 
             var myOptions = {
-                scope: me,
-                acceptFn: function(parameters) {
-                    var a = 1;
-                    // this.doAction(me, pGrid.viewCode, {}, selectedKeys, parameters, detKeys);
+                scope : me,
+                acceptFn : function(parameters){
+                    var baseFilter = [];
+                    var sTitle = ''; 
+                    for ( var ix in parameters) {
+                        var vFld = parameters[ix];
+                        if ( ! vFld.value ) { continue }
+                        baseFilter.push({
+                            'filterStmt' : vFld.value,
+                            'property' : vFld.parameter
+                        });
+                        sTitle = sTitle.concat( vFld.parameter, ':', vFld.value, ' ') 
+                    }
+                    me.fireEvent('qbeLoadData', me, baseFilter, sTitle);
                 }
-
             };
-            
+
             var myWin = Ext.create('ProtoUL.ux.ParameterWin', {
-                title: pAction.actionName,
+                title : pAction.actionName,
                 viewCode : pAction.viewCode,
-                parameters: pAction.parameters,
-                options: myOptions
+                parameters : pAction.parameters,
+                options : myOptions
             });
 
             myWin.show();
@@ -146,8 +176,6 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
             searchCr.setValue('');
         }
 
-    }, 
-
-
+    },
 
 });
