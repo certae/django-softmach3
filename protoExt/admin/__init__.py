@@ -21,11 +21,11 @@ admin.site.add_action(doSetContext)
 
 # -----------------------------------------   AddUser  
 
-from protoExt.actions import doAddUser 
+from protoExt.actions import doAddUser, doAddUsers 
 from protoLib.models import UserProfile
 
 class UserProfileAdmin( reversion.VersionAdmin ):
-    actions = [ doAddUser ]
+    actions = [ doAddUser, doAddUsers ]
 
 try: 
     admin.site.unregister( UserProfile ) 

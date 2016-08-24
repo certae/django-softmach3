@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"view",
+				"viewIcon"
+			],
+			[
+				"fail",
+				"failFunction"
+			],
+			[
+				"fai",
+				"failFunction"
+			],
+			[
+				"desc",
+				"description"
+			],
+			[
+				"paren",
+				"parentNode"
+			],
+			[
+				"call",
+				"callBackfunction"
+			],
+			[
+				"zo",
+				"zoomModel"
+			],
+			[
+				"z",
+				"zoomModel"
+			],
+			[
+				"zoo",
+				"zoomCode"
+			],
+			[
+				"my",
+				"myMeta"
+			],
+			[
 				"pa",
 				"parentNode"
 			],
@@ -71,32 +111,6 @@
 	},
 	"buffers":
 	[
-		{
-			"contents": "Searching 72 files for \"toolFormAdd\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridController.js:\n  102          editTools = [\n  103              {\n  104:                 itemId : 'toolFormAdd',\n  105                  tooltip : _SM.__language.GridBtn_Ttip_Add_Form,\n  106                  type : 'formAdd',\n  ...\n  211  \n  212          me.setToolMode('#toolRowCopy', bEdit && perms['add']);\n  213:         me.setToolMode('#toolFormAdd', bEdit && perms['add']);\n  214          me.setToolMode('#toolFormUpd', bRef && perms['change']);\n  215  \n  ...\n  247          this.myGrid.fireStartEdition(btn.itemId);\n  248  \n  249:         // 'toolFormAdd', 'toolFormUpd', 'toolFormView', 'toolRowAdd', 'toolRowCopy', 'toolRowDel',\n  250          switch (btn.itemId) {\n  251:         case 'toolFormAdd':\n  252  \n  253              // TODO: FIX: Add Mask to form load ( is not the right place )\n\n4 matches in 1 file\n\n\nSearching 72 files for \"Parent title\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/FormController.js:\n  226              this.parentNode = treeRef.parentNode\n  227  \n  228:             // Parent Title \n  229              myRecord.data[ treeRef.treeRefField ] = treeRef.parentNode.data[ '__str__' ];\n  230              myRecord.data[ treeRef.treeRefField + '_id' ] = treeRef.parentNode.data[ 'id' ];\n\n1 match in 1 file\n\n\nSearching 72 files for \"readonly\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoPropertiesTools.js:\n  128      propPanel.setTypes( template.__ppTypes );\n  129  \n  130:     propPanel.readOnlyProps = ['__ptType', 'name'].concat ( template.__roProperties );\n  131      propPanel.sourceInfo = template.__ptHelp;\n  132  \n  ...\n  222  //  Types\n  223      \"required.type\" : \"boolean\", \n  224:     \"readOnly.type\"  : \"boolean\",\n  225      \"primary.type\" : \"boolean\", \n  226  \n  ...\n  378      \"flex.help\": \"Flex width eqivalence\", \n  379  \n  380:     \"readOnly\": false,\n  381:     \"readOnly.help\": \"ReadOnly field?\",\n  382      \"title.help\": \"Title\",\n  383      \"tooltip.help\": \"Microhelp\",\n  ...\n  502  \n  503          // manejo\n  504:         \"primary\", \"crudType\", \"readOnly\", \"hidden\",\n  505  \n  506          // Para el combo\n  ...\n  524      \"formField\" : {\n  525          \"description\" : \"A field element\",\n  526:         \"properties\" : [\"name\", \"tooltip\", \"fieldLabel\", \"labelWidth\", \"labelAlign\", \"hideLabel\", \"required\", \"readOnly\", \"hidden\", \"prpDefault\",\n  527          // \"height\",\"maxHeight\",\"minHeight\",\n  528          // \"width\", \"maxWidth\",\"minWidth\",\n  ...\n  565          \"searchFields\", // TODO: Cambiar por sercheable\n  566          \"sortFields\", // TODO: Cambiar por sortable\n  567:         \"hiddenFields\", \"readOnlyFields\"],\n  568          \"objects\" : [\n  569          // \"colShortcuts\"\n  ...\n  578          \"lists\" : [\"searchFields\", // TODO: Cambiar por sercheable\n  579          \"sortFields\", // TODO: Cambiar por sortable\n  580:         \"hiddenFields\", \"readOnlyFields\"\n  581  \n  582          // qbeAllowFields\n  ...\n  699      },\n  700  \n  701:     \"readOnlyFields\" : {\n  702:         \"description\" : \"List of fields to marked as ReadOnly ( the property ReadOnly can also be used )\",\n  703          \"__ptStyle\" : \"colList\"\n  704      },\n  ...\n  840  \n  841      \"actionParam\" : {\n  842:         \"properties\" : [\"name\", \"tooltip\", \"fieldLabel\", \"prpDefault\", \"required\", \"readOnly\", \"format\",\n  843  \n  844          // Para el combo\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js:\n  454              vFld.type = 'string';\n  455              mField.type = 'string';\n  456:             mField.readOnly = true;\n  457          }\n  458  \n  ...\n  476          }\n  477  \n  478:         if (vFld.name in _SM.objConv(myMeta.gridConfig.readOnlyFields)) {\n  479:             mField.readOnly = true;\n  480:             vFld.readOnly = true;\n  481          }\n  482  \n  ...\n  493  \n  494          case 'jsonfield':\n  495:             mField.readOnly = true;\n  496              mField.type = 'string';\n  497              break;\n  ...\n  604          'hidden',\n  605          'xtype',\n  606:         'readOnly',\n  607          'render',\n  608          'align',\n  ...\n  620          // string\n  621          'required',\n  622:         'readOnly',\n  623          'minLength',\n  624          'minLengthText',\n  ...\n  825      // Asigna las coleccoiones de presentacion\n  826      // El foreignid puede ser editable directamente,\n  827:     if (((vFld.type == 'autofield') || vFld.readOnly) && (vFld.type != 'bool')) {\n  828:         colDefinition.renderer = cellReadOnly;\n  829      } else {\n  830          colDefinition['editor'] = editor;\n  ...\n  875      }\n  876  \n  877:     function cellReadOnly(value, metaData, record, rowIndex, colIndex, store, view){\n  878          return '<span style=\"color:grey;\">' + value + '</span>';\n  879      };\n  ...\n  915  \n  916      var colDefinition = _SM.getColDefinition(vFld), formEditor = {\n  917:         readOnly : true\n  918      };\n  919  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/model/FieldSelectorModel.js:\n   31  \n   32          {\n   33:             name : 'readOnly',\n   34              type : 'boolean'\n   35          },\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoDesigner.js:\n   70  \n   71          myForm = this.formController.newProtoForm();\n   72:         myForm.setFormReadOnly(true);\n   73          this.formPreview.add(myForm);\n   74  \n   ..\n  105          // --------------- function body\n  106  \n  107:         myForm.setFormReadOnly(true);\n  108          this.formPreview.add(myForm);\n  109  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoFieldSelector.js:\n  126  \n  127                  type :  rec.get( 'type' ),\n  128:                 readOnly :  rec.get( 'readOnly' ),\n  129                  required :  rec.get( 'required' ),\n  130                  tooltip :  rec.get( 'tooltip' ),\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoFieldTree.js:\n   78                  falseText: '',\n   79                  text: _SM.__language.Protofield_ROnly,\n   80:                 dataIndex: 'readOnly'\n   81              },{\n   82                  text: _SM.__language.Protofield_Field_Type,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoPcl.js:\n   26  \n   27      /*\n   28:      * editable : False is ReadOnly\n   29       */\n   30      editable: true,\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/ux/HtmlSet.js:\n   47                  flex : 1, \n   48                  \n   49:                 setReadOnly: function( bReadOnly ) {\n   50  					// FIXME: if not visible does not recognize the child\n   51  					var obj = this.getHeader();\n   ..\n   54  					}\n   55  					if (obj) {\n   56: 						obj.setVisible(!bReadOnly);\n   57  					}\n   58                  }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoProperty.js:\n   19      alias : 'widget.protoProperty',\n   20      source : {},\n   21:     readOnlyProps : [],\n   22      editable : true,\n   23      sourceInfo : {},\n   ..\n   33              listeners : {\n   34                  'beforeedit' : function(editor, e, eOpts) {\n   35:                     if ((!me.editable ) || e.record.data.name in _SM.objConv(me.readOnlyProps)) {\n   36                          return false;\n   37                      }\n   ..\n   39                  'itemmouseenter' : function(view, record, item) {\n   40                      var prpName = record.get('name'), msg = me.sourceInfo[prpName];\n   41:                     if (prpName && prpName in _SM.objConv(me.readOnlyProps)) {\n   42                          prpName += ' [RO]';\n   43                      }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/FormController.js:\n   16      viewCode : null,\n   17  \n   18:     // if ReadOnly\n   19:     isReadOnly : false,\n   20  \n   21      // Si la forma fue cargada correctamente\n   ..\n  116  \n  117          // Si la forma es visible no salen los tools\n  118:         // if ( me.isReadOnly ) {me.myWin.tools = [{type: 'readOnly', tooltip: 'readOnly'}, {type:\n  119          // 'gear', scope: me.myForm, handler: me.myForm.showProtoForm }] me.myWin.addTools() };\n  120  \n  121          // Si la forma no esta visible no puede desactivar los headers\n  122:         if (me.isReadOnly) {\n  123:             me.myForm.setFormReadOnly(true);\n  124          } else {\n  125:             me.myForm.setReadOnlyFields(true, me.myMeta.gridConfig.readOnlyFields);\n  126          }\n  127  \n  ...\n  131  \n  132          if (  me.parentNode ) {\n  133:             me.myForm.setReadOnlyFields( true, [  me.myStore.treeRef.treeRefField ] )    \n  134          }\n  135  \n  ...\n  210          });\n  211  \n  212:         // Tools this.myWin.tools = [{type: 'readOnly', tooltip: 'readOnly'}] this.myWin.addTools(\n  213  \n  214      },\n  ...\n  216      openNewForm : function(myStore) {\n  217  \n  218:         this.isReadOnly = false;\n  219          this.newForm = true;\n  220          this.myStore = myStore;\n  ...\n  237      },\n  238  \n  239:     openLinkedForm : function(myRecord, isReadOnly) {\n  240          this.newForm = false;\n  241:         this.isReadOnly = isReadOnly;\n  242          this.openForm(myRecord);\n  243      },\n  ...\n  259  \n  260          this.viewCode = myZoomModel;\n  261:         this.isReadOnly = !bEditable;\n  262  \n  263          if (!myRecordId) {\n  ...\n  330  \n  331                      // The form is now linked to store\n  332:                     this.openLinkedForm(records[0], this.isReadOnly);\n  333                  },\n  334                  scope : this\n  ...\n  413                          prLayout = Ext.apply(template.__ptConfig, protoObj.__ptConfig);\n  414  \n  415:                         // ReadOnlyCls\n  416                          if (prLayout['xtype'] === 'protoZoom') {\n  417:                             prLayout['readOnlyCls'] = 'protoLink';\n  418                          } else if (prLayout['xtype'] !== 'checkbox') {\n  419:                             prLayout['readOnlyCls'] = 'protofield-readonly';\n  420                          }\n  421  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoForm.js:\n   48  \n   49      linkDetails : false,\n   50:     isReadOnly : false,\n   51  \n   52      // @ Store asociado al registro de entrada linked o independiente\n   ..\n  330      },\n  331  \n  332:     setFormReadOnly : function(bReadOnly){\n  333  \n  334          // por defecto viene editable\n  335:         this.isReadOnly = bReadOnly;\n  336  \n  337          // desactiva el boton save\n  338:         this.btSave.setDisabled(bReadOnly);\n  339:         this.btSaveDet.setDisabled(bReadOnly);\n  340:         this.btCancelFormEdt.setDisabled(bReadOnly);\n  341  \n  342:         this.setReadOnlyFields(bReadOnly);\n  343:         this.setDetailsReadOnly(bReadOnly);\n  344  \n  345          if (this.linkController) {\n  346:             this.linkController.isReadOnly = this.isReadOnly;\n  347          }\n  348  \n  349      },\n  350  \n  351:     setDetailsReadOnly : function(bReadOnly){\n  352          var lObj, ix;\n  353          for (ix in this.cllDetGrids) {\n  354              lObj = this.cllDetGrids[ix];\n  355:             lObj.setEditMode(!bReadOnly);\n  356          }\n  357      },\n  358  \n  359:     setReadOnlyFields : function(bReadOnly, readOnlyFields){\n  360          /*\n  361:          * @bReadOnly Toogle T/F \n  362:          * readOnly FIX: mask ? \n  363           */\n  364  \n  365:         // var readOnlyCls = 'protofield-readonly'\n  366          var myFields = this.getForm().getFields(), obj, ix, fDef;\n  367          for (ix in myFields.items) {\n  368              obj = myFields.items[ix];\n  369:             if (obj.readOnly) {\n  370:                 obj.setReadOnly(true);\n  371:             } else if (!readOnlyFields || (obj.name in _SM.objConv(readOnlyFields))) {\n  372:                 // El obj no es readOnly pero la forma si, se podria poner una mascara, pero q pasa\n  373                  // con el zoom\n  374:                 obj.setReadOnly(bReadOnly);\n  375              }\n  376          }\n  ...\n  381              fDef = obj.__ptConfig;\n  382  \n  383:             if (fDef.readOnly) {\n  384:                 obj.setReadOnly(true);\n  385:             } else if (!readOnlyFields || (fDef.name in _SM.objConv(readOnlyFields))) {\n  386:                 obj.setReadOnly(bReadOnly);\n  387              }\n  388          }\n  ...\n  441                      this.myFormController.newForm = false;\n  442                      this.linkDetail(record);\n  443:                     this.setDetailsReadOnly(false);\n  444                  }\n  445              },\n  ...\n  458          for (ixDet in me.cllDetGrids) {\n  459  \n  460:             me.linkController.isReadOnly = me.isReadOnly;\n  461              lGrid = me.cllDetGrids[ixDet];\n  462              detailLink = me.linkController.getDetailLink(lGrid.detailDefinition);\n  463              lGrid.store.myLoadData(detailLink.detFilter, null, me.idMaster);\n  464  \n  465:             if (me.idMaster >= 0 && (!me.isReadOnly)) {\n  466:                 lGrid.setEditMode(!me.isReadOnly);\n  467                  me.linkController.setDetailDefaults(lGrid.detailDefinition, lGrid.myFieldDict);\n  468              }\n  ...\n  470  \n  471          // active buttons \n  472:         if (me.idMaster >= 0 && (!me.isReadOnly)) {\n  473              for (ixDet in me.cllBtDetails) {\n  474                  lObj = me.cllBtDetails[ixDet];\n  475:                 lObj.setButtonsReadOnly(false);\n  476              }\n  477          }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoom.js:\n   70      },\n   71  \n   72:     // readOnlyCls : 'protoLink',\n   73  \n   74      /**\n   ..\n  108      onClickLink : function(ev, nd){\n  109          // La funcion Link solo se activa si es readOly\n  110:         if (!this.readOnly) {\n  111              return;\n  112          }\n  ...\n  218                  id : me.idStBar,\n  219                  flex : 1,\n  220:                 readOnly : true\n  221              },\n  222              {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/WinGridController.js:\n   54              me.myGrid.detailTitle = me.detailLink.detTitle;\n   55              me.myGrid.setGridTitle(me.myGrid);\n   56:             me.myGrid.setEditMode(!me.linkController.isReadOnly);\n   57          }\n   58          // Para identificar el StatusBar\n   ..\n   66              id: me.idStBar,\n   67              flex: 1,\n   68:             readOnly: true\n   69          }, {\n   70              xtype: 'button',\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGrid.js:\n  488                  // Oculta los campos provenientes del maestroo en los detalles\n  489                  if (gCol.dataIndex in _SM.objConv([nDetId, nDetTitle])) {\n  490:                     gCol['readOnly'] = true;\n  491                      delete gCol['editor'];\n  492                  }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/DetailButton.js:\n   66      },\n   67  \n   68:     setButtonsReadOnly : function(readOnly){\n   69:         this.setDisabled(readOnly);\n   70      },\n   71  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDLinkController.js:\n   95          if (myTitleField) {\n   96              masterTitleField = detDefinition.masterTitleField || '__str__';\n   97:             myTitleField['readOnly'] = true;\n   98  \n   99              if (me.masterRowData) {\n\n113 matches across 16 files\n\n\nSearching 72 files for \"isexpand\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridController.js:\n  272                      pNode = sm.getSelection()[0]; \n  273  \n  274:                     if ( pNode.isExpanded() ) {\n  275                          pNode.expand()\n  276                      }\n\n1 match in 1 file\n\n\nSearching 72 files for \"treeRef\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoPropertiesTools.js:\n  240      \"pciStyle.choices\": [\"grid\", \"form\", \"tree\"],\n  241  \n  242:     \"treeRefField.help\": \"AutoRef field\",\n  243  \n  244      \"gridSelectionMode.choices\": [\"multi\", \"simple\", \"single\" ], \n  ...\n  466                  \"sheetSelector\", \"pciStyle\", \"helpPath\", \"idProperty\", \n  467                  \"jsonField\", \"returnField\", \"updateTime\", \n  468:                 \"metaVersion\", \"userVersion\", \"protoEntity\", \"protoEntityId\", \"pciStyle\", \"treeRefField\"\n  469                  ],\n  470          \"objects\" : [\"gridConfig\", \"gridSets\", \"formConfig\", \"usrDefProps\", \"custom\", \"businessRules\"],\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/FormController.js:\n  130          me.myForm.setDetailsTilte();\n  131  \n  132:         if (  me.parentNode &&  me.myStore.treeRef ) {\n  133:             me.myForm.setReadOnlyFields( true, [  me.myStore.treeRef.treeRefField ] )    \n  134          }\n  135  \n  ...\n  221          var myRecord = _SM.getNewRecord(this.myMeta, myStore);\n  222  \n  223:         if ( myStore.treeRef ) {\n  224:             var treeRef = myStore.treeRef; \n  225:             this.parentNode = treeRef.parentNode\n  226  \n  227:             if ( treeRef.parentNode ) {\n  228:                 myRecord.data[ treeRef.treeRefField ] = treeRef.parentNode.data[ '__str__' ];\n  229:                 myRecord.data[ treeRef.treeRefField + '_id' ] = treeRef.parentNode.data[ 'id' ];\n  230              }\n  231  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoForm.js:\n  550  \n  551  \n  552:             if ( me.store.treeRef ) {\n  553                  // TreeGrid \n  554                  var pNode; \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGrid.js:\n   65  \n   66  \n   67:         // add tree initial filter \"treeRefField__isnull\" \n   68          // if ( this.myMeta.pciStyle == 'tree' ) {\n   69:         //     if ( myMeta.gridConfig.initialFilter.length == 0 ) {myMeta.gridConfig.initialFilter  = [{'property' : myMeta.treeRefField, 'filterStmt' : '='}]; }\n   70          // }\n   71  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridController.js:\n  262              // DGT 1604  TreeEdition requires currentRecord Default ( addChild )\n  263              if ( this.myMeta.pciStyle == 'tree' ) {\n  264:                 this.myGrid.store.treeRef =  null \n  265                  var pNode; \n  266  \n  ...\n  268                  if ( this.myGrid.rowData ) {\n  269  \n  270:                     // TreeRef \n  271                      var sm = this.myGrid._extGrid.getSelectionModel();\n  272                      pNode = sm.getSelection()[0]; \n  ...\n  278                  }\n  279  \n  280:                 var treeRef = { \n  281:                     'treeRefField' :this.myMeta.treeRefField, \n  282                      'parentNode' : pNode \n  283                  }\n  284:                 this.myGrid.store.treeRef = treeRef;\n  285  \n  286              }\n\n26 matches across 5 files\n\n\nSearching 72 files for \"myloaddata\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js:\n   50                          // },\n   51  \n   52:                         myLoadData : function(myFilter, mySorter, myMasterId){\n   53                              // Centraliza los llamados para refrescar la grilla\n   54  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoForm.js:\n  461              lGrid = me.cllDetGrids[ixDet];\n  462              detailLink = me.linkController.getDetailLink(lGrid.detailDefinition);\n  463:             lGrid.store.myLoadData(detailLink.detFilter, null, me.idMaster);\n  464  \n  465              if (me.idMaster >= 0 && (!me.isReadOnly)) {\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGrid.js:\n  779  \n  780      gridLoadData: function(grid, sFilter, sorter) {\n  781:         grid.store.myLoadData(sFilter, sorter);\n  782  \n  783          // Para evitar q al filtrar se quede en una pagina vacia\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDTbSortByController.js:\n  133  \n  134          function doSort(){\n  135:             __MasterDetail.protoMasterStore.myLoadData(null, getSorters());\n  136          }\n  137  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/TabMasterDetail.js:\n  195          me.linkController.setMasterData(me.protoMasterGrid.rowData);\n  196          detailLink = me.linkController.getDetailLink(pDetail);\n  197:         myDetStore.myLoadData(detailLink.detFilter, null, me.idMasterGrid);\n  198  \n  199          // Obtiene la grilla y le da un titulo\n\n5 matches across 5 files\n\n\nSearching 72 files for \"MainToolBar\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainTabContainer.js:\n    5      requires : [\n    6          'Softmachine.view.main.MainTabController',\n    7:         'Softmachine.view.toolbar.MainToolBar', \n    8  \n    9          'Softmachine.view.smmasterdetail.MDActionsController', \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/TabMasterDetail.js:\n   13      alias : 'widget.tabMasterDetail',\n   14      requires : [\n   15:         'Softmachine.view.toolbar.MainToolBar',\n   16          'ProtoUL.proto.view.ConfigController',\n   17          'Softmachine.view.smmasterdetail.MDLinkController',\n   ..\n   63  \n   64          // Barra MD\n   65:         tb = Ext.create('Softmachine.view.toolbar.MainToolBar', {\n   66              protoMeta : this.myMeta,\n   67              __MasterDetail : me\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/MainToolBar.js:\n    3  /*global _SM */\n    4  \n    5: Ext.define('Softmachine.view.toolbar.MainToolBar', {\n    6      extend : 'Ext.Toolbar',\n    7:     alias : 'widget.mainToolBar',\n    8  \n    9  \n   10      requires : [\n   11          'Softmachine.view.toolbar.SearchToolBar',\n   12:         'Softmachine.view.toolbar.MainToolBarController'\n   13      ],\n   14  \n   15:     controller : 'maintoolbar', \n   16      autoEdit : true,\n   17  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/MainToolBarController.js:\n    1: /* MainToolBar Controller \n    2   * @DarioGomez \n    3   * Licence: GPL \n    4   */\n    5  \n    6: Ext.define('Softmachine.view.toolbar.MainToolBarController', {\n    7      extend : 'Ext.app.ViewController',\n    8:     alias : 'controller.maintoolbar',\n    9  \n   10      mainQbeLoadData : function(tbar, sFilter, sTitle, sorter){\n\n10 matches across 4 files\n\n\nSearching 72 files for \"SearchToolBar\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoom.js:\n   34  \n   35      requires : [\n   36:         'Softmachine.view.toolbar.SearchToolBar',\n   37      // 'Softmachine.view.smform.ProtoZoomController'\n   38      ],\n   ..\n  174          });\n  175  \n  176:         var searchBG = Ext.create('Softmachine.view.toolbar.SearchToolBar', {\n  177              myMeta : me.myMeta\n  178          });\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/MainToolBar.js:\n    9  \n   10      requires : [\n   11:         'Softmachine.view.toolbar.SearchToolBar',\n   12          'Softmachine.view.toolbar.MainToolBarController'\n   13      ],\n   ..\n   34              items : [\n   35                  {\n   36:                     xtype : 'searchToolBar',\n   37:                     itemId : 'searchToolBar-id', \n   38                      listeners : {\n   39                              qbeLoadData : this.controller.mainQbeLoadData \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/SearchToolBar.js:\n    4   */\n    5  \n    6: Ext.define('Softmachine.view.toolbar.SearchToolBar', {\n    7      extend : 'Ext.toolbar.Toolbar',\n    8:     alias : 'widget.searchToolBar',\n    9  \n   10      /**\n\n7 matches across 3 files\n\n\nSearching 72 files for \"searchToolBar\"\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoom.js:\n   34  \n   35      requires : [\n   36:         'Softmachine.view.toolbar.SearchToolBar',\n   37      // 'Softmachine.view.smform.ProtoZoomController'\n   38      ],\n   ..\n  174          });\n  175  \n  176:         var searchBG = Ext.create('Softmachine.view.toolbar.SearchToolBar', {\n  177              myMeta : me.myMeta\n  178          });\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/MainToolBar.js:\n    9  \n   10      requires : [\n   11:         'Softmachine.view.toolbar.SearchToolBar',\n   12          'Softmachine.view.toolbar.MainToolBarController'\n   13      ],\n   ..\n   34              items : [\n   35                  {\n   36:                     xtype : 'searchToolBar',\n   37:                     itemId : 'searchToolBar-id', \n   38                      listeners : {\n   39                              qbeLoadData : this.controller.mainQbeLoadData \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/SearchToolBar.js:\n    4   */\n    5  \n    6: Ext.define('Softmachine.view.toolbar.SearchToolBar', {\n    7      extend : 'Ext.toolbar.Toolbar',\n    8:     alias : 'widget.searchToolBar',\n    9  \n   10      /**\n\n7 matches across 3 files\n",
-			"settings":
-			{
-				"buffer_size": 24916,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "protoExt/static/js/view/toolbar/MainToolBar.js",
-			"settings":
-			{
-				"buffer_size": 12744,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "protoExt/static/js/snippeds.js",
-			"settings":
-			{
-				"buffer_size": 191,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -136,153 +150,148 @@
 	"expanded_folders":
 	[
 		"/home/dario/PyDev3/softmach3",
-		"/home/dario/PyDev3/softmach3/datascripts",
+		"/home/dario/PyDev3/softmach3/media",
 		"/home/dario/PyDev3/softmach3/protoExt",
+		"/home/dario/PyDev3/softmach3/protoExt/meta",
 		"/home/dario/PyDev3/softmach3/protoExt/static",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar",
-		"/home/dario/PyDev3/softmach3/protoLib",
-		"/home/dario/PyDev3/softmach3/protoLib/models",
-		"/home/dario/PyDev3/softmach3/prototype",
-		"/home/dario/PyDev3/softmach3/rai01ref",
-		"/home/dario/PyDev3/softmach3/rai01ref/actions",
-		"/home/dario/PyDev3/softmach3/rai01ref/models",
 		"/home/dario/PyDev3/softmach3/tmp"
 	],
 	"file_history":
 	[
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/SearchToolBar.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/MainToolBar.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/FormController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoom.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridSheetController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoForm.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGrid.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/TabMasterDetail.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoom.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/Tools.js",
-		"/home/dario/PyDev3/softmach3/tmp/dash.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/snippeds.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDLinkController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoPropertiesTools.js",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPci.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoQbe.py",
-		"/home/dario/PyDev3/softmach3/protoExt/meta/metaProperties.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/variables.js",
-		"/home/dario/PyDev3/softmach3/protoExt/urls.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoMetaDefinition.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoDesigner.js",
 		"/home/dario/PyDev3/softmach3/protoExt/meta/metaObjects.py",
-		"/home/dario/PyDev3/softmach3/protoExt/meta/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/setContext.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoPcl.js",
-		"/home/dario/Dropbox/wkTech/A-SM3/Carra.txt",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoTools.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoPropertiesTools.js",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoGrid.py",
+		"/home/dario/PyDev3/softmach3/protoBase/test.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPci.py",
+		"/home/dario/Downloads/model_m-test.jex",
+		"/home/dario/PyDev3/softmach3/prototype/tests/functions/test_ViewDefinition.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPciDetailsTree.py",
+		"/home/dario/PyDev3/softmach3/prototype/actions/viewDefinition.py",
+		"/home/dario/PyDev3/softmach3-base/prototype/actions/viewDefinition.py",
+		"/home/dario/PyDev3/softmach3/protoExt/utils/utilsConvert.py",
+		"/home/dario/PyDev3/softmach3/.gitignore",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDActionsController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ParameterWin.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDLinkController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDDetailsController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ConfigController.js",
+		"/home/dario/Dropbox/wikiDoc/wikiEscritos/Ref/D0/donaldson_al_2016.txt",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/tmp/serverus.txt",
+		"/home/dario/Dropbox/wkTech/Certae/Servers/CertaePro/doServerBackup.sh",
+		"/home/dario/zotero/storage/8GTC9WEG/.zotero-ft-cache",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/mRai.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/buildRaiMenu.py",
+		"/home/dario/Notebooks/wikiDarioG/DocumentosPersonales/Dario.txt",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/buildFieldList.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/meta/documentTree.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/FormController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoomController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/Tools.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoFieldSelector.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/model/FieldSelectorModel.js",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/admin.py",
+		"/home/dario/PyDev3/softmach3/protoExt/utils/utilsBase.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/setContext.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/meta/__init__.py",
+		"/home/dario/PyDev3/softmach3/prototype/actions/viewTemplate.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/css/app.css",
+		"/home/dario/PyDev3/softmach3/protoLib/models/smbase.py",
+		"/home/dario/tmp/untitled.js",
+		"/home/dario/PyDev3/softmach3/rai01ref/views/documentTree.py",
+		"/home/dario/PyDev3/softmach3/protoExt/meta/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionEdit.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoField.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py",
-		"/home/dario/PyDev3/softmach3/protoExt/models.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/actions/buildRaiMenu.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py",
-		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/documents.txt",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/migrations/0001_initial.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/variables.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ComboBoxPrompt.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py",
+		"/home/dario/PyDev3/softmach3/protoExt/meta/metaProperties.py",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/a-todo/powerGOT.txt",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainTabController.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoDetailSelector.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoFieldTree.js",
+		"/home/dario/PyDev3/softmach3/datascripts/protoExt.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoQBE.js",
+		"/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py",
 		"/home/dario/PyDev3/softmach3/prototype/models.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/models/mRai.py",
+		"/home/dario/PyDev3/softmach3/protoExt/migrations/0001_initial.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoPcl.js",
+		"/home/dario/tmp/pcl.js",
+		"/home/dario/PyDev3/softmach3/protoExt/utils/xml2json.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/DiagramTools.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MenuOption.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/MainToolBar.js",
+		"/home/dario/PyDev3/softmach3/donewdb.sh",
+		"/home/dario/PyDev3/softmach3/prototype/protoRules.py",
+		"/home/dario/PyDev3/softmach3/protoExt/tests/data_protolib_userprofile_fieldtree.py",
+		"/home/dario/PyDev3/softmach3/doMigrate.sh",
+		"/home/dario/PyDev3/softmach3/errors.log",
+		"/home/dario/PyDev3/softmach3/dosyncdb.sh",
+		"/home/dario/PyDev3/softmach3/protoExt/models.py",
+		"/home/dario/PyDev3/softmach3/prototype/admin/__init__.py",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/diagram004.dot",
+		"/home/dario/PyDev3/softmach3/protoBase/settings.py",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/diagram.dot",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/snippeds.js",
+		"/home/dario/PyDev3/softmach3/prototype/templates/prototype/wikientity.txt",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protolib/wikiexport.txt",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/prototypeur/prototype_internals/entity/entity_actions/exportwiki.txt",
+		"/home/dario/PyDev3/softmach3/prototype/templates/prototype/wikiproperty.txt",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/toolbar/SearchToolBar.js",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/TabMasterDetail.js",
+		"/home/dario/PyDev3/softmach3/tmp/dash.js",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoQbe.py",
+		"/home/dario/PyDev3/softmach3/protoExt/urls.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoMetaDefinition.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
+		"/home/dario/Dropbox/wkTech/A-SM3/Carra.txt",
+		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/documents.txt",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protolib.txt",
 		"/home/dario/PyDev3/softmach3/output/dario.gm_rai.dot",
 		"/home/dario/PyDev3/softmach3/output/dario.gm_prototype.dot",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals.txt",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai.txt",
-		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/protoContext.py",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protoLib/Versioning/doSetActiveVersion.txt",
 		"/home/dario/PyDev3/softmach3/protoExt/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoLib/admin/admVersion.py",
-		"/home/dario/PyDev3/softmach3/prototype/admin/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoLib/models/versions.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/admin.py",
 		"/home/dario/PyDev3/softmach3/protoBase/__init__.py",
 		"/home/dario/PyDev3/softmach3/rai01ref/models/__init__.py",
 		"/home/dario/Downloads/Deadpool 2016 CAM x264 - DeLUXAS/Deadpool 2016 HD-TS x264-CPG.srt",
 		"/home/dario/Downloads/Deadpool 2016 CAM x264 - DeLUXAS/Deadpool - Red Band Trailer [HD] - 20th Century FOX.srt",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetSenquence.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/Main.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
 		"/home/dario/PyDev3/softmach3/protoLib/actions/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoLib/getStuff.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/prototypeActions.py",
 		"/home/dario/PyDev3/softmach3/protoDesigner/protoDiagram.py",
 		"/home/dario/PyDev3/softmach3/protoDesigner/service/diagramJSONAssembler.py",
 		"/home/dario/PyDev3/softmach3/prototype/admin/admproject.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py",
 		"/home/dario/PyDev3/softmach3/db/db-160201.sql",
 		"/home/dario/PyDev3/softmach3/protoLib/admin/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/setDefaults.py",
-		"/home/dario/PyDev3/softmach3/protoExt/tests/data_protolib_userprofile_pci.py",
-		"/home/dario/PyDev3/softmach3/protoExt/tests/test_metastructure.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionAction.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/protomanager.py",
-		"/home/dario/PyDev3/softmach3/protoExt/signals.py",
-		"/home/dario/PyDev3/softmach3/protoExt/utils/logger.py",
-		"/home/dario/PyDev3/softmach3/protoExt/tests/dataSetup.py",
-		"/home/dario/PyDev3/softmach3/doMigrate.sh",
-		"/home/dario/PyDev3/softmach3/output/dario.gm_project.dot",
-		"/home/dario/zotero/storage/HPRM9Z47/.zotero-ft-cache",
-		"/home/dario/Dropbox/wikiDoc/wikiEscritos/Ref/K0/Kilian_al_2007.txt",
-		"/home/dario/Dropbox/wikiDoc/wikiEscritos/Ref/L0/Lang-al-2007.txt",
-		"/home/dario/PyDev3/softmach3/prototype/actions/reverseDb.py",
-		"/home/dario/PyDev3/softmach3/output/dario.gm_ref4.dot",
-		"/home/dario/PyDev3/softmach3/output/dario.gm_inspectdb.dot",
-		"/home/dario/PyDev3/softmach3/prototype/actions/__init__.py",
-		"/home/dario/PyDev3/django-master/README.rst",
-		"/home/dario/bin/zim2tag",
-		"/home/dario/Dropbox/install/zim/install-ZimQda.sh",
-		"/home/dario/Documents/savedrecs.ris",
-		"/home/dario/Downloads/ris_import.html",
-		"/home/dario/PyDev3/softmach3/protoBase/settings.py",
-		"/home/dario/PyDev3/softmach3/protoExt/tests/test_ModelsProtoDef_base.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/diagram/DBTypesStore.js",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPciDetailsTree.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoGetPciFieldTree.py",
-		"/home/dario/history.txt",
-		"/home/dario/history.txt2",
-		"/home/dario/zotero/storage/TJKD5HSC/.zotero-ft-cache",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionExport.py",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py",
-		"/home/dario/.nixnote/db-1/dba/79.zim-new~",
-		"/home/dario/Downloads/PruebaNixNotes.txt",
-		"/home/dario/PyDev3/softmach3/protoExt/views/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/localisation/en.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDActionsController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/localisation/es.py",
-		"/home/dario/PyDev3/softmach3/protoExt/localisation/fr.py",
-		"/home/dario/PyDev3/softmach3/prototype/actions/import4json.py",
-		"/home/dario/PyDev3/softmach3/prototype/actions/entityActions.py",
-		"/home/dario/PyDev3/softmach3/datascripts/prototype.py",
-		"/home/dario/PyDev3/softmach3/datascripts/auth.py",
-		"/home/dario/PyDev3/softmach3/prototype/admin/admmodel.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/smbase.py",
-		"/home/dario/PyDev3/softmach3/protoLib/tests/dataImporter.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/signals.py",
-		"/home/dario/PyDev3/softmach3/protoDesigner/protoDiagramEntity.py",
-		"/home/dario/PyDev3/softmach3/protoExt/static/css/app.css",
-		"/home/dario/PyDev3/softmach3/protoLib/migrations/0001_initial.py",
-		"/home/dario/PyDev3/softmach3/protoExt/tests/test_Models_base.py",
-		"/home/dario/PyDev3/softmach3/protoExt/templates/protoDebug.html",
-		"/tmp/RICARDO GOMEZ, Vuelo a BARRANQUILLA, COLOMBIA - YXAOPR.ics",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/AuthenticationController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/AuthenticationModel.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Dialog.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/DashViewPController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/DashViewPMovel.js",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/authentication/Authentication.js"
+		"/home/dario/PyDev3/softmach3/protoExt/actions/setDefaults.py"
 	],
 	"find":
 	{
@@ -293,6 +302,57 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"*.js",
+			"*.js, *.py",
+			"*.js",
+			"*.py",
+			"*.js",
+			"*.py",
+			"*.js",
+			"*.py",
+			"*.py,<open files>",
+			"*.py",
+			"*.css",
+			"*.py",
+			"*.css",
+			"*.py",
+			"*.js",
+			"*.py",
+			"*.js",
+			"*.js, *.py",
+			"*.js",
+			"*.py",
+			"*.js, *.py",
+			"*.js",
+			"*.py",
+			"*.json",
+			"*.js",
+			"*.py",
+			"*.css",
+			"*.js, *.py",
+			"*.js",
+			"*.py",
+			"*.js",
+			"*.js, *.py",
+			"*.js",
+			"*.py",
+			"*.js, *.py",
+			"*.css",
+			"*.py",
+			"*.js, *.py",
+			"*.js",
+			"*.js, *.py",
+			"*.js",
+			"*.py",
+			"*.js",
+			"*.js, *.py",
+			"*.js",
+			"*.py",
+			"*.js",
+			"*.py,/home/dario/PyDev3/softmach3/rai01ref",
+			"*.py",
+			"*.py,<open files>",
+			"*.py",
 			"*.js",
 			"*.py",
 			"*.js",
@@ -362,137 +422,137 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"smgrid",
+			"smGrid",
+			"protoGrid",
+			"var nodeConf = _SM._MetaObjects[myObj.__ptType];",
+			"beforedr",
+			"formfi",
+			"Meta2Tree",
+			"treeData",
+			"formTree",
+			"formtree",
+			"allowDrop",
+			"allowdrop",
+			"parentId",
+			"data",
+			"model",
+			"store",
+			"try",
+			"nParent",
+			"nIndex",
+			"parentId",
+			"data",
+			"parentId",
+			"beforedrop",
+			"model",
+			"overModel.store.getById",
+			"pciStyle",
+			"trace",
+			"baseMeta",
+			"get_details",
+			"detailsConfig",
+			"GetDetailsConfig",
+			"detailsConfig",
 			"details",
-			"searchToolBar",
-			"SearchToolBar",
-			"MainToolBar",
-			"getStoreDefinition",
-			"myloaddata",
-			"treeRef",
-			"isexpand",
-			"treeRef",
-			"readonly",
-			"Parent title",
-			"toolFormAdd",
-			"parentNode",
-			"getSelectionModel",
-			"getSelection",
-			"treeRef",
-			"onSave",
-			"child",
+			"Group",
+			"strptime",
+			"ProtoUL.ux",
+			"parameterWin",
+			"parameterwin",
+			"ProtoProperty",
+			"parameterwin",
+			"ProtoUL.ux",
+			"ProtoList",
+			"parameterwin",
+			"\\.+",
+			"model",
+			"Artefact",
+			"shortTitle",
+			"initZoom",
+			"getDefaultField",
+			"zoomModel",
 			"tree",
-			"pciStyle",
-			"treeRef",
-			"openLinkedForm",
-			"setReadOnlyFields",
-			"setDetailsTilte",
-			"treeRef",
-			"setde",
-			"readOnlyFields",
-			"setReadOnly",
-			"setReadOnlyFields",
-			"readOnly",
-			"defa",
-			"prpDefault",
-			"treeRefField",
-			"getNewRecord",
-			"openNewForm",
-			"id",
-			"pciStyle",
-			"dict",
-			"linkController",
-			"Linkdeta",
-			"Dgt 16",
-			"DGT 16",
-			"DGT",
-			"selected",
-			"selected               \n",
-			"selected                 \n",
-			"linkdeta",
-			"currentr",
-			"current",
-			"records",
-			"deleteCurrentRecord",
-			"DGT",
-			"onSave",
-			"openNewForm",
-			"curr",
-			"doDelete",
-			"deleteCurrentRecord",
-			"for",
-			"pciStyle",
-			"deleteCurrentRecord",
-			"doDelete",
-			"deleteCurrentRecord",
-			"doDelete",
-			"myLoadData",
-			"getStoreDefinition",
-			"getTreeStoreDefinition",
-			"tree",
-			"getGenericPci",
-			"prepareListEnv",
-			"getQSet",
-			"pciStyle",
-			"save",
-			"grid",
-			"tree",
-			"treeRefField",
+			"initZoom",
+			"zoomFilterParams",
+			"zoomFilter",
+			"idSMGrid",
+			"zoomFilter",
+			"idSMGrid",
+			"zoomFilter",
+			"docType",
+			"zoomFilter",
+			"zoom",
+			"\"name\":",
+			"doFinalDetails",
 			"refCapacity",
-			"len",
-			"initialFilter",
-			"baseFilter",
-			"__isnull",
-			"isnnull",
-			"getQbeStmt",
-			"getQbeFilter",
-			"__isnull",
-			"pciStyle",
-			"protoGetMetaStructure",
-			"META_OBJECTS",
-			"pciStyle",
-			"pciType",
-			"pciStyle",
-			"tree",
-			"protoMeta",
-			"doSetContext",
-			"actionSetContext",
-			"protoMeta",
-			"prepareListEnv",
-			"tree",
-			"colDictDefinition",
-			"tree",
-			"else",
-			"getViewColumns",
-			"myMeta",
-			"getViewColumns",
-			"gridColumns",
-			"storeDefinition",
-			"gridColumns",
-			"rowLines",
-			"singleExpand",
-			"multiSelect",
-			"use",
-			"getStoreDefinition",
-			"rowEditing",
-			"]]",
-			"[[./",
-			"DiagramesRRQ",
-			"\n[[",
-			"TreeStore",
-			"tree",
-			"smControlFields",
-			"isAdmField",
-			"admfi",
-			"fields",
 			"getJfields",
-			"docattribute",
-			"obje",
-			"viewDefinition",
+			"viewEntity",
+			"                \"__ptType\": \"formField\"\n",
+			"cBas",
+			"doDetailsConf",
+			"related_name= 'ref_set'",
+			"form",
+			"false",
+			"true",
+			"doBPD",
+			"        \"__ptType\": \"detailDef\"\n",
+			"\"__ptType\": \"detailDef\"",
+			"detailsConfig",
+			"Capacity",
+			"capacity",
+			"detailsConfig",
+			"update",
+			"shortTitle",
+			"doBuildSingleDocsMeta",
+			"doBuildRaiMeta",
+			"fieldDic",
+			"dict",
+			"docFields",
+			"iconCls",
+			"_jField",
+			"_uddObject",
+			"jsonField",
+			"grid.fieldsDict",
+			"gridConfig",
+			"getJfields",
+			"docType",
+			"getJfields",
+			"docType",
+			"return",
 			"doBuildRaiMenu",
-			"doRaiMenu"
+			"queryset",
+			"request",
+			"validateRequest",
+			"getBasePci",
+			"createProtoMeta",
+			"protoMeta",
+			"createProtoMeta",
+			"docType",
+			"lKey",
+			"keys",
+			"doBuildRaiMenu",
+			"doRaiMenu",
+			"icon-proto",
+			"viewIcon",
+			"icon-1",
+			"true",
+			"false",
+			"      \"searchable\": true,\n",
+			" +\\\"__ptType\\\"\\: \\\"\\w+\\\"\\,\n ",
+			"\\\"__ptType\\\"\\: \\\"\\w+\\\"\\,",
+			"            \\\"__ptType\\\"\\: \\\"\\w\\\"\\,",
+			"            \\\"__ptType\\\"\\: \\\".+\\\"\\,\n",
+			"            \"__ptType\": \"formField\",\n",
+			"icon",
+			"true",
+			"                \"__ptType\": \"formField\",\n",
+			"fullPath",
+			"iconCls",
+			"        \"vType\": \"\",\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -500,6 +560,54 @@
 		"regex": false,
 		"replace_history":
 		[
+			".",
+			"'__ptType': 'formField', \"name\":",
+			"viewCode",
+			"",
+			"cBase",
+			"related_name= 'ref_set', verbose_name='Parent'",
+			"False",
+			"True",
+			"doBusinessProcessDiagram",
+			"",
+			"Requirement",
+			"requirement",
+			"doSingleDocsMeta",
+			"doBuildSingleDocsMeta",
+			"docFields",
+			"doBuildRaiConfig",
+			"True",
+			"False",
+			"",
+			"True",
+			"",
+			"UpdateMeta",
+			"Requirement",
+			"Capacity",
+			"Artefact",
+			"me.myMeta",
+			"detCode",
+			"pSheetSelector",
+			"sheetSelector",
+			"formSelector",
+			"",
+			"loadLazyPanel",
+			"viewCode",
+			"loadLazyPci",
+			"myFormLayout",
+			"nProp",
+			"",
+			"doMigrate",
+			"+",
+			"",
+			"\"",
+			"",
+			"ProtoModelBase",
+			"",
+			"->",
+			"Field",
+			"",
+			"Field",
 			"}}",
 			"{{:zoneprive:diagrammes-rrq:",
 			"diagramesrrq",
@@ -579,876 +687,30 @@
 			"| ",
 			"\n* ",
 			"\n* \n",
-			"\n\n",
-			"\n* ",
-			"\n\n",
-			"\n== ",
-			"\n\n",
-			"\n* **",
-			"\n\n",
-			"* Administración",
-			"\n== ",
-			"\n\n",
-			"\n*",
-			"\n",
-			"|",
-			"\n",
-			" ",
-			"\n* ",
-			"\n\n",
-			"\n",
-			"\n* ",
-			"",
-			"\n* ",
-			" : ",
-			"** : ",
-			"|",
-			"",
-			"\n",
-			"[[+",
-			"\n\n#",
-			"---  VPC",
-			"---  EMPRESAS",
-			"---  INTEGRA-TUTORIALES",
-			"---  INTEGRA-CLIENTES-ATUNEC",
-			"INTEGRA-CLIENTES-ATUNEC",
-			"---- ",
-			":wiki:plugins",
-			"\n\n",
-			"= \\1",
-			"\n* \\1. ",
-			"\\1. ",
-			"\\1.",
-			"* \\1.",
-			"",
-			"3%",
-			"== Q",
-			"== Question ",
-			"\n== Question",
-			"* \\1- ",
-			"",
-			"\n"
+			"\n\n"
 		],
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 24916,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										202,
-										213
-									],
-									[
-										444,
-										455
-									],
-									[
-										652,
-										663
-									],
-									[
-										798,
-										809
-									],
-									[
-										1129,
-										1141
-									],
-									[
-										1559,
-										1567
-									],
-									[
-										1769,
-										1777
-									],
-									[
-										1922,
-										1930
-									],
-									[
-										1952,
-										1960
-									],
-									[
-										1969,
-										1977
-									],
-									[
-										2139,
-										2147
-									],
-									[
-										2401,
-										2409
-									],
-									[
-										2698,
-										2706
-									],
-									[
-										2949,
-										2957
-									],
-									[
-										3046,
-										3054
-									],
-									[
-										3126,
-										3134
-									],
-									[
-										3150,
-										3158
-									],
-									[
-										3367,
-										3375
-									],
-									[
-										3610,
-										3618
-									],
-									[
-										3745,
-										3753
-									],
-									[
-										3790,
-										3798
-									],
-									[
-										3831,
-										3839
-									],
-									[
-										3946,
-										3954
-									],
-									[
-										4103,
-										4111
-									],
-									[
-										4237,
-										4245
-									],
-									[
-										4479,
-										4487
-									],
-									[
-										4561,
-										4569
-									],
-									[
-										4691,
-										4699
-									],
-									[
-										4948,
-										4956
-									],
-									[
-										5122,
-										5130
-									],
-									[
-										5362,
-										5370
-									],
-									[
-										5522,
-										5530
-									],
-									[
-										5755,
-										5763
-									],
-									[
-										5777,
-										5785
-									],
-									[
-										6118,
-										6126
-									],
-									[
-										6347,
-										6355
-									],
-									[
-										6546,
-										6554
-									],
-									[
-										6567,
-										6575
-									],
-									[
-										6759,
-										6767
-									],
-									[
-										6957,
-										6965
-									],
-									[
-										7226,
-										7234
-									],
-									[
-										7556,
-										7564
-									],
-									[
-										7787,
-										7795
-									],
-									[
-										7809,
-										7817
-									],
-									[
-										7989,
-										7997
-									],
-									[
-										8027,
-										8035
-									],
-									[
-										8048,
-										8056
-									],
-									[
-										8280,
-										8288
-									],
-									[
-										8328,
-										8336
-									],
-									[
-										8400,
-										8408
-									],
-									[
-										8442,
-										8450
-									],
-									[
-										8569,
-										8577
-									],
-									[
-										8744,
-										8752
-									],
-									[
-										8765,
-										8773
-									],
-									[
-										8901,
-										8909
-									],
-									[
-										9071,
-										9079
-									],
-									[
-										9142,
-										9150
-									],
-									[
-										9155,
-										9163
-									],
-									[
-										9299,
-										9307
-									],
-									[
-										9506,
-										9514
-									],
-									[
-										9722,
-										9730
-									],
-									[
-										9851,
-										9859
-									],
-									[
-										10003,
-										10011
-									],
-									[
-										10031,
-										10039
-									],
-									[
-										10211,
-										10219
-									],
-									[
-										10360,
-										10368
-									],
-									[
-										10381,
-										10389
-									],
-									[
-										10467,
-										10475
-									],
-									[
-										10479,
-										10487
-									],
-									[
-										10579,
-										10587
-									],
-									[
-										10633,
-										10641
-									],
-									[
-										10693,
-										10701
-									],
-									[
-										10735,
-										10743
-									],
-									[
-										10751,
-										10759
-									],
-									[
-										10792,
-										10800
-									],
-									[
-										10802,
-										10810
-									],
-									[
-										10904,
-										10912
-									],
-									[
-										10922,
-										10930
-									],
-									[
-										11000,
-										11008
-									],
-									[
-										11021,
-										11029
-									],
-									[
-										11193,
-										11201
-									],
-									[
-										11257,
-										11265
-									],
-									[
-										11284,
-										11292
-									],
-									[
-										11294,
-										11302
-									],
-									[
-										11349,
-										11357
-									],
-									[
-										11388,
-										11396
-									],
-									[
-										11459,
-										11467
-									],
-									[
-										11485,
-										11493
-									],
-									[
-										11684,
-										11692
-									],
-									[
-										11726,
-										11734
-									],
-									[
-										11773,
-										11781
-									],
-									[
-										11816,
-										11824
-									],
-									[
-										11875,
-										11883
-									],
-									[
-										12011,
-										12019
-									],
-									[
-										12021,
-										12029
-									],
-									[
-										12154,
-										12162
-									],
-									[
-										12196,
-										12204
-									],
-									[
-										12243,
-										12251
-									],
-									[
-										12287,
-										12295
-									],
-									[
-										12337,
-										12345
-									],
-									[
-										12347,
-										12355
-									],
-									[
-										12562,
-										12570
-									],
-									[
-										12726,
-										12734
-									],
-									[
-										12742,
-										12750
-									],
-									[
-										13033,
-										13041
-									],
-									[
-										13093,
-										13101
-									],
-									[
-										13322,
-										13330
-									],
-									[
-										13479,
-										13487
-									],
-									[
-										13645,
-										13653
-									],
-									[
-										13832,
-										13840
-									],
-									[
-										13990,
-										13998
-									],
-									[
-										14315,
-										14323
-									],
-									[
-										14479,
-										14487
-									],
-									[
-										14822,
-										14830
-									],
-									[
-										15045,
-										15053
-									],
-									[
-										15065,
-										15073
-									],
-									[
-										15108,
-										15116
-									],
-									[
-										15382,
-										15390
-									],
-									[
-										15703,
-										15711
-									],
-									[
-										16008,
-										16015
-									],
-									[
-										16375,
-										16382
-									],
-									[
-										16708,
-										16715
-									],
-									[
-										16788,
-										16795
-									],
-									[
-										16796,
-										16803
-									],
-									[
-										16954,
-										16961
-									],
-									[
-										16989,
-										16996
-									],
-									[
-										17007,
-										17014
-									],
-									[
-										17054,
-										17061
-									],
-									[
-										17105,
-										17112
-									],
-									[
-										17166,
-										17173
-									],
-									[
-										17174,
-										17181
-									],
-									[
-										17191,
-										17198
-									],
-									[
-										17267,
-										17274
-									],
-									[
-										17275,
-										17282
-									],
-									[
-										17300,
-										17307
-									],
-									[
-										17486,
-										17493
-									],
-									[
-										17700,
-										17707
-									],
-									[
-										17912,
-										17919
-									],
-									[
-										18248,
-										18255
-									],
-									[
-										18404,
-										18411
-									],
-									[
-										18615,
-										18622
-									],
-									[
-										18656,
-										18663
-									],
-									[
-										18683,
-										18690
-									],
-									[
-										18813,
-										18820
-									],
-									[
-										18823,
-										18830
-									],
-									[
-										19074,
-										19084
-									],
-									[
-										19469,
-										19479
-									],
-									[
-										19758,
-										19768
-									],
-									[
-										20054,
-										20064
-									],
-									[
-										20372,
-										20382
-									],
-									[
-										20759,
-										20770
-									],
-									[
-										21052,
-										21063
-									],
-									[
-										21285,
-										21296
-									],
-									[
-										21537,
-										21548
-									],
-									[
-										21615,
-										21626
-									],
-									[
-										21767,
-										21778
-									],
-									[
-										21837,
-										21848
-									],
-									[
-										21986,
-										21997
-									],
-									[
-										22120,
-										22131
-									],
-									[
-										22223,
-										22234
-									],
-									[
-										22531,
-										22544
-									],
-									[
-										22721,
-										22734
-									],
-									[
-										22947,
-										22960
-									],
-									[
-										23137,
-										23150
-									],
-									[
-										23190,
-										23203
-									],
-									[
-										23476,
-										23489
-									],
-									[
-										23564,
-										23577
-									],
-									[
-										23818,
-										23831
-									],
-									[
-										24008,
-										24021
-									],
-									[
-										24234,
-										24247
-									],
-									[
-										24424,
-										24437
-									],
-									[
-										24477,
-										24490
-									],
-									[
-										24763,
-										24776
-									],
-									[
-										24851,
-										24864
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								24242,
-								24242
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 9,
-							"result_base_dir": "",
-							"result_file_regex": "^([^ 	].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 12863.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "protoExt/static/js/view/toolbar/MainToolBar.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12744,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10663,
-								10663
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4894.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		},
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 2,
-					"file": "protoExt/static/js/snippeds.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 191,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								191,
-								191
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 25.0
 	},
 	"input":
 	{
@@ -1474,7 +736,7 @@
 		"cols":
 		[
 			0.0,
-			0.782249341887,
+			0.730934195742,
 			1.0
 		],
 		"rows":
@@ -1496,7 +758,7 @@
 	"project": "Sm3.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1534,7 +796,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 346.0,
+	"side_bar_width": 313.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

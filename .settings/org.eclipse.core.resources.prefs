@@ -94,6 +94,7 @@ encoding//rai00base/admin/__init__.py=utf-8
 encoding//rai00base/models.py=utf-8
 encoding//rai00base/raccordement.py=utf-8
 encoding//rai01ref/actions/__init__.py=utf-8
+encoding//rai01ref/actions/buildFieldList.py=utf-8
 encoding//rai01ref/actions/buildRaiMenu.py=utf-8
 encoding//rai01ref/migrations/0001_initial.py=utf-8
 encoding//rai01ref/models/__init__.py=utf-8

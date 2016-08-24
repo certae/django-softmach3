@@ -76,6 +76,13 @@ class UserProfile(models.Model):
                  {"name" : "Groups", "type" : "string", "required": False, "tooltip" : "gr1,gr2,..." }, 
                 ] 
             },
+            { "name": "doAddUsers",
+              "selectionMode" : "none",
+              "refreshOnComplete" : True,
+              "actionParams": [
+                 {"name" : "Users", "type" : "text", "required": True, "tooltip" : "Usr, Pwd, email, team, group1, .. group(n)" }, 
+                ] 
+            },
         ], 
     }
 

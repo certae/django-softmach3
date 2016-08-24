@@ -46,6 +46,26 @@ def doAddUser(modeladmin, request, queryset, parameters):
 
     return
 
+def doAddUsers(modeladmin, request, queryset, parameters):
+    """ 
+    Add users  
+    parameters : sUser,sPwd,sMail,sTeam,Group1, .., Group(n) \n
+    """
+
+#   El QSet viene con la lista de Ids
+    from protoExt.actions.addUser import actionAddUsers
+
+    try:
+        result = actionAddUsers(request, queryset, parameters)
+
+    except Exception as e:
+        traceError()
+        result = {'success':False, 'message' : getReadableError(e) }
+
+    return result
+
+    return
+
 
 def doFindReplace(modeladmin, request, queryset, parameters):
     """ 
