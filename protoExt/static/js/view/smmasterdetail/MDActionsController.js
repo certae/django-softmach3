@@ -141,14 +141,19 @@ Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
 
                 	};
 
+                    
                     myWin = Ext.create('ProtoUL.ux.ParameterWin', {
                         parameters: pAction.actionParams,
                         title: btn.actionName,
                         requestparams : {
                             viewCode : pGrid.viewCode,
                             actionName : btn.actionName,
+
+                            // name, required, tooltype, type 
                             parameters : Ext.encode(pAction.parameters),
                             actionDef : Ext.encode(btn.actionDef),
+
+                            // User Selection 
                             selectedKeys : Ext.encode(selectedKeys), 
                             detKeys : Ext.encode(detKeys)
                         },

@@ -27,16 +27,17 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
             handler : onClickSearchBtn
         });
 
-        // var QBEBtn = new Ext.button.Button({
-        // tooltip: _SM.__language.Text_Toolbar_Advanced_Filter,
-        // iconCls: 'icon-filterqbe',
-        // handler: onClickViewQBE
-        // });
+        var QBEBtn = new Ext.button.Button({
+            tooltip: _SM.__language.Text_Toolbar_Advanced_Filter,
+            iconCls: 'icon-filterqbe',
+            handler: onClickViewQBE, 
+            scope : me 
+        });
 
         var clearBtn = new Ext.button.Button({
             tooltip : _SM.__language.Text_Toolbar_Remove_Filters,
-            handler : onClickClearFilter,
-            iconCls : 'icon-filterdelete'
+            iconCls : 'icon-filterdelete',
+            handler : onClickClearFilter
         });
 
         // Criteria
@@ -61,7 +62,7 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
             items : [
                 searchCr,
                 searchBtn,
-                // QBEBtn,
+                QBEBtn,
                 clearBtn
             ]
         });
@@ -92,20 +93,49 @@ Ext.define('Softmachine.view.toolbar.SearchToolBar', {
         }
 
         function onClickViewQBE(item){
-            data = me.myMeta;
-            resp = data.fields;
 
-            var QBE = Ext.create('Ext.ux.protoQBE', {
+            var qbeParams = [ "name", "tooltip", "fieldLabel" ]
+            var qbeField, pAction = {};
+            
+            pAction.viewCode = me.myMeta.viewCode; 
+            pAction.actionName = 'Qbe search' 
+            pAction.parameters = []
 
-                campos : data.fields,
-                viewCode : data.viewCode,
-                titulo : data.shortTitle,
-                aceptar : function(qbe){
-                    console.log('ok');
-                    // TODO: preparar el titulo del qbe, con campo y valor
-                    me.fireEvent('qbeLoadData', me, qbe, '** qbe');
+
+            for ( var ix in me.myMeta.fields) {
+                var vFld = me.myMeta.fields[ix];
+
+                if ( vFld.QbeField || vFld.searchable  ) {
+                    qbeField = _SM.clone( vFld, 0, [], qbeParams )
+                    qbeField.type = 'string' 
+
+                    if ( vFld.type in _SM.objConv(['string', 'text', 'combo', 'foreigntext'])) {
+                        qbeField.tooltip = 'wildchar selection *';                        
+                    } else if ( vFld.type in _SM.objConv(['int', 'decimal', 'money'])) {
+                        qbeField.tooltip = 'wildchar selection *';                        
+                    }
+                    pAction.parameters.push( qbeField ) 
                 }
-            }).show();
+
+            } 
+
+            var myOptions = {
+                scope: me,
+                acceptFn: function(parameters) {
+                    var a = 1;
+                    // this.doAction(me, pGrid.viewCode, {}, selectedKeys, parameters, detKeys);
+                }
+
+            };
+            
+            var myWin = Ext.create('ProtoUL.ux.ParameterWin', {
+                title: pAction.actionName,
+                viewCode : pAction.viewCode,
+                parameters: pAction.parameters,
+                options: myOptions
+            });
+
+            myWin.show();
 
         }
 

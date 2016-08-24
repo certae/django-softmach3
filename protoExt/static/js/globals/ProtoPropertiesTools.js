@@ -392,6 +392,9 @@ _SM._MetaProperties =  {
     "searchable.help": "Searchable?",
     "searchable.type": "boolean",
 
+    "qbeField.help": "QBE search field?",
+    "qbeField.type": "boolean",
+
     "type.help" : "Field type", 
     "type.choices" : [ "", "string", "text", "bool", "int", "decimal", "combo", "date",  "datetime", "time", "autofield", "html", "foreignid",  "foreigntext"  ],             
 
@@ -494,7 +497,9 @@ _SM._MetaObjects = {
 
     "field" : {
         "description" : "A store field element",
-        "properties" : ["name", "required", "prpLength", "prpScale", "prpDefault", "fieldLabel", "format", "header", "sortable", "searchable", "flex",
+        "properties" : ["name", "required", "prpLength", "prpScale", "prpDefault", "fieldLabel", "format", 
+        "header", "flex",
+        "sortable", "searchable", "qbeField", 
         // "height","maxHeight","minHeight",
         // "width", "maxWidth","minWidth",
         // "hideLabel",

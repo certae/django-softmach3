@@ -177,8 +177,11 @@ META_PROPERTIES = {
     "cellToolTip.help": "Presenta contenido del campo como micro ayuda",
     "cellToolTip.type": "boolean",
 
-    "cellLink.help": "Presenta contenido del campo como micro ayuda",
+    "cellLink.help": "Show microhelp",
     "cellLink.type": "boolean",
+
+    "qbeField.help": "QBE field",
+    "qbeField.type": "boolean",
 
     "xtype.help": "Tipo de objeto en el frontEnd ( puede ser manipulado con el vType)",
     "xtype.choices": ["", "textfield", "combobox", "checkbox", "numberfield", "textarea", "datefield" ],

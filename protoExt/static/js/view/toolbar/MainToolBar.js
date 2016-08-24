@@ -17,8 +17,8 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
     initComponent : function(){
 
         var me = this, 
-        myMeta = this.protoMeta, 
-        __MasterDetail = this.__MasterDetail;
+            myMeta = this.protoMeta, 
+            __MasterDetail = this.__MasterDetail;
 
         // --------------------------------------------------------
         // La edicion se hara sobre el master si los detalles estan apagados,
@@ -34,6 +34,7 @@ Ext.define('Softmachine.view.toolbar.MainToolBar', {
                 {
                     xtype : 'searchToolBar',
                     itemId : 'searchToolBar-id', 
+                    myMeta : myMeta, 
                     listeners : {
                             qbeLoadData : this.controller.mainQbeLoadData 
                         }

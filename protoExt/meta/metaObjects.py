@@ -40,7 +40,7 @@ META_OBJECTS = {
                 "name", "required", "header", "fieldLabel", "tooltip", 
                 "prpLength", "prpScale", 
                 "prpDefault",  "format", "flex", "wordWrap",
-                "sortable", "searchable", 
+                "sortable", "searchable", "qbeField",
         
                 # manejo
                 "primary", "crudType", "readOnly", "hidden",
