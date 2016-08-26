@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"s",
+				"sUser"
+			],
+			[
 				"view",
 				"viewIcon"
 			],
@@ -111,6 +115,49 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "Searching 73 files for \"doAddUsr\"\n\n0 matches\n\nSearching 264 files for \"doAddUsr\"\n\n0 matches\n\nSearching 264 files for \"doAddUser\"\n\n/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py:\n   27  \n   28  \n   29: def doAddUser(modeladmin, request, queryset, parameters):\n   30      \"\"\" \n   31      Add user  \n\n/home/dario/PyDev3/softmach3/protoExt/admin/__init__.py:\n   22  # -----------------------------------------   AddUser  \n   23  \n   24: from protoExt.actions import doAddUser \n   25  from protoLib.models import UserProfile\n   26  \n   27  class UserProfileAdmin( reversion.VersionAdmin ):\n   28:     actions = [ doAddUser ]\n   29  \n   30  try: \n\n/home/dario/PyDev3/softmach3/protoExt/tests/data_protolib_userprofile_pci.py:\n   63              }],\n   64              'refreshOnComplete': True,\n   65:             'name': 'doAddUser',\n   66              'selectionMode': 'none'\n   67          }],\n\n/home/dario/PyDev3/softmach3/protoLib/models/smbase.py:\n   66      protoExt = {\n   67          \"actions\": [\n   68:             { \"name\": \"doAddUser\",\n   69                \"selectionMode\" : \"none\",\n   70                \"refreshOnComplete\" : True,\n\n5 matches across 4 files\n\n\nSearching 264 files for \"actionAddUser\"\n\n/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py:\n   34  \n   35  #   El QSet viene con la lista de Ids\n   36:     from protoExt.actions.addUser import actionAddUser\n   37  \n   38      try:\n   39:         result = actionAddUser(request, queryset, parameters)\n   40  \n   41      except Exception as e:\n\n/home/dario/PyDev3/softmach3/protoExt/actions/addUser.py:\n    8  \n    9  \n   10: def actionAddUser( request,  queryset , parameters ):\n   11      \"\"\"\n   12      Permite crear el usuario y asociarlo a un grupo y un team \n\n3 matches across 2 files\n\n\nSearching 264 files for \"doAddUser\"\n\n/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py:\n   27  \n   28  \n   29: def doAddUser(modeladmin, request, queryset, parameters):\n   30      \"\"\" \n   31      Add user  \n   ..\n   47      return\n   48  \n   49: def doAddUsers(modeladmin, request, queryset, parameters):\n   50      \"\"\" \n   51      Add users  \n\n/home/dario/PyDev3/softmach3/protoExt/admin/__init__.py:\n   22  # -----------------------------------------   AddUser  \n   23  \n   24: from protoExt.actions import doAddUser \n   25  from protoLib.models import UserProfile\n   26  \n   27  class UserProfileAdmin( reversion.VersionAdmin ):\n   28:     actions = [ doAddUser ]\n   29  \n   30  try: \n\n/home/dario/PyDev3/softmach3/protoExt/tests/data_protolib_userprofile_pci.py:\n   63              }],\n   64              'refreshOnComplete': True,\n   65:             'name': 'doAddUser',\n   66              'selectionMode': 'none'\n   67          }],\n\n/home/dario/PyDev3/softmach3/protoLib/models/smbase.py:\n   66      protoExt = {\n   67          \"actions\": [\n   68:             { \"name\": \"doAddUser\",\n   69                \"selectionMode\" : \"none\",\n   70                \"refreshOnComplete\" : True,\n   ..\n   77                  ] \n   78              },\n   79:             { \"name\": \"doAddUsers\",\n   80                \"selectionMode\" : \"none\",\n   81                \"refreshOnComplete\" : True,\n\n7 matches across 4 files\n\n\nSearching 264 files for \"continue\"\n\n/home/dario/PyDev3/softmach3/protoExt/actions/addUser.py:\n   41          groups = sUserLine[4:]\n   42  \n   43:         if len( sUser.strip() ) = 0: continue  \n   44  \n   45          result, message = addProtoUser(sUser, sPwd, sMail, sTeam, groups )\n\n/home/dario/PyDev3/softmach3/protoExt/localisation/en.py:\n  117      'Grid_Edit_Ttip' : 'Switch to edit mode',\n  118      'Grid_EditSave_Title' : 'Save and exit edition mode',\n  119:     'Grid_EditSaveCont_Title' : 'Continue',\n  120:     'Grid_EditSaveCont_Ttip' : 'Save and continue',\n  121      'Grid_EditAutoSync_Title' : 'AutoSync',\n  122      \n\n/home/dario/PyDev3/softmach3/protoExt/localisation/fr.py:\n  117      'Grid_Edit_Ttip' : 'Passer en mode edition',\n  118      'Grid_EditSave_Title' : \"Enregistrer et quitter le mode d'édition\",\n  119:     'Grid_EditSaveCont_Title' : 'Continuer',\n  120:     'Grid_EditSaveCont_Ttip' : 'Enregistrer et continuer',\n  121      'Grid_EditAutoSync_Title' : 'Auto synchroniser',\n  122      \n\n/home/dario/PyDev3/softmach3/protoExt/meta/__init__.py:\n   30              if type(sKey).__name__ != 'str' :\n   31                  msgError += 'invalid list key %s \\n' % ( sKey, )\n   32:                 continue\n   33  \n   34              listOfConf = META_OBJECTS.get( sKey, None) \n   35              if not listOfConf : \n   36                  msgError += 'invalid META key %s \\n' % ( sKey, )\n   37:                 continue \n   38  \n   39              # Se asegura q se una lista y asigna las propiedades por defecto \n   ..\n   59              if type(sKey).__name__ != 'str' :\n   60                  msgError += 'invalid object key %s \\n' % ( sKey, )\n   61:                 continue\n   62  \n   63              myObj = oMeta.get( sKey, {} )\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoPropertiesTools.js:\n   30          // Los objetos o arrays son la imagen del arbol y no deben ser tenidos en cuenta, generarian recursividad infinita\n   31          if (_SM.typeOf(cValue) in _SM.objConv(['object', 'array'])) {\n   32:             continue;\n   33          }\n   34  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/ProtoStore.js:\n  344              vFld = myMeta.fields[ix];\n  345              if (!vFld.prpDefault) {\n  346:                 continue;\n  347              }\n  348              vDefault[vFld.name] = vFld.prpDefault;\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/globals/Tools.js:\n  108          var copy = {};\n  109          for (var attr in obj) {\n  110:             if ( attr in _SM.objConv( ['events', 'renderer'] )) continue;\n  111:             if (( exclude ) && ( attr in _SM.objConv( exclude ))) continue;\n  112:             if (( include ) && ! ( attr in _SM.objConv( include ))) continue;\n  113  \n  114              if (obj.hasOwnProperty(attr)) {\n  ...\n  583              if (myMeta.jsonField == vFld.name) {\n  584                  vDefault[vFld.name] = recBase.data[vFld.name];\n  585:                 continue; \n  586              }\n  587  \n  ...\n  589              if (vFld.name == 'copyFrom_id') {\n  590                  vDefault[vFld.name] = recBase.data['id'];\n  591:                 continue; \n  592              }\n  593  \n  594              if (vFld.name in _SM.smFields) {\n  595:                 continue; \n  596              }\n  597  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/proto/ProtoTools.js:\n  145                          // , sKey )\n  146                          delete nodeDef.lists[ix];\n  147:                         continue;\n  148                      }\n  149                      var childConf = _SM._MetaObjects[sKey];\n  150                      if (childConf.__ptStyle == 'colList' || childConf.__ptStyle == 'jsonText') {\n  151:                         continue;\n  152                      }\n  153                      if (!childConf.listOf) {\n  154                          // console.log( 'pciObjects no se encontro listOf para ' + sKey )\n  155:                         continue;\n  156                      }\n  157                  }\n  ...\n  170                          // console.log( 'pciObjects definicion errada en objects ' + ptType + ' key\n  171                          // ' , sKey )\n  172:                         continue;\n  173                      }\n  174                  }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/ux/ProtoProperty.js:\n   76              // Si ya existe continua ( los objetos no deben tener el mismo nombre )\n   77              if (this.sourceConfig[prp] || _SM.typeOf(l1) !== 'array') {\n   78:                 continue;\n   79              }\n   80  \n   ..\n  116              // Si ya existe continua\n  117              if (this.sourceConfig[prp]) {\n  118:                 continue;\n  119              }\n  120              // Los tipos definidos son :  'date','string', 'number', 'boolean'\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/FormController.js:\n  504                      for (ix in prItems ) {\n  505                          if (ix.indexOf(\"__pt\") == 0) {\n  506:                             continue;\n  507                          }\n  508  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoForm.js:\n  205                  vFld = me.myMeta.fields[ix];\n  206                  if (!vFld.cpFromZoom) {\n  207:                     continue;\n  208                  }\n  209                  cpFrom = {\n  ...\n  283              zoomField = lFields[ix];\n  284              if (!zoomField.zoomModel) {\n  285:                 continue;\n  286              }\n  287  \n  ...\n  555                      // Obtiene los datos del masterRecord \n  556                      for (ib in me.masterRecord.data ) {\n  557:                         if ( ib == 'id' ) {continue; }\n  558                          lRec.data[ ib ] = me.masterRecord.data[ ib ]\n  559                      }\n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGrid.js:\n  425              // var vFld = e.grid.columns[ix]\n  426              // var initialConf = vFld.initialConfig\n  427:             // if (! initialConf.editor ) continue;\n  428:             // if ( initialConf.editor.xtype != 'protoZoom' ) continue;\n  429              // var zoom = vFld.getEditor()\n  430              // zoom.resetZoom()\n  ...\n  449              // var vFld = e.grid.columns[ix]\n  450              // var initialConf = vFld.initialConfig\n  451:             // if (! initialConf.editor ) continue;\n  452:             // if ( initialConf.editor.xtype != 'protoZoom' ) continue;\n  453              // var zoom = vFld.getEditor()\n  454              // var idIndex = initialConf.editor.fkId\n  455:             // if ( ! zoom.zoomRecord ) continue;\n  456              // // Actualiza el Id con el dato proveniente del zoom\n  457              // // fix: Agrega el modificado en caso de q no se encuentre\n  ...\n  475                  vFld = myMeta.fields[ix];\n  476                  if (vFld.crudType == 'storeOnly') {\n  477:                     continue;\n  478                  }\n  479  \n  ...\n  597              // __str__ already added in tree style \n  598              if ( this.myMeta.pciStyle == 'tree' && dataIndex == '__str__' ) {\n  599:                 continue; \n  600              }\n  601  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridSheetController.js:\n   23              sType = myMeta.sheetConfig[ix].sheetType;\n   24              if (sType == 'printerOnly') {\n   25:                 continue;\n   26              }\n   27              // DGT : ActiveSheet ???  si son varias, esto podria ayudar \n   ..\n   82          for (ix in pSheets  ) {\n   83              if (pSheets[ix].sheetType == 'printerOnly') {\n   84:                 continue;\n   85              }\n   86  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDDetailsController.js:\n   25              pDetail = myMasterDetail.myMeta.detailsConfig[vDet];\n   26              if (pDetail.menuText === undefined) {\n   27:                 continue;\n   28              }\n   29  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDPrintOptsController.js:\n   52                  var pPrinterOpts = this.myMeta.sheetConfig[ix];\n   53                  if (pPrinterOpts.sheetType == 'gridOnly') {\n   54:                     continue;\n   55                  }\n   56  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/MDTbSortByController.js:\n   68                  var col = me.myFieldDict[name];\n   69                  if (!col) {\n   70:                     continue;\n   71                  }\n   72  \n\n/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/TabMasterDetail.js:\n  288                  myDetGrid = detGrids[ix];\n  289                  if (!myDetGrid.detailDefinition) {\n  290:                     continue;\n  291                  }\n  292                  myDetGrid.setEditMode(bEdit);\n\n/home/dario/PyDev3/softmach3/protoExt/utils/utilsBase.py:\n   71  \n   72          if list1[ix] in list2 :\n   73:             continue \n   74  \n   75          if type( list1[ix] ) != type( list2[ix] ):\n   ..\n  242      for file in os.listdir(inPath):\n  243          if file in ['.', '..', '']:\n  244:             continue\n  245          if not os.path.isfile(os.path.join(inPath, file)):\n  246:             continue\n  247          if not showExt:\n  248              file = os.path.splitext(file)[0]\n  ...\n  341                  setattr(objto, n, v);\n  342              except:\n  343:                 continue\n  344  \n  345      return objto\n\n/home/dario/PyDev3/softmach3/protoExt/utils/utilsDb.py:\n    7      for key in defaults:\n    8          if key in exclude:\n    9:             continue \n   10          try:\n   11              setattr(pObj, key, defaults[key])    \n\n/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py:\n   32          for cVar in cVars:\n   33              if not cVar.propValue: \n   34:                 continue\n   35              cttArray.append( {\n   36                  'property' : cEnt.propName, \n   ..\n   56      for lField in cttArray:\n   57  \n   58:         # If parent property continue \n   59:         if  len( lField[ 'property' ].split('__')) > 1  : continue \n   60          \n   61          lName = lField[ 'property' ]\n   62          vFld = cBase.fieldsDict.get( lName ) \n   63:         if not vFld: continue  \n   64          \n   65          vFld['prpDefault'] = lField.get( 'propValue' ) \n   ..\n   69              lName = lName[:-3]\n   70              vFld = cBase.fieldsDict.get( lName ) \n   71:             if not vFld: continue\n   72              vFld['prpDefault'] = lField.get( 'description' ) \n   73              \n\n/home/dario/PyDev3/softmach3/protoExt/views/protoActionEdit.py:\n  100                  data['_ptStatus'] = data['_ptStatus'] + ERR_NOEXIST + '<br>'\n  101                  pList.append(data)\n  102:                 continue\n  103  \n  104          if not (myAction == ACT_DEL):\n  ...\n  107                  key = smart_str(key)\n  108                  if key in ['id', '_ptStatus', '_ptId', '__str__']:\n  109:                     continue\n  110  \n  111  #               Tree Specific vars   \n  112                  if key in ['leaf', 'parentId']:\n  113:                     continue\n  114  \n  115                  vFld = fieldsDict[key]\n  116                  if vFld.get('crudType') in [\"screenOnly\", \"readOnly\" ]:\n  117:                     continue\n  118  \n  119                  #  Los campos de seguridad se manejan a nivel registro\n  120                  if cBase.isProtoModel and key in smControlFields:\n  121:                     continue\n  122  \n  123                  #  cBase.JsonField\n  124                  if key == cBase.jsonField or key.startswith(cBase.jsonField + '__'):\n  125:                     continue\n  126  \n  127                  try:\n  ...\n  135                  for key in data:\n  136                      if not key.startswith(cBase.jsonField + '__'):\n  137:                         continue\n  138                      jKey = key[len(cBase.jsonField) + 2:]\n  139                      jsonInfo[jKey] = data[key]\n\n/home/dario/PyDev3/softmach3/protoExt/views/protoActionList.py:\n  122                  elif sName.split('__')[0] in ['smInfo', cBase.jsonField]:\n  123                      cBase.jsonSorters.append(sField)\n  124:                     continue\n  125  \n  126              # __str__ is not sortable\n  127              if sName == '__str__':\n  128:                 continue\n  129  \n  130              if sField['direction'] == 'DESC':\n  ...\n  160      for lFilter in cBase.zoomParams.get('zoomFilter').replace(' ', '').split(';'):\n  161          if len(lFilter) == 0:\n  162:             continue\n  163          sFilter = _getZoomFilter(lFilter, cBase)\n  164  \n  165          if not sFilter:\n  166:             continue\n  167          cBase.contextFilter.append(sFilter)\n  168  \n  ...\n  289          fName = lField['name']\n  290          if (lField.get('cpFromField') is None or lField.get('cpFromZoom') is None):\n  291:             continue\n  292  \n  293          bCopyFromFld = True\n  ...\n  326  \n  327              if lField.get('crudType') == \"screenOnly\":\n  328:                 continue\n  329  \n  330              elif (lField.get('type', 'none') in ['protoN2N', 'none']):\n  331:                 continue\n  332  \n  333              # Si el campo es absorbido ( bCopyFromFld es un shortcut para\n  334              # evitar la evulacion en caso de q no haya ningun cpFromField )\n  335              elif bCopyFromFld and (lField.get('isAbsorbed', False)):\n  336:                 continue\n  337  \n  338              rowdict[fName] = getFieldValue(\n  ...\n  365          cpFromField = lField.get('cpFromField')\n  366          if not cpFromField:\n  367:             continue\n  368  \n  369          fName = smart_str(lField['name'])\n  ...\n  380              val = rowdict.get(fName, None)\n  381              if (val) and smart_str(val).__len__() > 0:\n  382:                 continue\n  383  \n  384              val = rowdict.get(cpFromField, None)\n\n/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py:\n   79      # Obtiene los diferentes pedazos del path      \n   80      for relPath in cRep.nSpaceExpr.replace(' ', '').split( ';' ):\n   81:         if len( relPath ) == 0: continue \n   82          preFix = _getRelNameSpace( relPath, reg  )\n   83          \n\n/home/dario/PyDev3/softmach3/protoExt/views/protoGetPciFieldTree.py:\n  137              # los id de los campos heredados tampoco se presentan \n  138              if fAux.name == 'id' :\n  139:                 continue \n  140              \n  141              # los campos adm de los heredados no se presentan  \n  142              if isAdmField(fAux.name):\n  143:                 continue \n  144              \n  145              addFiedToList(fkFieldList, fAux , fieldId + '__')\n\n/home/dario/PyDev3/softmach3/protoExt/views/protoGrid.py:\n   79          for field in cBase.model._meta.fields:\n   80              if field.name in protoExclude:\n   81:                 continue\n   82              setFieldDict (self.fieldsDict , field)\n   83  \n   ..\n  141  \n  142                      if (vFld.get('crudType') == 'storeOnly') or (vFld.get('hidden', False)) :\n  143:                         continue\n  144  \n  145                      if key in smControlFields :\n  ...\n  154  \n  155                      elif (fType in ['autofield', 'foreignid']) :\n  156:                         continue\n  157  \n  158                      elif (fType == 'bool') :\n  ...\n  160  \n  161                      elif (fType == 'protoN2N') :\n  162:                         continue\n  163  \n  164                      elif (key == '__str__') :\n  165:                         continue\n  166  \n  167                      elif (vFld.get('required', False) == False):\n  ...\n  282  #         detMeta = detail.field.rel.through._meta\n  283  #         if not detMeta.auto_created:\n  284: #             continue\n  285  # \n  286  #         relMeta = detail.model._meta\n\n/home/dario/PyDev3/softmach3/protoExt/views/protoMenu.py:\n  289              model = getDjangoModel( option.code )\n  290          except: \n  291:             continue \n  292  \n  293          if not getModelPermission(currentUser, model , 'menu'):\n  294:             continue \n  295  \n  296          prBase = getNodeBaseViews(prNodes, option)\n  297:         if prBase is None: continue  \n  298          prBase['children'].append({\n  299              'text':  option.code,\n\n/home/dario/PyDev3/softmach3/protoExt/views/protoQbe.py:\n  109          for sCondicion in lCondicion:\n  110              if len (sCondicion) == 0:\n  111:                 continue\n  112  \n  113              bAndConector = False\n  ...\n  273          fAux = cBase.fieldsDict.get(fName, {})\n  274          if fAux.get('type', '')  not in [ 'string', 'text', 'jsonField' ]: \n  275:             continue\n  276  \n  277          QTmp = addQbeFilterStmt({'property': fName, 'filterStmt': sFilter['filterStmt'] } , cBase )\n\n/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py:\n   56          # Si anulo la entidad dependiente, solo pasan los campos del padre, el hijo no se copia \n   57          # La solucion es buscar cuando un registro del padre es invocado por el hijo \n   58:         # if len(pEntity._meta.parents) > 0: continue\n   59  \n   60          # Duplicate entity?\n   61          if idEquiv.get(entityName, '') != '':\n   62:             continue\n   63  \n   64          # Listas de ids\n   ..\n   73                  parentLink = ( entityName == 'prototype_property' ) and reg.isForeign\n   74              except: parentLink = False \n   75:             if parentLink: continue\n   76  \n   77              idList0.append(reg.pk)\n   ..\n  100              if f.is_relation and (f.many_to_one and f.related_model):\n  101                  relName = f.related_model()._meta.db_table\n  102:                 if not relName in idEquiv.keys(): continue\n  103                  relFields.append( (f, relName) )\n  104          \n  105          if len(relFields) == 0: \n  106:             continue \n  107  \n  108          for reg in pEntity.objects.filter(smVersion=v1):\n  ...\n  112                  parentLink = ( entityName == 'prototype_property' ) and reg.isForeign\n  113              except: parentLink = False \n  114:             if parentLink: continue\n  115  \n  116              for f, relName in relFields:\n  ...\n  118                  # get entity idsVersionTitle\n  119                  idRef0 = getattr( reg , f.column)\n  120:                 if idRef0 is None: continue \n  121                  \n  122                  idList0, idList1 = idEquiv.get(relName, [[], []])\n\n/home/dario/PyDev3/softmach3/protoLib/actions/findReplace.py:\n   22  \n   23          fValue = getattr(  dEntity, fName ) \n   24:         if fValue is None:  continue \n   25  \n   26          fNewValue =  newText\n\n/home/dario/PyDev3/softmach3/protoLib/models/protomanager.py:\n   69                      lookupval = lookup.split('__')[1]\n   70                  except: \n   71:                     continue \n   72                  if lookupval in [\"exact\", \"iexact\", \"in\", \"isnull\", \"contains\", \"icontains\"]:\n   73:                     continue \n   74                  extra_lookups[lookup] = kwargs[lookup]\n   75  \n\n/home/dario/PyDev3/softmach3/prototype/actions/__init__.py:\n   84              DiagramEntity.objects.get_or_create(diagram = diagram, entity = entity, defaults = jAux)[0]\n   85          except: \n   86:             continue\n   87  \n   88      return doDiagram(modeladmin, request, [ diagram ], parameters)\n\n/home/dario/PyDev3/softmach3/prototype/actions/exportDjango.py:\n  112              strOptions = ''\n  113              for pProperty in pEntity.property_set.all():\n  114:                 if not pProperty.isPrimary : continue\n  115                  if strOptions.__len__() > 0:  strOptions += \" +  '.' + \" \n  116  \n\n/home/dario/PyDev3/softmach3/prototype/actions/exportViews.py:\n  111              for fld in cProto['fields'] : \n  112                  if fld['name'] in [ 'entity', 'entity_id', 'info' ]: \n  113:                     continue\n  114                  if fld['name'] == '__str__':   \n  115                      try: \n\n/home/dario/PyDev3/softmach3/prototype/actions/graphModel.py:\n   64                  #  Si ya se encuentra en otro diagrama no la dibuja \n   65                  if enttCode in self.entities: \n   66:                     continue \n   67                  \n   68                  self.entities.append(enttCode)\n   ..\n  152              pLinkTo = gLink.get('linkTo')\n  153              if ( not showFKey ) and ( pLinkTo not in self.entities ): \n  154:                 continue\n  155  \n  156              self.dotSource += '{0} -> {1} '.format(pEntity, pLinkTo) + self.lnkComposition\n\n/home/dario/PyDev3/softmach3/prototype/actions/importOMS.py:\n  203                  dReference = Entity.objects.get(model__project=dForeign.entity.model.project, code=dForeign.dbName)\n  204              except: \n  205:                 continue\n  206              \n  207              dForeign.refEntity = dReference\n  ...\n  214              except Exception as e: \n  215                  self.__logger.info(\"Error dForeign.save\" + str(e))\n  216:                 continue \n  217                  \n  218          # Logging info\n\n/home/dario/PyDev3/softmach3/prototype/actions/reverseDb.py:\n   64  \n   65          if table_name.split( '_')[0] in ['auth', 'django', 'taggit', 'reversion' ]: \n   66:             continue \n   67  \n   68          pEntity = { 'code' : table2model(table_name)  }\n   ..\n   93                              'smuuid', 'smnaturalcode', 'id', \n   94                              'smversion' ] :\n   95:                 continue\n   96  \n   97              pProperty = { 'code' :  att_name , 'notes' : ''}\n   ..\n  142              # that's assumed if it doesn't exist.\n  143              if att_name == 'id' and field_type == 'AutoField' and pProperty['primary_key']:\n  144:                 continue\n  145  \n  146              # Add 'null' and 'blank', if the 'null_ok' flag was present in the\n  ...\n  174  \n  175      #     if not (\"foreign\" in table_sch.lower() ): \n  176:     #         continue \n  177   \n  178      #     try:\n  179      #         pEntity = pEntities[ table2model(table_name)  ]\n  180      #     except NotImplementedError:\n  181:     #         continue\n  182  \n  183      #     # Walk through and look for references to other tables. SQLite doesn't\n  ...\n  189      #         # This is the issue d'expetion \n  190      #         if not field_desc.startswith(\"foreignkey\"): \n  191:     #             continue \n  192              \n  193      #         m = re.search('references(\\S*) ?\\([\"|]?(.*)[\"|]?\\)', field_desc, re.I)\n  194      #         if not m:\n  195:     #             continue\n  196      #         table_ref  = [s.strip('\"') for s in m.groups()][0]\n  197  \n  ...\n  199      #             att_name = re.match('foreignkey\\(([^\\)]*)\\).*', field_desc, re.I).groups()[0]\n  200      #         except NotImplementedError:\n  201:     #             continue\n  202              \n  203      #         for pProperty in pEntity[ 'properties' ]:\n  204:     #             if  att_name != pProperty['code']: continue  \n  205      #             if not 'refEntity' in pProperty:\n  206      #                 pProperty['refEntity'] = table2model(table_ref)\n\n/home/dario/PyDev3/softmach3/prototype/tests/models/test_ModelProtoDef_prototype.py:\n  100          for field in fields:\n  101              if field is 'exclude':\n  102:                 continue\n  103              for value in Relationship.protoExt[field]:\n  104                  fieldtype = getFieldType(field, value, Relationship)\n\n/home/dario/PyDev3/softmach3/protovarios/actions.py:\n   25  #             wfModel = getDjangoModel(pParam.parameterValue)\n   26  #         except :\n   27: #             continue\n   28  #         wfStatus = pParam.parameterTag or 'I'\n   29  # \n\n/home/dario/PyDev3/softmach3/rai00base/actions/domAffairesActions.py:\n   49  \n   50  \n   51:         # Return and continue \n   52          from threading import Thread\n   53          t = Thread(target= doBaseImport, args=( cOMS,))\n\n/home/dario/PyDev3/softmach3/rai00base/actions/domAffimportOMS.py:\n  304                                                  nom_entite=dForeign.tmp_foreign)\n  305              except:\n  306:                 continue\n  307  \n  308              dForeign.entite_rela2 = dReference\n  ...\n  312              except Exception as e:\n  313                  self.__logger.info(\"Error dForeign.save\" + str(e))\n  314:                 continue\n  315  \n  316          # Logging info\n  ...\n  334                      nom_modele=dModRec.tmp_modrac2)\n  335              except:\n  336:                 continue\n  337  \n  338  \n  ...\n  344              except Exception as e:\n  345                  self.__logger.info(\"Error dModRec.save\" + str(e))\n  346:                 continue\n  347  \n  348  \n  ...\n  361  \n  362                  except:\n  363:                     continue\n  364  \n  365  \n  ...\n  371                  except Exception as e:\n  372                      self.__logger.info(\"Error dRac.save\" + str(e))\n  373:                     continue\n  374  \n  375  \n\n/home/dario/PyDev3/softmach3/rai00base/actions/entiteAddModel.py:\n  130                  rEntite  = Entite.objects.get( entite_mod = lModele, nom_entite = sRel.entite_rela2.nom_entite )\n  131              except Exception:\n  132:                 continue \n  133  \n  134              # get or Create relation  \n\n/home/dario/PyDev3/softmach3/rai00base/actions/racMatrix.py:\n   42  				\n   43  				if dRac.eledon_rac1 is None or dRac.eledon_rac2 is None: \n   44: 					continue \n   45  \n   46  				if dRac.eledon_rac1.entite_elem is None or dRac.eledon_rac2.entite_elem is None: \n   47: 					continue \n   48  				\n   49  				linRac = { \n\n/home/dario/PyDev3/softmach3/tmp/dash.js:\n 3295                          if (m === null) {\n 3296                              x[z] = q;\n 3297:                             continue\n 3298                          }\n 3299                          for (s = 0, g = m.length; s < g; s++) {\n ....\n 3655              for ( var c in d) {\n 3656                  if (!d.hasOwnProperty(c)) {\n 3657:                     continue\n 3658                  }\n 3659                  this[c] = d[c]\n ....\n 4050                                                  return false\n 4051                                              }\n 4052:                                             continue\n 4053                                          }\n 4054                                          r = z.substring(v + 1)\n ....\n 4312                          f = g.merge;\n 4313                          if (!f) {\n 4314:                             continue\n 4315                          }\n 4316                          l = null\n ....\n 4542              for (d in n) {\n 4543                  if (f && s.hasOwnProperty(d)) {\n 4544:                     continue\n 4545                  }\n 4546                  j[d] = n[d];\n ....\n 4550                  } else {\n 4551                      if (r) {\n 4552:                         continue\n 4553                      }\n 4554                  }\n ....\n 4778                                          if (r && (m in r) && !x.config.hasOwnProperty(m)) {\n 4779                                              (w || (w = {}))[m] = s;\n 4780:                                             continue\n 4781                                          }\n 4782                                      }\n ....\n 5452              for (g = 0; g < c; ++g) {\n 5453                  if (!(n = d[g])) {\n 5454:                     continue\n 5455                  }\n 5456                  if (f[n] !== o) {\n ....\n 6667                  if (!i && g.ready) {\n 6668                      c.push(g);\n 6669:                     continue\n 6670                  }\n 6671                  k = g.fn.call(j, l, b)\n\n127 matches across 43 files\n",
+			"settings":
+			{
+				"buffer_size": 31121,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "protoExt/admin/__init__.py",
+			"settings":
+			{
+				"buffer_size": 760,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "protoLib/models/smbase.py",
+			"settings":
+			{
+				"buffer_size": 5927,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "protoExt/actions/addUser.py",
+			"settings":
+			{
+				"buffer_size": 2551,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "a1, apwd, a@ca.ca, t1, g1, g2 \na2, apwd, a@ca.ca, t1, g1\n\n\n    sUser   =  sUser.split()\n    sPwd    =  sPwd.split()\n    sMail   =  sMail.split()\n    sTeam   =  sTeam.split()",
+			"settings":
+			{
+				"buffer_size": 173,
+				"line_ending": "Unix",
+				"name": "a1, apwd, a@ca.ca, t1, g1, g2"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -156,7 +203,7 @@
 		"/home/dario/PyDev3/softmach3/protoExt/static",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid",
@@ -164,6 +211,9 @@
 	],
 	"file_history":
 	[
+		"/home/dario/PyDev3/softmach3/protoExt/meta/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/ux/HelpQbe.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoom.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridSheetController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smgrid/SMGridController.js",
@@ -214,7 +264,6 @@
 		"/home/dario/PyDev3/softmach3/protoLib/models/smbase.py",
 		"/home/dario/tmp/untitled.js",
 		"/home/dario/PyDev3/softmach3/rai01ref/views/documentTree.py",
-		"/home/dario/PyDev3/softmach3/protoExt/meta/__init__.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/getStuff.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionEdit.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoField.py",
@@ -263,7 +312,6 @@
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoQbe.py",
 		"/home/dario/PyDev3/softmach3/protoExt/urls.py",
 		"/home/dario/PyDev3/softmach3/protoExt/views/protoMetaDefinition.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/__init__.py",
 		"/home/dario/Dropbox/wkTech/A-SM3/Carra.txt",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/documents.txt",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protolib.txt",
@@ -290,8 +338,7 @@
 		"/home/dario/PyDev3/softmach3/protoDesigner/service/diagramJSONAssembler.py",
 		"/home/dario/PyDev3/softmach3/prototype/admin/admproject.py",
 		"/home/dario/PyDev3/softmach3/db/db-160201.sql",
-		"/home/dario/PyDev3/softmach3/protoLib/admin/__init__.py",
-		"/home/dario/PyDev3/softmach3/protoExt/actions/setDefaults.py"
+		"/home/dario/PyDev3/softmach3/protoLib/admin/__init__.py"
 	],
 	"find":
 	{
@@ -302,6 +349,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"*.js, *.py",
 			"*.js",
 			"*.js, *.py",
 			"*.js",
@@ -422,9 +470,20 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"sUserLine.split(',')",
+			"trim",
+			"split",
+			"continue",
+			"sGroups",
+			"parameters",
+			"doAddUser",
+			"actionAddUser",
+			"doAddUser",
+			"doAddUsr",
+			"Qbe",
 			"smgrid",
 			"smGrid",
 			"protoGrid",
@@ -541,18 +600,7 @@
 			"icon-1",
 			"true",
 			"false",
-			"      \"searchable\": true,\n",
-			" +\\\"__ptType\\\"\\: \\\"\\w+\\\"\\,\n ",
-			"\\\"__ptType\\\"\\: \\\"\\w+\\\"\\,",
-			"            \\\"__ptType\\\"\\: \\\"\\w\\\"\\,",
-			"            \\\"__ptType\\\"\\: \\\".+\\\"\\,\n",
-			"            \"__ptType\": \"formField\",\n",
-			"icon",
-			"true",
-			"                \"__ptType\": \"formField\",\n",
-			"fullPath",
-			"iconCls",
-			"        \"vType\": \"\",\n"
+			"      \"searchable\": true,\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -560,6 +608,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"aUsers",
+			"strip",
+			"trim",
+			"sUserLine",
 			".",
 			"'__ptType': 'formField', \"name\":",
 			"viewCode",
@@ -683,28 +735,752 @@
 			"\n*",
 			"\n",
 			"\n* ",
-			" |",
-			"| ",
-			"\n* ",
-			"\n* \n",
-			"\n\n"
+			" |"
 		],
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 31121,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										216,
+										225
+									],
+									[
+										473,
+										482
+									],
+									[
+										619,
+										628
+									],
+									[
+										828,
+										837
+									],
+									[
+										1041,
+										1050
+									],
+									[
+										1378,
+										1391
+									],
+									[
+										1440,
+										1453
+									],
+									[
+										1613,
+										1626
+									],
+									[
+										1899,
+										1908
+									],
+									[
+										2034,
+										2043
+									],
+									[
+										2293,
+										2302
+									],
+									[
+										2439,
+										2448
+									],
+									[
+										2648,
+										2657
+									],
+									[
+										2861,
+										2870
+									],
+									[
+										3053,
+										3062
+									],
+									[
+										3374,
+										3382
+									],
+									[
+										3692,
+										3700
+									],
+									[
+										3751,
+										3759
+									],
+									[
+										4059,
+										4067
+									],
+									[
+										4125,
+										4133
+									],
+									[
+										4414,
+										4422
+									],
+									[
+										4629,
+										4637
+									],
+									[
+										4888,
+										4896
+									],
+									[
+										5262,
+										5270
+									],
+									[
+										5480,
+										5488
+									],
+									[
+										5776,
+										5784
+									],
+									[
+										5859,
+										5867
+									],
+									[
+										5944,
+										5952
+									],
+									[
+										6168,
+										6176
+									],
+									[
+										6355,
+										6363
+									],
+									[
+										6470,
+										6478
+									],
+									[
+										6711,
+										6719
+									],
+									[
+										6952,
+										6960
+									],
+									[
+										7171,
+										7179
+									],
+									[
+										7424,
+										7432
+									],
+									[
+										7751,
+										7759
+									],
+									[
+										7912,
+										7920
+									],
+									[
+										8256,
+										8264
+									],
+									[
+										8508,
+										8516
+									],
+									[
+										8697,
+										8705
+									],
+									[
+										8921,
+										8929
+									],
+									[
+										9270,
+										9278
+									],
+									[
+										9349,
+										9357
+									],
+									[
+										9614,
+										9622
+									],
+									[
+										9693,
+										9701
+									],
+									[
+										9860,
+										9868
+									],
+									[
+										10165,
+										10173
+									],
+									[
+										10381,
+										10389
+									],
+									[
+										10641,
+										10649
+									],
+									[
+										10885,
+										10893
+									],
+									[
+										11169,
+										11177
+									],
+									[
+										11468,
+										11476
+									],
+									[
+										11722,
+										11730
+									],
+									[
+										11988,
+										11996
+									],
+									[
+										12201,
+										12209
+									],
+									[
+										12388,
+										12396
+									],
+									[
+										12482,
+										12490
+									],
+									[
+										12675,
+										12683
+									],
+									[
+										12858,
+										12866
+									],
+									[
+										13103,
+										13111
+									],
+									[
+										13287,
+										13295
+									],
+									[
+										13362,
+										13370
+									],
+									[
+										13513,
+										13521
+									],
+									[
+										13736,
+										13744
+									],
+									[
+										14048,
+										14056
+									],
+									[
+										14261,
+										14269
+									],
+									[
+										14405,
+										14413
+									],
+									[
+										14574,
+										14582
+									],
+									[
+										14769,
+										14777
+									],
+									[
+										14947,
+										14955
+									],
+									[
+										15143,
+										15151
+									],
+									[
+										15504,
+										15512
+									],
+									[
+										15631,
+										15639
+									],
+									[
+										15853,
+										15861
+									],
+									[
+										15976,
+										15984
+									],
+									[
+										16198,
+										16206
+									],
+									[
+										16349,
+										16357
+									],
+									[
+										16467,
+										16475
+									],
+									[
+										16747,
+										16755
+									],
+									[
+										16930,
+										16938
+									],
+									[
+										17137,
+										17145
+									],
+									[
+										17446,
+										17454
+									],
+									[
+										17739,
+										17747
+									],
+									[
+										17908,
+										17916
+									],
+									[
+										18193,
+										18201
+									],
+									[
+										18414,
+										18422
+									],
+									[
+										18603,
+										18611
+									],
+									[
+										18773,
+										18781
+									],
+									[
+										18874,
+										18882
+									],
+									[
+										19094,
+										19102
+									],
+									[
+										19318,
+										19326
+									],
+									[
+										19426,
+										19434
+									],
+									[
+										19536,
+										19544
+									],
+									[
+										19802,
+										19810
+									],
+									[
+										20021,
+										20029
+									],
+									[
+										20458,
+										20466
+									],
+									[
+										20582,
+										20590
+									],
+									[
+										20810,
+										20818
+									],
+									[
+										21075,
+										21083
+									],
+									[
+										21215,
+										21223
+									],
+									[
+										21477,
+										21485
+									],
+									[
+										21699,
+										21707
+									],
+									[
+										21964,
+										21972
+									],
+									[
+										22201,
+										22209
+									],
+									[
+										22339,
+										22347
+									],
+									[
+										22634,
+										22642
+									],
+									[
+										22941,
+										22949
+									],
+									[
+										23257,
+										23265
+									],
+									[
+										23574,
+										23582
+									],
+									[
+										23818,
+										23826
+									],
+									[
+										24169,
+										24177
+									],
+									[
+										24395,
+										24403
+									],
+									[
+										24640,
+										24648
+									],
+									[
+										24870,
+										24878
+									],
+									[
+										25140,
+										25148
+									],
+									[
+										25338,
+										25346
+									],
+									[
+										25514,
+										25522
+									],
+									[
+										25769,
+										25777
+									],
+									[
+										25947,
+										25955
+									],
+									[
+										26219,
+										26227
+									],
+									[
+										26371,
+										26379
+									],
+									[
+										26704,
+										26712
+									],
+									[
+										27021,
+										27029
+									],
+									[
+										27210,
+										27218
+									],
+									[
+										27533,
+										27541
+									],
+									[
+										27749,
+										27757
+									],
+									[
+										27911,
+										27919
+									],
+									[
+										28080,
+										28088
+									],
+									[
+										28177,
+										28185
+									],
+									[
+										28355,
+										28363
+									],
+									[
+										28627,
+										28635
+									],
+									[
+										28846,
+										28854
+									],
+									[
+										28969,
+										28977
+									],
+									[
+										29186,
+										29194
+									],
+									[
+										29422,
+										29430
+									],
+									[
+										29672,
+										29680
+									],
+									[
+										29926,
+										29934
+									],
+									[
+										30130,
+										30138
+									],
+									[
+										30305,
+										30313
+									],
+									[
+										30599,
+										30607
+									],
+									[
+										30822,
+										30830
+									],
+									[
+										31012,
+										31020
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								4634,
+								4634
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 6,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ 	].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2070.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "protoExt/admin/__init__.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 760,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								705,
+								705
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "protoLib/models/smbase.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2106,
+								2106
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 45.0,
+						"translation.y": 870.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "protoExt/actions/addUser.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2551,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1079,
+								1079
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 308.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		},
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 173,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								58,
+								58
+							]
+						],
+						"settings":
+						{
+							"auto_name": "a1, apwd, a@ca.ca, t1, g1, g2",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -736,7 +1512,7 @@
 		"cols":
 		[
 			0.0,
-			0.730934195742,
+			0.586028535365,
 			1.0
 		],
 		"rows":
@@ -796,7 +1572,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 313.0,
+	"side_bar_width": 355.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

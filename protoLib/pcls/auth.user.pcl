@@ -1,0 +1,238 @@
+{
+    "viewEntity": "auth.User",
+    "sheetConfig": [],
+    "gridConfig": {
+        "listDisplay": ["username", "email", "first_name", "last_name", "is_staff", "is_active", "is_superuser", "last_login"],
+        "baseFilter": [],
+        "initialSort": [],
+        "__ptType": "gridConfig",
+        "sortFields": ["password", "username", "first_name", "last_name"],
+        "hiddenFields": ["id"],
+        "readOnlyFields": [],
+        "searchFields": ["password", "username", "first_name", "last_name"],
+        "initialFilter": []
+    },
+    "gridSets": {
+        "filtersSet": [],
+        "listDisplaySet": [],
+        "sortersSet": [],
+        "__ptType": "gridSets"
+    },
+    "formConfig": {
+        "items": [{
+            "fsLayout": "2col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "username"
+            }],
+            "__ptType": "fieldset"
+        }, {
+            "fsLayout": "2col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "first_name"
+            }, {
+                "__ptType": "formField",
+                "name": "last_name"
+            }, {
+                "__ptType": "formField",
+                "name": "email"
+            }],
+            "__ptType": "fieldset",
+            "title": "Personal info"
+        }, {
+            "fsLayout": "2col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "is_active"
+            }, {
+                "__ptType": "formField",
+                "name": "is_staff"
+            }, {
+                "__ptType": "formField",
+                "name": "is_superuser"
+            }],
+            "__ptType": "fieldset",
+            "title": "Permissions"
+        }, {
+            "fsLayout": "2col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "last_login"
+            }, {
+                "type": "date",
+                "__ptType": "formField",
+                "name": "date_joined"
+            }],
+            "__ptType": "fieldset",
+            "title": "Important dates"
+        }],
+        "__ptType": "formConfig"
+    },
+    "updateTime": "2016-08-23 19:30:40",
+    "metaVersion": "14.0201",
+    "idProperty": "id",
+    "fields": [{
+        "header": "User",
+        "type": "string",
+        "name": "__str__",
+        "__ptType": "field",
+        "flex": 1,
+        "zoomModel": "auth.User",
+        "fkId": "id",
+        "readOnly": true,
+        "sortable": true,
+        "cellLink": true
+    }, {
+        "header": "date joined",
+        "type": "datetime",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "xtype": "datefield",
+        "name": "date_joined"
+    }, {
+        "header": "email address",
+        "type": "string",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "name": "email"
+    }, {
+        "header": "first name",
+        "type": "string",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "name": "first_name"
+    }, {
+        "header": "active",
+        "type": "bool",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "name": "is_active"
+    }, {
+        "header": "staff status",
+        "type": "bool",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "name": "is_staff"
+    }, {
+        "header": "superuser status",
+        "type": "bool",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "name": "is_superuser"
+    }, {
+        "header": "last login",
+        "type": "datetime",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "name": "last_login"
+    }, {
+        "header": "last name",
+        "type": "string",
+        "searchable": true,
+        "__ptType": "field",
+        "sortable": true,
+        "name": "last_name"
+    }, {
+        "header": "username",
+        "type": "string",
+        "searchable": true,
+        "__ptType": "field",
+        "required": true,
+        "sortable": true,
+        "name": "username"
+    }, {
+        "header": "ID",
+        "type": "autofield",
+        "hidden": true,
+        "__ptType": "field",
+        "readOnly": true,
+        "name": "id"
+    }],
+    "shortTitle": "User",
+    "detailsConfig": [{
+        "conceptDetail": "admin.LogEntry",
+        "__ptType": "detailDef",
+        "detailName": "logentry.user",
+        "detailField": "user__pk",
+        "masterField": "pk",
+        "menuText": "Logentry.user"
+    }, {
+        "conceptDetail": "reversion.Revision",
+        "__ptType": "detailDef",
+        "detailName": "revision.user",
+        "detailField": "user__pk",
+        "masterField": "pk",
+        "menuText": "Revision.user"
+    }, {
+        "conceptDetail": "protoLib.UserProfile",
+        "__ptType": "detailDef",
+        "detailName": "userprofile.user",
+        "detailField": "user__pk",
+        "masterField": "pk",
+        "menuText": "Userprofile.user"
+    }],
+    "viewCode": "auth.User",
+    "businessRules": {
+        "__ptType": "businessRules"
+    },
+    "description": "User",
+    "viewIcon": "icon-1",
+    "contextTo": [],
+    "defaultTo": [],
+    "actions": [{
+        "refreshOnComplete": true,
+        "__ptType": "actionDef",
+        "selectionMode": "none",
+        "actionParams": [{
+            "tooltip": "UserName",
+            "name": "User",
+            "type": "string",
+            "required": true,
+            "__ptType": "actionParam"
+        }, {
+            "tooltip": "Pwd",
+            "name": "Pwd",
+            "type": "string",
+            "__ptType": "actionParam"
+        }, {
+            "tooltip": "Email",
+            "name": "EMail",
+            "type": "string",
+            "__ptType": "actionParam"
+        }, {
+            "tooltip": "Tean",
+            "name": "Team",
+            "type": "string",
+            "__ptType": "actionParam"
+        }, {
+            "tooltip": "gr1,gr2,...",
+            "name": "Groups",
+            "type": "string",
+            "__ptType": "actionParam"
+        }],
+        "menuText": "doAddUser",
+        "name": "doAddUser"
+    }, {
+        "refreshOnComplete": true,
+        "__ptType": "actionDef",
+        "selectionMode": "none",
+        "actionParams": [{
+            "tooltip": "Usr, Pwd, email, team, group1, .. group(n)",
+            "name": "Users",
+            "type": "text",
+            "required": true,
+            "__ptType": "actionParam"
+        }],
+        "menuText": "doAddUsers",
+        "name": "doAddUsers"
+    }],
+    "__ptType": "pcl"
+}

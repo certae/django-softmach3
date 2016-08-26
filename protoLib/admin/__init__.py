@@ -8,14 +8,25 @@ import reversion
 # -----------------------------------------   AddUser  
 
 from django.contrib.auth.models import User, Group 
-patch_admin(User)
+from protoExt.admin import UserProfileAdmin
+# patch_admin(User)
 patch_admin(Group)
+
+from protoExt.actions import doAddUser, doAddUsers 
+
+try: 
+    admin.site.unregister( User ) 
+except: 
+    pass 
+
+admin.site.register( User, UserProfileAdmin )
+
 
 # -----------------------------------------   AddUser  
 
-from protoLib.models import UserProfile
-admin.site.register( UserProfile )
-patch_admin(UserProfile)
+# from protoLib.models import UserProfile
+# admin.site.register( UserProfile )
+# patch_admin(UserProfile)
 
 # -----------------------------------------     
 

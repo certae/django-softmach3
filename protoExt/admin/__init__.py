@@ -27,6 +27,30 @@ from protoLib.models import UserProfile
 class UserProfileAdmin( reversion.VersionAdmin ):
     actions = [ doAddUser, doAddUsers ]
 
+    protoExt = {
+        "actions": [
+            { "name": "doAddUser",
+              "selectionMode" : "none",
+              "refreshOnComplete" : True,
+              "actionParams": [
+                 {"name" : "User", "type" : "string", "required": True, "tooltip" : "UserName" }, 
+                 {"name" : "Pwd", "type" : "string", "required": False, "tooltip" : "Pwd" }, 
+                 {"name" : "EMail", "type" : "string", "required": False, "tooltip" : "Email" }, 
+                 {"name" : "Team", "type" : "string", "required": False, "tooltip" : "Tean" }, 
+                 {"name" : "Groups", "type" : "string", "required": False, "tooltip" : "gr1,gr2,..." }, 
+                ] 
+            },
+            { "name": "doAddUsers",
+              "selectionMode" : "none",
+              "refreshOnComplete" : True,
+              "actionParams": [
+                 {"name" : "Users", "type" : "text", "required": True, "tooltip" : "Usr, Pwd, email, team, group1, .. group(n)" }, 
+                ] 
+            },
+        ], 
+    }
+    
+
 try: 
     admin.site.unregister( UserProfile ) 
 except: 
