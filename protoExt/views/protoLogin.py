@@ -66,7 +66,8 @@ def protoGetUserRights(request):
     
     # Encode json 
     context = json.dumps( jsondict)
-    return HttpResponse(context, content_type="application/json", status= ACCEPTED if success else UNAUTHORIZED )
+    # return HttpResponse(context, content_type="application/json", status= ACCEPTED if success else UNAUTHORIZED )
+    return HttpResponse(context, content_type="application/json" )
 
 def protoGetPasswordRecovery(request):
 
