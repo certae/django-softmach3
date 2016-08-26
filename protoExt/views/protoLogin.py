@@ -11,13 +11,16 @@ from django.template import loader
 
 from protoLib.getStuff import getUserProfile, getUserLanguage
 from protoExt.utils.utilsWeb import JsonError, JsonSuccess 
-from protoExt.utils.utilsBase import getReadableError
-from http.client import ACCEPTED, UNAUTHORIZED
+# from protoExt.utils.utilsBase import getReadableError
 
 
 def protoGetUserRights(request):
     """ return usr rights 
     """
+
+    # from http.client import ACCEPTED, UNAUTHORIZED
+    ACCEPTED = 200 
+    UNAUTHORIZED = 401
        
     if request.method != 'POST':
         return JsonError( 'invalid message' ) 
@@ -66,8 +69,7 @@ def protoGetUserRights(request):
     
     # Encode json 
     context = json.dumps( jsondict)
-    # return HttpResponse(context, content_type="application/json", status= ACCEPTED if success else UNAUTHORIZED )
-    return HttpResponse(context, content_type="application/json" )
+    return HttpResponse(context, content_type="application/json", status= ACCEPTED if success else UNAUTHORIZED )
 
 def protoGetPasswordRecovery(request):
 
