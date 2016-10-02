@@ -15,7 +15,7 @@ Ext.create("Admin.data.Simulated", Ext.Base,
             Ext.ux.ajax.SimManager.init({
                 defaultSimlet : null
             })
-        }));
+        });
 
 // -----------
 Ext.create("Admin.data.Pie", Admin.data.Simulated, {
@@ -29,7 +29,7 @@ Ext.create("Admin.data.Pie", Admin.data.Simulated, {
         xvalue : "Action",
         yvalue : 12
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data, "Pie" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data, "Pie" ], 0);
 
 // -----------
 Ext.create("Admin.data.Radial", Admin.data.Simulated, {
@@ -64,7 +64,7 @@ Ext.create("Admin.data.Radial", Admin.data.Simulated, {
         xvalue : "J",
         yvalue : 603
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data, "Radial" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data, "Radial" ], 0);
 
 // -----------
 Ext.create("Admin.data.Subscriptions", Admin.data.Simulated, {
@@ -93,7 +93,7 @@ Ext.create("Admin.data.Subscriptions", Admin.data.Simulated, {
         name : "Charles Doe",
         subscription : "Enterprise"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data, "Subscriptions" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data, "Subscriptions" ], 0);
 
 
 // -----------
@@ -144,7 +144,7 @@ Ext.create(
                             date : "9/18/2007",
                             time : "1:48 PM"
                         } ]
-                }, 0, 0, 0, 0, 0, 0, [ Admin.data, "UserNotifications" ], 0));
+                }, 0, 0, 0, 0, 0, 0, [ Admin.data, "UserNotifications" ], 0);
 
 // -----------
 Ext.create(
@@ -212,7 +212,7 @@ Ext.create(
                             time : "1:42 PM",
                             content : "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
                         } ]
-                }, 0, 0, 0, 0, 0, 0, [ Admin.data, "UserSharedItems" ], 0));
+                }, 0, 0, 0, 0, 0, 0, [ Admin.data, "UserSharedItems" ], 0);
 
 // -----------
 Ext.create("Admin.data.dashboard.Counce", Admin.data.Simulated, {
@@ -245,7 +245,7 @@ Ext.create("Admin.data.dashboard.Counce", Admin.data.Simulated, {
         y1value : 10,
         y2value : 10
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Counce" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Counce" ], 0);
 
 // -----------
 Ext.create("Admin.data.dashboard.Full", Admin.data.Simulated, {
@@ -346,7 +346,7 @@ Ext.create("Admin.data.dashboard.Full", Admin.data.Simulated, {
         y1value : 89,
         y2value : 46
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Full" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Full" ], 0);
 
 // -----------
 Ext.create("Admin.data.dashboard.Tasks", Admin.data.Simulated, {
@@ -375,7 +375,7 @@ Ext.create("Admin.data.dashboard.Tasks", Admin.data.Simulated, {
         task : "Pay server invoice",
         done : false
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Tasks" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Tasks" ], 0);
 
 // -----------
 Ext.create("Admin.data.dashboard.Visitor", Admin.data.Simulated, {
@@ -408,7 +408,7 @@ Ext.create("Admin.data.dashboard.Visitor", Admin.data.Simulated, {
         y1value : 20,
         y2value : 20
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Visitor" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.dashboard, "Visitor" ], 0);
 
 // -----------
 Ext.create("Admin.data.email.Friends", Admin.data.Simulated, {
@@ -437,7 +437,7 @@ Ext.create("Admin.data.email.Friends", Admin.data.Simulated, {
         online : true,
         name : "Suzette Powell"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.email, "Friends" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.email, "Friends" ], 0);
 
 // -----------
 Ext.create(
@@ -678,7 +678,7 @@ Ext.create(
                             has_attachments : true,
                             attachments : [ "img4.jpg", "img2.jpg" ]
                         } ]
-                }, 0, 0, 0, 0, 0, 0, [ Admin.data.email, "Inbox" ], 0));
+                }, 0, 0, 0, 0, 0, 0, [ Admin.data.email, "Inbox" ], 0);
 
 // -----------
 Ext.create("Admin.data.marketshare.MultiYear", Admin.data.Simulated, {
@@ -749,7 +749,7 @@ Ext.create("Admin.data.marketshare.MultiYear", Admin.data.Simulated, {
         y3value : 489,
         y4value : 114
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "MultiYear" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "MultiYear" ], 0);
 
 // -----------
 Ext.create("Admin.data.marketshare.OneEntity", Admin.data.Simulated, {
@@ -794,7 +794,7 @@ Ext.create("Admin.data.marketshare.OneEntity", Admin.data.Simulated, {
         y4value : 0,
         y5value : 1
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "OneEntity" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "OneEntity" ], 0);
 
 // -----------
 Ext.create("Admin.data.marketshare.OneYear", Admin.data.Simulated, {
@@ -835,7 +835,7 @@ Ext.create("Admin.data.marketshare.OneYear", Admin.data.Simulated, {
         xvalue : 2015,
         yvalue : 283
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "OneYear" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "OneYear" ], 0);
 
 // -----------
 Ext.create("Admin.data.marketshare.Yearwise", Admin.data.Simulated, {
@@ -864,7 +864,7 @@ Ext.create("Admin.data.marketshare.Yearwise", Admin.data.Simulated, {
         y3value : 570.43,
         y4value : 583.67
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "Yearwise" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.marketshare, "Yearwise" ], 0);
 
 // -----------
 Ext.create("Admin.data.qg.Area", Admin.data.Simulated, {
@@ -893,7 +893,7 @@ Ext.create("Admin.data.qg.Area", Admin.data.Simulated, {
         xvalue : 70,
         yvalue : 135
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Area" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Area" ], 0);
 
 // -----------
 Ext.create("Admin.data.qg.Bar", Admin.data.Simulated, {
@@ -922,7 +922,7 @@ Ext.create("Admin.data.qg.Bar", Admin.data.Simulated, {
         xvalue : 70,
         yvalue : 640
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Bar" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Bar" ], 0);
 
 // -----------
 Ext.create("Admin.data.qg.Line", Admin.data.Simulated, {
@@ -951,7 +951,7 @@ Ext.create("Admin.data.qg.Line", Admin.data.Simulated, {
         xvalue : 70,
         yvalue : 450
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Line" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Line" ], 0);
 
 // -----------
 Ext.create("Admin.data.qg.Pie", Admin.data.Simulated, {
@@ -965,7 +965,7 @@ Ext.create("Admin.data.qg.Pie", Admin.data.Simulated, {
         xvalue : "Marketing",
         yvalue : 12
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Pie" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.qg, "Pie" ], 0);
 
 // -----------
 Ext.create(
@@ -1253,7 +1253,7 @@ Ext.create(
                             thumbnail : "resources/images/sample.jpg",
                             url : "www.culpa.com"
                         } ]
-                }, 0, 0, 0, 0, 0, 0, [ Admin.data.search, "Results" ], 0));
+                }, 0, 0, 0, 0, 0, 0, [ Admin.data.search, "Results" ], 0);
 
 // -----------
 Ext.create("Admin.data.search.Users", Admin.data.Simulated, {
@@ -1354,14 +1354,14 @@ Ext.create("Admin.data.search.Users", Admin.data.Simulated, {
         joinDate : "7/14/2009",
         isActive : false
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.data.search, "Users" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.data.search, "Users" ], 0);
 
 // -----------
 Ext.create("Admin.model.Base", Ext.data.Model, {
     schema : {
         namespace : "Admin.model"
     }
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "Base" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "Base" ], 0);
 
 // -----------
 Ext.create("Admin.model.ChatMessages", Admin.model.Base, {
@@ -1373,7 +1373,7 @@ Ext.create("Admin.model.ChatMessages", Admin.model.Base, {
         defaultValue : "user",
         name : "sender"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "ChatMessages" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "ChatMessages" ], 0);
 
 // -----------
 Ext.create("Admin.model.DataXY", Admin.model.Base, {
@@ -1382,7 +1382,7 @@ Ext.create("Admin.model.DataXY", Admin.model.Base, {
     }, {
         name : "yvalue"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "DataXY" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "DataXY" ], 0);
 
 // -----------
 Ext.create("Admin.model.FriendsList", Admin.model.Base, {
@@ -1391,7 +1391,7 @@ Ext.create("Admin.model.FriendsList", Admin.model.Base, {
     }, {
         name : "connectionStatus"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "FriendsList" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "FriendsList" ], 0);
 
 // -----------
 Ext.create("Admin.model.MultiDataXY", Admin.model.Base, {
@@ -1406,7 +1406,7 @@ Ext.create("Admin.model.MultiDataXY", Admin.model.Base, {
     }, {
         name : "y4value"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "MultiDataXY" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "MultiDataXY" ], 0);
 
 // -----------
 Ext.create("Admin.model.PanelSetting", Admin.model.Base, {
@@ -1417,7 +1417,7 @@ Ext.create("Admin.model.PanelSetting", Admin.model.Base, {
     }, {
         name : "toggleStatus"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "PanelSetting" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "PanelSetting" ], 0);
 
 // -----------
 Ext.create("Admin.model.PersonalInfo", Admin.model.Base, {
@@ -1428,7 +1428,7 @@ Ext.create("Admin.model.PersonalInfo", Admin.model.Base, {
     }, {
         name : "icon"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "PersonalInfo" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "PersonalInfo" ], 0);
 
 // -----------
 Ext.create("Admin.model.Subscription", Admin.model.Base, {
@@ -1442,7 +1442,7 @@ Ext.create("Admin.model.Subscription", Admin.model.Base, {
         type : "string",
         name : "subscription"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "Subscription" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "Subscription" ], 0);
 
 // -----------
 Ext.create("Admin.model.YearwiseData", Admin.model.Base, {
@@ -1451,7 +1451,7 @@ Ext.create("Admin.model.YearwiseData", Admin.model.Base, {
     }, {
         name : "data"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model, "YearwiseData" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model, "YearwiseData" ], 0);
 
 // -----------
 Ext.create("Admin.model.email.Email", Admin.model.Base, {
@@ -1480,7 +1480,7 @@ Ext.create("Admin.model.email.Email", Admin.model.Base, {
     }, {
         name : "favorite"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model.email, "Email" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model.email, "Email" ], 0);
 
 // -----------
 Ext.create("Admin.model.email.Friend", Admin.model.Base, {
@@ -1497,7 +1497,7 @@ Ext.create("Admin.model.email.Friend", Admin.model.Base, {
         type : "boolean",
         name : "online"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model.email, "Friend" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model.email, "Friend" ], 0);
 
 // -----------
 Ext.create("Admin.model.search.Result", Admin.model.Base, {
@@ -1517,7 +1517,7 @@ Ext.create("Admin.model.search.Result", Admin.model.Base, {
         type : "string",
         name : "content"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model.search, "Result" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model.search, "Result" ], 0);
 
 // -----------
 Ext.create("Admin.model.search.User", Admin.model.Base, {
@@ -1541,7 +1541,7 @@ Ext.create("Admin.model.search.User", Admin.model.Base, {
     }, {
         name : "profile_pic"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.model.search, "User" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.model.search, "User" ], 0);
 
 // -----------
 Ext.create("Admin.store.NavigationTree", Ext.data.TreeStore, {
@@ -1651,7 +1651,7 @@ Ext.create("Admin.store.NavigationTree", Ext.data.TreeStore, {
     fields : [ {
         name : "text"
     } ]
-}, 0, 0, 0, 0, 0, 0, [ Admin.store, "NavigationTree" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin.store, "NavigationTree" ], 0);
 
 // -----------
 Ext.create("Admin.store.email.Friends", Ext.data.Store, {
@@ -1668,7 +1668,7 @@ Ext.create("Admin.store.email.Friends", Ext.data.Store, {
         direction : "DESC",
         property : "online"
     }
-}, 0, 0, 0, 0, [ "store.emailfriends" ], 0, [ Admin.store.email, "Friends" ], 0));
+}, 0, 0, 0, 0, [ "store.emailfriends" ], 0, [ Admin.store.email, "Friends" ], 0);
 
 // -----------
 Ext.create("Admin.store.email.Inbox", Ext.data.Store, {
@@ -1683,7 +1683,7 @@ Ext.create("Admin.store.email.Inbox", Ext.data.Store, {
             rootProperty : "data"
         }
     }
-}, 0, 0, 0, 0, [ "store.emailinbox" ], 0, [ Admin.store.email, "Inbox" ], 0));
+}, 0, 0, 0, 0, [ "store.emailinbox" ], 0, [ Admin.store.email, "Inbox" ], 0);
 
 // -----------
 Ext.create("Admin.store.search.Users", Ext.data.Store, {
@@ -1701,7 +1701,7 @@ Ext.create("Admin.store.search.Users", Ext.data.Store, {
         direction : "ASC",
         property : "fullname"
     }
-}, 0, 0, 0, 0, [ "store.searchusers" ], 0, [ Admin.store.search, "Users" ], 0));
+}, 0, 0, 0, 0, [ "store.searchusers" ], 0, [ Admin.store.search, "Users" ], 0);
 
 // -----------
 Ext.create("Admin.store.search.Results", Ext.data.Store, {
@@ -1719,7 +1719,7 @@ Ext.create("Admin.store.search.Results", Ext.data.Store, {
         direction : "ASC",
         property : "title"
     }
-}, 0, 0, 0, 0, [ "store.searchresults" ], 0, [ Admin.store.search, "Results" ], 0));
+}, 0, 0, 0, 0, [ "store.searchresults" ], 0, [ Admin.store.search, "Results" ], 0);
 
 
 
@@ -1787,7 +1787,7 @@ Ext.create("Admin.view.charts.Area", Ext.Panel, {
     container : true,
     panel : true,
     chartsareapanel : true
-}, [ "widget.chartsareapanel" ], 0, [ Admin.view.charts, "Area" ], 0));
+}, [ "widget.chartsareapanel" ], 0, [ Admin.view.charts, "Area" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Bar", Ext.Panel, {
@@ -1837,7 +1837,7 @@ Ext.create("Admin.view.charts.Bar", Ext.Panel, {
     container : true,
     panel : true,
     chartsbarpanel : true
-}, [ "widget.chartsbarpanel" ], 0, [ Admin.view.charts, "Bar" ], 0));
+}, [ "widget.chartsbarpanel" ], 0, [ Admin.view.charts, "Bar" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Charts", Ext.container.Container, {
@@ -1874,11 +1874,11 @@ Ext.create("Admin.view.charts.Charts", Ext.container.Container, {
     component : true,
     box : true,
     container : true
-}, 0, 0, [ Admin.view.charts, "Charts" ], 0));
+}, 0, 0, [ Admin.view.charts, "Charts" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.ChartsController", Ext.app.ViewController, {}, 0, 0, 0, 0,
-        [ "controller.charts" ], 0, [ Admin.view.charts, "ChartsController" ], 0));
+        [ "controller.charts" ], 0, [ Admin.view.charts, "ChartsController" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.ChartsModel", Ext.app.ViewModel, {
@@ -1976,7 +1976,7 @@ Ext.create("Admin.view.charts.ChartsModel", Ext.app.ViewModel, {
             }
         }
     }
-}, 0, 0, 0, 0, [ "viewmodel.charts" ], 0, [ Admin.view.charts, "ChartsModel" ], 0));
+}, 0, 0, 0, 0, [ "viewmodel.charts" ], 0, [ Admin.view.charts, "ChartsModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Gauge", Ext.Panel, {
@@ -2007,7 +2007,7 @@ Ext.create("Admin.view.charts.Gauge", Ext.Panel, {
     container : true,
     panel : true,
     chartsgaugepanel : true
-}, [ "widget.chartsgaugepanel" ], 0, [ Admin.view.charts, "Gauge" ], 0));
+}, [ "widget.chartsgaugepanel" ], 0, [ Admin.view.charts, "Gauge" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Line", Ext.Panel, {
@@ -2056,7 +2056,7 @@ Ext.create("Admin.view.charts.Line", Ext.Panel, {
     container : true,
     panel : true,
     chartslinepanel : true
-}, [ "widget.chartslinepanel" ], 0, [ Admin.view.charts, "Line" ], 0));
+}, [ "widget.chartslinepanel" ], 0, [ Admin.view.charts, "Line" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Pie", Ext.Panel, {
@@ -2096,7 +2096,7 @@ Ext.create("Admin.view.charts.Pie", Ext.Panel, {
     container : true,
     panel : true,
     chartspiepanel : true
-}, [ "widget.chartspiepanel" ], 0, [ Admin.view.charts, "Pie" ], 0));
+}, [ "widget.chartspiepanel" ], 0, [ Admin.view.charts, "Pie" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Pie3D", Ext.Panel, {
@@ -2128,7 +2128,7 @@ Ext.create("Admin.view.charts.Pie3D", Ext.Panel, {
     container : true,
     panel : true,
     chartspie3dpanel : true
-}, [ "widget.chartspie3dpanel" ], 0, [ Admin.view.charts, "Pie3D" ], 0));
+}, [ "widget.chartspie3dpanel" ], 0, [ Admin.view.charts, "Pie3D" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Polar", Ext.Panel, {
@@ -2173,7 +2173,7 @@ Ext.create("Admin.view.charts.Polar", Ext.Panel, {
     container : true,
     panel : true,
     chartspolarpanel : true
-}, [ "widget.chartspolarpanel" ], 0, [ Admin.view.charts, "Polar" ], 0));
+}, [ "widget.chartspolarpanel" ], 0, [ Admin.view.charts, "Polar" ], 0);
 
 // -----------
 Ext.create("Admin.view.charts.Stacked", Ext.Panel, {
@@ -2224,7 +2224,7 @@ Ext.create("Admin.view.charts.Stacked", Ext.Panel, {
             container : true,
             panel : true,
             chartsstackedpanel : true
-        }, [ "widget.chartsstackedpanel" ], 0, [ Admin.view.charts, "Stacked" ], 0));
+        }, [ "widget.chartsstackedpanel" ], 0, [ Admin.view.charts, "Stacked" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.Dashboard", Ext.container.Container, {
@@ -2266,7 +2266,7 @@ Ext.create("Admin.view.dashboard.Dashboard", Ext.container.Container, {
     component : true,
     box : true,
     container : true
-}, 0, 0, [ Admin.view.dashboard, "Dashboard" ], 0));
+}, 0, 0, [ Admin.view.dashboard, "Dashboard" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.DashboardController", Ext.app.ViewController,
@@ -2316,7 +2316,7 @@ Ext.create("Admin.view.dashboard.DashboardController", Ext.app.ViewController,
                     }
                 }, 0, 0, 0, 0, [ "controller.dashboard" ], 0, [
                     Admin.view.dashboard,
-                    "DashboardController" ], 0));
+                    "DashboardController" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.DashboardModel", Ext.app.ViewModel, {
@@ -2439,7 +2439,7 @@ Ext.create("Admin.view.dashboard.DashboardModel", Ext.app.ViewModel, {
             }
         }
     }
-}, 0, 0, 0, 0, [ "viewmodel.dashboard" ], 0, [ Admin.view.dashboard, "DashboardModel" ], 0));
+}, 0, 0, 0, 0, [ "viewmodel.dashboard" ], 0, [ Admin.view.dashboard, "DashboardModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.Earnings", Ext.Panel, {
@@ -2510,7 +2510,7 @@ Ext.create("Admin.view.dashboard.Earnings", Ext.Panel, {
     container : true,
     panel : true,
     dashboardearningspanel : true
-}, [ "widget.dashboardearningspanel" ], 0, [ Admin.view.dashboard, "Earnings" ], 0));
+}, [ "widget.dashboardearningspanel" ], 0, [ Admin.view.dashboard, "Earnings" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.HDDUsage", Ext.panel.Panel, {
@@ -2575,7 +2575,7 @@ Ext.create("Admin.view.dashboard.HDDUsage", Ext.panel.Panel, {
     container : true,
     panel : true,
     dashboardhddusagepanel : true
-}, [ "widget.dashboardhddusagepanel" ], 0, [ Admin.view.dashboard, "HDDUsage" ], 0));
+}, [ "widget.dashboardhddusagepanel" ], 0, [ Admin.view.dashboard, "HDDUsage" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.Members", Ext.grid.Panel, {
@@ -2648,7 +2648,7 @@ Ext.create("Admin.view.dashboard.Members", Ext.grid.Panel, {
     gridpanel : true,
     grid : true,
     dashboardmemberspanel : true
-}, [ "widget.dashboardmemberspanel" ], 0, [ Admin.view.dashboard, "Members" ], 0));
+}, [ "widget.dashboardmemberspanel" ], 0, [ Admin.view.dashboard, "Members" ], 0);
 
 // -----------
 Ext.create(
@@ -2989,7 +2989,7 @@ Ext.create(
                     container : true,
                     panel : true,
                     dashboardnetworkpanel : true
-                }, [ "widget.dashboardnetworkpanel" ], 0, [ Admin.view.dashboard, "Network" ], 0));
+                }, [ "widget.dashboardnetworkpanel" ], 0, [ Admin.view.dashboard, "Network" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.Sales", Ext.panel.Panel, {
@@ -3044,7 +3044,7 @@ Ext.create("Admin.view.dashboard.Sales", Ext.panel.Panel, {
             container : true,
             panel : true,
             dashboardsalespanel : true
-        }, [ "widget.dashboardsalespanel" ], 0, [ Admin.view.dashboard, "Sales" ], 0));
+        }, [ "widget.dashboardsalespanel" ], 0, [ Admin.view.dashboard, "Sales" ], 0);
 
 // -----------
 Ext.create(
@@ -3162,7 +3162,7 @@ Ext.create(
                     container : true,
                     panel : true,
                     dashboardservicespanel : true
-                }, [ "widget.dashboardservicespanel" ], 0, [ Admin.view.dashboard, "Services" ], 0));
+                }, [ "widget.dashboardservicespanel" ], 0, [ Admin.view.dashboard, "Services" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.Todos", Ext.panel.Panel, {
@@ -3217,7 +3217,7 @@ Ext.create("Admin.view.dashboard.Todos", Ext.panel.Panel, {
             container : true,
             panel : true,
             dashboardtodospanel : true
-        }, [ "widget.dashboardtodospanel" ], 0, [ Admin.view.dashboard, "Todos" ], 0));
+        }, [ "widget.dashboardtodospanel" ], 0, [ Admin.view.dashboard, "Todos" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.TopMovie", Ext.panel.Panel, {
@@ -3276,7 +3276,7 @@ Ext.create("Admin.view.dashboard.TopMovie", Ext.panel.Panel, {
     container : true,
     panel : true,
     dashboardtopmoviepanel : true
-}, [ "widget.dashboardtopmoviepanel" ], 0, [ Admin.view.dashboard, "TopMovie" ], 0));
+}, [ "widget.dashboardtopmoviepanel" ], 0, [ Admin.view.dashboard, "TopMovie" ], 0);
 
 // -----------
 Ext.create(
@@ -3297,7 +3297,7 @@ Ext.create(
                     component : true,
                     box : true,
                     dashboardweatherpanel : true
-                }, [ "widget.dashboardweatherpanel" ], 0, [ Admin.view.dashboard, "Weather" ], 0));
+                }, [ "widget.dashboardweatherpanel" ], 0, [ Admin.view.dashboard, "Weather" ], 0);
 
 // -----------
 Ext.create("Admin.view.dashboard.Widgets", Ext.Panel, {
@@ -3349,7 +3349,7 @@ Ext.create("Admin.view.dashboard.Widgets", Ext.Panel, {
     container : true,
     panel : true,
     dashboardwidgetspanel : true
-}, [ "widget.dashboardwidgetspanel" ], 0, [ Admin.view.dashboard, "Widgets" ], 0));
+}, [ "widget.dashboardwidgetspanel" ], 0, [ Admin.view.dashboard, "Widgets" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.Compose", Ext.form.Panel, {
@@ -3417,7 +3417,7 @@ Ext.create("Admin.view.email.Compose", Ext.form.Panel, {
     panel : true,
     form : true,
     emailcompose : true
-}, [ "widget.emailcompose" ], 0, [ Admin.view.email, "Compose" ], 0));
+}, [ "widget.emailcompose" ], 0, [ Admin.view.email, "Compose" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.ComposeViewController", Ext.app.ViewController, {
@@ -3427,15 +3427,15 @@ Ext.create("Admin.view.email.ComposeViewController", Ext.app.ViewController, {
             b.close()
         }
     }
-}, 0, 0, 0, 0, [ "controller.emailcompose" ], 0, [ Admin.view.email, "ComposeViewController" ], 0));
+}, 0, 0, 0, 0, [ "controller.emailcompose" ], 0, [ Admin.view.email, "ComposeViewController" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.ComposeViewModel", Ext.app.ViewModel, {}, 0, 0, 0, 0,
-        [ "viewmodel.emailcompose" ], 0, [ Admin.view.email, "ComposeViewModel" ], 0));
+        [ "viewmodel.emailcompose" ], 0, [ Admin.view.email, "ComposeViewModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.DetailsViewModel", Ext.app.ViewModel, {}, 0, 0, 0, 0,
-        [ "viewmodel.emaildetails" ], 0, [ Admin.view.email, "DetailsViewModel" ], 0));
+        [ "viewmodel.emaildetails" ], 0, [ Admin.view.email, "DetailsViewModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.Details", Ext.form.Panel, {
@@ -3537,7 +3537,7 @@ Ext.create("Admin.view.email.Details", Ext.form.Panel, {
     panel : true,
     form : true,
     emaildetails : true
-}, [ "widget.emaildetails" ], 0, [ Admin.view.email, "Details" ], 0));
+}, [ "widget.emaildetails" ], 0, [ Admin.view.email, "Details" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.Email", Ext.container.Container, {
@@ -3588,7 +3588,7 @@ Ext.create("Admin.view.email.Email", Ext.container.Container, {
     box : true,
     container : true,
     email : true
-}, [ "widget.email" ], 0, [ Admin.view.email, "Email" ], 0));
+}, [ "widget.email" ], 0, [ Admin.view.email, "Email" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.EmailController", Ext.app.ViewController, {
@@ -3643,11 +3643,11 @@ Ext.create("Admin.view.email.EmailController", Ext.app.ViewController, {
         b.down("#emailSubjectContainer").setData(a.data ? a.data : {});
         b.down("#userImage").setSrc("resources/images/user-profile/" + a.get("user_id") + ".png")
     }
-}, 0, 0, 0, 0, [ "controller.email" ], 0, [ Admin.view.email, "EmailController" ], 0));
+}, 0, 0, 0, 0, [ "controller.email" ], 0, [ Admin.view.email, "EmailController" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.EmailModel", Ext.app.ViewModel, {}, 0, 0, 0, 0,
-        [ "viewmodel.email" ], 0, [ Admin.view.email, "EmailModel" ], 0));
+        [ "viewmodel.email" ], 0, [ Admin.view.email, "EmailModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.FriendsList", Ext.menu.Menu, {
@@ -3672,7 +3672,7 @@ Ext.create("Admin.view.email.FriendsList", Ext.menu.Menu, {
     panel : true,
     menu : true,
     emailfriendslist : true
-}, [ "widget.emailfriendslist" ], 0, [ Admin.view.email, "FriendsList" ], 0));
+}, [ "widget.emailfriendslist" ], 0, [ Admin.view.email, "FriendsList" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.FriendsListViewController", Ext.app.ViewController, {
@@ -3702,7 +3702,7 @@ Ext.create("Admin.view.email.FriendsListViewController", Ext.app.ViewController,
     }
 }, 0, 0, 0, 0, [ "controller.emailfriendslist" ], 0, [
     Admin.view.email,
-    "FriendsListViewController" ], 0));
+    "FriendsListViewController" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.FriendsListViewModel", Ext.app.ViewModel, {
@@ -3714,7 +3714,7 @@ Ext.create("Admin.view.email.FriendsListViewModel", Ext.app.ViewModel, {
             }
         }, 0, 0, 0, 0, [ "viewmodel.emailfriendslist" ], 0, [
             Admin.view.email,
-            "FriendsListViewModel" ], 0));
+            "FriendsListViewModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.Inbox", Ext.grid.Panel, {
@@ -3785,7 +3785,7 @@ Ext.create("Admin.view.email.Inbox", Ext.grid.Panel, {
     gridpanel : true,
     grid : true,
     emailinbox : true
-}, [ "widget.emailinbox" ], 0, [ Admin.view.email, "Inbox" ], 0));
+}, [ "widget.emailinbox" ], 0, [ Admin.view.email, "Inbox" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.InboxViewModel", Ext.app.ViewModel, {
@@ -3794,7 +3794,7 @@ Ext.create("Admin.view.email.InboxViewModel", Ext.app.ViewModel, {
             type : "emailinbox"
         }
     }
-}, 0, 0, 0, 0, [ "viewmodel.emailinbox" ], 0, [ Admin.view.email, "InboxViewModel" ], 0));
+}, 0, 0, 0, 0, [ "viewmodel.emailinbox" ], 0, [ Admin.view.email, "InboxViewModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.Menu", Ext.menu.Menu, {
@@ -3839,11 +3839,11 @@ Ext.create("Admin.view.email.Menu", Ext.menu.Menu, {
     panel : true,
     menu : true,
     emailmenu : true
-}, [ "widget.emailmenu" ], 0, [ Admin.view.email, "Menu" ], 0));
+}, [ "widget.emailmenu" ], 0, [ Admin.view.email, "Menu" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.MenuViewModel", Ext.app.ViewModel, {}, 0, 0, 0, 0,
-        [ "viewmodel.emailmenu" ], 0, [ Admin.view.email, "MenuViewModel" ], 0));
+        [ "viewmodel.emailmenu" ], 0, [ Admin.view.email, "MenuViewModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.email.Window", Ext.window.Window, {
@@ -3881,7 +3881,7 @@ Ext.create("Admin.view.email.Window", Ext.window.Window, {
     panel : true,
     window : true,
     emailwindow : true
-}, [ "widget.emailwindow" ], 0, [ Admin.view.email, "Window" ], 0));
+}, [ "widget.emailwindow" ], 0, [ Admin.view.email, "Window" ], 0);
 
 // -----------
 Ext.create("Admin.view.forms.WizardFormModel", Ext.app.ViewModel, {
@@ -3889,7 +3889,7 @@ Ext.create("Admin.view.forms.WizardFormModel", Ext.app.ViewModel, {
         atBeginning : true,
         atEnd : false
     }
-}, 0, 0, 0, 0, [ "viewmodel.wizardform" ], 0, [ Admin.view.forms, "WizardFormModel" ], 0));
+}, 0, 0, 0, 0, [ "viewmodel.wizardform" ], 0, [ Admin.view.forms, "WizardFormModel" ], 0);
 
 // -----------
 Ext.create(
@@ -4059,7 +4059,7 @@ Ext.create(
                     container : true,
                     panel : true,
                     wizardform : true
-                }, [ "widget.wizardform" ], 0, [ Admin.view.forms, "WizardForm" ], 0));
+                }, [ "widget.wizardform" ], 0, [ Admin.view.forms, "WizardForm" ], 0);
 
 // -----------
 Ext.create(
@@ -4110,7 +4110,7 @@ Ext.create(
                     }
                 }, 0, 0, 0, 0, [ "controller.wizardform" ], 0, [
                     Admin.view.forms,
-                    "WizardFormController" ], 0));
+                    "WizardFormController" ], 0);
 
 // -----------
 Ext.create(
@@ -4160,7 +4160,7 @@ Ext.create(
                     container : true,
                     panel : true,
                     formswizardone : true
-                }, [ "widget.formswizardone" ], 0, [ Admin.view.forms, "WizardOne" ], 0));
+                }, [ "widget.formswizardone" ], 0, [ Admin.view.forms, "WizardOne" ], 0);
 
 // -----------
 Ext.create("Admin.view.forms.Wizards", Ext.container.Container, {
@@ -4186,7 +4186,7 @@ Ext.create("Admin.view.forms.Wizards", Ext.container.Container, {
     box : true,
     container : true,
     formswizardscontainer : true
-}, [ "widget.formswizardscontainer" ], 0, [ Admin.view.forms, "Wizards" ], 0));
+}, [ "widget.formswizardscontainer" ], 0, [ Admin.view.forms, "Wizards" ], 0);
 
 // -----------
 Ext.create("Admin.view.main.MainContainerWrap", Ext.container.Container, {
@@ -4214,7 +4214,7 @@ Ext.create("Admin.view.main.MainContainerWrap", Ext.container.Container, {
     box : true,
     container : true,
     maincontainerwrap : true
-}, [ "widget.maincontainerwrap" ], 0, [ Admin.view.main, "MainContainerWrap" ], 0));
+}, [ "widget.maincontainerwrap" ], 0, [ Admin.view.main, "MainContainerWrap" ], 0);
 
 
 // -----------
@@ -4238,7 +4238,7 @@ Ext.create(
                     box : true,
                     container : true,
                     blankpage : true
-                }, [ "widget.blankpage" ], 0, [ Admin.view.pages, "BlankPage" ], 0));
+                }, [ "widget.blankpage" ], 0, [ Admin.view.pages, "BlankPage" ], 0);
 
 // -----------
 Ext.create(
@@ -4295,7 +4295,7 @@ Ext.create(
                     panel : true,
                     window : true,
                     pageserror404window : true
-                }, [ "widget.pageserror404window" ], 0, [ Admin.view.pages, "Error404Window" ], 0));
+                }, [ "widget.pageserror404window" ], 0, [ Admin.view.pages, "Error404Window" ], 0);
 
 // -----------
 Ext.create(
@@ -4352,7 +4352,7 @@ Ext.create(
                     panel : true,
                     window : true,
                     pageserror500window : true
-                }, [ "widget.pageserror500window" ], 0, [ Admin.view.pages, "Error500Window" ], 0));
+                }, [ "widget.pageserror500window" ], 0, [ Admin.view.pages, "Error500Window" ], 0);
 
 // -----------
 Ext.create(
@@ -4533,7 +4533,7 @@ Ext.create(
                     box : true,
                     container : true,
                     faq : true
-                }, [ "widget.faq" ], 0, [ Admin.view.pages, "FAQ" ], 0));
+                }, [ "widget.faq" ], 0, [ Admin.view.pages, "FAQ" ], 0);
 
 // -----------
 Ext.create(
@@ -4636,7 +4636,7 @@ Ext.create(
                     container : true,
                     profiledescriptionpanel : true
                 }, [ "widget.profiledescriptionpanel" ], 0, [ Admin.view.profile, "Description" ],
-                0));
+                0);
 
 // -----------
 Ext.create(
@@ -4709,7 +4709,7 @@ Ext.create(
                     grid : true,
                     profilenotificationspanel : true
                 }, [ "widget.profilenotificationspanel" ], 0,
-                [ Admin.view.profile, "Notifications" ], 0));
+                [ Admin.view.profile, "Notifications" ], 0);
 
 // -----------
 Ext.create("Admin.view.profile.ShareUpdate", Ext.panel.Panel, {
@@ -4745,7 +4745,7 @@ Ext.create("Admin.view.profile.ShareUpdate", Ext.panel.Panel, {
     container : true,
     panel : true,
     profilesharepanel : true
-}, [ "widget.profilesharepanel" ], 0, [ Admin.view.profile, "ShareUpdate" ], 0));
+}, [ "widget.profilesharepanel" ], 0, [ Admin.view.profile, "ShareUpdate" ], 0);
 
 // -----------
 Ext.create("Admin.view.profile.Social", Ext.panel.Panel, {
@@ -4806,7 +4806,7 @@ Ext.create("Admin.view.profile.Social", Ext.panel.Panel, {
             container : true,
             panel : true,
             profilesocialpanel : true
-        }, [ "widget.profilesocialpanel" ], 0, [ Admin.view.profile, "Social" ], 0));
+        }, [ "widget.profilesocialpanel" ], 0, [ Admin.view.profile, "Social" ], 0);
 
 // -----------
 Ext.create(
@@ -4854,7 +4854,7 @@ Ext.create(
                     gridpanel : true,
                     grid : true,
                     profiletimelinepanel : true
-                }, [ "widget.profiletimelinepanel" ], 0, [ Admin.view.profile, "Timeline" ], 0));
+                }, [ "widget.profiletimelinepanel" ], 0, [ Admin.view.profile, "Timeline" ], 0);
 
 // -----------
 Ext.create("Admin.view.profile.UserProfile", Ext.container.Container, {
@@ -4885,11 +4885,11 @@ Ext.create("Admin.view.profile.UserProfile", Ext.container.Container, {
     box : true,
     container : true,
     userprofile : true
-}, [ "widget.userprofile" ], 0, [ Admin.view.profile, "UserProfile" ], 0));
+}, [ "widget.userprofile" ], 0, [ Admin.view.profile, "UserProfile" ], 0);
 
 // -----------
 Ext.create("Admin.view.profile.UserProfileController", Ext.app.ViewController, {}, 0, 0, 0, 0,
-        [ "controller.userprofile" ], 0, [ Admin.view.profile, "UserProfileController" ], 0));
+        [ "controller.userprofile" ], 0, [ Admin.view.profile, "UserProfileController" ], 0);
 
 // -----------
 Ext.create("Admin.view.profile.UserProfileModel", Ext.app.ViewModel, {
@@ -4945,7 +4945,7 @@ Ext.create("Admin.view.profile.UserProfileModel", Ext.app.ViewModel, {
             }
         }
     }
-}, 0, 0, 0, 0, [ "viewmodel.userprofile" ], 0, [ Admin.view.profile, "UserProfileModel" ], 0));
+}, 0, 0, 0, 0, [ "viewmodel.userprofile" ], 0, [ Admin.view.profile, "UserProfileModel" ], 0);
 
 // -----------
 Ext.create(
@@ -5142,11 +5142,11 @@ Ext.create(
                     panel : true,
                     tabpanel : true,
                     searchresults : true
-                }, [ "widget.searchresults" ], 0, [ Admin.view.search, "Results" ], 0));
+                }, [ "widget.searchresults" ], 0, [ Admin.view.search, "Results" ], 0);
 
 // -----------
 Ext.create("Admin.view.search.ResultsController", Ext.app.ViewController, {}, 0, 0, 0, 0,
-        [ "controller.searchresults" ], 0, [ Admin.view.search, "ResultsController" ], 0));
+        [ "controller.searchresults" ], 0, [ Admin.view.search, "ResultsController" ], 0);
 
 // -----------
 Ext.create("Admin.view.search.ResultsModel", Ext.app.ViewModel, {
@@ -5161,7 +5161,7 @@ Ext.create("Admin.view.search.ResultsModel", Ext.app.ViewModel, {
             type : "emailinbox"
         }
     }
-}, 0, 0, 0, 0, [ "viewmodel.searchresults" ], 0, [ Admin.view.search, "ResultsModel" ], 0));
+}, 0, 0, 0, 0, [ "viewmodel.searchresults" ], 0, [ Admin.view.search, "ResultsModel" ], 0);
 
 // -----------
 Ext.create("Admin.view.widgets.WidgetA", Ext.panel.Panel, {
@@ -5212,7 +5212,7 @@ Ext.create("Admin.view.widgets.WidgetA", Ext.panel.Panel, {
     container : true,
     panel : true,
     "widget-a" : true
-}, [ "widget.widget-a" ], 0, [ Admin.view.widgets, "WidgetA" ], 0));
+}, [ "widget.widget-a" ], 0, [ Admin.view.widgets, "WidgetA" ], 0);
 
 // -----------
 Ext.create("Admin.view.widgets.WidgetB", Ext.panel.Panel, {
@@ -5268,7 +5268,7 @@ Ext.create("Admin.view.widgets.WidgetB", Ext.panel.Panel, {
     container : true,
     panel : true,
     "widget-b" : true
-}, [ "widget.widget-b" ], 0, [ Admin.view.widgets, "WidgetB" ], 0));
+}, [ "widget.widget-b" ], 0, [ Admin.view.widgets, "WidgetB" ], 0);
 
 // -----------
 Ext.create("Admin.view.widgets.WidgetC", Ext.panel.Panel, {
@@ -5328,7 +5328,7 @@ Ext.create("Admin.view.widgets.WidgetC", Ext.panel.Panel, {
     container : true,
     panel : true,
     "widget-c" : true
-}, [ "widget.widget-c" ], 0, [ Admin.view.widgets, "WidgetC" ], 0));
+}, [ "widget.widget-c" ], 0, [ Admin.view.widgets, "WidgetC" ], 0);
 
 // -----------
 Ext.create("Admin.view.widgets.WidgetD", Ext.panel.Panel, {
@@ -5380,7 +5380,7 @@ Ext.create("Admin.view.widgets.WidgetD", Ext.panel.Panel, {
     container : true,
     panel : true,
     "widget-d" : true
-}, [ "widget.widget-d" ], 0, [ Admin.view.widgets, "WidgetD" ], 0));
+}, [ "widget.widget-d" ], 0, [ Admin.view.widgets, "WidgetD" ], 0);
 
 // -----------
 Ext.create("Admin.view.widgets.WidgetE", Ext.panel.Panel, {
@@ -5406,7 +5406,7 @@ Ext.create("Admin.view.widgets.WidgetE", Ext.panel.Panel, {
     container : true,
     panel : true,
     "widget-e" : true
-}, [ "widget.widget-e" ], 0, [ Admin.view.widgets, "WidgetE" ], 0));
+}, [ "widget.widget-e" ], 0, [ Admin.view.widgets, "WidgetE" ], 0);
 
 // -----------
 Ext.create(
@@ -5429,7 +5429,7 @@ Ext.create(
                     panel : true,
                     "widget-e" : true,
                     "widget-f" : true
-                }, [ "widget.widget-f" ], 0, [ Admin.view.widgets, "WidgetF" ], 0));
+                }, [ "widget.widget-f" ], 0, [ Admin.view.widgets, "WidgetF" ], 0);
 
 // -----------
 Ext.create("Admin.view.widgets.Widgets", Ext.container.Container, {
@@ -5548,7 +5548,7 @@ Ext.create("Admin.view.widgets.Widgets", Ext.container.Container, {
     box : true,
     container : true,
     widgets : true
-}, [ "widget.widgets" ], 0, [ Admin.view.widgets, "Widgets" ], 0));
+}, [ "widget.widgets" ], 0, [ Admin.view.widgets, "Widgets" ], 0);
 
 // -----------
 Ext.create("Admin.view.widgets.WidgetsModel", Ext.app.ViewModel, {
@@ -5598,7 +5598,7 @@ Ext.create("Admin.view.widgets.WidgetsModel", Ext.app.ViewModel, {
             } ]
         }
     }
-}, 0, 0, 0, 0, [ "viewmodel.widgets" ], 0, [ Admin.view.widgets, "WidgetsModel" ], 0));
+}, 0, 0, 0, 0, [ "viewmodel.widgets" ], 0, [ Admin.view.widgets, "WidgetsModel" ], 0);
 
 
 
@@ -5615,7 +5615,7 @@ Ext.create("Admin.Application", Ext.app.Application, {
                     }
                 })
     }
-}, 0, 0, 0, 0, 0, 0, [ Admin, "Application" ], 0));
+}, 0, 0, 0, 0, 0, 0, [ Admin, "Application" ], 0);
 
 Ext.application({
     name : "Admin",
