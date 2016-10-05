@@ -1134,8 +1134,8 @@ _SM.saveProtoObj = function(viewCode, sMeta, options){
                 _SM.errorMessage(_SM.__language.Message_Error_SaveProtoObj, myResult.message);
             }
 
-            // Reload 
-            location.reload(true);
+            // Fix: Reload 
+            // location.reload(true);
 
         },
         failure : function(result, request){
@@ -1143,8 +1143,8 @@ _SM.saveProtoObj = function(viewCode, sMeta, options){
                     + result.statusText);
             options.failure.call(options.scope, result, request);
 
-            // Reload 
-            location.reload(true);
+            // Fix: Reload 
+            // location.reload(true);
 
         },
         scope : this,
