@@ -62,6 +62,8 @@ Ext.define('Softmachine.view.smmasterdetail.MDLinkController', {
         if (me.masterRowData) {
             masterTitleField = detDefinition.masterTitleField || '__str__';
             detTitle = me.masterRowData[masterTitleField];
+        } else {
+            detTitle = '-/-'
         }
 
         // Return

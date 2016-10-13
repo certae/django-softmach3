@@ -69,11 +69,11 @@ def doAddUsers(modeladmin, request, queryset, parameters):
 
 def doFindReplace(modeladmin, request, queryset, parameters):
     """ 
-    find and replace sobre la tabla actual 
-    parameters   campo,  findText, replaceText 
+    generique find and replace 
+    parameters   field,  findText, replaceText 
     """
 
-#   El QSet viene con la lista de Ids
+#   QSet User selection registers ( Ids ) 
     if queryset.count() < 1:
         return  {'success':False, 'message' : 'Multiple selection required'}
 

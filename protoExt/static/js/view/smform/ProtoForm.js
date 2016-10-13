@@ -101,6 +101,7 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         Ext.apply(this, {
             frame : true,
             autoScroll : true,
+            // scrollable : true,
 
             bodyStyle : 'padding:5px 5px',
             bodyPadding : 10,
@@ -416,19 +417,25 @@ Ext.define('Softmachine.view.smform.ProtoForm', {
         var me = this;
         this.masterRecord = record;
         this.store = record.store;
-        if (record && !record.phantom) {
-            this.idMaster = record.get('id');
-        }
 
-        if (record) {
+
+        if (record ) {
+
+            if ( record.phantom ) {
+                this.idMaster = -1;
+                record.set('id', -1);
+            } else {
+                this.idMaster = record.get('id');    
+            }
+            
             this.getForm().loadRecord(record);
-
             // 1312: No hay necesidad de actulizar los zoomsId pues vienen del registro
             // this.loadN2N( record );
             // this.updateZoomIds();
         } else {
             this.getForm().reset();
         }
+
 
         this.linkDetail(record);
         this.updateHtmlPanels(record);

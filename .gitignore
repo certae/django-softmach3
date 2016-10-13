@@ -1,6 +1,6 @@
 myvenv
-__pycache__
-staticfiles
+
+**/__pycache__
 
 *.py[co]
 .git/ 
@@ -14,6 +14,10 @@ fixtures/**
 
 errors.log
 
+db/db.sqlite3
+
 #db/**
-#db.sqlite3
+
 # local_settings.py
+# staticfiles
+
