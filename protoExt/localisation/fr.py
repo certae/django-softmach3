@@ -5,7 +5,7 @@ __language ={
              
     'Title_Main_Menu' : 'Menu principal',
     'MenuTree_DD_Text' : 'Glisser pour réorganiser',
-    'Tooltip_New_Folder' : 'Nouveau dossier',
+    'Tooltip_New_Folder' : 'Nouvelle UDP',
     'Tooltip_New_Option' : 'Nouvelle option',
     'Tooltip_Edit_Node' : 'Modifier noeud',
     'Tooltip_Del_Node' : 'Supprimer noeud',

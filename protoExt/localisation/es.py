@@ -5,7 +5,7 @@ __language ={
     
     'Title_Main_Menu' : 'Menu Principal',
     'MenuTree_DD_Text' : 'Arrastre para reordenar',
-    'Tooltip_New_Folder' : 'Nueva carpeta',
+    'Tooltip_New_Folder' : 'Nueva UDP',
     'Tooltip_New_Option' : 'Nueva opción',
     'Tooltip_Edit_Node' : 'Modificar nodo',
     'Tooltip_Del_Node' : 'Eliminar nodo',

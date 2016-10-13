@@ -17,6 +17,11 @@ Ext.define('Softmachine.view.smmasterdetail.MDActionsController', {
 
     getProtoActionsBar: function() {
 
+        var vCode = this.myMeta.viewCode; 
+        if ( vCode.slice(-1) == '.' ) { 
+            this.myMeta.viewCode = vCode.substr(0, vCode.length - 1);
+        }
+   	    	    	
         var perms = _SM._UserInfo.perms[this.myMeta.viewCode];
         if (!(perms['add'] || perms['change'] || perms['delete'])) {
             return;
