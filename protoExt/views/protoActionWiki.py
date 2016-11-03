@@ -19,13 +19,12 @@ from protoExt.utils.utilsConvert import slugify2
 
 def protoWiki(request):
     """ 
-    Reporte basado en plantillas wiki 
+    export wiki  
 
-    Recibe  opcion, plantilla base,  Qs ( lista de ids )
+    input:  opcion, template,  Qs ( list of  ids )
 
-    La plantilla de base sera solicitada al usuario, si se deja en blanco usara el sheetSelector o el default
-    Los detalles no tienen selector, siempre se usara el template marcado en el detalle.
-
+    ES: La plantilla de base sera solicitada al usuario, si se deja en blanco usara el sheetSelector o el default
+        Los detalles no tienen selector, siempre se usara el template marcado en el detalle.
     """
 
     try:

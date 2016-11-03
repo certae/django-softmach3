@@ -100,7 +100,7 @@ class Entite(ProtoModelBase):
     protoExt = {
         "actions": [
             { "name": "addModel",
-              "selectionMode" : "multi",
+              "selectionMode" : "multiple",
               "actionParams": [
                  {"name" : "entite_mod",
                   "type" : "foreigntext",
@@ -221,7 +221,7 @@ class ModeleRaccordement(ProtoModelBase):
 
     protoExt = { 
         "actions": [
-            { "name": "doFindReplace", "selectionMode" : "multi", "refreshOnComplete" : True,
+            { "name": "doFindReplace", "selectionMode" : "multiple", "refreshOnComplete" : True,
                "actionParams": [
                      {"name" : "fieldName", "type" : "string", "required": True, "tooltip" : "field name (meta)" }, 
                      {"name" : "oldText", "type" : "string", "required": True, "tooltip" : "Old values: pyreg.sub(); @all for all text" }, 

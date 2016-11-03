@@ -23,8 +23,6 @@ admin.site.register( Source )
 
 
 
-
-
 from .actions import doRaiMenu
 class MyDocType( admin.ModelAdmin ):
     actions = [ doRaiMenu  ]
@@ -32,16 +30,18 @@ class MyDocType( admin.ModelAdmin ):
 admin.site.register( DocType, MyDocType )
 
 
+from .actions import doBusinessProcessDiagram, doTreeDependecy,  doUpdateMeta
+class MyArtefac( admin.ModelAdmin ):
+    actions = [ doBusinessProcessDiagram, doTreeDependecy, doUpdateMeta  ]
+
+admin.site.register( Artefact, MyArtefac  )
+
+
 # Documents 
-from .actions import doUpdateMeta
 class MyDocument( admin.ModelAdmin ):
-    actions = [ doUpdateMeta  ]
+    actions = [ doTreeDependecy, doUpdateMeta  ]
 
 admin.site.register( Requirement, MyDocument )
 admin.site.register( Capacity, MyDocument )
 
-from .actions import doBusinessProcessDiagram
-class MyArtefac( admin.ModelAdmin ):
-    actions = [ doBusinessProcessDiagram, doUpdateMeta  ]
 
-admin.site.register( Artefact, MyArtefac  )

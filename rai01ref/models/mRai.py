@@ -23,6 +23,7 @@ class Capacity(DocModel):
     protoExt = { 
         "jsonField" : "info", 
         "actions": [
+            { "name": "doTreeDependecy" , "selectionMode" : "multiple" },
             { "name": "doUpdateMeta" , "selectionMode" : "none" },
         ],
         "gridConfig" : {
@@ -48,6 +49,7 @@ class Requirement(DocModel):
     protoExt = { 
         "jsonField" : "info", 
         "actions": [
+            { "name": "doTreeDependecy" , "selectionMode" : "multiple" },
             { "name": "doUpdateMeta" , "selectionMode" : "none" },
         ],
         "gridConfig" : {
@@ -77,7 +79,8 @@ class Artefact(DocModel):
     protoExt = { 
         "jsonField" : "info", 
         "actions": [
-            { "name": "doBusinessProcessDiagram" , "selectionMode" : "sinlge" },
+            { "name": "doBusinessProcessDiagram" , "selectionMode" : "multiple" },
+            { "name": "doTreeDependecy" , "selectionMode" : "multiple" },
             { "name": "doUpdateMeta" , "selectionMode" : "none" },
         ],
         "gridConfig" : {

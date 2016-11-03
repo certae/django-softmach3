@@ -17,11 +17,17 @@ def setString( sval ):
     return sval 
 
 
+def slugify3 (sAux ):
+    """ For dot diagrams 
+    """
+    return slugify2 (sAux , '_' )
+
+
 
 def slugify2 (sAux , sep = '' ):
     try: 
         sAux = slugify( sAux )
-        if sep: sAux.replace('-', sep)
+        if sep: sAux = sAux.replace('-', sep)
     except: sAux = ''
     return sAux 
 

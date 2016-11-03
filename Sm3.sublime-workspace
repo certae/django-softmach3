@@ -113,7 +113,7 @@
 			],
 			[
 				"re",
-				"requireOk	requireOk"
+				"requireOk\trequireOk"
 			],
 			[
 				"W",
@@ -164,10 +164,35 @@
 		"/home/dario/PyDev3/softmach3",
 		"/home/dario/PyDev3/softmach3/media",
 		"/home/dario/PyDev3/softmach3/protoBase",
-		"/home/dario/PyDev3/softmach3/protoExt"
+		"/home/dario/PyDev3/softmach3/protoExt",
+		"/home/dario/PyDev3/softmach3/protoExt/views",
+		"/home/dario/PyDev3/softmach3/rai01ref",
+		"/home/dario/PyDev3/softmach3/rai01ref/models"
 	],
 	"file_history":
 	[
+		"/home/dario/Talend/TDI-V6.21/TOS_DI-linux-gtk-x86_64.ini",
+		"/home/dario/Talend/TDI-V6.21/TOS_DI-linux-gtk-x86.sh",
+		"/home/dario/.profile",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/graphProcess.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/admin.py",
+		"/home/dario/Downloads/bp_p1.dot",
+		"/home/dario/PyDev3/softmach3/protoExt/models.py",
+		"/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/actions/buildRaiMenu.py",
+		"/home/dario/PyDev3/softmach3/db/CustomDefinition.Daniel.json",
+		"/home/dario/PyDev3/softmach3/prototype/models.py",
+		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py",
+		"/home/dario/PyDev3/softmach3/output/dario.gm_prototype.dot",
+		"/home/dario/Dropbox/wikiDoc/wikiEscritos/ArticulosPendientesLeer/importZim.bib",
+		"/home/dario/zotero/storage/G74448Z8/.zotero-ft-cache",
+		"/home/dario/Dropbox/wikiDoc/wikiEscritos/ArticulosPendientesLeer/foley_potential_2015.txt",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/mRai.py",
+		"/home/dario/Dropbox/install/bin/zim2dw.sh",
+		"/home/dario/PyDev3/softmach3/rai01ref/models/__init__.py",
+		"/home/dario/Dropbox/wkTech/Certae/Carra/Diagrams.txt",
 		"/home/dario/Downloads/REA-0-1a.lyx",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/login/LoginController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/globals/variables.js",
@@ -228,17 +253,12 @@
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/tmp/serverus.txt",
 		"/home/dario/Dropbox/wkTech/Certae/Servers/CertaePro/doServerBackup.sh",
 		"/home/dario/zotero/storage/8GTC9WEG/.zotero-ft-cache",
-		"/home/dario/PyDev3/softmach3/rai01ref/models/mRai.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/actions/buildRaiMenu.py",
 		"/home/dario/Notebooks/wikiDarioG/DocumentosPersonales/Dario.txt",
 		"/home/dario/PyDev3/softmach3/rai01ref/actions/buildFieldList.py",
 		"/home/dario/PyDev3/softmach3/rai01ref/meta/documentTree.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smform/ProtoZoomController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoFieldSelector.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/model/FieldSelectorModel.js",
-		"/home/dario/PyDev3/softmach3/rai01ref/models/mBase.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/actions/__init__.py",
-		"/home/dario/PyDev3/softmach3/rai01ref/admin.py",
 		"/home/dario/PyDev3/softmach3/protoExt/utils/utilsBase.py",
 		"/home/dario/PyDev3/softmach3/protoExt/actions/setContext.py",
 		"/home/dario/PyDev3/softmach3/rai01ref/meta/__init__.py",
@@ -252,14 +272,11 @@
 		"/home/dario/PyDev3/softmach3/rai01ref/migrations/0001_initial.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/ComboBoxPrompt.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainController.js",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoActionWiki.py",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/a-todo/powerGOT.txt",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/main/MainTabController.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoDetailSelector.js",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoFieldTree.js",
 		"/home/dario/PyDev3/softmach3/datascripts/protoExt.py",
-		"/home/dario/PyDev3/softmach3/protoLib/models/protomodel.py",
-		"/home/dario/PyDev3/softmach3/prototype/models.py",
 		"/home/dario/PyDev3/softmach3/protoExt/migrations/0001_initial.py",
 		"/home/dario/PyDev3/softmach3/protoExt/static/js/proto/view/ProtoPcl.js",
 		"/home/dario/tmp/pcl.js",
@@ -273,7 +290,6 @@
 		"/home/dario/PyDev3/softmach3/doMigrate.sh",
 		"/home/dario/PyDev3/softmach3/errors.log",
 		"/home/dario/PyDev3/softmach3/dosyncdb.sh",
-		"/home/dario/PyDev3/softmach3/protoExt/models.py",
 		"/home/dario/PyDev3/softmach3/prototype/admin/__init__.py",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/diagram004.dot",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/diagram.dot",
@@ -282,30 +298,21 @@
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protolib/wikiexport.txt",
 		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/prototypeur/prototype_internals/entity/entity_actions/exportwiki.txt",
 		"/home/dario/PyDev3/softmach3/prototype/templates/prototype/wikiproperty.txt",
-		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/TabMasterDetail.js",
-		"/home/dario/PyDev3/softmach3/tmp/dash.js",
-		"/home/dario/PyDev3/softmach3/protoExt/views/protoMetaDefinition.py",
-		"/home/dario/Dropbox/wkTech/A-SM3/Carra.txt",
-		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals/documents.txt",
-		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protolib.txt",
-		"/home/dario/PyDev3/softmach3/output/dario.gm_rai.dot",
-		"/home/dario/PyDev3/softmach3/output/dario.gm_prototype.dot",
-		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai/rai_internals.txt",
-		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/apps/rai.txt",
-		"/home/dario/PyDev3/softmach3/protoLib/models/protoContext.py",
-		"/home/dario/Dropbox/wkTech/wikiManualProto/manual-sm3/sm_manual/libraries/protoLib/Versioning/doSetActiveVersion.txt",
-		"/home/dario/PyDev3/softmach3/protoLib/admin/admVersion.py",
-		"/home/dario/PyDev3/softmach3/protoLib/actions/doVersioning.py"
+		"/home/dario/PyDev3/softmach3/protoExt/static/js/view/smmasterdetail/TabMasterDetail.js"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
 		"height": 93.0,
 		"where_history":
 		[
+			"*.py",
+			"*.dot",
+			"*.py",
+			"models.py",
 			"*.js, *.py",
 			"*.js, *.py, *.html",
 			"*.pc*",
@@ -429,10 +436,7 @@
 			"*.js,/home/dario/DevExtJs6/02appLogin/app",
 			"*.txt",
 			"*.py",
-			"*.txt",
-			"/home/dario/Dropbox/wikiDoc/wikiEscritos/TesisVarias/Academia-MNG,*.txt",
-			"/home/dario/Dropbox/wikiDoc/wikiEscritos/TesisVarias/Academia-BI,*.txt",
-			""
+			"*.txt"
 		]
 	},
 	"find_state":
@@ -440,8 +444,34 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"GraphProcess",
+			"getDiagramDefinition",
+			"graphProcess",
+			"doBus",
+			"ProtoModelBase",
+			"customDefinition",
+			"doBuildRaiMenu",
+			"doBuildRaiConfig",
+			"doRaiMenu",
+			"protoWiki",
+			"exportWiki",
+			"model",
+			"wiki",
+			"export",
+			"\nwww.learninghealthcareproject.org\n\nThe Potential of Learning Healthcare Systems ([0-9][0-9])\n",
+			"\nwww.learninghealthcareproject.org\n\nThe Potential of Learning Healthcare Systems [0-9][0-9]\n",
+			"\nwww.learninghealthcareproject.org\n\nThe Potential of Learning Healthcare Systems [0-9]\n",
+			"\n([0-9][0-9]) The Potential of Learning Healthcare Systems\n\nwww.learninghealthcareproject.org\n",
+			"\n([0-9]) The Potential of Learning Healthcare Systems\n\nwww.learninghealthcareproject.org\n",
+			"\n[0-9] The Potential of Learning Healthcare Systems\n\nwww.learninghealthcareproject.org\n",
+			"[0-9] The Potential of Learning Healthcare Systems\n\nwww.learninghealthcareproject.org\n",
+			"JsonFields:",
+			"source",
+			"domain",
+			"models",
+			"docType",
 			"  ",
-			"	",
+			"\t",
 			"UNAUTHORIZED",
 			"ACCEPTED",
 			"http.client",
@@ -541,33 +571,7 @@
 			"model",
 			"overModel.store.getById",
 			"pciStyle",
-			"trace",
-			"baseMeta",
-			"get_details",
-			"detailsConfig",
-			"GetDetailsConfig",
-			"detailsConfig",
-			"details",
-			"Group",
-			"strptime",
-			"ProtoUL.ux",
-			"parameterWin",
-			"parameterwin",
-			"ProtoProperty",
-			"parameterwin",
-			"ProtoUL.ux",
-			"ProtoList",
-			"parameterwin",
-			"\\.+",
-			"model",
-			"Artefact",
-			"shortTitle",
-			"initZoom",
-			"getDefaultField",
-			"zoomModel",
-			"tree",
-			"initZoom",
-			"zoomFilterParams"
+			"trace"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -575,6 +579,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\n-- \\1 \n",
+			"udps:",
 			" ",
 			"aUsers",
 			"strip",
@@ -700,9 +706,7 @@
 			":conferences:ll-gouvernance",
 			"{{",
 			"~~",
-			"\n*",
-			"\n",
-			"\n* "
+			"\n*"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -773,7 +777,7 @@
 	"project": "Sm3.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 156.0
 	},
 	"save_all_on_build": true,
 	"select_file":

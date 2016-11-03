@@ -108,8 +108,8 @@ META_PROPERTIES = {
 
     "treeRefField.help": "AutoRef field",
 
-    "gridSelectionMode.choices": ["multi", "simple", "single" ],
-    "gridSelectionMode.help":  "multi*: multiple selection con check o control; simple: selection on/off ; single: solo ultimo seleccionado",
+    "gridSelectionMode.choices": ["multiple", "simple", "single" ],
+    "gridSelectionMode.help":  "multiple*: multiple selection con check o control; simple: selection on/off ; single: solo ultimo seleccionado",
 
     "denyAutoPrint.type": "boolean",
     "denyAutoPrint.help": "Impide la impresion automatica de la grilla",
