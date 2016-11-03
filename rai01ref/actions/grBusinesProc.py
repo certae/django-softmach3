@@ -3,6 +3,7 @@
 Prototype to DOT (Graphviz) converter by Dario Gomez
 Table format from  django-extensions 
 """
+
 from protoExt.utils.utilsBase import getClassName
 from protoExt.utils.utilsConvert import slugify3
 
@@ -31,8 +32,8 @@ class BusinessProcess():
                 'code': getClassName(pDiag.code),
                 'label': pDiag.code,
                 'showBorder': getattr(pDiag, 'showBorder', False),
-                'arcs': [], 
-                'labels' : set()
+                'arcs': [],
+                'labels': set()
             }
 
             # Initial and final nodes
@@ -49,16 +50,14 @@ class BusinessProcess():
                 except:
                     pArc1 = 'End'
 
-                gDiagram['arcs'].append( {
+                gDiagram['arcs'].append({
                     'n0': pArc0,
                     'n1': pArc1
                 })
 
             self.diagrams.append(gDiagram)
 
-
     def generateDotModel(self):
-
 
         # Dibuja las entidades
         for gDiagram in self.diagrams:
@@ -74,12 +73,12 @@ class BusinessProcess():
             for gArc in gDiagram['labels']:
 
                 if gArc == gDiagram['label']:
-                    self.dotSource += '{0} [label="{1}",shape=ellipse]\n'.format(slugify3(gArc), gArc)
+                    self.dotSource += '{0} [label="{1}",shape=ellipse]\n'.format(
+                        slugify3(gArc), gArc)
                 else:
-                    self.dotSource += '{0} [label="{1}"]\n'.format(slugify3(gArc), gArc)
+                    self.dotSource += '{0} [label="{1}"]\n'.format(
+                        slugify3(gArc), gArc)
             self.dotSource += '\n'
-
-
 
             for gArc in gDiagram['arcs']:
                 self.dotSource += '  {0} -> {1} {2}'.format(
@@ -89,4 +88,3 @@ class BusinessProcess():
         self.dotSource += '}'
 
         return self.dotSource
-
