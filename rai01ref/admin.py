@@ -30,16 +30,16 @@ class MyDocType( admin.ModelAdmin ):
 admin.site.register( DocType, MyDocType )
 
 
-from .actions import doBusinessProcessDiagram, doTreeDependecy,  doUpdateMeta
+from .actions import doBusinessProcessDiagram, doTreeDiagram,  doUpdateMeta
 class MyArtefac( admin.ModelAdmin ):
-    actions = [ doBusinessProcessDiagram, doTreeDependecy, doUpdateMeta  ]
+    actions = [ doBusinessProcessDiagram, doTreeDiagram, doUpdateMeta  ]
 
 admin.site.register( Artefact, MyArtefac  )
 
 
 # Documents 
 class MyDocument( admin.ModelAdmin ):
-    actions = [ doTreeDependecy, doUpdateMeta  ]
+    actions = [ doTreeDiagram, doUpdateMeta  ]
 
 admin.site.register( Requirement, MyDocument )
 admin.site.register( Capacity, MyDocument )

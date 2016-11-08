@@ -55,7 +55,7 @@ def doBusinessProcessDiagram(modeladmin, request, queryset, parameters):
 
 
 
-def doTreeDependecy(modeladmin, request, queryset, parameters):
+def doTreeDiagram(modeladmin, request, queryset, parameters):
     """ 
     TreeDependency  ( Artefact , Requirement, Capacity )
     """
