@@ -258,14 +258,14 @@ DocServices = {
       "cellLink": True,
       "readOnly": True
     },
-    {
-      "searchable": True,
-      "type": "string",
-      "name": "smNaturalCode",
-      "header": "smNaturalCode",
-      "sortable": True,
-      "readOnly": True
-    },
+    # {
+    #   "searchable": True,
+    #   "type": "string",
+    #   "name": "smNaturalCode",
+    #   "header": "smNaturalCode",
+    #   "sortable": True,
+    #   "readOnly": True
+    # },
     {
       "fkId": "id",
       "type": "string",
@@ -410,7 +410,7 @@ DocServices = {
       }
     ],
     "searchFields": [
-      "smNaturalCode",
+      # "smNaturalCode",
       "smRegStatus",
       "smWflowStatus",
       "code",
@@ -469,10 +469,10 @@ Artefact = {
     "description": "Artefact",
     "jsonField": "info",
     "gridConfig": {
-        "searchFields": ["smNaturalCode", "smRegStatus", "smWflowStatus", "code", "description", "info"],
+        "searchFields": ["smRegStatus", "smWflowStatus", "code", "description", "info"],
         "listDisplay": ["code", "description"],
         "baseFilter": [],
-        "sortFields": ["smNaturalCode", "smRegStatus", "smWflowStatus", "code", "description", "info"],
+        "sortFields": [ "smRegStatus", "smWflowStatus", "code", "description", "info"],
         "initialFilter": [],
         "initialSort": [],
         "readOnlyFields": [],
@@ -520,8 +520,8 @@ Artefact = {
                 "name": "smCreatedOn",
             }, {
                 "name": "smRegStatus",
-            }, {
-                "name": "smNaturalCode",
+            # }, {
+            #     "name": "smNaturalCode",
             }, {
                 "name": "smModifiedBy",
             }, {
@@ -666,14 +666,14 @@ Artefact = {
         "header": "smModifiedOn",
         "searchable": True,
         "__ptType": "field"
-    }, {
-        "type": "string",
-        "name": "smNaturalCode",
-        "sortable": True,
-        "readOnly": True,
-        "header": "smNaturalCode",
-        "searchable": True,
-        "__ptType": "field"
+    # }, {
+    #     "type": "string",
+    #     "name": "smNaturalCode",
+    #     "sortable": True,
+    #     "readOnly": True,
+    #     "header": "smNaturalCode",
+    #     "searchable": True,
+    #     "__ptType": "field"
     }, {
         "type": "foreigntext",
         "name": "smOwningTeam",

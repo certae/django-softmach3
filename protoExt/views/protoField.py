@@ -164,6 +164,7 @@ def isAdmField(fName):
         'smOwningUser', 'smCreatedBy', 'smModifiedBy', \
         'smCreatedOn', 'smOwningTeam', 'smModifiedOn', \
         'smWflowStatus', 'smRegStatus', \
-        'smUUID', 'smNaturalCode' ])
+        'smUUID', ])
+    # 'smNaturalCode'
 
 

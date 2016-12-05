@@ -111,17 +111,22 @@ def getSortOrder(cBase):
         for sField in cBase.sort:
 
             sName = sField['property']
+
             if cBase.isProtoModel:
+                
+                if sName.split('__')[0] in ['smInfo', cBase.jsonField]:
+                    cBase.jsonSorters.append(sField)
+                    continue
 
                 # Permite el ordenamiento sobre la funcion de presentacion
-                if sName == '__str__':
-                    sName = 'smNaturalCode'
+                # if sName == '__str__':
+                #     sName = 'smNaturalCode'
 
                 # Permite el ordenamiento sobre maestros e impide sobre
                 # jsofield
-                elif sName.split('__')[0] in ['smInfo', cBase.jsonField]:
-                    cBase.jsonSorters.append(sField)
-                    continue
+                # elif sName.split('__')[0] in ['smInfo', cBase.jsonField]:
+                #     cBase.jsonSorters.append(sField)
+                #     continue
 
             # __str__ is not sortable
             if sName == '__str__':

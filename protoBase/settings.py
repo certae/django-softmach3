@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     # 'import_export',     : deprecate warning importlib 
     'taggit',
 
-    # 'rai00base', 
+    'rai00base', 
     # 'django_extensions',
 )
 

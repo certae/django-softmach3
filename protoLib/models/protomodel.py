@@ -17,8 +17,8 @@ smControlFields = [
     'smOwningUser', 'smOwningTeam', 'smOwningUser_id', 'smOwningTeam_id', \
     'smCreatedBy',  'smModifiedBy', 'smCreatedBy_id',  'smModifiedBy_id', \
     'smCreatedOn', 'smModifiedOn', \
-    'smWflowStatus', 'smRegStatus', \
-    'smNaturalCode', 'smUUID' ]
+    'smWflowStatus', 'smRegStatus', 'smUUID' ]
+    # 'smNaturalCode'
 
 
 class ProtoModelBase(models.Model):
@@ -27,7 +27,7 @@ class ProtoModelBase(models.Model):
     related_name="%(app_label)s_%(class)s"
     """ 
 
-    smNaturalCode = models.CharField(max_length=50, null=True, blank=True, editable=False)
+    # smNaturalCode = models.CharField(max_length=50, null=True, blank=True, editable=False)
     smRegStatus = models.CharField(max_length=50, null=True, blank=True, editable=False)
     smWflowStatus = models.CharField(max_length=50, null=True, blank=True, editable=False)
 
@@ -67,8 +67,8 @@ class ProtoModelBase(models.Model):
         if not isRaw :
             cuser = CurrentUserMiddleware.get_user( False )
             
-            if self._setNaturalCode:
-                self.smNaturalCode = self.__str__()
+            # if self._setNaturalCode:
+            #     self.smNaturalCode = self.__str__()
                  
             if cuser: 
                 setattr(self, 'smModifiedBy', cuser)

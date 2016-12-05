@@ -90,8 +90,9 @@ def readSchemaDef(dProject):
             if att_name in ['smowninguser_id', 'smowningteam_id', 'smcreatedby_id', 'smmodifiedby_id',
                             'smregstatus', 'smwflowstatus',
                             'smcreatedon', 'smmodifiedon',
-                            'smuuid', 'smnaturalcode', 'id', 
+                            'smuuid', 'id', 
                             'smversion' ] :
+                    # 'smnaturalcode',                                    
                 continue
 
             pProperty = { 'code' :  att_name , 'notes' : ''}

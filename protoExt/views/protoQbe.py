@@ -233,9 +233,10 @@ def addQbeFilterStmt( sFilter, cBase ):
     fieldName = sFilter['property'].replace('.', '__')
 
     if fieldName == '__str__':
-        if cBase.isProtoModel:  
-            fieldName = 'smNaturalCode'
-        else : return models.Q()
+        return models.Q()
+        # if cBase.isProtoModel:  
+        #     fieldName = 'smNaturalCode'
+        # else : return models.Q()
 
 #   Para permitir filtros a diferentes niveles  context
     if fieldName.endswith('_id') or fieldName.endswith('_pk'): 
