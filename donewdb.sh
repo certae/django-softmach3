@@ -18,7 +18,7 @@ sh ./doMigrate.sh
 python manage.py sqlflush | python manage.py dbshell
 
 # Crear los datos 
-sh ./doloaddata.sh
+# sh ./doloaddata.sh
 
 # python ./manage.py createsuperuser
 # python manage.py createinitialrevisions

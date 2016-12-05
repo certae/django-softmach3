@@ -1,1 +1,0 @@
-delete from prototype_property where smVersion = '1'; 
