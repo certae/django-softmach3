@@ -8,3 +8,4 @@ django-taggit==0.14.0
 django-import_export==0.4.2
 waitress==0.8.9
 whitenoise==1.0.6
+gunicorn=19.6.0
