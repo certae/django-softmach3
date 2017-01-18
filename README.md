@@ -38,10 +38,10 @@ SoftMachine can be installed and used in two ways:
 ### Software requirements:
 
 * Ext JS 4.2.1
-* Python 2.7
+* Python 3.4
 * Django 1.6.1
 * graphviz ([OPTION] For export database diagram)
-* south ([OPTION] For export database migration)
+
 
 For testing:
 ```
